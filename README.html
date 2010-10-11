@@ -1,0 +1,584 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>MangosWeb Enhanced v2 ReadMe</title>
+<style type="text/css"> 
+<!-- 
+body  {
+	font: 100% Verdana, Arial, Helvetica, sans-serif;
+	background: #000000;
+	background-image:url(images/readme/mainback.jpg);
+	background-repeat:no-repeat;
+	background-attachment:fixed;
+	margin: 0; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
+	padding: 0;
+	text-align: center; /* this centers the container in IE 5* browsers. The text is then set to the left aligned default in the #container selector */
+	color: #FFFFFF;
+}
+
+/* Tips for Elastic layouts 
+1. Since the elastic layouts overall sizing is based on the user's default fonts size, they are more unpredictable. Used correctly, they are also more accessible for those that need larger fonts size since the line length remains proportionate.
+2. Sizing of divs in this layout are based on the 100% font size in the body element. If you decrease the text size overall by using a font-size: 80% on the body element or the #container, remember that the entire layout will downsize proportionately. You may want to increase the widths of the various divs to compensate for this.
+3. If font sizing is changed in differing amounts on each div instead of on the overall design (ie: #sidebar1 is given a 70% font size and #mainContent is given an 85% font size), this will proportionately change each of the divs overall size. You may want to adjust based on your final font sizing.
+*/
+.twoColElsLtHdr #container { 
+	width: 46em;  /* this width will create a container that will fit in an 800px browser window if text is left at browser default font sizes */
+	background: #000;
+	margin: 0 auto; /* the auto margins (in conjunction with a width) center the page */
+	border: 1px solid #333;
+	text-align: left; /* this overrides the text-align: center on the body element. */
+} 
+.twoColElsLtHdr #header { 
+	background: transparent; 
+	padding: 50px 0 50px 0;  /* this padding matches the left alignment of the elements in the divs that appear beneath it. If an image is used in the #header instead of text, you may want to remove the padding. */
+
+
+} 
+.twoColElsLtHdr #header h1 {
+	margin: 0; /* zeroing the margin of the last element in the #header div will avoid margin collapse - an unexplainable space between divs. If the div has a border around it, this is not necessary as that also avoids the margin collapse */
+	padding: 10px 0; /* using padding instead of margin will allow you to keep the element away from the edges of the div */
+}
+
+/* Tips for sidebar1:
+1. Be aware that if you set a font-size value on this div, the overall width of the div will be adjusted accordingly.
+2. Since we are working in ems, it's best not to use padding on the sidebar itself. It will be added to the width for standards compliant browsers creating an unknown actual width. 
+3. Space between the side of the div and the elements within it can be created by placing a left and right margin on those elements as seen in the ".twoColElsLtHdr #sidebar1 p" rule.
+*/
+.twoColElsLtHdr #sidebar1 {
+	float: left; 
+	width: 16em; /* since this element is floated, a width must be given */
+	background: transparent; /* the background color will be displayed for the length of the content in the column, but no further */
+	padding: 15px 0; /* top and bottom padding create visual space within this div */
+	font-size:13px;
+	border: 1px solid #333;
+	margin-right: 1em;
+	margin-bottom: 2em;
+	margin-top: 1em;
+	margin-left: 0.5em;
+}
+.twoColElsLtHdr #sidebar1 h3, .twoColElsLtHdr #sidebar1 p {
+	margin-left: 10px; /* the left and right margin should be given to every element that will be placed in the side columns */
+	margin-right: 10px;
+}
+
+/* Tips for mainContent:
+1. If you give this #mainContent div a font-size value different than the #sidebar1 div, the margins of the #mainContent div will be based on its font-size and the width of the #sidebar1 div will be based on its font-size. You may wish to adjust the values of these divs.
+2. The space between the mainContent and sidebar1 is created with the left margin on the mainContent div.  No matter how much content the sidebar1 div contains, the column space will remain. You can remove this left margin if you want the #mainContent div's text to fill the #sidebar1 space when the content in #sidebar1 ends.
+3. To avoid float drop, you may need to test to determine the approximate maximum image/element size since this layout is based on the user's font sizing combined with the values you set. However, if the user has their browser font size set lower than normal, less space will be available in the #mainContent div than you may see on testing.
+4. In the Internet Explorer Conditional Comment below, the zoom property is used to give the mainContent "hasLayout." This avoids several IE-specific bugs that may occur.
+*/
+.twoColElsLtHdr #mainContent {
+	margin: 1.5em 1.5em 0 1.5em; /* the right margin can be given in ems or pixels. It creates the space down the right side of the page. */
+	padding: 0 5px 5px 5px;
+	font-size:13px;
+} 
+.twoColElsLtHdr #footer { 
+	padding: 10px 10px 10px 20px ; /* this padding matches the left alignment of the elements in the divs that appear above it. */
+	background: transparent;
+	font-size:10px;
+	margin-top: 3em;
+	margin-bottom: 5em;
+} 
+.twoColElsLtHdr #footer p {
+	margin: 0; /* zeroing the margins of the first element in the footer will avoid the possibility of margin collapse - a space between divs */
+	padding: 10px 0; /* padding on this element will create space, just as the the margin would have, without the margin collapse issue */
+}
+
+/* Miscellaneous classes for reuse */
+.fltrt { /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class should be placed on a div or break element and should be the final element before the close of a container that should fully contain a float */
+	clear:both;
+    height:0;
+    font-size: 1px;
+    line-height: 0px;
+}
+--> 
+</style><!--[if IE]>
+<style type="text/css"> 
+/* place css fixes for all versions of IE in this conditional comment */
+.twoColElsLtHdr #sidebar1 { padding-top: 30px; }
+.twoColElsLtHdr #mainContent { zoom: 1; padding-top: 15px; }
+/* the above proprietary zoom property gives IE the hasLayout it needs to avoid several bugs */
+</style>
+<![endif]--></head>
+
+<body class="twoColElsLtHdr">
+  <div id="header">
+    <img src="images/readme/MangosWeb.png" width="337" height="130" />
+<!-- end #header --></div>
+<table border="0" align="center" cellpadding="0" cellspacing="0" width="760px">
+<tbody>
+<tr>
+    <td width="12"><img src="images/readme/top.gif" height="30" width="21" alt=""/></td>
+    <td style="background:url('images/readme/top.gif');"></td>
+    <td width="12"><img src="images/readme/top.gif" height="30" width="21" alt=""/></td>
+</tr>
+<tr>
+    <td style="background:url(images/readme/ss-border-left.gif);"></td>
+    <td>
+<div id="container">
+  <div id="sidebar1">
+    <h3 align="center">Navigation</h3>
+    <p>
+    <b>Install</b><br />
+       <a href="#install">1.1. Full Install</a><br />
+       &nbsp;&nbsp;<a href="#requirements">1.1b. Requirements</a><br />
+       &nbsp;&nbsp;<a href="#updating">1.1c. How To Update</a><br />
+       &nbsp;&nbsp;<a href="#installing">1.1d. How To Install</a><br />
+       <a href="#upgrade">1.2. Upgrade</a><br />
+
+       <br />
+    <b>Readme</b><br />
+       <a href="#news">2.1. Setting Up The News</a><br />
+       <a href="#vote">2.2. Vote System </a><br />
+       <a href="#donate">2.3. Donation System</a><br />
+       <a href="#copy">2.4. Character Copy System</a><br />
+       <a href="#template">2.5. Advanced Template System</a><br/>
+       <a href="#pbwow">2.6. PbWoW Forums (extra)</a><br />
+       <br />
+    <b>Support</b><br />
+       <a href="#remote">3.1. Remote Access</a><br />
+       <a href="#login">3.2. Login Problems</a><br />
+       <a href="#faq">3.3. FAQ</a><br />
+       &nbsp;&nbsp;<a href="#f1">1. How to add menu links</a><br />
+       &nbsp;&nbsp;<a href="#f2">2. How to add quicklinks?</a><br />
+       &nbsp;&nbsp;<a href="#f3">3. Multiple Realms?</a><br />
+       &nbsp;&nbsp;<a href="#f4">4. How to add your own page</a><br />
+       <a href="#res">3.4. Additional Resources</a><br />
+  <!-- end #sidebar1 --></p>
+  </div>
+  <div id="mainContent">
+  	Welcome to MangosWeb Enhanced v2. This is a Front end/CMS project for Mangos and Trinity. This project is a continuation of 
+    <a href="http://tools.assembla.com/mangosweb">MangosWeb</a>. Credits go to Shasha, Nafe, TGM, Peec and Jimmy06 as they are the  	 	Original creaters of mangosweb. This is just my version of MangosWeb which is more Uptodate, and has alot more features, and fixes  	then the old site.<br /><br />
+    <font size="+1"><center><a name="install">-- 1.1 Full Install --</a></center></font><br />
+    <center><a name="requirements"><u>1.1b Requirements</a></u><br /></center><br />
+    Apache with Mysql & PhP support<br />
+	- Apache v2.2.x<br />
+	- MySQL 5.0.x<br />
+	- Php version 5.x<br />
+	- GD compiled into Php (In windows, enable GD exetension in php.ini file).<br />
+    <br /><br /><center><a name="update"><u>1.1c How To Update</u></a><br /></center><br />
+    1. Right click on your MangosWeb Enhanced folder and select "synchronize".
+ 	-MAKE SURE to backup your realmd database before updating!<br />
+ 	2. When the window pops up, select "Update" on the right, and select "post pull" (on the right)<br />
+ 	3. Click "pull" at the top of the window.<br />
+    4. Check the "/install/sql/updates/" for any new .sql files that need to be installed in your database.<br />
+    <br /><br /><br /><br /><center><a name="update"><u>1.1d Installing The Site</u></a><br /></center><br />
+    1. Make sure all files are in the same folder under you "htdocs" or "www" folder<br />
+	2. Go -> ".root folder./config/" and remove the ".dist" at the end of all the config files. For ex. config.xml.dist,
+	should look like this -> config.xml<br />
+	3. If you want to use the online chat, Remove the ".dist" from the chat config file ("./components/chat/lib/config.php.dist").
+    <br />
+	4. Go -> ".root foler./install/" and rename the "DISABLE_INSTALLER.php to anything you want.<br />
+	5. Open your browser and imput your url to your MangosWeb installer (www.yoursite.com/(path_to_your_MangosWeb)/install/)<br />
+	6. Imput all the requested information like your Emulator, Realm, Character, and World database.<br />
+	7. Once at step 2, click on "full install sql injection".<br />
+	8. Once you hit step 3, you need to make a super Admin account. Once completed, your mainsite is installed!<br />
+	9. Now, go back and rename your old DISABLE_INSTALLER.php back to "DISABLE_INSTALLER.php". This prevents people from
+    hacking into your website.<br /> 
+    10. Now its time to configure the Mainsite, open "config/config.xml" MAKE SURE you spend a good amount of time editing the site!
+    <br />
+    11. To configure the player map, open "config/playermap_config.php"<br />
+    
+    <!-- Upgrade -->
+    <br /><br /><font size="+1"><center><a name="upgrade">-- 1.2 Upgrading From v1 --</a></center></font><br />
+    If you are upgrading from version 1 to version 2 of MangosWeb Enhanced, You need to open "/install/sql/updates/old_v1_updates/" and bring
+    your MangosWeb database up to revision 56. Once that is done, run the "/install/sql/updates/upgrade_from_v1.sql" on your realmd
+    database.<br />
+    <br /><br /><font size="+1"><center>ReadMe</center></font><br />
+    
+    <!-- News -->
+    <br /><br /><font size="+1"><center><a name="news">-- 2.1 Setting Up The News via News Module --</a></center></font><br />
+    The news forum IS SETUP ALREADY set up. To edit any anything, go: "admin panel -> add/edit news" 
+	<br /><br />
+	If you leave Default Component to frontpage, topics
+	you post here will appear on the main page. Very Blizzlike. <br />
+    
+    <!-- Vote -->
+    <br /><br /><font size="+1"><center><a name="vote">-- 2.2 Setting Up The Vote System --</a></center></font><br />
+    1.1 Your server remote access should be turned on (look in your server config file for Ra.Enable).<br /><br />
+    1.1b If you prefer (most do), you can use SOAP as of patch 3.3.5a. Its setup just like Telnet. Make
+    sure its turned on (look in your server config file for SOAP.Enable). If you choose to have SOAP enabled, you need
+    RA.enabled as well.
+	<br /><br />
+ 	1.2 Your telnet connection to the server remote must be working properly.
+	<br /><br />
+ 	[Important] For the remote access user and pass you can use an existing Trinity/Mangos ACCOUNT or to CREATE a new one, BUT...
+	<br /><br />
+ 	1.2b. Its best if you create an account via your server console. Out of experiance, ive noticed that accounts created
+ 	via the server console, have caused users the least amount of grief.
+	<br /><br />
+ 	1.3 For every realm, you must enter the RA/SOAP information to the database. You can either do this manually by going ->realmd->
+ 	realmlist->('ra_port', 'ra_user', and 'ra_pass'). Or you can do this the easy way by going ->yousite.com->admin panel->realms->
+ 	(click your realm name)-> enter your RA info in the fields -> click "update". MAKE SURE you copy the username just how it is
+ 	in the database. It should be all CAPS. <font color="#FF0000">[NOTE] If using SOAP, make sure the port is the Soap port NOT the RA    port.</font>
+	<br /><br />
+ 	[NOTE]  know that its GM level (The ra account) must be set according to (not lower than) Ra.MinLevel in the server config file
+ 	and this user must have "send money" and "send items" commands active. If you have any problems, check the ra.commands.log file
+ 	that your sever creates "C:\YOUR SERVER ROOT\mangos\ra.commands.log"
+	<br /><br />
+ 	1.4 Ive also noticed through experiance that if you leave the RA.ip at 0.0.0.0, you will have less issues. (in your server config)
+	<br /><br />
+ 	2. If using trinity, open your "account_access" table in realmd database. Set realm ID for your telnet account to "-1"
+	<br /><br />
+ 	3. To adjust the rewards or site links etc. "go -> admin panel -> Vote system Admin"
+	<br /><br />
+ 	NOTE! The vote system is disabled through the config. look for 	&lt;vote&gt;&lt;enable&gt;1&lt;/enable&gt;&lt;/vote&gt;.
+    <br />
+ 	To remove the "click here to vote for us" logo on the frontpage, open "config/config.xml" Find &lt;votebanner&gt;&lt;enable&gt; 
+    <br /><br />
+    If you are still having issues with the vote system after reading this, please read "Remote Access" under support, on this page.
+    <br />
+    
+    <!-- Donate -->
+    <br /><br /><font size="+1"><center><a name="donate">-- 2.3 Setting Up The Donation System --</a></center></font><br />
+    The donation system now uses Remote Access (New feature for MWE v2) to send items and.. Thats right, Gold because of the changes 
+    to the mail and mail_items tables, as well as thhe removal of the characters data fields. To learn how  to set up your remote 		 	access, read section 2.2 (Setting up the vote system), or Section 3.1 (Remote Access).<br /><br />
+	1. Create a premier paypal account. (It's free)<br />
+    2. From the PayPal menu, go to Profile > Under selling Preferences > Instant Payment 
+       Notification Preferences.<br />
+    3. Select Instant notification<br />
+    4. Enter the full path including your domain name to donate.php in the root of your
+       MaNGOS directory. <br />
+       Example: http://you-domain-or-ip/subdirectoryifyouhaveone/donate.php
+	<br /><br />
+	Everyone likes a little pat on the back for their donations, unless they're good
+	samaritans like me...and just doing good deeds is satisfaction enough. If they're not
+	like me :P, then you may want to reward them for their donations
+	<br /><br />
+	To create, edit, or send donation packs and items, go to: Context menu: > Admin Panel> Donate Admin
+	<br /><br />
+	TO TEST YOUR DONATION SYSTEM
+	<br /><br />
+	1. open "donate.php" in your root directory
+	<br />
+	2. switch the comments out on these lines (24 - 27):
+	<br />
+	// If testing on Sandbox use:<br />
+	//$fp = fsockopen ('ssl://www.sandbox.paypal.com', 443, $errno, $errstr, 30);
+	<br />
+	$fp = fsockopen ('ssl://www.paypal.com', 443, $errno, $errstr, 30);
+	<br /><br />
+	3. go to https://developer.paypal.com/us/cgi-bin/ and create a sandbox account.
+	<br />
+	4. go -> login -> click on link "Create a preconfigured buyer or seller account." ->
+	Edit the details to your liking.
+	<br />
+	5. next go -> test tools -> Instant Payment Notification (IPN) Simulator. -> ... For
+	the IPN handler url, enter the full url to your "donate.php". For payment type,
+	select "eCheck complete" and "payment type "instant".
+	<br /><br />
+	... Make sure under the "custom" field, you enter a characters guid number, that you
+	can use to test and see if it fully works. Also, for testing purposes, under "item number", 
+	enter one on your donation packages, like "1" for example. 
+	<br /><br />
+	6. You should see the information posted in the database, and you should be able to log in with the account that owns
+	the character ID you used, and click "send items to ingame mailbox" on the donate page. log in and check your mailbox :)
+	<br />
+    <!-- Character Copy -->
+    <br /><br /><font size="+1"><center><a name="copy">-- 2.4 Character Copy System --</a></center></font><br />
+    The character copy system is a unique feature that allows admins to set up special accounts, and create max level 
+	characters, which users can copy as a reward (much like the "public test realm feature"). As of right now, the 
+	only way to charge users for this system is by spending vote points, but who says you cant charge money for that??
+	<br /><br />
+	There are future plans to add a feature where users can spend real money for these "points", which allows them to
+	use the character rename system, character re-customization, character copy system, and buy the vote rewards.
+	<br /><br />
+	To set this feature up:
+	<br />
+	1. create 2 new accounts, 1 for alliance, and 1 for horde characters.<br />
+	2. on these accounts, go ahead and create a level 80 character with full tier gear.<br />
+	3. go in the config ->"mangosweb folder/config/config.xml" -> look for ->  &lt;character_copy_config&gt; 
+    (around line 260).<br />
+	4. It should already be enabled, all you have to do is edit how many points it costs users to copy a character, 
+	and the account numbers to the 2 accounts that you just made.<br />
+	5. Now go to your site, login, and click "copy character" under account.<br />
+	6. You should see the level 80 character you created, along with any other characters on that account, listed.<br />
+	<br /><br />
+	to copy a character to your personal account, click the "copy character" button. The character will be copied to
+	your account, along with whats in his/her bags, and the armor that character is wearing. The realm is decided by 
+	which realm you currently have selected.<br />
+    
+    <!-- Advanced Template System -->
+    <br /><br /><font size="+1"><center><a name="template">-- 2.5 Advanced Template System --</a></center></font><br />
+    The advanced template system is one of the new features 
+	included in MangosWeb Enhanced v2. This new system allows
+	you to make custom templates much easier then before. Please
+	note that in order to attempt to make your own templates for
+	this CMS, you need to know alittle php, mysql, html, and css. 
+	<br /><br />
+	1. First you need to enable the template system in the config:
+   ->./config/config.xml -> &lt;template_system&gt; -&gt; &lt;enable&gt; 1.
+   <br /><br />
+	2. Next you need to copy all the files from "templates/offlike/",
+	and paste them in a new template folder. For this tutorial, I will
+	refer to this new template folder as "custom".
+	<br /><br />
+	3. Now you need to start coming up with the design of your new
+	template. create the images, css etc.O nce you have all that, you
+	need to start writing the code to make your design come to life.
+	<br /><br />
+	4. Open your custom folder -> body_functions.php. The code in here
+	is completly optional. This files purpose is to contain the functions
+	that put your design together.
+	<br /><br />
+	5. Next open -> custom folder -> body_header.php. The code you place 
+	in here will create the top portions of your webpage. example code
+	that should be placed in here is your left, and right backgrounds,
+	your navigation panel, and your server banner or logo's.
+	<br /><br />
+	6. Next open -> custom folder -> body_footer.php. The code you place
+	in here will create the footer on all the pages. code placed in here
+	should close all open tags (ex: &lt;/div&gt;&lt;/table&gt;), as well as create 
+	the copyright info. <br /><br />
+	7. Next open -> custom folder -> frontpage -> frontpage.index.php.
+	The code you place in here will be displayed on your main page ONLY.
+	the code placed in here should contain mostly the same code as of
+	for the news display, stuff like. but, its your template, do as you
+	please.
+	<br /><br />
+	8. Now you need to create a new file called "include.php" in your
+	custom root folder (templates/custom/include.php). In this file,
+	put: &lt;?php $pagefiles = &quot;custom&quot;; ?&gt;. Replace custom with your
+	template name. <br /><br />
+	9. Open your config.xml, and add your template. (config.xml ->
+	templates -> template -> custom). Replace custom with your
+	template name. This will be located towards the bottom. 
+	Now you should be able to see your frontpage via your browser
+	<br /><br />
+	10. Finally, you need to edit each template file from (./templates/
+	your template name/("account", "admin", "community", "forum", "media", 
+	and "server")). You should only need to do slight revising to each template 
+	because most of the page's design comes from the body_header.php, and 
+	body_footer.php. Make sure you are creating your .css files as well.
+	<br /><br />
+	Things to keep in mind when writing your code.
+	<br /><br />
+	1. Most of the script code is written in (./components/$extension/$extension.$subext.php)
+	   $extension being "server" or "admin".<br />
+	2. when writing your code, make sure you also have the script file open so you know
+	how to display the query's and such that are already open. You should just be "revising"
+	the code in each template file.<br />
+	3. to call your current template: &lt;?php echo $currtmp; ?&gt;<br />
+	4. to call your template file's template &lt;?php echo $offtmp; ?&gt;<br />
+    
+    <!-- PBWoW -->
+    <br /><br /><font size="+1"><center><a name="pbwow">-- 2.6 Using PBWoW Forum (extra) --</a></center></font><br />
+    In this release of MangosWeb, I have included a pre-installed/setup PBWoW Forum, using PBWoW RC4, and phpbb v3.0.7pl1.
+	What is PBWoW you ask? PBWoW is a phpbb mod, that makes your forum look like a blizzlike forums.
+    In order to use these forums, theres only 3 steps.<br /><br />
+    1. Enable it in your config. look for this:<br /><br />
+    &lt;!-- If you want to use external forums ( example Phpbb , you must configure these values)  --&gt;<br />
+	&lt;externalforum&gt;0&lt;/externalforum&gt;<br />
+	&lt;frame_forum&gt;0&lt;/frame_forum&gt;<br />
+	&lt;forum_external_link&gt;LINK HERE&lt;/forum_external_link&gt;<br /><br />
+	<u>And set it like this:</u><br /><br />
+	&lt;!-- If you want to use external forums ( example Phpbb , you must configure these values)  --&gt;<br />
+	&lt;externalforum&gt;<strong>1</strong>&lt;/externalforum&gt;<br />
+	&lt;frame_forum&gt;0&lt;/frame_forum&gt;<br />
+	&lt;forum_external_link&gt;<strong>forum/</strong>&lt;/forum_external_link&gt;<br /><br />
+    2. Next you need to either create a new database, or just run it on your realmd, its up to you. Run the 	 	 						"./install/sql/extra_install/pbwow_forums.sql" on a database. There is another sql called. pbwow_forums_blizzlike_setup.sql.
+    If you run that, all the forum catagories and sub catagories are setup very blizzlike.<br /><br />
+    3. The final step is editing the config file. go "./forum/config.php" and edit the db username, db password, and db name.
+    <br /><br />
+    *The admin info to the forums is Username: admin Password: admin1. you should change the password ASAP.<br /><br />
+    ** I have also included the PBWoW readme. its located at "./install/pbwow/PBWoW RC4 readme.pdf". Make sure
+    to read that before asking for help.<br/><br />
+    [NOTE] The login info for pbwow is not integrated into MWEv2, so your users will need to create another account via the forums
+    to use the forums.<br />
+
+ <br /><br /><font size="+1"><center>Support</center></font><br />
+    
+    <!-- Remote Access -->
+    <br /><br /><font size="+1"><center><a name="remote">-- 3.1 Remote Access --</a></center></font><br />
+    The new donation system as well as the vote system use whats called "remote access" to send items and mail to characters in game.
+    Basically the website script tells your server console what to do, using server commands.<br /><br />
+    If you are having troubles with the vote system, or the donation system, trust me, you arent/werent the only one ever. Here are 	 	some cause/effect/fixes for a few things ive learned while helping you guys all out.
+	<br /><br />
+	1. Errors
+	<br />
+ 	A. Telnet connection problem: A connection attempt failed because the connected party did not properly respond 
+	after a period of time, or established connection failed because connected host has failed to respond.
+	<br /><br />
+	Solution: Make sure your realm is online. Also make sure your server is accepting Remote Access requests. 
+ 	This is checked by opening your server config, and finding ("RA.enable" and "RA.IP" and "RA.port"). Also, make
+	sure your ports forwarded!
+	<br /><br />
+ 	B. Telnet connection problem: -Not enough privileges.
+	<br /><br />
+ 	Solution: This states that your current account doesnt have a high enough GM level to make the requested command
+	happen. Make sure the account GM level is higher then the RA.minLevel. If using Trinity, make sure that the account
+ 	has admin access on all realms... go ->realmd->account_access. make sure under realmId, it says "-1"
+	<br /><br />
+ 	C. Telnet connection problem: -No such user.
+	<br /><br />
+	solution: If using mangos, make sure the username is in ALL CAPS, in the config, aswell as the database.
+	<br /><br />
+	D. Telnet connection problem: (no error)
+	<br /><br />
+	Open your config.xml and go -> vote_system -> sleep_timer -> and change the 1 to a 2 or 3. The sleep timer
+	is the amount of seconds the script will sleep (halt the script) after ever command sent to the RA. there are 3 commands,
+	1 -> time to wait after sending username 2 -> time to wait sending the command after loggin in and 3 -> Checking to see
+	if the command was executed properly. So for ever interval you increase the sleep timer, it will slow the RA down by 3 seconds.
+	<br /><br />
+	2. When all else fails, check you ra_commands.log from your server directory. It will always say what the error was.
+	If you are still having issues, then post them here: http://code.google.com/p/mwenhanced/issues/list
+    
+    <!-- Login Problems -->
+    <br /><br /><font size="+1"><center><a name="login">-- 3.2 Login Problems --</a></center></font><br />
+    '''Solution 1: regenerate your dynamic site configuration'''
+Blank out the following in config/config.xml:
+    <p><br />
+  &lt;!-- Dynamic done by site. Dont touch this. --&gt;<br />
+  &lt;temp&gt;<br />
+  &lt;site_href&gt;/&lt;/site_href&gt;<br />
+  &lt;site_domain&gt;www.mydomain.com&lt;/site_domain&gt;<br />
+  &lt;email_href&gt;www.mydomain.com&lt;/email_href&gt;<br />
+  &lt;base_href&gt;http://www.mydomain.com/&lt;/base_href&gt;<br />
+  &lt;template_href&gt;/templates/offlike/&lt;/template_href&gt;<br />
+  &lt;/temp&gt;</p>
+    <p>to look like this:</p>
+    <p>
+  &lt;!-- Dynamic done by site. Dont touch this. --&gt;<br />
+  &lt;temp&gt;<br />
+  &lt;site_href&gt;&lt;/site_href&gt;<br />
+  &lt;site_domain&gt;&lt;/site_domain&gt;<br />
+  &lt;email_href&gt;&lt;/email_href&gt;<br />
+  &lt;base_href&gt;&lt;/base_href&gt;<br />
+  &lt;template_href&gt;&lt;/template_href&gt;<br />
+  &lt;/temp&gt;<br /> </p><br />
+Then browse to the site, so MangosWeb automatically fills these settings in config.xml. After doing this, your login problems may be solved. If not, proceed to the next solution:<br /><br />
+
+'''Solution 2: Delete Your Cookies'''<br />
+This mostly happens when you change this site cookie, but not always.
+If this doesn't help or you're not able to identify the product possibly responsible for turning the referer header off, please continue to the next solution:
+<br /><br />
+'''Solution 3: Delete account keys'''<br />
+Sometimes the website (according to reports on the mangosproject.org forum) doesn't alwasy delete the account key issued at login which is contained in the account_keys table in realmd database. The website basically thinks you are logged in already and will not let you login again. To solve this problem, you can try deleting the keys for people that are having trouble logging in
+<br />
+Note: this seems to be a bigger issue with Firefox than with Internet Explorer.
+    
+    <!-- FAQ -->
+    <br /><br /><font size="+1"><center><a name="faq">-- 3.3 FAQ --</a></center></font><br />
+    <br /><br /><center><a name="f1"><u>1. Question: How do i add Menu links?</u></a><br /></center><br />
+    Answer: <br />
+    <p>'''Step 1'''</p>
+    <p>You need to decide on a link name and the location that link will point to</p>
+    <p> i.e. Link name = Myspace<br />
+    Location = www.myspace.com/yourmyspacepage</p>
+    <p>'''Step 2'''</p>
+    <p> Open /lang/en.English.lang with your favorite editor <br />
+      (this step needs to be repeated for each language you are supporting)</p>
+    <p> Type this line into the file    |=|MS :=: Myspace<br />
+      (you will see how the others are formatted, also try to put it at the top or bottom so its easy to find later if necessary)</p>
+    <p> The MS is the pointer you will need to match up later and the Myspace is what will actually show in the menu</p>
+    <p>'''Step 3'''</p>
+    <p> Open /core/default_components.php with your favorite editor </p>
+    <p> On this page you will see all the menus and how they are formatted</p>
+    <p> Decide which menu you want your link to fall under and goto that section</p>
+    <p> For our purposes we will use the account menu</p>
+    <p> Under 2-menuAccount you will see 5 arrays, we are adding the sixth here</p>
+    <p> at the bottom of the fifth array you will see:<br />
+      ),<br />
+      ),<br />
+      '3-menuGameGuide' =&gt;<br />
+    We are adding our link between the first and second ),</p>
+    <p> It will now look like this<br />
+      ),<br />
+      6 =&gt;<br />
+      array (<br />
+      0 =&gt; 'MS',<br />
+      1 =&gt; 'www.myspace.com/yourmyspacepage',<br />
+      2 =&gt; '',<br />
+      ),<br />
+      ),<br />
+      '3-menuGameGuide' =&gt; <br />
+      <br />
+      The 0 index in the array is the pointer from the language page you added earlier. It will goto the MS pointer and retrieve Myspace<br />
+    The 1 index in the array is the destination you want the link to take you to</p>
+    <p>'''Step 4'''</p>
+    <p> Close and save all of your changes and you are ready to go! Congratulations!</p>
+    <br /><br /><center>
+      <a name="f2"><u>2. Question: How do edit/add quicklinks on the main page?</u></a><br /></center><br />
+    Answer: <br />
+    <p>'''Step 1'''</p>
+    <p> You need to decide on a link name and the location that link will point to</p>
+    <p> i.e. Link name = Myspace<br />
+      Location = www.myspace.com/yourmyspacepage</p>
+    <p>'''Step 2'''</p>
+    <p> Open /lang/en.English.lang with your favorite editor <br />
+      (this step needs to be repeated for each language you are supporting)</p>
+    <p> Type this line into the file    |=|MS :=: Myspace<br />
+      (you will see how the others are formatted, also try to put it at the top or bottom so its easy to find later if necessary)</p>
+    <p> The MS is the pointer you will need to match up later and the Myspace is what will actually show in the menu</p>
+    <p>'''Step 3'''<br />
+      <br />
+      open /templates/offlike/body_right.php with your favorite editor</p>
+    <p> Add links following this example:</p>
+    <p>&lt;li class=&quot;e&quot;&gt;<br />
+      &lt;a href=&quot;&lt;?php echo mw_url('account', 'register'); ?&gt;&quot;&gt;&lt;?php echo $lang['quicklink1']; ?&gt;&lt;/a&gt;<br />
+      &lt;/li&gt;<br />
+      &lt;li&gt;<br />
+      &lt;a href=&quot;&lt;?php echo mw_url('server', 'realmstatus'); ?&gt;&quot;&gt;&lt;?php echo $lang['quicklink3']; ?&gt;&lt;/a&gt;<br />
+      &lt;/li&gt;</p>
+    <p>So your would look like this:</p>
+    <p>li class=&quot;e&quot;&gt;<br />
+      &lt;a href=&quot;www.myspace.come/yourmyspacepage&quot; /&gt; &lt;?php echo $lang['myspace']; ?&gt;&lt;/a&gt;<br />
+      &lt;/li&gt;<br />
+      &lt;li&gt;<br />
+      &lt;a href=&quot;&quot; /&gt;&lt;/a&gt;<br />
+      &lt;/li&gt;</p>
+      <br /><br /><center><a name="f3"><u>3. Question: How do i use the site with multiple realms?</u></a><br /></center><br />
+    Answer: <br />
+    For those of you running multiple realms, it may get alittle confusing to configure the website
+	to feature all realms. So i decided to write a tutorial on how to do it:<br /><br />
+	1.Open your config.xml, and scroll down to &lt;multirealm&gt;...Change the 0 to a 1.<br />
+	2.Next, go to the website. Go into the admin panel, and select "Realms" under Site Managment.<br />
+	3.In the empty fields below, enter you realm information. When you get to the Dbinfo column, enter
+	in this format: "mysql username;mysql password;mysql port;mysql IP address;world database name;character database name".
+	DONT FORGET the semi colon between each field.<br />
+	4.Click create new realm... A window will pop up asking if your sure, click yes.<br />
+	5.And boom, you should have it. Please note that all your realms must use the same "realmd"
+	database in order for it to work!<br />
+    <br /><br /><center><a name="f4"><u>4. Question: How do i add my own page into the site?</u></a><br /></center><br />
+    Answer: <br />
+    Check out the <a href="http://code.google.com/p/mwenhanced/">MangosWeb Enhanced Wiki pages</a>, there is a bunch of tutorials and resources fo you to use there.<br />
+    
+    <!-- Resources -->
+    <br /><br /><font size="+1"><center><a name="res">-- 3.4 Resources --</a></center></font><br />
+    <center>
+	<a href="http://keyswow.com/">MangosWeb Enhanced Developer Site</a><br />
+	<a href="http://keyswow.com/forum/">MangosWeb Enhanced Forums</a><br />
+    <a href="http://code.google.com/p/mwenhanced/">MangosWeb Enhanced Google Page</a><br />
+    <a href="http://code.google.com/p/mwenhanced/w/list">MangosWeb Enhanced Wiki Pages</a><br />
+    <a href="http://code.google.com/p/mwenhanced/issues/list/">Issue Tracker / Submit An Issues </a>
+    </center>
+      
+<!-- end #mainContent --></div>
+	<!-- This clearing element should immediately follow the #mainContent div in order to force the #container div to contain all child floats --><br class="clearfloat" />
+<!-- end #container --></div>
+</td>
+        <td style="background:url(images/readme/ss-border-right.gif);"></td>
+    </tr>
+    <tr>
+        <td><img src="images/readme/bottom.gif" height="30" width="21" alt=""/></td>
+        <td style="background:url(images/readme/bottom.gif);"></td>
+        <td><img src="images/readme/bottom.gif" height="30" width="21" alt=""/></td>
+    </tr>
+    </tbody>
+</table>
+
+   <div id="footer">
+   <br />
+    <center>MangosWeb Enhanced (c) 2009 - 2010 by Wilson212<br />Original MangosWeb (c) 2007 Sasha, TGM, Peec, and Nafe</center>
+  <!-- end #footer --></div>
+</body>
+</html>
