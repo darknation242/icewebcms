@@ -26,43 +26,13 @@
     background-color: #FFCCBA;
     background-image: url('../images/icons/validation.png');
 }
-/* End Output Messages */
-
 
 .error {
     color: #D8000C;
     background-color: #FFBABA;
     background-image: url('../images/icons/error.png');
 }
-
-.mainNav div div {
-    font-weight:bold; 
-    text-decoration: none; 
-    font-family:arial,comic sans ms,technical; 
-    font-size: 11px; 
-    position: relative; 
-    left: -3px; 
-    background-image:url('../images/bullet-trans-bg.gif');  
-    width:139px; 
-    height:15px; 
-    padding:0px; 
-    margin:0px; 
-    border:0px; 
-    padding-left:10px;
-}
-.message-format blockquote, .editor blockquote { background: #FFF; margin: 2px; }
-.message-format blockquote span.bhead, .editor blockquote span.bhead { 
-    display: block;
-    background: #CCCCCC;
-    padding: 4px 0.7em;
-    font-weight: bold;
-    color: #FFF; }
-.message-format blockquote div, .editor blockquote div { 
-    color: #000;
-    border-left: 4px solid #CCCCCC; 
-    border-right: 4px solid #CCCCCC; 
-    border-bottom: 4px solid #CCCCCC; 
-    padding: 0.7em; }   
+/* End Output Messages */ 
 
 .mybulleted_list {
     list-style: none; 
@@ -101,12 +71,6 @@
     border-bottom: 1px solid #000;
     border-top: 2px solid #000;
 }
-.forum_category tr.read td {
-   /* background: #ccffcc;*/
-}
-.forum_category tr.unread td {
-    background: #cc3333;
-}
 .forum_category tr td.n_sender a, .forum_category tr td.n_title a, .forum_category tr td.n_time a  {
    display: block; 
 }
@@ -120,49 +84,7 @@
     border-bottom: 1px solid #FFAC04;
     text-decoration: none;
 }
-.forum_category .title {
-    font-weight: bold;
-    color: #cc3333;
-    font-size:1.2em;
-}
-.forum_category .desc {
-    display: block;
-    color: #1E4378;
-    font-size:0.9em;
-}
-.forum_category .col1 {
-    width: 30px;
-    padding: 2px;
-    text-align: center;
-}
-.forum_category .col3,.forum_category .col4 {
-    font-weight: bold;
-    width: 60px;
-    padding: 2px;
-    text-align: center;
-}
-.forum_category .col3,.forum_category .col4 {
-    color: #1E4378;
-    font-weight: bold;
-    width: 70px;
-    padding: 2px;
-    padding-right: 8px;
-    text-align: center;
-}
-.forum_category .col3 span,.forum_category .col4 span {
-    display: block;
-    font-size: 1.4em;
-}
 
-.link_box a:link,
-.link_box a:visited,
-.link_box a:active {
-    background: #000;
-    border: 1px solid #E0E0E0;
-    padding: 3px 5px;
-    line-height: 2em;
-    color: #AAA; }
-.link_box a:hover { color: #666; }
 #write_form form {
     font-size: 0.8em;
     border: 1px solid #000;

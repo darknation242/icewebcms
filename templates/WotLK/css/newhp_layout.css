@@ -12,10 +12,6 @@
 
 #contentcontainer{font-size: 10pt; font-family: arial,helvetica,sans-serif;}
 *html #contentcontainer{height: 713;}
-#pagecontentcontainer{position: absolute; top:0px; width:100%; text-align:center;}
-#pagecontent{position: relative; padding-left: 214px;  padding-right: 58px; margin-top: 93px; text-align:left; display: block; width:713px; }
-table.collapsed{ display:none; }
-table.expanded{ display:block; }
 #hp { width: auto; margin: -85px auto 0; text-align:left; }
 #contentpadding { margin-left: 17px; margin-right: 19px; margin-top:-12px; }
 #hpwrapper { display: table-row; background: url('../images/menu-bg.jpg') repeat-y 65px 0;*/}
@@ -23,7 +19,6 @@ table.expanded{ display:block; }
 #navwrapper { position: relative; z-index: 1; }
 #nav { width: 157px; position:relative; }
 div.top-nav-container { position: relative; height: 60px; display: block; width:955px; }
-div.top-nav { position: absolute; right: 17px; top: 3px; z-index: 3; }
 #main { background: url(../images/light2.jpg) repeat 0 0; }
 *html #main { width:713px; }
 #main-top { height: 46px; width: 100%; background: url('../images/border-top.gif') repeat-x bottom; position: relative; top:1px; }

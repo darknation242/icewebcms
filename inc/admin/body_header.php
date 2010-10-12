@@ -66,7 +66,7 @@
 </head>
 
 <body>
-<table border="0" width="960px" height="100%" align="center" id="maintable" class="maintable">
+<table border="0" width="1000px" height="100%" align="center" id="maintable" class="maintable">
 	<tr>
 		<td align="center" colspan="2" height="80px" valign="top" style="border-bottom: 1px dotted #666666;">
 			<div class="title">IceWeb CMS Admin Panel</div>
@@ -81,7 +81,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td width="150px" align="left" valign="top" style="border-right: 1px dotted #666666;" >
+		<td width="190px" align="left" valign="top" style="border-right: 1px dotted #666666;" >
 		<?php server_display_info(); ?>
 		</td>
 		<td align="left" valign="top">

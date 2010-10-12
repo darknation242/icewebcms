@@ -7,7 +7,7 @@
 		<meta http-equiv="Expires" content="-1" />
 		<meta http-equiv="Cache-Control" content="no-cache" />
 		<style type="text/css" title="currentStyle" media="screen">
-			@import "templates/WotLK/css/notice.css";
+			@import "modules/notice/notice.css";
 			body 
 			{
 				color: #FFF;
@@ -75,8 +75,8 @@
 							</tr>
 							<tr>
 								<td align="center">
-									<a href="http://google.com"><img src="images/notice/decline.gif" alt="Decline" /></a>
-									<a href=""><img src="images/notice/agree.gif" onclick="checkForm()" alt="Agree" /></a>
+									<a href="http://google.com"><img src="modules/notice/images/decline.gif" alt="Decline" /></a>
+									<a href=""><img src="modules/notice/images/agree.gif" onclick="checkForm()" alt="Agree" /></a>
 								</td>
 							</tr>
 						</table>

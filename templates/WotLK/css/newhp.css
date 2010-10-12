@@ -1,29 +1,30 @@
+/******************************************************/
+/* Newhp.css Modified by Wilson212 for faster loading */
+/*       Also removed useless CSS properties!         */
+/******************************************************/
+
 #wow-logo { background: url('') no-repeat; position:relative; top:-3px; left:-28px; }
-#wow-logo2 { background: url('') no-repeat; position:relative; top:-3px; left:-24px; }
-.buttonmargin{ margin:5px 0px 5px 32px; }
+
+/* === Page BG's === */
+body { background: #000 url('../images/page_mainbg.jpg') repeat-x center 0; color: #000; font-family: arial, helvetica, sans-serif; font-size: 12px; padding: 0; margin: 0; }
+#left-bg { background: url('../images/page_leftbg.png') no-repeat; position: absolute; top: -101px; left: -289px; height: 1026px; width: 478px; }
+/* === END BG === */
+
+/* === Main Nav (Icons in newhp_icons.css) === */
 #leftmenu { margin-top: 39px; position: relative; right: -11px; }
-
-
-
 .menu-button-on, .menu-button-off { height: 27px; margin-top: 1px; position: relative; z-index: 2; cursor: pointer; }
-.menu-button-on { background: url('../images/leftmenu-button-on.gif') no-repeat 1px 0; }
-.menu-button-off  { background: url('../images/leftmenu-button-off.gif') no-repeat 1px 0; }
-.leftmenu-cont-top { height: 6px; width: 145px; background: url('../images/leftmenu-cont-top.png') no-repeat 0 0; }
-.leftmenu-cont-bot { height: 8px; width: 145px; background: url('../images/leftmenu-cont-bot.png') no-repeat 0 0; }
-.leftmenu-cont-mid { width: 145px; background: url('../images/leftmenu-back.png') repeat 0 0; }
+.menu-button-on { background: url('../images/mainnav/leftmenu-button-on.gif') no-repeat 1px 0; }
+.menu-button-off  { background: url('../images/mainnav/leftmenu-button-off.gif') no-repeat 1px 0; }
+.leftmenu-cont-top { height: 6px; width: 145px; background: url('../images/mainnav/leftmenu-cont-top.png') no-repeat 0 0; }
+.leftmenu-cont-bot { height: 8px; width: 145px; background: url('../images/mainnav/leftmenu-cont-bot.png') no-repeat 0 0; }
+.leftmenu-cont-mid { width: 145px; background: url('../images/mainnav/leftmenu-back.png') repeat 0 0; }
 .leftmenu-cnt { padding-left: 5px; }
-.leftmenu-cont-mid div.m-left { background: url('../images/leftmenu-cont-mid-left.jpg') repeat-y top left; }
-.leftmenu-cont-mid div.m-left div.m-right { background: url(../images/leftmenu-cont-mid-right.jpg) repeat-y top right; }
+.leftmenu-cont-mid div.m-left { background: url('../images/mainnav/leftmenu-cont-mid-left.jpg') repeat-y top left; }
+.leftmenu-cont-mid div.m-left div.m-right { background: url(../images/mainnav/leftmenu-cont-mid-right.jpg) repeat-y top right; }
 .leftmenu-pluslink, .leftmenu-minuslink { height: 14px; width: 15px; position: absolute; top: 9px; right: 13px; display: block;    background-repeat: no-repeat;  background-position: 0 0; }
-.leftmenu-minuslink { background: url('../images/leftmenu-minus.gif'); background-repeat:no-repeat; }
-.leftmenu-pluslink { background: url('../images/leftmenu-plus.gif'); background-repeat:no-repeat; }
-
-
-/*theme-bg*/
-#left-bg { background: url('../images/leftbg.png') no-repeat; position: absolute; top: -101px; left: -289px; height: 1026px; width: 478px; }
-#right-bg { background: url('../images/rightbg.jpg') no-repeat; position: absolute; top: -15px; left: 930px; height: 551px; width: 323px; }
-/*theme-bg*/
-
+.leftmenu-minuslink { background: url('../images/mainnav/leftmenu-minus.gif'); background-repeat:no-repeat; }
+.leftmenu-pluslink { background: url('../images/mainnav/leftmenu-plus.gif'); background-repeat:no-repeat; }
+/* === END Main Nav === */
 
 .menuentry-rightborder { position: absolute; right: 5px; top: -4px; background: url('../images/menu-add.gif') no-repeat 0 0; width: 9px; height: 35px; }
 #menunews-inner, #menugameguide-inner, #menuinteractive-inner, #menucommunity-inner, #menuaccount-inner, #menusupport-inner, #menumedia-inner, #menuforums-inner { padding: 0 0 0 4px; width: 145px; position:relative; z-index:2; }
@@ -31,92 +32,25 @@
 .phatlootbox-top { height: 25px; position: relative; }
 .phatlootbox-top { height: 25px; background: url('../images/phatlootbox-top.gif') no-repeat 0 0; }
 .phatlootbox-bottom { height: 20px; background: url('../images/phatlootbox-bottom.jpg') no-repeat 0 -1px; }
-.phatlootbox-bottom div { padding: 0px 5px 0 0;  width: auto; float: right; }
-.generalnews { font-size: 13px; padding:15px 18px 20px 19px; }
-img.right { padding-left: 5px; }
-img.left { padding: 0 5px 0 0; }
-.smallteaser { width: 150px; height: 123px; float: left; position: relative; margin-left: 10px; }
-.firstteaser { margin-left: 0; }
-.smallteaser-bg { height: 123px; background: url('../images/smallteaser-bg.gif') no-repeat 0 0; }
-.twocol-smallteaser { position: relative; }
-.twocol-smallteaser-bg { background: url('../images/2column-smallteaser-bg.gif') no-repeat 0 0; width: 226px; height: 91px; }
-.smallteaser img { margin-left: 7px; }
-#ssotd-container, #gameinfo-bg-container, #gameinfo-newcomers-container, #gameinfo-screenshototd-container, #gameinfo-underdev-container, #container-pvprankings, #quicklinks { width: 213px; margin-left: auto; margin-right: auto; }
-#ssotdcontainer { background-color: black; }
-#container-pvprankings div.realmselect { display: block; background: url('../images/ssotd-bottomnav-bg.jpg') repeat-x top; height: 19px; width: 195px;  padding: 2px 0 0 0; color: #00c9ed; }
-#container-pvprankings div.realmselect a { color: #e0b800; font-size: 10px; }
-#container-pvprankings div.realmselect a:hover { color: white; text-decoration: none; }
+.phatlootbox-visual { position: absolute; }
 
-#gameinfo-underdev-container { margin-top: 15px; }
-.marginal-infobox-top { height: 27px; background: url('../images/marginal-infobox-top-ie.jpg') no-repeat 43px 0; position: relative;}
-.infobox-visual, .smallteaser-visual, .phatlootbox-visual { position: absolute; }
-.marginal-infobox { background: url('../images/marginal-infobox-bg.gif') repeat-y 0 0; }
-.marginal-infobox-cnt { padding-left: 8px; padding-right: 10px; }
-#container-pvprankings .marginal-infobox-cnt { padding: 0; padding-left: 8px; }
-.marginal-infobox-bottom { height: 10px; background: url('../images/marginal-infobox-bottom.gif') no-repeat 0 0; }
-#ssotd-nav { width: 100%; height: 21px; background: url('../images/ssotd-bottomnav-bg.jpg') repeat-x 0 0; text-align: center;    position: relative; }
-#ssotd-nav .ssotd-link { width: auto; padding-top: 4px; display: block; }
-#ssotd-nav a span { display: none; }
-#ssotd-nav .prevscreen a { width: 15px; height: 17px; }
-img.ssotd-screen { border-bottom: 1px solid #996d11; display: block; }
-.prevscreen, .nextscreen { position: absolute; top: 2px; }
-.prevscreen { left: 2px; background: url('../images/arrow-grey-left.gif') no-repeat 0 0; }
-.nextscreen { right: 2px; background: url('../images/arrow-grey-right.gif') no-repeat 0 0; }
-.gameinfo-entry { font-size: 11px; font-family: "trebuchet ms", helvetica, sans-serif; position: relative; margin: 0 5px 0 6px; clear: left; }
-img.img-float { position: absolute; top: -135px; left: 32px; }
-.firstentry { padding-top: 8px; margin-bottom: 1px; background: url('../images/bg-newcomers.jpg') no-repeat bottom right; }
-.firstentry p { margin: 0; }
-div#elf-ear { position: absolute; right: -17px; top: -9px; }
-.secondentry{ padding-bottom: 5px; clear: both; font-weight: bold; }
-.firstentry p { margin: 0; }
-.thirdentry{ background: url('../images/bg-discover.jpg') no-repeat bottom right; }
-.thirdentry p{ padding-top: 8px; margin: 0; }
-#red-button { padding: 5px 5px 0 5px; height: 24px; clear: both; }
-#red-button ul{ padding: 0; margin: 0; list-style: none; }
-#red-button ul li{ height: 18px; width: 120px; }
-.newbie a, .faq a{ display: block; overflow:hidden; height: 18px; }
-.newbie a{ width: 119px; background: transparent url('../images/button-newbieguide-bg.gif') no-repeat top; }
-.faq a{ width: 103px; background: transparent url('../images/button-readfaq-bg.gif') no-repeat top; }
-.newbie a:hover, .faq a:hover{ background-position: bottom; }
-#gameinfo-bg-container .gameinfo-entry { font-family: "trebuchet ms", helvetica, sans-serif; padding: 0 10px 3px 12px; }
-.marginal-infobox .parchment { background: url('../images/marginal-infobox-cnt-parchmentbg.jpg') repeat-y 0 0; }
-.marginal-infobox .parchment div.parchment-top { background: url('../images/marginal-infobox-cnt-parchmenttop.jpg') no-repeat top left; }
-.marginal-infobox .parchment div.parchment-bot { background: url('../images/marginal-infobox-cnt-parchmentbot.jpg') no-repeat bottom right; }
-hr.separatorline { background-color: #e6d6a9; color: #e6d6a9; margin: 8px 15px; width: 90%; display: block; clear: both; }
 .gameinfo-entry ul.link-list a, .plainbox-cnt-bot ul.link-list a { background: url('../images/bullet.gif') no-repeat 0 40%;  padding-left: 20px; }
 .plainbox-cnt-bot ul.link-list a { display: block; background-position: 0 0; }
 ul.bullet-list { font-size:11px; font-weight:bold; margin: -3px; padding: 0; }
 ul.bullet-list li { list-style: none; background: url('../images/bullet.gif') no-repeat 0 -2px; padding-left: 18px;   padding-top: 1px; padding-bottom: 1px; }
-.parchment-subheader { height: 21px; width: auto; background: url('../images/parchment-subheader-bg.jpg') no-repeat top left;   margin-left: 5px; padding-bottom: 3px; }
-.secondsubheadline { padding-bottom: 1px; }
-.underdev-wrapper { position: absolute; bottom: 0; left: 9px; z-index: 20002; }
-.underdev-links { width: 194px; }
-.underdev-links a, .underdev-links a:active, .underdev-links a:visited { font-family: "trebuchet ms", helvetica, sans-serif; font-size: 11px; color: #e0b800; text-decoration: none; }
-.underdev-links a:hover { color: #fff; text-decoration: underline; }
-.underdev-top { width: 194px; height: 10px; }
-.underdev-bottom { width: 194px; height: 4px; }
-.under-dev ul { padding: 5px 10px; }
-#container-community .plainbox ul { padding: 3px 5px 0; }
-span#button-contestwinners { position: absolute; bottom: -4px; right: 0; }
 
-.plainbox { width: 213px; font-family: arial; font-size: 11px; }
-.plainbox-top { height: 19px; background: url("../images/plainbox/ql-plainbox-top.jpg") no-repeat; font-size:1.2em;font-weight:bold;padding-left:35px;padding-top:6px; }
-.plainbox-cnt { background: url("../images/plainbox/plainbox-cnt-bg.jpg") repeat-y; }
-.plainbox-cnt-top { background: url("../images/plainbox/plainbox-cnt-top.jpg") no-repeat; }
-.plainbox-cnt-bot { background: url("../images/plainbox/plainbox-cnt-bot.jpg") no-repeat 0 100%; padding: 0px 10px; position: relative; }
-.plainbox-bot { height: 13px;  background: url("../images/plainbox/plainbox-bot.jpg") no-repeat; }
-.plainbox ul { padding: 0px 10px; }
-.plainbox ul li { border-bottom: 1px solid #af9771; padding: 3px 0; margin-right: 10px; }
-.plainbox ul li a { padding-left: 0px; font-weight: bold; }
 
+/* === Drop Down Menu's === */
 #droppf {position: absolute; right: 32px; top: 39px; z-index:99; width: 145px;}
 #dropps {position: absolute; right: 180px; top: 39px; z-index:99; width: 145px;}
 #droppt {position: absolute; right: 328px; top: 39px; z-index:99; width: 145px;}
 #droppfo {position: absolute; right: 476px; top: 39px; z-index:99; width: 145px;}
+/* === END Drop Down Menu's === */
 
 #rightbox { background: url(../images/plainbox/plainbox-bg.jpg) repeat-y 0 0; width: 305px; border-top: 1px solid #49402c; border-bottom: 1px solid #49402c; padding-bottom: 5px; padding-top: 5px; position: relative; z-index: 2; margin-top: 15px; margin-left: 6px;}
 #innerrightbox {width: 283px; background-color: #96999B; border: 1px solid #C0993E; position:relative; left: 7px; padding: 3px;}
 
+/* === Quick Links === */
 #q-links { width: 308px; margin-top: -37px; margin-left: 5px; background: url(../images/plainbox/plainbox-top.jpg) no-repeat 0 0; position: relative; z-index: 2; text-decoration: none; font-weight:bold; font-family:arial,comic sans ms,technical; font-size: 12px;}
 #q-links h3 { height: 20px; color: #eff0ef; font-size: 12px; letter-spacing: 1px; font-weight: bold; width: 308px; padding: 1px 0 0 8px; font-family: "Trebuchet MS", Verdana, Arial, sans-serif; }
 #q-links ul { padding: 0; margin: 0; width: 100%; border-bottom: 1px solid #38464d;}
@@ -125,7 +59,9 @@ span#button-contestwinners { position: absolute; bottom: -4px; right: 0; }
 #q-links a { background: url(../images/plainbox/quicklink_bullet.png) no-repeat 0 -15px; display: block; padding-left: 19px; position: relative; color: #d0a803; left: 8px; top: 10px;  }
 #q-links a:hover { color: #fff; background-position: 0 3px; }
 span.gfxhook { display: block; background: url(../images/plainbox/quicklinks-bottom.jpg) no-repeat 0 0; height: 7px; width: 308px; position: relative; left: 5px; }
+/* === END Quick Links === */
 
+/* === Random Frontpage Boxes === */
 #box2 { width: 308px; margin-top: 18px; margin-left: 5px; background: url(../images/plainbox/plainbox-top.jpg) no-repeat 0 0; position: relative; z-index: 2; text-decoration: none; font-weight:bold; font-family:arial,comic sans ms,technical; font-size: 12px; color: #FFFFFF;}
 #box2 h3 { height: 20px; color: #eff0ef; font-size: 12px; letter-spacing: 1px; font-weight: bold; width: 308px; padding: 1px 0 0 8px; font-family: "Trebuchet MS", Verdana, Arial, sans-serif; }
 #box2 ul { padding: 0; margin: 0; width: 100%; border-bottom: 1px solid #38464d;}
@@ -142,7 +78,9 @@ span.gfxhook { display: block; background: url(../images/plainbox/quicklinks-bot
 #box3 li div b {color: lightblue;}
 #box3 a { position: relative; color: #d0a803; }
 #box3 a:hover { color: #fff; }
+/* === END Random FP Boxes === */
 
+/* === New Comer Box (Frontpage) === */
 div.newcommer { background: url(../images/newcomer_box.jpg) no-repeat 0 0; height: 169px; width: 289px; position: relative; left: 8px; z-index: 2;}
 div.newcommer h4 { font-size: 14px; color: #fff; position: relative; top: 20px; left: 12px; }
 div.newcommer p { position: relative; left: 12px; top: 32px;color: #fff; font-weight: normal; width: 150px;}
@@ -150,10 +88,10 @@ div.newcommer ul, div.newcommer li { margin: 0; padding: 0; }
 div.newcommer ul { position: relative; top: 42px; left: 0; width: 240px; list-style-type: none; }
 div.newcommer a { color: #d0a803; padding-left: 12px; background: url(../images/newcomer_link_bg.png) no-repeat 0 3px; }
 div.newcommer a:hover { color: #fff;  }
+/* === End NC Box === */
 
+/* === Frontpage Community Box === */
 #container-community .plainbox { overflow: hidden; }
-
-
 #container-community .plainbox-bot { height: 9px; }
 #threecol-teasers .arrow-readmore a, .twocol-smallteaser .arrow-readmore a { height: 20px; width: 20px; }
 #container-community .phatlootbox-wrapper { background: url('../images/phatlootbox-bg.gif') repeat-y 0 0; padding: 0 0px;}
@@ -172,29 +110,10 @@ select#support { height: 15px; width: 110px; position: absolute; left: 9px; bott
 .chains { background: url('../images/chains.gif') no-repeat 0 0; position: absolute; height: 15px; width: 73px; }
 .twocol-smallteaser .chains { top: -15px; left: 80px; }
 .smallteaser .chains { top: -15px; left: 38px; }
-
-
-/* style the list items */
-ul.menulist1 { z-index: 2080; left: 135px; }
-ul.menulist2 { z-index: 2090; }
-ul.menulist2 a, ul.menulist1 li a { display: block !important; }
-img.menuarrow { margin-left: 3px; }
-#ironframe { height: 10px; background: black url('../images/ironframe-bg.jpg') repeat-x top; position: relative; border: 0; width:100%; }
-.blizz-logo  { position: absolute; bottom: 22px; left: 50%; margin-left: -47px; }
-.footer-logos { position: absolute; bottom: -80px; right: 0; }
-div.right { float: right; margin-right: 5px; }
-div.left { float: left; margin-left: 5px; }
-.miscbox1 ul { list-style-type: disc !important; float: left; list-style-position: inside; width: 150px; }
-.miscbox1, .miscbox2 { float: left; width: 220px; }
-.miscbox1 .miscbox-top { height: 29px; background: url('../images/miscbox2-top.gif') no-repeat 0 0; margin-bottom: 5px; }
-.miscbox2 .miscbox-top { height: 29px; background: url('../images/miscbox2-top.gif') no-repeat 0 0; margin-bottom: 5px; }
-.miscbox1 h4, .miscbox2 h4 { font-family: tahoma, verdana, helvetica, sans-serif; font-size: 11px; color: #fff; }
-.flashbutton { margin-top: 5px; }
-.flashbutton object { padding-left: 5px; /*space for the left button corner*/ position: relative; }
+/* === END Fp Comm. Box === */
 
 #leftmenu { right: -14px; }
 #ironframe { margin-top: -18px; }
-.clearing { clear: both; height: 100%; font-size: 1px; content: " "; }
 
 
 
@@ -213,29 +132,6 @@ div.left { float: left; margin-left: 5px; }
 table.pvplist { cursor: pointer; width: 180px; border-collapse: collapse; margin: 1px 0 0 0; border: 1px solid black;}
 .pvplist tr td { text-align: left; width: 18px; height: 22px; color: #fff; font-size: 11px; font-family: arial,helvetica,sans-serif; font-weight: bold; padding: 0 0 0 3px; border-style: solid; border-width: 1px 0 0 0; border-color: black; }
 .pvplist tr td img { padding-top: 2px; margin-bottom: -2px; }
-.game-info-container em { height: 3px; font-size: 1px; display: block; }
-.right-module-container[class] { width: 213px; margin: 12px 0 0 5px; }
-.right-module-container { width: 213px; margin: 0; }
-.game-info-header, .game-info-header img, .game-info-container { width: 213px; }
-.gi-image-float, .game-info-header, .game-info-container { position: relative; }
-.game-info-header, .game-info-header img { height: 27px; }
-.game-info-content, .gi-bottom-wrapper, .game-info-sub-footer { width: 197px; }
-.gi-image-float { font-size: 1px; z-index: 200; }
-.game-info-container blockquote { padding: 0; }
-.game-info-header { z-index: 10; background: url('../images/marginal-infobox-top-ie.jpg') no-repeat right; }
-.game-info-header img { border: 0; }
-.game-info-container { background: url('../images/marginal-infobox-bg.gif') repeat-y 0 0; }
-.game-info-content { background: url('../images/marginal-infobox-cnt-parchmentbg.jpg') repeat-y 0 0; font-size: 11px; }
-.gi-bottom-wrapper { background: url('../images/marginal-infobox-cnt-parchmentbot.jpg') no-repeat 0 100%; }
-.gi-bottom-wrapper h2 img { width: 187px; height: 79px; border: 0; }
-.game-info-container blockquote { width: 170px; font-style: normal; }
-.gi-jump-menu { margin: 5px auto 0; width: 170px; height: 25px; }
-.gi-jump-menu select { width: 170px; background: url('../images/select-tile.gif') repeat-x top; border: 1px solid #a5acb2; font-size: 11px; }
-.game-info-sub-footer { background: url('../images/marginal-infobox-cnt-bottompaper.jpg') no-repeat; height: 6px; font-size: 1px;  }
-.game-info-footer { width: 213px; height: 10px; background: url('../images/marginal-infobox-bottom.gif') no-repeat; font-size: 1px; position: relative; }
-.game-info-container blockquote[class], .game-info-sub-footer[class], .gi-bottom-wrapper[class], .game-info-content[class] { margin: 0 auto; }
-.game-info-container blockquote, .gi-bottom-wrapper { margin: 0; }
-.game-info-sub-footer, .game-info-content { margin: 0 8px; }
 #pvpranks { width: 213px; }
 #pvpranks form { padding: 0; margin: 0; }
 .nhp-pvp { position: absolute; top: 0px; right: 0; }

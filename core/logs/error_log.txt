@@ -1,188 +1,78 @@
-[11-Oct-2010 11:25:30] PHP Notice:  Undefined index: hideemail in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 110
-[11-Oct-2010 11:25:30] PHP Notice:  Undefined index: hideemail in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 111
-[11-Oct-2010 11:25:30] PHP Notice:  Undefined index: hideprofile in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 124
-[11-Oct-2010 11:25:30] PHP Notice:  Undefined index: hideprofile in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 125
-[11-Oct-2010 11:25:30] PHP Notice:  Undefined index: gender in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 139
-[11-Oct-2010 11:25:30] PHP Notice:  Undefined index: gender in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 140
-[11-Oct-2010 11:25:30] PHP Notice:  Undefined index: gender in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 141
-[11-Oct-2010 11:25:30] PHP Notice:  Undefined index: homepage in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 152
-[11-Oct-2010 11:25:30] PHP Notice:  Undefined index: icq in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 165
-[11-Oct-2010 11:25:30] PHP Notice:  Undefined index: msn in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 176
-[11-Oct-2010 11:25:30] PHP Notice:  Undefined index: location in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 190
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 196
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 196
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 196
-[11-Oct-2010 11:25:30] PHP Notice:  Undefined index: avatar in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 220
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 322
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 322
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 322
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 340
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 340
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 340
-[11-Oct-2010 11:25:30] PHP Notice:  Undefined index: secretq1 in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 386
-[11-Oct-2010 11:25:30] PHP Notice:  Undefined index: secretq1 in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 409
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
-[11-Oct-2010 11:25:30] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
-[11-Oct-2010 11:25:30] PHP Notice:  Undefined index: secretq2 in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 436
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
-[11-Oct-2010 11:25:30] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
-[11-Oct-2010 11:25:30] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
-[11-Oct-2010 12:16:37] PHP Notice:  Undefined index: hideemail in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 110
-[11-Oct-2010 12:16:37] PHP Notice:  Undefined index: hideemail in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 111
-[11-Oct-2010 12:16:37] PHP Notice:  Undefined index: hideprofile in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 124
-[11-Oct-2010 12:16:37] PHP Notice:  Undefined index: hideprofile in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 125
-[11-Oct-2010 12:16:37] PHP Notice:  Undefined index: gender in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 139
-[11-Oct-2010 12:16:37] PHP Notice:  Undefined index: gender in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 140
-[11-Oct-2010 12:16:37] PHP Notice:  Undefined index: gender in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 141
-[11-Oct-2010 12:16:37] PHP Notice:  Undefined index: homepage in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 152
-[11-Oct-2010 12:16:37] PHP Notice:  Undefined index: icq in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 165
-[11-Oct-2010 12:16:37] PHP Notice:  Undefined index: msn in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 176
-[11-Oct-2010 12:16:37] PHP Notice:  Undefined index: location in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 190
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 196
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 196
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 196
-[11-Oct-2010 12:16:37] PHP Notice:  Undefined index: avatar in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 220
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 322
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 322
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 322
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 340
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 340
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 340
-[11-Oct-2010 12:16:37] PHP Notice:  Undefined index: secretq1 in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 386
-[11-Oct-2010 12:16:37] PHP Notice:  Undefined index: secretq1 in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 409
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
-[11-Oct-2010 12:16:37] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
-[11-Oct-2010 12:16:37] PHP Notice:  Undefined index: secretq2 in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 436
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
-[11-Oct-2010 12:16:37] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
-[11-Oct-2010 12:16:37] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
-[11-Oct-2010 12:16:56] PHP Notice:  Undefined index: hideemail in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 110
-[11-Oct-2010 12:16:56] PHP Notice:  Undefined index: hideemail in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 111
-[11-Oct-2010 12:16:56] PHP Notice:  Undefined index: hideprofile in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 124
-[11-Oct-2010 12:16:56] PHP Notice:  Undefined index: hideprofile in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 125
-[11-Oct-2010 12:16:56] PHP Notice:  Undefined index: gender in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 139
-[11-Oct-2010 12:16:56] PHP Notice:  Undefined index: gender in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 140
-[11-Oct-2010 12:16:56] PHP Notice:  Undefined index: gender in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 141
-[11-Oct-2010 12:16:56] PHP Notice:  Undefined index: homepage in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 152
-[11-Oct-2010 12:16:56] PHP Notice:  Undefined index: icq in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 165
-[11-Oct-2010 12:16:56] PHP Notice:  Undefined index: msn in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 176
-[11-Oct-2010 12:16:56] PHP Notice:  Undefined index: location in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 190
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 196
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 196
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 196
-[11-Oct-2010 12:16:56] PHP Notice:  Undefined index: avatar in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 220
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 322
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 322
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 322
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 340
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 340
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 340
-[11-Oct-2010 12:16:56] PHP Notice:  Undefined index: secretq1 in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 386
-[11-Oct-2010 12:16:56] PHP Notice:  Undefined index: secretq1 in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 409
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
-[11-Oct-2010 12:16:56] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
-[11-Oct-2010 12:16:56] PHP Notice:  Undefined index: secretq2 in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 436
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
-[11-Oct-2010 12:16:56] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
-[11-Oct-2010 12:16:56] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
-[11-Oct-2010 12:16:59] PHP Notice:  Undefined index: hideemail in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 110
-[11-Oct-2010 12:16:59] PHP Notice:  Undefined index: hideemail in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 111
-[11-Oct-2010 12:16:59] PHP Notice:  Undefined index: hideprofile in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 124
-[11-Oct-2010 12:16:59] PHP Notice:  Undefined index: hideprofile in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 125
-[11-Oct-2010 12:16:59] PHP Notice:  Undefined index: gender in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 139
-[11-Oct-2010 12:16:59] PHP Notice:  Undefined index: gender in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 140
-[11-Oct-2010 12:16:59] PHP Notice:  Undefined index: gender in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 141
-[11-Oct-2010 12:16:59] PHP Notice:  Undefined index: homepage in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 152
-[11-Oct-2010 12:16:59] PHP Notice:  Undefined index: icq in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 165
-[11-Oct-2010 12:16:59] PHP Notice:  Undefined index: msn in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 176
-[11-Oct-2010 12:16:59] PHP Notice:  Undefined index: location in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 190
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 196
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 196
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 196
-[11-Oct-2010 12:16:59] PHP Notice:  Undefined index: avatar in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 220
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 322
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 322
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 322
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 340
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 340
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 340
-[11-Oct-2010 12:16:59] PHP Notice:  Undefined index: secretq1 in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 386
-[11-Oct-2010 12:16:59] PHP Notice:  Undefined index: secretq1 in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 409
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
-[11-Oct-2010 12:16:59] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
-[11-Oct-2010 12:16:59] PHP Notice:  Undefined index: secretq2 in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 436
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
-[11-Oct-2010 12:16:59] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
-[11-Oct-2010 12:16:59] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
-[11-Oct-2010 12:44:00] PHP Warning:  include(inc/admin/body_header.php): failed to open stream: No such file or directory in C:\xampp\htdocs\MangosWebv3\index.php on line 165
-[11-Oct-2010 12:44:00] PHP Warning:  include(): Failed opening 'inc/admin/body_header.php' for inclusion (include_path='.;C:\xampp\php\PEAR') in C:\xampp\htdocs\MangosWebv3\index.php on line 165
-[11-Oct-2010 12:44:00] PHP Warning:  include(inc/admin/template_files/admin.index.php): failed to open stream: No such file or directory in C:\xampp\htdocs\MangosWebv3\index.php on line 168
-[11-Oct-2010 12:44:00] PHP Warning:  include(): Failed opening 'inc/admin/template_files/admin.index.php' for inclusion (include_path='.;C:\xampp\php\PEAR') in C:\xampp\htdocs\MangosWebv3\index.php on line 168
-[11-Oct-2010 12:44:00] PHP Warning:  include(inc/admin/body_footer.php): failed to open stream: No such file or directory in C:\xampp\htdocs\MangosWebv3\index.php on line 174
-[11-Oct-2010 12:44:00] PHP Warning:  include(): Failed opening 'inc/admin/body_footer.php' for inclusion (include_path='.;C:\xampp\php\PEAR') in C:\xampp\htdocs\MangosWebv3\index.php on line 174
-[11-Oct-2010 13:02:57] PHP Fatal error:  Using $this when not in object context in C:\xampp\htdocs\MangosWebv3\core\core.php on line 26
-[11-Oct-2010 13:06:31] PHP Notice:  Undefined variable: site_copyright in C:\xampp\htdocs\MangosWebv3\templates\offlike\body_footer.php on line 37
-[11-Oct-2010 13:07:47] PHP Fatal error:  Using $this when not in object context in C:\xampp\htdocs\MangosWebv3\core\core.php on line 27
-[11-Oct-2010 13:07:56] PHP Notice:  Undefined variable: rev in C:\xampp\htdocs\MangosWebv3\core\core.php on line 27
-[11-Oct-2010 13:07:56] PHP Notice:  Undefined variable: site_copyright in C:\xampp\htdocs\MangosWebv3\templates\offlike\body_footer.php on line 37
-[11-Oct-2010 13:09:14] PHP Notice:  Undefined variable: site_copyright in C:\xampp\htdocs\MangosWebv3\templates\offlike\body_footer.php on line 37
-[11-Oct-2010 13:10:00] PHP Notice:  Undefined variable: rev in C:\xampp\htdocs\MangosWebv3\core\core.php on line 20
-[11-Oct-2010 13:10:00] PHP Notice:  Undefined variable: rev_date in C:\xampp\htdocs\MangosWebv3\core\core.php on line 21
-[11-Oct-2010 13:10:00] PHP Notice:  Undefined variable: exp_dbver in C:\xampp\htdocs\MangosWebv3\core\core.php on line 22
-[11-Oct-2010 13:10:00] PHP Notice:  Undefined property: Core::$copyright in C:\xampp\htdocs\MangosWebv3\templates\offlike\body_footer.php on line 37
-[11-Oct-2010 13:11:12] PHP Notice:  Undefined variable: core_rev in C:\xampp\htdocs\MangosWebv3\core\core.php on line 20
-[11-Oct-2010 13:11:12] PHP Notice:  Undefined variable: core_rev_date in C:\xampp\htdocs\MangosWebv3\core\core.php on line 21
-[11-Oct-2010 13:11:12] PHP Notice:  Undefined variable: core_exp_dbver in C:\xampp\htdocs\MangosWebv3\core\core.php on line 22
-[11-Oct-2010 13:11:55] PHP Notice:  Undefined variable: rev in C:\xampp\htdocs\MangosWebv3\core\core.php on line 20
-[11-Oct-2010 13:11:55] PHP Notice:  Undefined variable: rev_date in C:\xampp\htdocs\MangosWebv3\core\core.php on line 21
-[11-Oct-2010 13:11:55] PHP Notice:  Undefined variable: exp_dbver in C:\xampp\htdocs\MangosWebv3\core\core.php on line 22
-[11-Oct-2010 13:11:55] PHP Notice:  Undefined property: Core::$core_rev in C:\xampp\htdocs\MangosWebv3\core\core.php on line 23
-[11-Oct-2010 13:12:09] PHP Notice:  Undefined variable: rev in C:\xampp\htdocs\MangosWebv3\core\core.php on line 20
-[11-Oct-2010 13:12:09] PHP Notice:  Undefined variable: rev_date in C:\xampp\htdocs\MangosWebv3\core\core.php on line 21
-[11-Oct-2010 13:12:09] PHP Notice:  Undefined variable: exp_dbver in C:\xampp\htdocs\MangosWebv3\core\core.php on line 22
-[11-Oct-2010 13:12:09] PHP Notice:  Undefined property: Core::$copyright in C:\xampp\htdocs\MangosWebv3\templates\offlike\body_footer.php on line 37
-[11-Oct-2010 13:15:07] PHP Notice:  Undefined variable: core_rev in C:\xampp\htdocs\MangosWebv3\core\core.php on line 20
-[11-Oct-2010 13:15:07] PHP Notice:  Undefined variable: core_rev_date in C:\xampp\htdocs\MangosWebv3\core\core.php on line 21
-[11-Oct-2010 13:15:07] PHP Notice:  Undefined variable: core_exp_dbver in C:\xampp\htdocs\MangosWebv3\core\core.php on line 22
-[11-Oct-2010 13:32:38] PHP Fatal error:  Call to undefined method Core::load_permissions() in C:\xampp\htdocs\MangosWebv3\core\core.php on line 21
-[11-Oct-2010 13:33:20] PHP Fatal error:  Call to undefined method Core::load_permissions() in C:\xampp\htdocs\MangosWebv3\core\core.php on line 21
-[11-Oct-2010 13:33:31] PHP Fatal error:  Call to undefined method Core::load_permissions() in C:\xampp\htdocs\MangosWebv3\core\core.php on line 21
-[11-Oct-2010 13:55:32] PHP Notice:  Undefined variable: site_copyright in C:\xampp\htdocs\MangosWebv3\inc\admin\body_footer.php on line 10
-[11-Oct-2010 14:00:31] PHP Notice:  Undefined variable: site_rev in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.updates.php on line 5
-[11-Oct-2010 14:00:31] PHP Notice:  Undefined variable: site_rev in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.updates.php on line 5
+[12-Oct-2010 16:09:01] PHP Fatal error:  Call to undefined function lang_resource() in C:\xampp\htdocs\MangosWebv3\templates\offlike\server\server.rules.php on line 8
+[12-Oct-2010 16:09:43] PHP Notice:  Undefined index: chartools in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.index.php on line 1
+[12-Oct-2010 16:09:49] PHP Notice:  Undefined index: hideemail in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 110
+[12-Oct-2010 16:09:49] PHP Notice:  Undefined index: hideemail in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 111
+[12-Oct-2010 16:09:49] PHP Notice:  Undefined index: hideprofile in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 124
+[12-Oct-2010 16:09:49] PHP Notice:  Undefined index: hideprofile in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 125
+[12-Oct-2010 16:09:49] PHP Notice:  Undefined index: gender in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 139
+[12-Oct-2010 16:09:49] PHP Notice:  Undefined index: gender in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 140
+[12-Oct-2010 16:09:49] PHP Notice:  Undefined index: gender in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 141
+[12-Oct-2010 16:09:49] PHP Notice:  Undefined index: homepage in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 152
+[12-Oct-2010 16:09:49] PHP Notice:  Undefined index: icq in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 165
+[12-Oct-2010 16:09:49] PHP Notice:  Undefined index: msn in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 176
+[12-Oct-2010 16:09:49] PHP Notice:  Undefined index: location in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 190
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 196
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 196
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 196
+[12-Oct-2010 16:09:49] PHP Notice:  Undefined index: avatar in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 220
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 322
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 322
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 322
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 340
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 340
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 340
+[12-Oct-2010 16:09:49] PHP Notice:  Undefined index: secretq1 in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 386
+[12-Oct-2010 16:09:49] PHP Notice:  Undefined index: secretq1 in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 409
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
+[12-Oct-2010 16:09:49] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
+[12-Oct-2010 16:09:49] PHP Notice:  Undefined index: secretq2 in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 436
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
+[12-Oct-2010 16:09:49] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
+[12-Oct-2010 16:09:49] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
+[12-Oct-2010 16:10:34] PHP Notice:  Undefined index: hideemail in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 110
+[12-Oct-2010 16:10:34] PHP Notice:  Undefined index: hideemail in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 111
+[12-Oct-2010 16:10:34] PHP Notice:  Undefined index: hideprofile in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 124
+[12-Oct-2010 16:10:34] PHP Notice:  Undefined index: hideprofile in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 125
+[12-Oct-2010 16:10:34] PHP Notice:  Undefined index: gender in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 139
+[12-Oct-2010 16:10:34] PHP Notice:  Undefined index: gender in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 140
+[12-Oct-2010 16:10:34] PHP Notice:  Undefined index: gender in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 141
+[12-Oct-2010 16:10:34] PHP Notice:  Undefined index: homepage in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 152
+[12-Oct-2010 16:10:34] PHP Notice:  Undefined index: icq in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 165
+[12-Oct-2010 16:10:34] PHP Notice:  Undefined index: msn in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 176
+[12-Oct-2010 16:10:34] PHP Notice:  Undefined index: location in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 190
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 196
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 196
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 196
+[12-Oct-2010 16:10:34] PHP Notice:  Undefined index: avatar in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 220
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 244
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 322
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 322
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 322
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 340
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 340
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 340
+[12-Oct-2010 16:10:34] PHP Notice:  Undefined index: secretq1 in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 386
+[12-Oct-2010 16:10:34] PHP Notice:  Undefined index: secretq1 in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 409
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
+[12-Oct-2010 16:10:34] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 411
+[12-Oct-2010 16:10:34] PHP Notice:  Undefined index: secretq2 in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 436
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
+[12-Oct-2010 16:10:34] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438
+[12-Oct-2010 16:10:34] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.manage.php on line 438

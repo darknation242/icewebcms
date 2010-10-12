@@ -1,5 +1,4 @@
 
-body { background: #000 url('../images/page-bg.jpg') repeat-x center 0; color: #000; font-family: arial, helvetica, sans-serif; font-size: 12px; padding: 0; margin: 0; }
 .left { float: left; }
 .redbutton-container {display: block;height:25px; }
 .leftnopadd { float: left; margin:0px; padding:0px; }
@@ -12,11 +11,9 @@ h1, h2, h3, h4, h5, h6 { padding: 0; margin: 0; background-repeat: no-repeat; te
 h4 span, h3 span, .arrow-readmore span, .button-readmore a span, a em { display: none; }
 object { padding: 0; margin: 0; }
 span.grey { font-family: arial,helvetica,sans-serif; color: #a0a1a3; font-size: 9pt; }
-/*span    { font-family: arial,helvetica,sans-serif; color: #cccccc; font-size: 9pt; }*/
 span.lite { font-family: arial,helvetica,sans-serif; color: #f0e7be; font-size: 9pt; }
 small   { font-family: arial,helvetica,sans-serif; color: #d7cea4; font-size: 8pt; }
 small.gold{ font-family: arial,helvetica,sans-serif; color: #c4c4c4; font-size: 8pt; }
-/*b     { color: #e2d9b0; font-weight: bold; }*/
 b.white   { color: #ffffff; font-weight: bold; }
 span.red  { color: red; }
 span.blue   { font-family: arial,helvetica,sans-serif; color:#00c0ff; font-size: 10pt; }

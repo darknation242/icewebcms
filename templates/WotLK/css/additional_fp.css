@@ -4,10 +4,10 @@ div.fpdrop {positon:relative; left:57px; }
 #droppt {position: absolute; right: 272px; top: 39px; z-index:99; width: 145px;}
 #droppfo {position: absolute; right: 420px; top: 39px; z-index:99; width: 145px;}
 #loginbox {position:absolute; z-index:99; left: 561px; top: 3px; width:430px; height:34px;text-align:right;color: #FFAC04; font-size: 12px; font-weight: bold; }
-#main { width:827px; background: url('../images/main_bg_rpt.jpg') repeat-y; }
+#main { width:827px; background: url('../images/frontpage_bg_rpt.jpg') repeat-y; }
 #main-top { height: 46px; width: 100%; background: none; position: relative; top:1px; }
 #main-top div { height: 46px; width:10px; background: none; }
-#main-top div div { height: 433px; width:813px; background: url('../images/main_top_bg.jpg') no-repeat; margin-left: 14px; z-index: -30;}
+#main-top div div { height: 433px; width:813px; background: url('../images/frontpage_top_bg.jpg') no-repeat; margin-left: 14px; z-index: -30;}
 #main-top div div div { height: 46px; background: none; }
 #main-content-wrapper {width:20px; background: none; height: auto; z-index:5;}
 #main-content { height: auto; background: none; }

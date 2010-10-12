@@ -137,14 +137,14 @@ echo $GLOBALS['redirect'];
 										?>
 											| <a href="<?php echo mw_url('account', 'pms'); ?>"<?php echo($userpm_num>0?' style="color:red;"':'');?>>
 											<?php echo$userpm_num;?> <?php echo $lang['newpms'];?></a>
-										<a href="<?php echo mw_url('account', 'manage'); ?>"><img src="<?php echo $currtmp; ?>/images/button-profile.gif" alt="Profile"/></a> 
-										<input type="image" src="<?php echo $currtmp; ?>/images/button-logout.gif" value="Logout"/>
+										<a href="<?php echo mw_url('account', 'manage'); ?>"><img src="<?php echo $currtmp; ?>/images/buttons/button-profile.gif" alt="Profile"/></a> 
+										<input type="image" src="<?php echo $currtmp; ?>/images/buttons/button-logout.gif" value="Logout"/>
 								<?php 
 									}else{ ?>
 										Login: <input name="login" size="14" type="text"/>
 										Password: <input name="pass" size="14" type="password"/>
 										<input type="hidden" name="action" value="login">
-										<input type="image" src="<?php echo $currtmp; ?>/images/button-login.gif" value="Login"/>
+										<input type="image" src="<?php echo $currtmp; ?>/images/buttons/button-login.gif" value="Login"/>
 								<?php } ?>
 									</form>
 								</div>
