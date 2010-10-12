@@ -169,22 +169,22 @@ function write_form_tool(){
 ?>
         <div id="form_tool">
             <ul id="bbcode_tool">
-                <li id="bbcode_b"><a href="#"><img src="<?php echo $template_href;?>images/button-bold.gif" alt="<?php lang('editor_bold'); ?>" title="<?php lang('editor_bold'); ?>"></a></li>
-                <li id="bbcode_i"><a href="#"><img src="<?php echo $template_href;?>images/button-italic.gif" alt="<?php lang('editor_italic'); ?>" title="<?php lang('editor_italic'); ?>"></a></li>
-                <li id="bbcode_u"><a href="#"><img src="<?php echo $template_href;?>images/button-underline.gif" alt="<?php lang('editor_underline'); ?>" title="<?php lang('editor_underline'); ?>"></a></li>
-                <li id="bbcode_url"><a href="#"><img src="<?php echo $template_href;?>images/button-url.gif" alt="<?php lang('editor_link'); ?>" title="<?php lang('editor_link'); ?>"></a></li>
-                <li id="bbcode_img"><a href="#"><img src="<?php echo $template_href;?>images/button-img.gif" alt="<?php lang('editor_image'); ?>" title="<?php lang('editor_image'); ?>"></a></li>
-                <li id="bbcode_blockquote"><a href="#"><img src="<?php echo $template_href;?>images/button-quote.gif" alt="<?php lang('editor_quote'); ?>" title="<?php lang('editor_quote'); ?>"></a></li>
+                <li id="bbcode_b"><a href="#"><img src="<?php echo $template_href;?>editor/images/button-bold.gif" alt="<?php lang('editor_bold'); ?>" title="<?php lang('editor_bold'); ?>"></a></li>
+                <li id="bbcode_i"><a href="#"><img src="<?php echo $template_href;?>editor/images/button-italic.gif" alt="<?php lang('editor_italic'); ?>" title="<?php lang('editor_italic'); ?>"></a></li>
+                <li id="bbcode_u"><a href="#"><img src="<?php echo $template_href;?>editor/images/button-underline.gif" alt="<?php lang('editor_underline'); ?>" title="<?php lang('editor_underline'); ?>"></a></li>
+                <li id="bbcode_url"><a href="#"><img src="<?php echo $template_href;?>editor/images/button-url.gif" alt="<?php lang('editor_link'); ?>" title="<?php lang('editor_link'); ?>"></a></li>
+                <li id="bbcode_img"><a href="#"><img src="<?php echo $template_href;?>editor/images/button-img.gif" alt="<?php lang('editor_image'); ?>" title="<?php lang('editor_image'); ?>"></a></li>
+                <li id="bbcode_blockquote"><a href="#"><img src="<?php echo $template_href;?>editor/images/button-quote.gif" alt="<?php lang('editor_quote'); ?>" title="<?php lang('editor_quote'); ?>"></a></li>
             </ul>
             <ul id="text_tool">
-                <li id="text_size"><a href="#"><img src="<?php echo $template_href;?>images/button-size.gif" alt="<?php lang('editor_size'); ?>" title="<?php lang('editor_size'); ?>"></a>
+                <li id="text_size"><a href="#"><img src="<?php echo $template_href;?>editor/images/button-size.gif" alt="<?php lang('editor_size'); ?>" title="<?php lang('editor_size'); ?>"></a>
                     <ul>
                         <li id="text_size-hugesize"><a href="#">Huge</a></li>
                         <li id="text_size-largesize"><a href="#">Large</a></li>
                         <li id="text_size-mediumsize"><a href="#">Medium</a></li>
                     </ul>
                 </li>
-                <li id="text_color"><a href="#"><img src="<?php echo $template_href;?>images/button-color.gif" alt="<?php lang('editor_color'); ?>" title="<?php lang('editor_color'); ?>"></a>
+                <li id="text_color"><a href="#"><img src="<?php echo $template_href;?>editor/images/button-color.gif" alt="<?php lang('editor_color'); ?>" title="<?php lang('editor_color'); ?>"></a>
                     <ul>
                         <li id="text_color-red"><a href="#"><?php lang('editor_color_red'); ?></a></li>
                         <li id="text_color-green"><a href="#"><?php lang('editor_color_green'); ?></a></li>
@@ -192,7 +192,7 @@ function write_form_tool(){
                         <li id="text_color-custom"><a href="#"><?php lang('editor_color_custom'); ?></a></li>
                     </ul>
                 </li>
-                <li id="text_align"><a href="#"><img src="<?php echo $template_href;?>images/button-list.gif" alt="<?php lang('editor_align'); ?>" title="<?php lang('editor_align'); ?>"></a>
+                <li id="text_align"><a href="#"><img src="<?php echo $template_href;?>editor/images/button-list.gif" alt="<?php lang('editor_align'); ?>" title="<?php lang('editor_align'); ?>"></a>
                     <ul>
                         <li id="text_align-left"><a href="#"><?php lang('editor_align_left'); ?></a></li>
                         <li id="text_align-right"><a href="#"><?php lang('editor_align_right'); ?></a></li>
@@ -200,7 +200,7 @@ function write_form_tool(){
                         <li id="text_align-justify"><a href="#"><?php lang('editor_align_justify'); ?></a></li>
                     </ul>
                 </li>
-                <li id="text_smile"><a href="#"><img src="<?php echo $template_href;?>images/button-emote.gif" alt="<?php lang('editor_smile'); ?>" title="<?php lang('editor_smile'); ?>"></a>
+                <li id="text_smile"><a href="#"><img src="<?php echo $template_href;?>editor/images/button-emote.gif" alt="<?php lang('editor_smile'); ?>" title="<?php lang('editor_smile'); ?>"></a>
                     <ul>
 <?php
 $smiles = load_smiles();
