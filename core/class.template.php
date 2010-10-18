@@ -4,7 +4,7 @@ class Template
 	public $xml;
 	
 	// This function sets up what template is going to be used, based on what the user has picked as his/her template
-	function load()
+	function Init()
 	{
 		global $user, $cfg, $DB;
 		$template_list = explode(",", $cfg->get('templates'));

@@ -2,7 +2,7 @@
 <?php builddiv_start(1, $lang['account_activate']) ?>
 <table align="center" width="100%" style="font-size:0.8em;"><tr><td align="center">
 <?php
-if(empty($_REQUEST['key'])){
+if(empty($_GET['key'])){
 ?>
     <form action="index.php?n=account&sub=activate" method="post">
         <div style="border: 2px dotted #1E4378;background:none;margin:4px;padding:6px 9px 6px 9px;text-align:right;width:70%;">

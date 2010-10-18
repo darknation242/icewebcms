@@ -251,7 +251,7 @@ echo $GLOBALS['redirect'];
                                                             <div style="padding-right:10px; margin-left:11px;" id="compcont"> 
                                                             <div style="clear:both;display:block;position:relative;width:100%;margin-top:-4px;">
                                                             <!-- Pathway -->
-                                                            <?php if(isset($_GET['n'])){ ?><div class="redbannerbg"><div class="redbannerleft"></div><div class="redbannerlabel"><?php echo $pathway_str;?></div><div class="redbannerright"></div></div><?php } ?>
+                                                            <?php if(isset($_GET['p'])){ ?><div class="redbannerbg"><div class="redbannerleft"></div><div class="redbannerlabel"><?php echo $pathway_str;?></div><div class="redbannerright"></div></div><?php } ?>
                                                             <?php echo $GLOBALS['messages']; ?>
                                                             <!-- Component body BEGIN -->
                                                             

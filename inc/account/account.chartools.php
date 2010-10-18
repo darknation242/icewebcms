@@ -4,15 +4,13 @@ if(INCLUDED!==true)exit;
 $pathway_info[] = array('title'=>$lang['char_manage'],'link'=>'');
 // ==================== //
 
-$MANG = new Mangos;
 
 // Here we chack to see if user is logged in, if not, then redirect to account login screen
-if($user['id']<=0){
-    redirect('index.php?n=account&sub=login',1);
-}else{
+if($user['id']<=0)
+{
+    redirect('index.php?p=account&sub=login',1);
 }
-?>
-<?php
+
 // Here we see if the site admin has the rename system enabled
 if ((int)$MW->getConfig->character_tools->rename){
     $show_rename = true;

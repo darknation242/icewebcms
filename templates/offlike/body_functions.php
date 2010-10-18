@@ -68,7 +68,7 @@ function build_main_menu(){
 			$menuquery = "SELECT * FROM `menu_items` WHERE `menu_id`='$menunamev[0]' AND `account_level` <= '$user[account_level]' ORDER BY `order` ASC";
 		}
 		$menuitems = $DB->select($menuquery);
-        if(count($menuitems)>0)// && $menuitems[0][0])
+        if($menuitems != FALSE)// && $menuitems[0][0])
         {
             static $index = 0;
             $index++;
@@ -124,9 +124,9 @@ function write_subheader($subheader){
 	global $currtmp;
     echo '<table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tbody><tr>
-    <td width="24"><img src="'.$currtmp.'/images/subheader-left-sword.gif" height="20" width="24" alt=""/></td>
+    <td width="24"><img src="'.$currtmp.'/images/subheader/subheader-left-sword.gif" height="20" width="24" alt=""/></td>
     <td bgcolor="#05374a" width="100%"><b style="color:white;">'.$subheader.':</b></td>
-    <td width="10"><img src="'.$currtmp.'/images/subheader-right.gif" height="20" width="10" alt=""/></td>
+    <td width="10"><img src="'.$currtmp.'/images/subheader/subheader-right.gif" height="20" width="10" alt=""/></td>
 </tr>
 </tbody></table>';
 }
@@ -233,7 +233,8 @@ function random_screenshot(){
   $fpos = rand(0, $fnum-1);
   return $fa[$fpos];
 }
-function build_pathway(){
+function build_pathway()
+{
     global $lang;
     global $pathway_info;
     global $title_str,$pathway_str;
@@ -256,7 +257,8 @@ function build_pathway(){
 // !!!!!!!!!!!!!!!! //
 build_pathway();
 
-function paginate($num_pages, $cur_page, $link_to){
+function paginate($num_pages, $cur_page, $link_to)
+{
   $pages = array();
   $link_to_all = false;
   if ($cur_page == -1)

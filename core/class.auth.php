@@ -3,7 +3,8 @@
 /* 			This script conatians all the login, register, and logout scripts 			   */
 /*******************************************************************************************/
 
-class AUTH {
+class AUTH 
+{
     var $DB;
     var $user = array(
      'id'    => -1,
@@ -24,34 +25,45 @@ class AUTH {
     function check()
     {
         global $cfg;
-        if(isset($_COOKIE[((string)$cfg->get('site_cookie'))])){
+        if(isset($_COOKIE[((string)$cfg->get('site_cookie'))]))
+		{
             list($cookie['user_id'], $cookie['account_key']) = @unserialize(stripslashes($_COOKIE[((string)$cfg->get('site_cookie'))]));
-            if($cookie['user_id'] < 1)return false;
+            if($cookie['user_id'] < 1)
+			{
+				return false;
+			}
             $res = $this->DB->selectRow("
                 SELECT * FROM account
                 LEFT JOIN account_extend ON account.id=account_extend.account_id
                 LEFT JOIN account_groups ON account_extend.account_level=account_groups.account_level
                 WHERE id = ?d", $cookie['user_id']);
-            if(get_banned($res['id'], 1)== TRUE){
+            if(get_banned($res['id'], 1) == TRUE)
+			{
                 $this->setgroup();
                 $this->logout();
                 output_message('error','Your account is currently banned');
                 return false;
             }
-            if($res['activation_code'] != null){
+            if($res['activation_code'] != null)
+			{
                 $this->setgroup();
                 output_message('warning','Your account is not active');
                 return false;
             }
-            if(matchAccountKey($cookie['user_id'], $cookie['account_key'])){
+            if(matchAccountKey($cookie['user_id'], $cookie['account_key']))
+			{
                 unset($res['sha_pass_hash']);
                 $this->user = $res;
                 return true;
-            }else{
+            }
+			else
+			{
                 $this->setgroup();
                 return false;
             }
-        }else{
+        }
+		else
+		{
             $this->setgroup();
             return false;
         }
@@ -68,35 +80,47 @@ class AUTH {
         global $cfg;
         $success = 1;
         if (empty($params)) return false;
-        if (empty($params['username'])){
+        if (empty($params['username']))
+		{
             output_message('validation','You did not provide your username');
             $success = 0;
         }
-        if (empty($params['sha_pass_hash'])){
+        if (empty($params['sha_pass_hash']))
+		{
             output_message('validation','You did not provide your password');
             $success = 0;
         }
         $res = $this->DB->selectRow("
             SELECT `id`,`username`,`sha_pass_hash`,`locked` FROM `account`
             WHERE `username` = ?", $params['username']);
-        if($res['id'] < 1){$success = 0;output_message('alert','Bad username');}
-        if(get_banned($res[id], 1)== TRUE){
+        if($res['id'] < 1)
+		{
+			$success = 0;output_message('alert','Bad username');
+		}
+        if(get_banned($res[id], 1)== TRUE)
+		{
             output_message('error','Your account is currently banned');
             $success = 0;
         }
-        if($res['activation_code'] != null){
+        if($res['activation_code'] != null)
+		{
             output_message('error','Your account is not active. Please check your email to activate your account.');
             $success = 0;
         }
-        if($success!=1) return false;
-        if( strtoupper($res['sha_pass_hash']) == strtoupper($params['sha_pass_hash'])){
+        if($success != 1) 
+		{
+			return false;
+		}
+        if( strtoupper($res['sha_pass_hash']) == strtoupper($params['sha_pass_hash']))
+		{
             $this->user['id'] = $res['id'];
             $this->user['name'] = $res['username'];
             $generated_key = $this->generate_key();
             addOrUpdateAccountKeys($res['id'],$generated_key);
             $uservars_hash = serialize(array($res['id'], $generated_key));
             $cookie_expire_time = intval($cfg->get('account_key_retain_length'));
-            if(!$cookie_expire_time) {
+            if(!$cookie_expire_time) 
+			{
                 $cookie_expire_time = (60*60*24*365);   //default is 1 year
             }
             (string)$cookie_name = $cfg->get('site_cookie');
@@ -104,7 +128,9 @@ class AUTH {
             (int)$cookie_delay = (time()+$cookie_expire_time);
             setcookie($cookie_name, $uservars_hash, $cookie_delay,$cookie_href);
             return true;
-        }else{
+        }
+		else
+		{
             output_message('validation','Your password is incorrect');
             return false;
         }
@@ -119,8 +145,10 @@ class AUTH {
 
     function lastvisit_update($uservars)
     {
-        if($uservars['id']>0){
-            if(time() - $uservars['last_visit'] > 60*10){
+        if($uservars['id']>0)
+		{
+            if(time() - $uservars['last_visit'] > 60*10)
+			{
                 $this->DB->query("UPDATE `account_extend` SET last_visit=?d WHERE account_id=?d LIMIT 1",time(),$uservars['id']);
             }
         }
@@ -130,24 +158,30 @@ class AUTH {
         global $cfg;
         $success = 1;
         if(empty($params)) return false;
-        if(empty($params['username'])){
+        if(empty($params['username']))
+		{
             output_message('validation','You did not provide your username');
             $success = 0;
         }
-        if(empty($params['sha_pass_hash']) || $params['sha_pass_hash']!=$params['sha_pass_hash2']){
+        if(empty($params['sha_pass_hash']) || $params['sha_pass_hash'] != $params['sha_pass_hash2'])
+		{
             output_message('validation','You did not provide your password or confirm pass');
             $success = 0;
         }
-        if(empty($params['email'])){
+        if(empty($params['email']))
+		{
             output_message('validation','You did not provide your email');
             $success = 0;
         }
-
-        if($success!=1) return false;
+        if($success!=1) 
+		{
+			return false;
+		}
         unset($params['sha_pass_hash2']);
         $password = $params['password'];
         unset($params['password']);
-        if((int)$cfg->get('req_reg_act')){
+        if((int)$cfg->get('require_act_activation'))
+		{
             $tmp_act_key = $this->generate_key();
             $params['locked'] = 1;
             if($acc_id = $this->DB->query("INSERT INTO account SET ?a",$params)){
@@ -166,55 +200,91 @@ class AUTH {
                 $email_text .= 'CLICK HERE : '.$act_link."\n";
                 send_email($params['email'],$params['username'],'== '.(string)$cfg->get('site_title').' account activation ==',$email_text);
                 return true;
-            }else{
+            }
+			else
+			{
                 return false;
             }
-        }else{
-            if($acc_id = $this->DB->query("INSERT INTO account SET ?a",$params)){
-                if ($account_extend == false){
+        }
+		else
+		{
+            if($acc_id = $this->DB->query("INSERT INTO account SET ?a",$params))
+			{
+                if ($account_extend == false)
+				{
                     $this->DB->query("INSERT INTO account_extend SET account_id=?d, registration_ip=?, activation_code=?",$acc_id,$_SERVER['REMOTE_ADDR'],$tmp_act_key);
-                }else{
+                }
+				else
+				{
                     $this->DB->query("INSERT INTO account_extend SET account_id=?d, registration_ip=?, activation_code=?, secret_q1=?s, secret_a1=?s, secret_q2=?s, secret_a2=?s",$acc_id,$_SERVER['REMOTE_ADDR'],$tmp_act_key,$account_extend['secretq1'], $account_extend['secreta1'], $account_extend['secretq2'], $account_extend['secreta2']);
                 }
                 return true;
             }
-            else{
+            else
+			{
                 return false;
             }
         }
     }
 	
-	function changePass($id,$usern,$newpass) {
+	function changePass($id,$usern,$newpass) 
+	{
 		global $DB;
 	}
 	
-    function isavailableusername($username){
+    function isavailableusername($username)
+	{
         $res = $this->DB->selectCell("SELECT count(*) FROM account WHERE username=?",$username);
         if($res < 1) return true; // username is available
         return false; // username is not available
     }
 
-    function isavailableemail($email){
+    function isavailableemail($email)
+	{
         $res = $this->DB->selectCell("SELECT count(*) FROM account WHERE email=?",$email);
-        if($res < 1) return true; // email is available
-        return false; // email is not available
+        if($res < 1) 
+		{
+			return true; // email is available
+		}
+		else
+		{
+			return false; // email is not available
+		}
     }
-    function isvalidemail($email){
-        if(preg_match('#^.{1,}@.{2,}\..{2,}$#', $email)==1){
+    function isvalidemail($email)
+	{
+        if(preg_match('#^.{1,}@.{2,}\..{2,}$#', $email)==1)
+		{
             return true; // email is valid
-        }else{
+        }
+		else
+		{
             return false; // email is not valid
         }
     }
-    function isvalidregkey($key){
+    function isvalidregkey($key)
+	{
         $res = $this->DB->selectCell("SELECT count(*) FROM site_regkeys WHERE `key`=?",$key);
-        if($res > 0) return true; // key is valid
-        return false; // key is not valid
+        if($res > 0) 
+		{
+			return true; // key is valid
+		}
+        else
+		{
+			return false; // key is not valid
+		}
     }
-    function isvalidactkey($key){
+    function isvalidactkey($key)
+	{
         $res = $this->DB->selectCell("SELECT account_id FROM account_extend WHERE activation_code=?",$key);
-        if($res > 0) return $res; // key is valid
-        return false; // key is not valid
+        if($res > 0) 
+		{
+			return $res; // key is valid
+		}
+		else
+		{
+			return false; // key is not valid
+		}
     }
     function generate_key()
     {
@@ -234,18 +304,23 @@ class AUTH {
         }
         return $keys;
     }
-    function delete_key($key){
+    function delete_key($key)
+	{
         $this->DB->query("DELETE FROM site_regkeys WHERE `key`=?",$key);
     }
-	function getprofile($acct_id=false){
+	function getprofile($acct_id=false)
+	{
 		global $cfg;
-		if($cfg->get('emulator') == 'trinity') {
+		if($cfg->get('emulator') == 'trinity') 
+		{
 			$res = $this->DB->selectRow("
 				SELECT * FROM account
 				LEFT JOIN account_extend ON account.id=account_extend.account_id
 				LEFT JOIN account_groups ON account_extend.account_level=account_groups.account_level
 				WHERE id=?d",$acct_id);
-		}else{
+		}
+		else
+		{
 			$res = $this->DB->selectRow("
 				SELECT * FROM account
 				LEFT JOIN account_extend ON account.id=account_extend.account_id
@@ -254,23 +329,45 @@ class AUTH {
 		}
         return $res;
     }
-    function getgroup($g_id=false){
-        $res = $this->DB->selectRow("SELECT * FROM account_groups WHERE account_level=?d",$g_id);
+    function getgroup($g_id=false)
+	{
+        $res = $this->DB->selectRow("SELECT * FROM account_groups WHERE account_level=".$g_id."");
         return $res;
     }
-    function getlogin($acct_id=false){
+    function getlogin($acct_id=false)
+	{
         $res = $this->DB->selectCell("SELECT username FROM account WHERE id=?d",$acct_id);
-        if($res == null) return false;  // no such account
-        return $res;
+        if($res == null)
+		{
+			return false;  // no such account
+		}
+		else
+		{
+			return $res;
+		}
     }
-    function getid($acct_name=false){
+    function getid($acct_name=false)
+	{
         $res = $this->DB->selectCell("SELECT id FROM account WHERE username=?",$acct_name);
-        if($res == null) return false;  // no such account
-        return $res;
+        if($res == null)
+		{
+			return false;  // no such account
+		}
+		else
+		{
+			return $res;
+		}
     }
-    function gethash($str=false){
-        if($str)return sha1(base64_encode(md5(utf8_encode($str)))); // Returns 40 char hash.
-        else return false;
+    function gethash($str=false)
+	{
+        if($str)
+		{
+			return sha1(base64_encode(md5(utf8_encode($str)))); // Returns 40 char hash.
+		}
+        else 
+		{
+			return false;
+		}
     }
 }
     // ONLINE FUNCTIONS //
