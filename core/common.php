@@ -68,14 +68,6 @@ function customError($errno, $errstr)
 	//die();
 }
 
-// Sets up the Database Handler
-function databaseErrorHandler($message, $info)
-{
-    if (!error_reporting()) return;
-    echo "<div class=\"error\">SQL Error: $message<br><pre>"; print_r($info); echo "</pre></div>";
-    exit();
-}
-
 function sha_password($user,$pass){
     $user = strtoupper($user);
     $pass = strtoupper($pass);
@@ -86,7 +78,7 @@ function sha_password($user,$pass){
 function get_realm_byid($id)
 {
     global $DB;
-    $search_q = $DB->selectRow("SELECT * FROM `realmlist` WHERE `id`=?d",$id);
+    $search_q = $DB->selectRow("SELECT * FROM realmlist WHERE id=".$id."");
     return $search_q;
 }
 
@@ -219,19 +211,24 @@ function get_banned($account_id,$returncont)
 {
     global $DB;
 
-    $get_last_ip = $DB->selectCell("SELECT last_ip FROM account WHERE id='".$account_id."'");
-    $db_IP = $get_last_ip;
+    $get_last_ip = $DB->selectRow("SELECT * FROM account WHERE id='".$account_id."'");
+    $db_IP = $get_last_ip['last_ip'];
 
-    $ip_check = $DB->selectCell("SELECT ip FROM `ip_banned` WHERE ip='".$db_IP."'");
-    if ($ip_check == FALSE){
+    $ip_check = $DB->selectRow("SELECT * FROM ip_banned WHERE ip='".$db_IP."'");
+    if ($ip_check == FALSE)
+	{
         if ($returncont == "1"){
             return FALSE;
         }
-    }else{
-        if ($returncont == "1"){
+    }
+	else
+	{
+        if ($returncont == "1")
+		{
             return TRUE;
         }
-        else{
+        else
+		{
             return $db_IP;
         }
     }
@@ -242,17 +239,24 @@ function matchAccountKey($id, $key)
 {
     clearOldAccountKeys();
     global $DB;
-    $count = $DB->selectcell("SELECT count(*) FROM `account_keys` where id = ?", $id);
-    if($count == 0) {
+    $count = $DB->selectRow("SELECT * FROM account_keys WHERE id='$id'");
+    if($count == FALSE) 
+	{
         return false;
     }
-    $account_key = $DB->selectcell("SELECT `key` FROM `account_keys` where id = ?", $id);
-    if($key == $account_key) {
-        return true;
-    }
-    else {
-        return false;
-    }
+	else
+	{
+		$account_key = $DB->selectRow("SELECT * FROM account_keys WHERE id='$id'");
+		if($key == $account_key['key']) 
+		{
+			return true;
+		}
+		else 
+		{
+			output_message('error', 'Account Keys Error!');
+			return false;
+		}
+	}
 }
 
 function clearOldAccountKeys() 
@@ -261,13 +265,14 @@ function clearOldAccountKeys()
     global $cfg;
 
     $cookie_expire_time = (int)$cfg->get('account_key_retain_length');
-    if(!$cookie_expire_time) {
+    if(!$cookie_expire_time) 
+	{
         $cookie_expire_time = (60*60*24*365);   //default is 1 year
     }
 
     $expire_time = time() - $cookie_expire_time;
 
-    $DB->query("DELETE FROM `account_keys` WHERE `assign_time` < ?", $expire_time);
+    $DB->query("DELETE FROM account_keys WHERE assign_time < ".$expire_time."");
 }
 
 function addOrUpdateAccountKeys($id, $key) 
@@ -275,13 +280,14 @@ function addOrUpdateAccountKeys($id, $key)
     global $DB;
 
     $current_time = time();
-
-    $count = $DB->selectcell("SELECT count(*) FROM account_keys where id = ?", $id);
-    if($count == 0) {   //need to INSERT
-        $DB->query("INSERT INTO `account_keys` SET `id` = ?, `key` = ?, `assign_time` = ?", $id, $key, $current_time);
+    $go = $DB->selectRow("SELECT * FROM account_keys WHERE id = '".$id."'");
+    if($go == FALSE) //need to INSERT
+	{
+        $DB->query("INSERT INTO account_keys (`id`, `key`, `assign_time`) VALUES ('$id', '$key', '$current_time')");
     }
-    else {              //need to UPDATE
-        $DB->query("UPDATE `account_keys` SET `key` = ?, `assign_time` = ? WHERE `id` = ?", $key, $current_time, $id);
+    else //need to UPDATE
+	{              
+        $DB->query("UPDATE `account_keys` SET `key`='$key', `assign_time`='$current_time' WHERE `id`='$id'");
     }
 }
 
@@ -289,12 +295,14 @@ function removeAccountKeyForUser($id)
 {
     global $DB;
 
-    $count = $DB->selectcell("SELECT count(*) FROM account_keys where id = ?", $id);
-    if($count == 0) {
+    $count = $DB->selectRow("SELECT * FROM account_keys where id ='$id'");
+    if($count == FALSE) 
+	{
         //do nothing
     }
-    else {
-        $DB->query("DELETE FROM `account_keys` WHERE `id` = ?", $id);
+    else 
+	{
+        $DB->query("DELETE FROM account_keys WHERE id ='$id'");
     }
 }
 

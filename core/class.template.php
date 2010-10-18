@@ -40,7 +40,7 @@ class Template
 				$tmpl_num = $user['theme'];
 				if($tmpl_cookienum !== $tmpl_num) // If the cookie and set theme in DB are not the same, fix that :)
 				{
-					$DB->query( "UPDATE `account_extend` SET `theme`=?d WHERE `account_id`=?d", $tmpl_cookienum, $user['id'] );
+					$DB->query( "UPDATE `account_extend` SET `theme`='$tmpl_cookienum' WHERE `account_id`='$user[id]'");
 					$tmpl_num = $tmpl_cookienum;
 				}
 			}

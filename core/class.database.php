@@ -23,22 +23,17 @@ class Database
 
     public function query($query)
     {
-        $sql = @mysql_query($query,$this->mysql) or die(mysql_error());
+        $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
 		$this->_statistics['count']++;
-        if($sql)
-		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}
+		//echo $query."<br />";
+		return TRUE;
     }
 
     public function select($query)
     {
-        $sql = @mysql_query($query,$this->mysql) or die(mysql_error());
+        $sql = mysql_query($query,$this->mysql) or die(mysql_error());
 		$this->_statistics['count']++;
+		// echo $query."<br />";
 		$i = 1;
 		if(mysql_num_rows($sql) == 0)
 		{
@@ -60,15 +55,25 @@ class Database
 	
 	public function selectRow($query)
     {
-        $sql = @mysql_query($query,$this->mysql) or die(mysql_error());
+        $sql = mysql_query($query,$this->mysql) or die(mysql_error());
 		$this->_statistics['count']++;
-		$row = mysql_fetch_assoc($sql);
-        return $row;
+		// echo $query."<br />";
+		if(mysql_num_rows($sql) == 0)
+		{
+			// echo "- Returning false<br />";
+			return FALSE;
+		}
+		else
+		{
+			// echo "- Returning True<br />";
+			$row = mysql_fetch_assoc($sql);
+			return $row;
+		}
     }
 	
 	public function selectCell($query)
     {
-        $sql = @mysql_query($query,$this->mysql) or die(mysql_error());
+        $sql = mysql_query($query,$this->mysql) or die(mysql_error());
 		$this->_statistics['count']++;
 		$result = mysql_result($sql,0);
         return $result;

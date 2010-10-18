@@ -36,18 +36,18 @@ class AUTH
                 SELECT * FROM account
                 LEFT JOIN account_extend ON account.id=account_extend.account_id
                 LEFT JOIN account_groups ON account_extend.account_level=account_groups.account_level
-                WHERE id = ?d", $cookie['user_id']);
+                WHERE id ='".$cookie['user_id']."'");
             if(get_banned($res['id'], 1) == TRUE)
 			{
                 $this->setgroup();
-                $this->logout();
                 output_message('error','Your account is currently banned');
+                $this->logout();
                 return false;
             }
             if($res['activation_code'] != null)
 			{
+				output_message('warning','Your account is not active');
                 $this->setgroup();
-                output_message('warning','Your account is not active');
                 return false;
             }
             if(matchAccountKey($cookie['user_id'], $cookie['account_key']))
@@ -91,13 +91,14 @@ class AUTH
             $success = 0;
         }
         $res = $this->DB->selectRow("
-            SELECT `id`,`username`,`sha_pass_hash`,`locked` FROM `account`
-            WHERE `username` = ?", $params['username']);
+            SELECT id, username, sha_pass_hash, locked FROM account
+            WHERE username='".$params['username']."'");
         if($res['id'] < 1)
 		{
-			$success = 0;output_message('alert','Bad username');
+			$success = 0;
+			output_message('alert','Bad username');
 		}
-        if(get_banned($res[id], 1)== TRUE)
+        if(get_banned($res['id'], 1) == TRUE)
 		{
             output_message('error','Your account is currently banned');
             $success = 0;
@@ -126,7 +127,7 @@ class AUTH
             (string)$cookie_name = $cfg->get('site_cookie');
             (string)$cookie_href = $cfg->get('site_href');
             (int)$cookie_delay = (time()+$cookie_expire_time);
-            setcookie($cookie_name, $uservars_hash, $cookie_delay,$cookie_href);
+            setcookie($cookie_name, $uservars_hash, $cookie_delay, $cookie_href);
             return true;
         }
 		else
@@ -149,7 +150,7 @@ class AUTH
 		{
             if(time() - $uservars['last_visit'] > 60*10)
 			{
-                $this->DB->query("UPDATE `account_extend` SET last_visit=?d WHERE account_id=?d LIMIT 1",time(),$uservars['id']);
+                $this->DB->query("UPDATE `account_extend` SET last_visit='".time()."' WHERE account_id='".$uservars['id']."' LIMIT 1");
             }
         }
     }
@@ -234,14 +235,14 @@ class AUTH
 	
     function isavailableusername($username)
 	{
-        $res = $this->DB->selectCell("SELECT count(*) FROM account WHERE username=?",$username);
+        $res = $this->DB->selectCell("SELECT count(*) FROM account WHERE username='".$username."'");
         if($res < 1) return true; // username is available
         return false; // username is not available
     }
 
     function isavailableemail($email)
 	{
-        $res = $this->DB->selectCell("SELECT count(*) FROM account WHERE email=?",$email);
+        $res = $this->DB->selectCell("SELECT count(*) FROM account WHERE email='".$email."'");
         if($res < 1) 
 		{
 			return true; // email is available
@@ -264,7 +265,7 @@ class AUTH
     }
     function isvalidregkey($key)
 	{
-        $res = $this->DB->selectCell("SELECT count(*) FROM site_regkeys WHERE `key`=?",$key);
+        $res = $this->DB->selectCell("SELECT COUNT(*) FROM site_regkeys WHERE key='".$key."'");
         if($res > 0) 
 		{
 			return true; // key is valid
@@ -276,7 +277,7 @@ class AUTH
     }
     function isvalidactkey($key)
 	{
-        $res = $this->DB->selectCell("SELECT account_id FROM account_extend WHERE activation_code=?",$key);
+        $res = $this->DB->selectCell("SELECT account_id FROM account_extend WHERE activation_code='".$key."'");
         if($res > 0) 
 		{
 			return $res; // key is valid
@@ -306,7 +307,7 @@ class AUTH
     }
     function delete_key($key)
 	{
-        $this->DB->query("DELETE FROM site_regkeys WHERE `key`=?",$key);
+        $this->DB->query("DELETE FROM site_regkeys WHERE key='".$key."'");
     }
 	function getprofile($acct_id=false)
 	{
@@ -317,7 +318,7 @@ class AUTH
 				SELECT * FROM account
 				LEFT JOIN account_extend ON account.id=account_extend.account_id
 				LEFT JOIN account_groups ON account_extend.account_level=account_groups.account_level
-				WHERE id=?d",$acct_id);
+				WHERE id='".$acct_id."'");
 		}
 		else
 		{
@@ -325,19 +326,19 @@ class AUTH
 				SELECT * FROM account
 				LEFT JOIN account_extend ON account.id=account_extend.account_id
 				LEFT JOIN account_groups ON account_extend.account_level=account_groups.account_level
-				WHERE id=?d",$acct_id);
+				WHERE id='".$acct_id."'");
 		}
         return $res;
     }
     function getgroup($g_id=false)
 	{
-        $res = $this->DB->selectRow("SELECT * FROM account_groups WHERE account_level=".$g_id."");
+        $res = $this->DB->selectRow("SELECT * FROM account_groups WHERE account_level='".$g_id."'");
         return $res;
     }
     function getlogin($acct_id=false)
 	{
-        $res = $this->DB->selectCell("SELECT username FROM account WHERE id=?d",$acct_id);
-        if($res == null)
+        $res = $this->DB->selectRow("SELECT username FROM account WHERE id='".$acct_id."'");
+        if($res == FALSE)
 		{
 			return false;  // no such account
 		}
@@ -348,7 +349,7 @@ class AUTH
     }
     function getid($acct_name=false)
 	{
-        $res = $this->DB->selectCell("SELECT id FROM account WHERE username=?",$acct_name);
+        $res = $this->DB->selectCell("SELECT id FROM account WHERE username='".$acct_name."'");
         if($res == null)
 		{
 			return false;  // no such account
