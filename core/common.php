@@ -52,7 +52,8 @@ $realm_timezone_def = array(
 //======= SITE FUNCTIONS =======//
 
 // Set up out messages like error and success boxes
-function output_message($type,$text,$file='',$line=''){
+function output_message($type,$text,$file='',$line='')
+{
     if($file)$text .= "\n<br>in file: $file";
     if($line)$text .= "\n<br>on line: $line";
     echo "<div class=\"".$type."\">$text</div>";
@@ -68,7 +69,8 @@ function customError($errno, $errstr)
 	//die();
 }
 
-function sha_password($user,$pass){
+function sha_password($user,$pass)
+{
     $user = strtoupper($user);
     $pass = strtoupper($pass);
     return SHA1($user.':'.$pass);
@@ -99,7 +101,8 @@ function check_port_status($ip, $port)
 }
 
 // ======== Print Gold Functions ======== //
-function parse_gold($varnumber) {
+function parse_gold($varnumber) 
+{
 
 	$gold = array();
 	$gold['gold'] = intval($varnumber/10000);
@@ -108,26 +111,34 @@ function parse_gold($varnumber) {
 
 	return $gold;
 }
-function get_print_gold($gold_array) {
-	if($gold_array['gold'] > 0) {
+
+function get_print_gold($gold_array) 
+{
+	if($gold_array['gold'] > 0) 
+	{
 		echo $gold_array['gold'];
 		echo "<img src='inc/admin/images/gold.GIF' border='0'>";
 	}
-	if($gold_array['silver'] > 0) {
+	if($gold_array['silver'] > 0) 
+	{
 		echo $gold_array['silver'];
 		echo "<img src='inc/admin/images/silver.GIF' border='0'>";
 	}
-	if($gold_array['copper'] > 0) {
+	if($gold_array['copper'] > 0) 
+	{
 		echo $gold_array['copper'];
 		echo "<img src='inc/admin/images/copper.GIF' border='0'>";
 	}
 }
 
-function print_gold($gvar) {
-	if($gvar == '---') {
+function print_gold($gvar) 
+{
+	if($gvar == '---') 
+	{
 		echo $gvar;
 	}
-	else {
+	else 
+	{
 		get_print_gold(parse_gold($gvar));
 	}
 }
@@ -135,13 +146,15 @@ function print_gold($gvar) {
 //===== MAIL FUNCTIONS =====//
 
 // Send Mail
-function send_email($goingto,$toname,$sbj,$messg) {
+function send_email($goingto,$toname,$sbj,$messg) 
+{
 	global $cfg;
 	define('DISPLAY_XPM4_ERRORS', true); // display XPM4 errors
 	$core_em = $cfg->get('site_email');
 		
 	// If email type "0" (SMTP)
-	if($cfg->get('email_type') == 0) { 
+	if($cfg->get('email_type') == 0) 
+	{ 
 		require_once 'core/mail/SMTP.php'; // path to 'SMTP.php' file from XPM4 package
 
 		$f = ''.$core_em.''; // from mail address
@@ -161,9 +174,9 @@ function send_email($goingto,$toname,$sbj,$messg) {
 		if ($s) output_message('notice', 'Mail Sent!');
 		else output_message('alert', print_r($_RESULT));
 		SMTP::Disconnect($c); // disconnect
-	
-	// If email type "1" (MIME)
-	}elseif($cfg->get('email_type') == 1) {
+	}
+	elseif($cfg->get('email_type') == 1) 	// If email type "1" (MIME)
+	{
 		require_once 'core/mail/MIME.php'; // path to 'MIME.php' file from XPM4 package
 
 		// compose message in MIME format
@@ -172,9 +185,9 @@ function send_email($goingto,$toname,$sbj,$messg) {
 		$send = mail($goingto, $sbj, $mess['content'], 'From: '.$core_em.''."\n".$mess['header']);
 		// print result
 		echo $send ? output_message('notice', 'Mail Sent!') : output_message('alert', 'Error!');
-	
-	// If email type "2" (MTA Relay)
-	}elseif($cfg->get('email_type') == 2) {
+	}
+	elseif($cfg->get('email_type') == 2)	// If email type "2" (MTA Relay)
+	{
 		require_once 'core/mail/MAIL.php'; // path to 'MAIL.php' file from XPM4 package
 
 		$m = new MAIL; // initialize MAIL class
@@ -184,10 +197,13 @@ function send_email($goingto,$toname,$sbj,$messg) {
 		$m->Html($messg); // set html message
 
 		// connect to MTA server 'smtp.hostname.net' port '25' with authentication: 'username'/'password'
-		if($cfg->get('email_use_secure') == 1) {
+		if($cfg->get('email_use_secure') == 1) 
+		{
 			$c = $m->Connect($cfg->get('email_smtp_host'), $cfg->get('email_smtp_port'), $cfg->get('email_smtp_user'), $cfg->get('email_smtp_pass'), $cfg->get('email_smtp_secure')) 
 				or die(print_r($m->Result));
-		}else{
+		}
+		else
+		{
 			$c = $m->Connect($cfg->get('email_smtp_host'), $cfg->get('email_smtp_port'), $cfg->get('email_smtp_user'), $cfg->get('email_smtp_pass')) 
 				or die(print_r($m->Result));
 		}
@@ -200,7 +216,8 @@ function send_email($goingto,$toname,$sbj,$messg) {
 	}
 }
 
-function load_smiles($dir='images/smiles/'){
+function load_smiles($dir='images/smiles/')
+{
     $allfiles = scandir($dir);
     $smiles = array_diff($allfiles, array(".", "..", ".svn", "Thumbs.db", "index.html"));
     return $smiles;
@@ -217,7 +234,8 @@ function get_banned($account_id,$returncont)
     $ip_check = $DB->selectRow("SELECT * FROM ip_banned WHERE ip='".$db_IP."'");
     if ($ip_check == FALSE)
 	{
-        if ($returncont == "1"){
+        if ($returncont == "1")
+		{
             return FALSE;
         }
     }
@@ -457,10 +475,13 @@ function my_previewreverse($text)
  *       here to make urls like /account/manage instead of 
  *       index.php?n=account&sub=manage possible.
  */
-function mw_url($page, $subpage, $params=null, $encodeentities=true) {
+function mw_url($page, $subpage, $params=null, $encodeentities=true) 
+{
     $url = "index.php?p=$page&sub=$subpage";
-    if (is_array($params)) {
-        foreach($params as $key=>$value) {
+    if (is_array($params)) 
+	{
+        foreach($params as $key=>$value) 
+		{
             $url .= "&$key=$value";
         }
     }

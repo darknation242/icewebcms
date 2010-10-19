@@ -75,20 +75,17 @@ if($cfg->get('site_base_href') !== $getbasehref)
 }
 
 // Site functions & classes ...
-include ( 'core/common.php' ) ; 				// Holds most of the sites functions
+include ( 'core/common.php' ); 					// Holds most of the sites functions
 include ( 'core/class.template.php' );			// Sets up the template system
-include ( 'core/class.remote_access.php' );			// Sets up the template system
-include ( 'core/class.auth.php' ) ; 			// contains account related scripts and functions
-
-// Initialize Variables
-global $cfg;
+include ( 'core/class.rasocket.php' );			// Sets up the remote access
+include ( 'core/class.auth.php' ); 				// contains account related scripts and functions
 
 // Super-Global variables.
-$GLOBALS['users_online'] = array() ;
-$GLOBALS['guests_online'] = 0 ;
+$GLOBALS['users_online'] = array();
+$GLOBALS['guests_online'] = 0;
 $GLOBALS['user_cur_lang'] = '';
-$GLOBALS['messages'] = '' ;		// For server messages
-$GLOBALS['redirect'] = '' ;		// For the redirect function, uses <meta> tags
+$GLOBALS['messages'] = '';		// For server messages
+$GLOBALS['redirect'] = '';		// For the redirect function, uses <meta> tags
 $GLOBALS['cur_selected_realm'] = '';
 
 
@@ -198,7 +195,8 @@ else
 // If the requested page is the admin Panel
 if( $ext == 'admin') 
 {
-	if(file_exists('inc/admin/body_functions.php')) {
+	if(file_exists('inc/admin/body_functions.php')) 
+	{
 		include ('inc/admin/body_functions.php');
 	}
 	@include('inc/admin/script_files/admin.' . $sub .'.php');
@@ -214,13 +212,15 @@ if( $ext == 'admin')
 	$exec_time = $time_end - $time_start ;
 	include('inc/admin/body_footer.php');
 }
-else{
+else
+{
 // Else, it requested page isnt the admin panel		
 // Start Loading Of Script Files
 	@include ( $script_file ) ;
 
 	// If a body functions file exists, include it.
-	if(file_exists(''. $master_tmp . '/body_functions.php')) {
+	if(file_exists(''. $master_tmp . '/body_functions.php')) 
+	{
 		include ( ''. $master_tmp . '/body_functions.php' );
 	}
 	ob_start() ;
