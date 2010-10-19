@@ -355,6 +355,16 @@ function check_for_symbols($string, $space_check = 0)
     return FALSE;
 }
 
+// used in account retrieve
+function strip_if_magic_quotes($value)
+{
+    if (get_magic_quotes_gpc()) 
+	{
+        $value = stripslashes($value);
+    }
+    return $value;
+}
+
 function add_pictureletter($text)
 {
 	global $currtmp;

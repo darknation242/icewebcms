@@ -1,0 +1,88 @@
+[19-Oct-2010 11:38:54] PHP Notice:  Undefined variable: MW in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 248
+[19-Oct-2010 11:38:54] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 248
+[19-Oct-2010 11:38:54] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 248
+[19-Oct-2010 11:38:54] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 248
+[19-Oct-2010 11:38:54] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 253
+[19-Oct-2010 11:38:54] PHP Fatal error:  Call to undefined function lang_resource() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 258
+[19-Oct-2010 11:43:15] PHP Notice:  Undefined variable: MW in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 247
+[19-Oct-2010 11:43:15] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 247
+[19-Oct-2010 11:43:15] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 247
+[19-Oct-2010 11:43:15] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 247
+[19-Oct-2010 11:43:15] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 252
+[19-Oct-2010 11:43:15] PHP Fatal error:  Call to undefined function lang_resource() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 257
+[19-Oct-2010 12:34:18] PHP Notice:  Undefined variable: MW in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 266
+[19-Oct-2010 12:34:18] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 266
+[19-Oct-2010 12:34:18] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 266
+[19-Oct-2010 12:34:18] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 266
+[19-Oct-2010 12:34:18] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 271
+[19-Oct-2010 12:34:18] PHP Warning:  include(lang/server_rules/English/acc_create_rules.html): failed to open stream: No such file or directory in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 276
+[19-Oct-2010 12:34:18] PHP Warning:  include(): Failed opening 'lang/server_rules/English/acc_create_rules.html' for inclusion (include_path='.;C:\xampp\php\PEAR') in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 276
+[19-Oct-2010 12:34:53] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 271
+[19-Oct-2010 12:34:53] PHP Warning:  include(lang/server_rules/English/acc_create_rules.html): failed to open stream: No such file or directory in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 276
+[19-Oct-2010 12:34:53] PHP Warning:  include(): Failed opening 'lang/server_rules/English/acc_create_rules.html' for inclusion (include_path='.;C:\xampp\php\PEAR') in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 276
+[19-Oct-2010 12:35:40] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 271
+[19-Oct-2010 12:35:46] PHP Warning:  include(templates/offlike/frontpage/frontpage.register.php): failed to open stream: No such file or directory in C:\xampp\htdocs\MangosWebv3\index.php on line 230
+[19-Oct-2010 12:35:46] PHP Warning:  include(): Failed opening 'templates/offlike/frontpage/frontpage.register.php' for inclusion (include_path='.;C:\xampp\php\PEAR') in C:\xampp\htdocs\MangosWebv3\index.php on line 230
+[19-Oct-2010 12:35:46] PHP Notice:  Undefined variable: servers in C:\xampp\htdocs\MangosWebv3\templates\offlike\body_right.php on line 129
+[19-Oct-2010 12:36:01] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 271
+[19-Oct-2010 12:36:03] PHP Fatal error:  Call to undefined function Lang() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 53
+[19-Oct-2010 12:37:51] PHP Fatal error:  Call to undefined function Lang() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 53
+[19-Oct-2010 12:37:55] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 271
+[19-Oct-2010 12:39:54] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 271
+[19-Oct-2010 12:39:56] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 215
+[19-Oct-2010 12:39:56] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 226
+[19-Oct-2010 12:40:38] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 215
+[19-Oct-2010 12:40:38] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 226
+[19-Oct-2010 12:49:01] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 215
+[19-Oct-2010 12:49:01] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 226
+[19-Oct-2010 12:50:52] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 271
+[19-Oct-2010 12:50:54] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 271
+[19-Oct-2010 12:50:56] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 215
+[19-Oct-2010 12:50:56] PHP Warning:  htmlspecialchars() expects parameter 1 to be string, array given in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 226
+[19-Oct-2010 12:54:07] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 271
+[19-Oct-2010 12:54:08] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 271
+[19-Oct-2010 13:13:09] PHP Fatal error:  Class 'Captcha' not found in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.register.php on line 245
+[19-Oct-2010 13:45:47] PHP Notice:  Undefined variable: MW in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 55
+[19-Oct-2010 13:45:47] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 55
+[19-Oct-2010 13:45:47] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 55
+[19-Oct-2010 13:45:47] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 55
+[19-Oct-2010 13:45:47] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 55
+[19-Oct-2010 13:45:47] PHP Notice:  Undefined variable: MW in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 68
+[19-Oct-2010 13:45:47] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 68
+[19-Oct-2010 13:45:47] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 68
+[19-Oct-2010 13:45:47] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 68
+[19-Oct-2010 13:45:47] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 68
+[19-Oct-2010 13:46:21] PHP Notice:  Undefined variable: MW in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 55
+[19-Oct-2010 13:46:21] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 55
+[19-Oct-2010 13:46:21] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 55
+[19-Oct-2010 13:46:21] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 55
+[19-Oct-2010 13:46:21] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 55
+[19-Oct-2010 13:46:21] PHP Notice:  Undefined variable: MW in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 68
+[19-Oct-2010 13:46:21] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 68
+[19-Oct-2010 13:46:21] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 68
+[19-Oct-2010 13:46:21] PHP Notice:  Trying to get property of non-object in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 68
+[19-Oct-2010 13:46:21] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 68
+[19-Oct-2010 14:00:03] PHP Notice:  Undefined variable: sc_q in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 74
+[19-Oct-2010 14:00:03] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 74
+[19-Oct-2010 14:00:03] PHP Notice:  Undefined variable: sc_q in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 89
+[19-Oct-2010 14:00:03] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 89
+[19-Oct-2010 14:00:18] PHP Notice:  Undefined variable: sc_q in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 74
+[19-Oct-2010 14:00:18] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 74
+[19-Oct-2010 14:00:18] PHP Notice:  Undefined variable: sc_q in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 89
+[19-Oct-2010 14:00:18] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 89
+[19-Oct-2010 14:00:29] PHP Notice:  Undefined variable: sc_q in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 74
+[19-Oct-2010 14:00:29] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 74
+[19-Oct-2010 14:00:29] PHP Notice:  Undefined variable: sc_q in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 89
+[19-Oct-2010 14:00:29] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 89
+[19-Oct-2010 14:03:24] PHP Notice:  Undefined variable: sc_q in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 74
+[19-Oct-2010 14:03:24] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 74
+[19-Oct-2010 14:03:24] PHP Notice:  Undefined variable: sc_q in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 89
+[19-Oct-2010 14:03:24] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 89
+[19-Oct-2010 14:04:33] PHP Notice:  Undefined variable: sc_q in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 74
+[19-Oct-2010 14:04:33] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 74
+[19-Oct-2010 14:04:33] PHP Notice:  Undefined variable: sc_q in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 89
+[19-Oct-2010 14:04:33] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 89
+[19-Oct-2010 14:04:36] PHP Notice:  Undefined variable: sc_q in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 74
+[19-Oct-2010 14:04:36] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 74
+[19-Oct-2010 14:04:36] PHP Notice:  Undefined variable: sc_q in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 89
+[19-Oct-2010 14:04:36] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 89
