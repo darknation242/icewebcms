@@ -13,7 +13,7 @@
 <div style="width:470px;"></div>
 <![endif]>
 <?php 
-$banner = (int)$cfg->get('frontpage_display_type');
+$banner = (int)$cfg->get('flash_display_type');
 if ($banner == 1)
 { ?>
 	<div id="flashcontainer">

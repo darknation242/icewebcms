@@ -175,22 +175,17 @@ echo $GLOBALS['redirect'];
 								} ?>
 							</div>
 						</div>
-						<?php
-						if((int)$cfg->get('multi_realm') == 1)
-						{ ?>
-							<div onmouseover="myshow('realmdropdown');" id="droppt" onmouseout="myhide('realmdropdown');">
-								<div style="overflow: hidden; visibility: inherit; display: block; cursor: default; background-color: transparent; background-image: url(<?php echo $currtmp; ?>/images/countrymenu-bg.gif); height: 19px; padding-left: 9px; padding-top: 2px;"><a class="menufillertop">Realm:</a><img src="<?php echo $currtmp; ?>/images/pixel.gif" alt=""/></div>
-								<div id="realmdropdown" style="height: auto; visibility:hidden; display: none;">
-								<?php
-								foreach($realms as $realm) { ?>
-									<div OnMouseOver="this.style.backgroundColor='rgb(100, 100, 100)';" OnMouseOut="this.style.backgroundColor='rgb(29, 28, 27)';" style="cursor: pointer; background-color: rgb(29, 28, 27); color: rgb(244, 196, 0); font-family: arial,comic sans ms,technical; font-size: 12px; font-style: normal; text-align: left; background-image: url(<?php echo $currtmp; ?>/images/bullet-trans-bg.gif); width: 136px; height: 15px; padding-left: 9px; padding-top: 0px; left: 1px; top: 1px;">
-										<a class="menuLink" style="display:block;" href="javascript:setcookie('cur_selected_realm', '<?php echo $realm['id'];?>'); window.location.reload();"><?php echo ($user['cur_selected_realm'] == $realm['id']?'&gt; '.$realm['name']:$realm['name']);?></a> 
-									</div>
-								<?php } ?>
+						<div onmouseover="myshow('realmdropdown');" id="droppt" onmouseout="myhide('realmdropdown');">
+							<div style="overflow: hidden; visibility: inherit; display: block; cursor: default; background-color: transparent; background-image: url(<?php echo $currtmp; ?>/images/countrymenu-bg.gif); height: 19px; padding-left: 9px; padding-top: 2px;"><a class="menufillertop">Realm:</a><img src="<?php echo $currtmp; ?>/images/pixel.gif" alt=""/></div>
+							<div id="realmdropdown" style="height: auto; visibility:hidden; display: none;">
+							<?php
+							foreach($realms as $realm) { ?>
+								<div OnMouseOver="this.style.backgroundColor='rgb(100, 100, 100)';" OnMouseOut="this.style.backgroundColor='rgb(29, 28, 27)';" style="cursor: pointer; background-color: rgb(29, 28, 27); color: rgb(244, 196, 0); font-family: arial,comic sans ms,technical; font-size: 12px; font-style: normal; text-align: left; background-image: url(<?php echo $currtmp; ?>/images/bullet-trans-bg.gif); width: 136px; height: 15px; padding-left: 9px; padding-top: 0px; left: 1px; top: 1px;">
+									<a class="menuLink" style="display:block;" href="javascript:setcookie('cur_selected_realm', '<?php echo $realm['id'];?>'); window.location.reload();"><?php echo ($user['cur_selected_realm'] == $realm['id']?'&gt; '.$realm['name']:$realm['name']);?></a> 
 								</div>
+							<?php } ?>
 							</div>
-						<?php
-						} ?>
+						</div>
 						<div style="position: absolute; top: 0; left: 0; z-index: 20002;">
 							<div id="wow-logo">
 								<a href="./"><img title="World of Warcraft" alt="wowlogo" height="103" width="252" src="<?php echo $currtmp; ?>/images/pixel000.gif"/></a>

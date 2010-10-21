@@ -1,328 +1,548 @@
-<div class="content-head">
-		<div class="desc-title">Site Configuration</div>
-		<div class="description">
-		<i>Description:</i> This area allows you to alter the configuration of KeysCMS suite.
-		</div>
-	</div>
-	<div class="content">
-	<?php if(isset($_POST['task'])) {
-		if($_POST['task'] == 'saveconfig') {
-			saveConfig();
-		}
-	} ?>
-		<form method="POST" action="index.php?p=admin&sub=siteconfig" onSubmit="return configvalidation(this);" name="adminform">
-		<input type="hidden" name="task" value="saveconfig">
-		
-		<table border="0" width="95%" style="border: 2px solid #808080;">
-			<tr>
-				<td colspan="3" class="form-head">Site Configuration</td>
-			</tr>
-			<tr>
-				<td colspan="3" align="center" class="form-section-head"><u>Basic Site Config:</u></td>
-			</tr>
-			<tr>
-				<td width="20%" align="right" valign="middle" class="form-text">Site Title:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__site_title" size="20" class="inputbox" value="<?php echo $cfg->get('site_title'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">Name of your Website.</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Site Cookie:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__site_cookie" size="20" class="inputbox" value="<?php echo $cfg->get('site_cookie'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">Site Cookie (Channing can cause login problems! Erase old cookies)</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Site Href:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__site_href" size="20" class="inputbox" value="<?php echo dirname( $_SERVER['SCRIPT_NAME'] )."/" ; ?>" /></td>
-				<td align="left" valign="top" class="form-desc">Filled Automatically, shouldnt need to touch this!</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Site Base Href:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__base_href" size="30" class="inputbox" value="<?php echo "http://".$_SERVER['HTTP_HOST']."".dirname( $_SERVER['SCRIPT_NAME'] )."/" ; ?>" /></td>
-				<td align="left" valign="top" class="form-desc">Filled Automatically, shouldnt need to touch this!</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Site Armory Path:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__site_armory" size="30" class="inputbox" value="<?php echo $cfg->get('site_armory'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">Path to your armory. Full http if outside KeysCMS root. (0 = disable)</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Site Forum Path:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__site_forums" size="30" class="inputbox" value="<?php echo $cfg->get('site_forums'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">Path to your Forums. Full http if outside KeysCMS root. (0 = disable)</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Site Email:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__site_email" size="30" class="inputbox" value="<?php echo $cfg->get('site_email'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">Email for account activations, and send emails from.</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Site Copyright:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__copyright" size="30" class="inputbox" value="<?php echo $cfg->get('copyright'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">Site Copyright</td>
-			</tr>
-		<!-- Site Settings -->
-			<tr>
-				<td colspan="3" align="center" class="form-section-head"><u>Site Settings:</u></td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Emulator:</td>
-				<td width="15%" align="left" valign="middle">
-				<select name="cfg__emulator" class="inputbox">
-				<?php if($cfg->get('emulator') == 'trinity') { ?>
-				<option value="trinity">Trinity</option><option value="mangos">Mangos</option></select></td>
-				<?php }else{ ?>
-				<option value="mangos">Mangos</option><option value="trinity">Trinity</option></select></td>
-				<?php } ?>
-				<td align="left" valign="top" class="form-desc">What Emulator you running?</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Default Template:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__default_template" size="20" class="inputbox" value="<?php echo $cfg->get('default_template'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">Site Default Template</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Default Component:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__default_component" size="20" class="inputbox" value="<?php echo $cfg->get('default_component'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">Site Default Index Page</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Site Templates:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__templates" size="30" class="inputbox" value="<?php echo $cfg->get('templates'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">Site Templates, sepreate each template with ","</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Default Realm ID:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__default_realm_id" size="1" class="inputbox" value="<?php echo $cfg->get('default_realm_id'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">Site Default Realmd</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Multiple Realms?:</td>
-				<td width="15%" align="left" valign="middle">
-				<?php if($cfg->get('multi_realms') == '0') { ?>
-				<select name="cfg__multi_realm" class="inputbox"><option value="0">No</option><option value="1">Yes</option></td>
-				<?php }else{ ?>
-				<select name="cfg__multi_realm" class="inputbox"><option value="1">Yes</option><option value="0">No</option></td>
-				<?php } ?>
-				<td align="left" valign="top" class="form-desc">Do you host multiple realms?</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Require Account Activation:</td>
-				<td width="15%" align="left" valign="middle">
-				<?php if($cfg->get('req_reg_act') == '0') { ?>
-				<select name="cfg__req_reg_act" class="inputbox"><option value="0">No</option><option value="1">Yes</option></td>
-				<?php }else{ ?>
-				<select name="cfg__req_reg_act" class="inputbox"><option value="1">Yes</option><option value="0">No</option></td>
-				<?php } ?>
-				<td align="left" valign="top" class="form-desc">Email activation.</td>
-			</tr>
-		<!-- Module Settings -->
-			<tr>
-				<td colspan="3" align="center" class="form-section-head"><u>Module Settings:</u></td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">News Module:</td>
-				<td width="15%" align="left" valign="middle">
-				<select name="cfg__module_news" class="inputbox">
-				<?php if($cfg->get('module_news') == '0') { ?>
-				<option value="0" selected="selected">Disabled</option><option value="1">Enabled</option></select></td>
-				<?php }else{ ?>
-				<option value="1" selected="selected">Enabled</option><option value="0">Disabled</option></select></td>
-				<?php } ?>
-				<td align="left" valign="top" class="form-desc">Display frontpage news via news module.</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Welcome Mess. Module:</td>
-				<td width="15%" align="left" valign="middle">
-				<select name="cfg__module_welcome" class="inputbox">
-				<?php if($cfg->get('module_welcome') == '0') { ?>
-				<option value="0" selected="selected">Disabled</option><option value="1">Enabled</option></select></td>
-				<?php }else{ ?>
-				<option value="1" selected="selected">Enabled</option><option value="0">Disabled</option></select></td>
-				<?php } ?>
-				<td align="left" valign="top" class="form-desc">Display welcome message to guests above news.</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Welcome Messsage:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__module_welcome_message" size="30" class="inputbox" value="<?php echo $cfg->get('module_welcome_message'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">Welcome message displayed to guests. Requires Welcome message module enabled. Leave empty for generic.</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Web Points Module:</td>
-				<td width="15%" align="left" valign="middle">
-				<select name="cfg__module_wp" class="inputbox">
-				<?php if($cfg->get('module_wp') == '0') { ?>
-				<option value="0" selected="selected">Disabled</option><option value="1">Enabled</option></select></td>
-				<?php }else{ ?>
-				<option value="1" selected="selected">Enabled</option><option value="0">Disabled</option></select></td>
-				<?php } ?>
-				<td align="left" valign="top" class="form-desc">Enabled Web Points system (<a href="http://keyswow.com/wiki/" />Learn More</a>).</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Shop System:</td>
-				<td width="15%" align="left" valign="middle">
-				<select name="cfg__module_shop" class="inputbox">
-				<?php if($cfg->get('module_shop') == '0') { ?>
-				<option value="0" selected="selected">Disabled</option><option value="1">Enabled</option></select></td>
-				<?php }else{ ?>
-				<option value="1" selected="selected">Enabled</option><option value="0">Disabled</option></select></td>
-				<?php } ?>
-				<td align="left" valign="top" class="form-desc">Shop system for users to buy items via donations / Web points.</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Character Rename:</td>
-				<td width="15%" align="left" valign="middle">
-				<select name="cfg__module_charrename" class="inputbox">
-				<?php if($cfg->get('module_charrename') == '0') { ?>
-				<option value="0" selected="selected">Disabled</option><option value="1">Enabled</option></select></td>
-				<?php }else{ ?>
-				<option value="1" selected="selected">Enabled</option><option value="0">Disabled</option></select></td>
-				<?php } ?>
-				<td align="left" valign="top" class="form-desc">Character rename module for users.</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Char. Rename WP Cost:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__module_charrename_pts" size="2" class="inputbox" value="<?php echo $cfg->get('module_charrename_pts'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">Cost in Web Points for users to rename their characters.</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Char. Faction Change:</td>
-				<td width="15%" align="left" valign="middle">
-				<select name="cfg__module_charfactionchange" class="inputbox">
-				<?php if($cfg->get('module_charfactionchange') == '0') { ?>
-				<option value="0" selected="selected">Disabled</option><option value="1">Enabled</option></select></td>
-				<?php }else{ ?>
-				<option value="1" selected="selected">Enabled</option><option value="0">Disabled</option></select></td>
-				<?php } ?>
-				<td align="left" valign="top" class="form-desc">Character faction change module for users.</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Char. Faction WP Cost:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__module_charfactionchange_pts" size="2" class="inputbox" value="<?php echo $cfg->get('module_charfactionchange_pts'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">Cost in Web Points for users to change their characters factions.</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Char. Race Change:</td>
-				<td width="15%" align="left" valign="middle">
-				<select name="cfg__module_charracechange" class="inputbox">
-				<?php if($cfg->get('module_charracechange') == '0') { ?>
-				<option value="0" selected="selected">Disabled</option><option value="1">Enabled</option></select></td>
-				<?php }else{ ?>
-				<option value="1" selected="selected">Enabled</option><option value="0">Disabled</option></select></td>
-				<?php } ?>
-				<td align="left" valign="top" class="form-desc">Character race change module for users.</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Char. Race WP Cost:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__module_charracechange_pts" size="2" class="inputbox" value="<?php echo $cfg->get('module_charracechange_pts'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">Cost in Web Points for users to change their characters race.</td>
-			</tr>
-		<!-- Email setting -->
-			<tr>
-				<td colspan="3" align="center" class="form-section-head"><u>Site Email Settings:</u></td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Email Type:</td>
-				<td width="15%" align="left" valign="middle">
-				<select name="cfg__email_type" class="inputbox">
-				<?php if($cfg->get('email_type') == 0) { ?>
-				<option value="0"  selected="selected">SMTP</option><option value="1">MIME</option><option value="2">MTA</option></select></td>
-				<?php }elseif($cfg->get('email_type') == 1) { ?>
-				<option value="0">SMTP</option><option value="1" selected="selected">MIME</option><option value="2">MTA</option></select></td>
-				<?php }else{ ?>
-				<option value="0">MIME</option><option value="1" selected="selected">SMTP</option><option value="2" selected="selected">MTA</option></select></td>
-				<?php } ?>
-				<td align="left" valign="top" class="form-desc">How do you want to relay your emails? (<a href="http://keyswow.com/wiki/" />Learn More</a>)</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">MTA - SMTP Host:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__email_smtp_host" size="30" class="inputbox" value="<?php echo $cfg->get('email_smtp_host'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">SMTP host. ONLY IF USING MTA AS EMAIL TYPE.</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">MTA - SMTP Port:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__email_smtp_port" size="3" class="inputbox" value="<?php echo $cfg->get('email_smtp_port'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">SMTP Port. ONLY IF USING MTA AS EMAIL TYPE.</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">MTA - Secure:</td>
-				<td width="15%" align="left" valign="middle">
-				<select name="cfg__email_use_secure" class="inputbox">
-				<?php if($cfg->get('email_use_secure') == 0) { ?>
-				<option value="0"  selected="selected">No</option><option value="1">Yes</option></select></td>
-				<?php }elseif($cfg->get('email_use_secure') == 1) { ?>
-				<option value="1" selected="selected">Yes</option><option value="0">No</option></select></td>
-				<?php } ?>
-				<td align="left" valign="top" class="form-desc">Use Secure Connection?</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">MTA - Secure Type:</td>
-				<td width="15%" align="left" valign="middle">
-				<select name="cfg__email_smtp_secure" class="inputbox">
-				<?php if($cfg->get('email_smtp_secure') == '') { ?>
-				<option value=""  selected="selected">None</option><option value="ssl">SSL</option><option value="tls">TLS</option></select></td>
-				<?php }elseif($cfg->get('email_smtp_secure') == 'ssl') { ?>
-				<option value="ssl" selected="selected">SSL</option><option value="tls">TLS</option><option value="">None</option></select></td>
-				<?php }elseif($cfg->get('email_smtp_secure') == 'tls') { ?>
-				<option value="ssl">SSL</option><option value="tls" selected="selected">TLS</option><option value="">None</option></select></td>
-				<?php } ?>
-				<td align="left" valign="top" class="form-desc">Secure connection type.</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">MTA - SMTP Username:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__email_smtp_user" size="30" class="inputbox" value="<?php echo $cfg->get('email_smtp_user'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">SMTP Username. ONLY IF USING MTA AS EMAIL TYPE.</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">MTA - SMTP Pass:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__email_smtp_pass" size="30" class="inputbox" value="<?php echo $cfg->get('email_smtp_pass'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">SMTP Password. ONLY IF USING MTA AS EMAIL TYPE.</td>
-			</tr>
-		<!-- Log Settings -->
-			<tr>
-				<td colspan="3" align="center" class="form-section-head"><u>Log Settings:</u></td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Log Admin Actions:</td>
-				<td width="15%" align="left" valign="middle">
-				<?php if($cfg->get('admin_log') == '0') { ?>
-				<select name="cfg__admin_log" class="inputbox"><option value="0">No</option><option value="1">Yes</option></td>
-				<?php }else{ ?>
-				<select name="cfg__admin_log" class="inputbox"><option value="1">Yes</option><option value="0">No</option></td>
-				<?php } ?>
-				<td align="left" valign="top" class="form-desc">This will log all admin actions.</td>
-			</tr>
-			<tr>
-				<td align="right" valign="middle" class="form-text">Admin Log Path:</td>
-				<td width="15%" align="left" valign="middle">
-				<input type="text" name="cfg__admin_log_path" size="30" class="inputbox" value="<?php echo $cfg->get('admin_log_path'); ?>" /></td>
-				<td align="left" valign="top" class="form-desc">Where the admin log is saved</td>
-			</tr>
-			<tr>
-				<td colspan="3" align="right" class="buttons">
-					Confirm Process:&nbsp;<input type="checkbox" name="confirm" />&nbsp;&nbsp;
-					<button name="process" class="button" type="submit"><b>Update</b></button>&nbsp;&nbsp;
-					<button name="reset" class="button" type="reset">Cancel</button>
-				</td>
-			</tr>
-		</table>
-	</div>
+<!-- Start #main -->
+<div id="main">			
+	<div class="content">	
+		<div class="content-header">
+			<h4><a href="index.php?p=admin">Main Menu</a> / Site Config</h4>
+		</div> <!-- .content-header -->				
+		<div class="main-content">	
+				
+		<?php if(isset($_POST['task'])) {
+			if($_POST['task'] == 'saveconfig') {
+				saveConfig();
+			}
+		} ?>
+			<form method="POST" action="index.php?p=admin&sub=siteconfig" name="adminform" class="form label-inline">
+			<input type="hidden" name="task" value="saveconfig">
+	
+			<!-- BASIC SITE CONFIG -->
+			<table>
+				<thead>
+					<tr>
+						<th><center>Basic Site Settings</center></th>
+					</tr>
+				</thead>
+			</table>
+			<br />
+			
+			<div class="field">
+				<label for="Site Title">Site Title: </label>
+				<input id="Site Title" name="cfg__site_title" size="20" type="text" class="medium" value="<?php echo $cfg->get('site_title'); ?>" />
+				<p class="field_help">Enter you site title here.</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site Email">Site Email: </label>
+				<input id="Site Email" name="cfg__site_email" size="20" type="text" class="medium" value="<?php echo $cfg->get('site_email'); ?>" />
+				<p class="field_help">Enter you site email here.</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site Cookie">Site Cookie: </label>
+				<input id="Site Cookie" name="cfg__site_cookie" size="20" type="text" class="medium" value="<?php echo $cfg->get('site_cookie'); ?>" />
+				<p class="field_help">Site cookie name. Changing this will log you out as well as close all sessions.</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site Armory">Site Armory Link: </label>
+				<input id="Site Armory" name="cfg__site_armory" size="20" type="text" class="medium" value="<?php echo $cfg->get('site_armory'); ?>" />
+				<p class="field_help">Full link including "http://" to your armory. Set to "0" to disable.</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site Forums">Site Forums Link: </label>
+				<input id="Site Forums" name="cfg__site_forums" size="20" type="text" class="medium" value="<?php echo $cfg->get('site_forums'); ?>" />
+				<p class="field_help">Full link including "http://" to your forums. Set to "0" to disable.</p>
+			</div>
+			
+			<!-- SITE CONFIG -->
+			<table>
+				<thead>
+					<tr>
+						<th><center>Site Configuration</center></th>
+					</tr>
+				</thead>
+			</table>
+			<br />
+			
+			<div class="field">
+				<label for="Site Emu">Emulator: </label>
+				<select id="type" class="small" name="cfg__emulator">
+					<?php 
+						if($cfg->get('emulator') == 'mangos')
+						{ $e_s = 'selected="selected"'; $e_s2 = ''; }else{ $e_s2 = 'selected="selected"'; $e_s = ''; }
+					?>
+					<option value="mangos" <?php echo $e_s; ?>>Mangos</option>
+					<option value="trinity" <?php echo $e_s2; ?>>Trinity</option>
+				</select>
+			</div>
+			
+			<div class="field">
+				<label for="Site DR">Default Realm: </label>
+				<select id="type" class="medium" name="cfg__default_realm_id">
+					<?php 
+						foreach($realms as $cfg_realms)
+						{
+							if($cfg->get('default_realm_id') == $cfg_realms['id'])
+							{ $e_rs = 'selected="selected"'; }else{ $e_rs = ''; }
+							echo "<option value=".$cfg_realms['id']." ".$e_rs.">".$cfg_realms['name']."</option>";
+						}
+					?>
+				</select>
+				<p class="field_help">Default selected realm for new users.</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site Templates">Site Templates: </label>
+				<input id="Site Templates" name="cfg__templates" size="30" type="text" class="large" value="<?php echo $cfg->get('templates'); ?>" />
+				<p class="field_help">Seperate templates with a "," comma. Case sensative on some servers!</p>
+			</div>
+			<br />
+			
+			<!-- LANG CONFIG -->
+			<table>
+				<thead>
+					<tr>
+						<th><center>Site Language Configuration</center></th>
+					</tr>
+				</thead>
+			</table>
+			<br />
+			
+			<div class="field">
+				<label for="Site DL">Default Language: </label>
+				<input id="Site DL" name="cfg__default_lang" size="20" type="text" class="medium" value="<?php echo $cfg->get('default_lang'); ?>" />
+				<p class="field_help">Website default language</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site AL">Site Languages: </label>
+				<input id="Site AL" name="cfg__available_lang" size="20" type="text" class="medium" value="<?php echo $cfg->get('available_lang'); ?>" />
+				<p class="field_help">Seperate Languages with a "," comma. Case sensative on some servers!</p>
+			</div>
+			<br />
+			
+			<!-- ACCOUNT CONFIG -->
+			<table>
+				<thead>
+					<tr>
+						<th><center>Site Registration / Account Configuration</center></th>
+					</tr>
+				</thead>
+			</table>
+			<br />
+			
+			<div class="field">
+				<label for="Site allow_registration">Account Registration: </label>
+				<select id="type" class="small" name="cfg__allow_registration">
+					<?php 
+						if($cfg->get('allow_registration') == 1)
+						{ $e_ar = 'selected="selected"'; $e_ar2 = ''; }else{ $e_ar2 = 'selected="selected"'; $e_ar = ''; }
+					?>
+					<option value="1" <?php echo $e_ar; ?>>Enabled</option>
+					<option value="0" <?php echo $e_ar2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Allow guests to register an account on your server.</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site require_act_activation">Require Account Activation: </label>
+				<select id="type" class="small" name="cfg__require_act_activation">
+					<?php 
+						if($cfg->get('require_act_activation') == 1)
+						{ $e_arr = 'selected="selected"'; $e_arr2 = ''; }else{ $e_arr2 = 'selected="selected"'; $e_arr = ''; }
+					?>
+					<option value="1" <?php echo $e_arr; ?>>Enabled</option>
+					<option value="0" <?php echo $e_arr2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Requires users to activate there accounts via Email.</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site reg_invite">Require Invite: </label>
+				<select id="type" class="small" name="cfg__reg_invite">
+					<?php 
+						if($cfg->get('reg_invite') == 1)
+						{ $e_ari = 'selected="selected"'; $e_ari2 = ''; }else{ $e_ari2 = 'selected="selected"'; $e_ari = ''; }
+					?>
+					<option value="1" <?php echo $e_ari; ?>>Enabled</option>
+					<option value="0" <?php echo $e_ari2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Requires guests to have an invite code before registering an account.</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site reg_invite">Registration captcha: </label>
+				<select id="type" class="small" name="cfg__reg_act_imgvar">
+					<?php 
+						if($cfg->get('reg_act_imgvar') == 1)
+						{ $e_ariv = 'selected="selected"'; $e_ariv2 = ''; }else{ $e_ariv2 = 'selected="selected"'; $e_ariv = ''; }
+					?>
+					<option value="1" <?php echo $e_ariv; ?>>Enabled</option>
+					<option value="0" <?php echo $e_ariv2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Enables CAPTCHA. Users will hae to enter a generated image code before creating an account</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site reg_invite">Require Secret Questions: </label>
+				<select id="type" class="small" name="cfg__reg_secret_questions">
+					<?php 
+						if($cfg->get('reg_secret_questions') == 1)
+						{ $e_ariv = 'selected="selected"'; $e_arsq2 = ''; }else{ $e_arsq2 = 'selected="selected"'; $e_arsq = ''; }
+					?>
+					<option value="1" <?php echo $e_arsq; ?>>Enabled</option>
+					<option value="0" <?php echo $e_arsq2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Requires users to input secret questions / answers when registering account.<br /> 
+					Questions are set in <a href="index.php?p=admin&sub=squestions">here</a>
+				</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site allow_user_passchange">Allow Pass Change: </label>
+				<select id="type" class="small" name="cfg__allow_user_passchange">
+					<?php 
+						if($cfg->get('allow_user_passchange') == 1)
+						{ $e_aup = 'selected="selected"'; $e_aup2 = ''; }else{ $e_aup2 = 'selected="selected"'; $e_aup = ''; }
+					?>
+					<option value="1" <?php echo $e_aup; ?>>Enabled</option>
+					<option value="0" <?php echo $e_aup2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Allow users to change their passwords</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site allow_user_emailchange">Allow Email Change: </label>
+				<select id="type" class="small" name="cfg__allow_user_emailchange">
+					<?php 
+						if($cfg->get('allow_user_emailchange') == 1)
+						{ $e_aec = 'selected="selected"'; $e_aec2 = ''; }else{ $e_aec2 = 'selected="selected"'; $e_aec = ''; }
+					?>
+					<option value="1" <?php echo $e_aec; ?>>Enabled</option>
+					<option value="0" <?php echo $e_aec2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Allow users to change their Emails</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site max_act_per_ip">Max Accounts Per IP: </label>
+				<input id="Site max_act_per_ip" name="cfg__max_act_per_ip" size="10" type="text" class="tiny" value="<?php echo $cfg->get('max_act_per_ip'); ?>" />
+				<p class="field_help">Maximum accounts per IP address. "0" is unlimited.</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site max_avatar_file_size">Avatar File Size: </label>
+				<input id="Site max_avatar_file_size" name="cfg__max_avatar_file_size" size="10" type="text" class="small" value="<?php echo $cfg->get('max_avatar_file_size'); ?>" />
+				<p class="field_help">Size in bytes. "0" to disable</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site max_avatar_sizee">Avatar Max Dimmensions: </label>
+				<input id="Site max_avatar_size" name="cfg__max_avatar_size" size="10" type="text" class="small" value="<?php echo $cfg->get('max_avatar_size'); ?>" />
+				<p class="field_help">Example: "80x80". Dont forget the "x" between the hieght and width!</p>
+			</div>
+			<br />
+			
+			<!-- Frontpage Settings -->
+			<table>
+				<thead>
+					<tr>
+						<th><center>Frontpage Settings</center></th>
+					</tr>
+				</thead>
+			</table>
+			<br />
+			
+			<div class="field">
+				<label for="Site default_component">Default Component: </label>
+				<input id="Site default_component" name="cfg__default_component" size="10" type="text" class="small" value="<?php echo $cfg->get('default_component'); ?>" />
+				<p class="field_help">Dont touch this unless you know what your doing!</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site flash_display_type">Banner Type: </label>
+				<select id="type" class="medium" name="cfg__flash_display_type">
+					<?php 
+						if($cfg->get('flash_display_type') == 0)
+							{ $e_fpf = ''; $e_fpf2 = ''; $e_fpf3 = 'selected="selected"'; }
+						elseif($cfg->get('flash_display_type') == 1)
+							{ $e_fpf = 'selected="selected"'; $e_fpf2 = ''; $e_fpf3 = ''; }
+						elseif($cfg->get('flash_display_type') == 2)
+							{ $e_fpf = ''; $e_fpf2 = 'selected="selected"'; $e_fpf3 = ''; }
+					?>
+					<option value="2" <?php echo $e_fpf2; ?>>External Flash</option>
+					<option value="1" <?php echo $e_fpf; ?>>Internal Flash</option>
+					<option value="0" <?php echo $e_fpf3; ?>>Banner</option>
+				</select>																											
+				<p class="field_help">External Flash is directly played from worldofwarcraft.com. <br />Banner is an image called "banner.jpg in the 
+					"templates/< template name >/images/" folder</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site fp_vote_banner">Vote Banner: </label>
+				<select id="type" class="small" name="cfg__fp_vote_banner">
+					<?php 
+						if($cfg->get('fp_vote_banner') == 1)
+						{ $e_fpvb = 'selected="selected"'; $e_fpvb2 = ''; }else{ $e_fpvb2 = 'selected="selected"'; $e_fpvb = ''; }
+					?>
+					<option value="1" <?php echo $e_fpvb; ?>>Enabled</option>
+					<option value="0" <?php echo $e_fpvb2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Displays the vote banner on the frontpage.</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site fp_newbie_guide">Newbie Guide: </label>
+				<select id="type" class="small" name="cfg__fp_newbie_guide">
+					<?php 
+						if($cfg->get('fp_newbie_guide') == 1)
+						{ $e_fpng = 'selected="selected"'; $e_fpng2 = ''; }else{ $e_fpng2 = 'selected="selected"'; $e_fpng = ''; }
+					?>
+					<option value="1" <?php echo $e_fpng; ?>>Enabled</option>
+					<option value="0" <?php echo $e_fpng2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Displays the Newbie Guide on the frontpage.</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site fp_hitcounter">Hit Counter: </label>
+				<select id="type" class="small" name="cfg__fp_hitcounter">
+					<?php 
+						if($cfg->get('fp_hitcounter') == 1)
+						{ $e_fphc = 'selected="selected"'; $e_fphc2 = ''; }else{ $e_fphc2 = 'selected="selected"'; $e_fphc = ''; }
+					?>
+					<option value="1" <?php echo $e_fphc; ?>>Enabled</option>
+					<option value="0" <?php echo $e_fphc2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Displays the Hit Counter on the frontpage</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site fp_serverinfo">Server Info: </label>
+				<select id="type" class="small" name="cfg__fp_serverinfo">
+					<?php 
+						if($cfg->get('fp_serverinfo') == 1)
+						{ $e_fpsi = 'selected="selected"'; $e_fpsi2 = ''; }else{ $e_fpsi2 = 'selected="selected"'; $e_fpsi = ''; }
+					?>
+					<option value="1" <?php echo $e_fpsi; ?>>Enabled</option>
+					<option value="0" <?php echo $e_fpsi2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Displays the 'Server Info' on the frontpage. Enabling this can/will cause Frontpage to load slower.</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site fp_realmstatus">Realm Status: </label>
+				<select id="type" class="small" name="cfg__fp_realmstatus">
+					<?php 
+						if($cfg->get('fp_realmstatus') == 1)
+						{ $e_fpsirs = 'selected="selected"'; $e_fpsirs2 = ''; }else{ $e_fpsirs2 = 'selected="selected"'; $e_fpsirs = ''; }
+					?>
+					<option value="1" <?php echo $e_fpsirs; ?>>Enabled</option>
+					<option value="0" <?php echo $e_fpsirs2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Displays the 'Realm Status' under Server Info. FP Server Info must be Enabled!</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site fp_playersonline">Players Online: </label>
+				<select id="type" class="small" name="cfg__fp_playersonline">
+					<?php 
+						if($cfg->get('fp_playersonline') == 1)
+						{ $e_fpsipo = 'selected="selected"'; $e_fpsipo2 = ''; }else{ $e_fpsipo2 = 'selected="selected"'; $e_fpsipo = ''; }
+					?>
+					<option value="1" <?php echo $e_fpsipo; ?>>Enabled</option>
+					<option value="0" <?php echo $e_fpsipo2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Displays the '# of Players Online' under Server Info. FP Server Info must be Enabled!</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site fp_serverip">Server IP: </label>
+				<select id="type" class="small" name="cfg__fp_serverip">
+					<?php 
+						if($cfg->get('fp_serverip') == 1)
+						{ $e_fpsiip = 'selected="selected"'; $e_fpsiip2 = ''; }else{ $e_fpsiip2 = 'selected="selected"'; $e_fpsiip = ''; }
+					?>
+					<option value="1" <?php echo $e_fpsiip; ?>>Enabled</option>
+					<option value="0" <?php echo $e_fpsiip2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Displays the '# of Players Online' under Server Info. FP Server Info must be Enabled!</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site fp_servertype">Server Type: </label>
+				<select id="type" class="small" name="cfg__fp_servertype">
+					<?php 
+						if($cfg->get('fp_servertype') == 1)
+						{ $e_fpsist = 'selected="selected"'; $e_fpsist2 = ''; }else{ $e_fpsist2 = 'selected="selected"'; $e_fpsist = ''; }
+					?>
+					<option value="1" <?php echo $e_fpsist; ?>>Enabled</option>
+					<option value="0" <?php echo $e_fpsist2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Displays the 'Server Type' under Server Info. FP Server Info must be Enabled!</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site fp_serverlang">Server Language: </label>
+				<select id="type" class="small" name="cfg__fp_serverlang">
+					<?php 
+						if($cfg->get('fp_serverlang') == 1)
+						{ $e_fpsisl = 'selected="selected"'; $e_fpsisl2 = ''; }else{ $e_fpsisl2 = 'selected="selected"'; $e_fpsisl = ''; }
+					?>
+					<option value="1" <?php echo $e_fpsisl; ?>>Enabled</option>
+					<option value="0" <?php echo $e_fpsisl2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Displays the 'Server Language' under Server Info. FP Server Info must be Enabled!</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site fp_serverpop">Server Population: </label>
+				<select id="type" class="small" name="cfg__fp_serverpop">
+					<?php 
+						if($cfg->get('fp_serverpop') == 1)
+						{ $e_fpsipop = 'selected="selected"'; $e_fpsipop2 = ''; }else{ $e_fpsipop2 = 'selected="selected"'; $e_fpsipop = ''; }
+					?>
+					<option value="1" <?php echo $e_fpsipop; ?>>Enabled</option>
+					<option value="0" <?php echo $e_fpsipop2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Displays the 'Server Population' under Server Info. FP Server Info must be Enabled!</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site fp_serveract">Server Accounts: </label>
+				<select id="type" class="small" name="cfg__fp_serveract">
+					<?php 
+						if($cfg->get('fp_serveract') == 1)
+						{ $e_fpsiat = 'selected="selected"'; $e_fpsiat2 = ''; }else{ $e_fpsiat2 = 'selected="selected"'; $e_fpsiat = ''; }
+					?>
+					<option value="1" <?php echo $e_fpsiat; ?>>Enabled</option>
+					<option value="0" <?php echo $e_fpsiat2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Displays the 'Server Accounts' under Server Info. FP Server Info must be Enabled!</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site fp_serveractive_act">Active Accounts: </label>
+				<select id="type" class="small" name="cfg__fp_serveractive_act">
+					<?php 
+						if($cfg->get('fp_serveractive_act') == 1)
+						{ $e_fpsiact = 'selected="selected"'; $e_fpsiact2 = ''; }else{ $e_fpsiact2 = 'selected="selected"'; $e_fpsiact = ''; }
+					?>
+					<option value="1" <?php echo $e_fpsiact; ?>>Enabled</option>
+					<option value="0" <?php echo $e_fpsiact2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Displays the 'Server Active Accounts' under Server Info. FP Server Info must be Enabled!</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site fp_serverchars">Server Characters: </label>
+				<select id="type" class="small" name="cfg__fp_serverchars">
+					<?php 
+						if($cfg->get('fp_serverchars') == 1)
+						{ $e_fpsic = 'selected="selected"'; $e_fpsic2 = ''; }else{ $e_fpsic2 = 'selected="selected"'; $e_fpsic = ''; }
+					?>
+					<option value="1" <?php echo $e_fpsic; ?>>Enabled</option>
+					<option value="0" <?php echo $e_fpsic2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Displays the 'Server Characters' under Server Info. FP Server Info must be Enabled!</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site fp_server_moreinfo">Server More Info: </label>
+				<select id="type" class="small" name="cfg__fp_server_moreinfo">
+					<?php 
+						if($cfg->get('fp_server_moreinfo') == 1)
+						{ $e_fpsimi = 'selected="selected"'; $e_fpsimi2 = ''; }else{ $e_fpsimi2 = 'selected="selected"'; $e_fpsimi = ''; }
+					?>
+					<option value="1" <?php echo $e_fpsimi; ?>>Enabled</option>
+					<option value="0" <?php echo $e_fpsimi2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Displays the 'More Info' under Server Info. FP Server Info must be Enabled!</p>
+			</div>
+			<br />
+			
+			<!-- Email Settings -->
+			<table>
+				<thead>
+					<tr>
+						<th><center>Email Settings</center></th>
+					</tr>
+				</thead>
+			</table>
+			<br />
+			
+			<div class="field">
+				<label for="Site email_type">Email Relay Type: </label>
+				<select id="type" class="small" name="cfg__email_type">
+					<?php 
+						if($cfg->get('email_type') == 0)
+							{ $e_et = ''; $e_et2 = ''; $e_et3 = 'selected="selected"'; }
+						elseif($cfg->get('flash_display_type') == 1)
+							{ $e_et = 'selected="selected"'; $e_et2 = ''; $e_et3 = ''; }
+						elseif($cfg->get('flash_display_type') == 2)
+							{ $e_et = ''; $e_et2 = 'selected="selected"'; $e_et3 = ''; }
+					?>
+					<option value="2" <?php echo $e_et2; ?>>MTA</option>
+					<option value="1" <?php echo $e_et; ?>>MIME</option>
+					<option value="0" <?php echo $e_et3; ?>>SMTP</option>
+				</select>																											
+				<p class="field_help">Learn More <u><a href="http://keyswow.com/forum/">Here</a></u></p>
+			</div>
+			
+			<div class="field">
+				<label for="Site email_smtp_host">MTA - SMTP Host: </label>
+				<input id="Site email_smtp_host" name="cfg__email_smtp_host" size="10" type="text" class="medium" value="<?php echo $cfg->get('email_smtp_host'); ?>" />
+				<p class="field_help">MTA Email type only - SMTP host such as "smtp.gmail.com"</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site email_smtp_port">MTA - SMTP Port: </label>
+				<input id="Site email_smtp_port" name="cfg__email_smtp_port" size="10" type="text" class="xsmall" value="<?php echo $cfg->get('email_smtp_port'); ?>" />
+				<p class="field_help">MTA Email type only - SMTP port .</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site email_use_secure">MTA - Use Secure: </label>
+				<select id="type" class="xsmall" name="cfg__email_use_secure">
+					<?php 
+						if($cfg->get('email_use_secure') == 1)
+						{ $e_eus = 'selected="selected"'; $e_eus2 = ''; }else{ $e_eus2 = 'selected="selected"'; $e_eus = ''; }
+					?>
+					<option value="1" <?php echo $e_eus; ?>>Yes</option>
+					<option value="0" <?php echo $e_eus2; ?>>No</option>
+				</select>																											
+				<p class="field_help">MTA Email type only - Use secure port.</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site email_smtp_secure">MTA - Secure Type: </label>
+				<select id="type" class="xsmall" name="cfg__email_smtp_secure">
+					<?php 
+						if($cfg->get('email_smtp_secure') == 'ssl')
+						{ $e_est = 'selected="selected"'; $e_est2 = ''; }else{ $e_est2 = 'selected="selected"'; $e_est = ''; }
+					?>
+					<option value="ssl" <?php echo $e_est; ?>>SSL</option>
+					<option value="tls" <?php echo $e_est2; ?>>TLS</option>
+				</select>																											
+				<p class="field_help">MTA Email type only - Secure Type</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site email_smtp_user">MTA - SMTP User: </label>
+				<input id="Site email_smtp_user" name="cfg__email_smtp_user" size="10" type="text" class="medium" value="<?php echo $cfg->get('email_smtp_user'); ?>" />
+				<p class="field_help">MTA Email type only - SMTP Username .</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site email_smtp_pass">MTA - SMTP Pass: </label>
+				<input id="Site email_smtp_pass" name="cfg__email_smtp_pass" size="10" type="password" class="medium" value="<?php echo $cfg->get('email_smtp_pass'); ?>" />
+				<p class="field_help">MTA Email type only - SMTP Password.</p>
+			</div>
+			
+			<div class="buttonrow-border">								
+				<center><button><span>Update Config</span></button></center>			
+			</div>
+			</form>
+		</div> <!-- .main-content -->	
+	</div> <!-- .content -->		
+</div> <!-- #main -->

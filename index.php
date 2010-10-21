@@ -77,7 +77,6 @@ if($cfg->get('site_base_href') !== $getbasehref)
 // Site functions & classes ...
 include ( 'core/common.php' ); 					// Holds most of the sites functions
 include ( 'core/class.template.php' );			// Sets up the template system
-include ( 'core/class.rasocket.php' );			// Sets up the remote access
 include ( 'core/class.auth.php' ); 				// contains account related scripts and functions
 
 // Super-Global variables.
@@ -165,9 +164,6 @@ $realms = $DB->select("SELECT `id`, `name` FROM realmlist ORDER BY `id` ASC");
 $auth = new AUTH($DB, $cfg);
 $user = $auth->user;
 $user['cur_selected_realm'] = (int)$_COOKIE['cur_selected_realm'];
-
-// === Loads Remote Access Class === //
-$RA = new RA;
 
 
 // === Sets up the template system. === //

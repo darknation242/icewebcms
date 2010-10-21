@@ -86,3 +86,95 @@
 [19-Oct-2010 14:04:36] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 74
 [19-Oct-2010 14:04:36] PHP Notice:  Undefined variable: sc_q in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 89
 [19-Oct-2010 14:04:36] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\templates\offlike\account\account.restore.php on line 89
+[20-Oct-2010 15:48:55] PHP Warning:  include(inc/admin/template_files/admin.config.php): failed to open stream: No such file or directory in C:\xampp\htdocs\MangosWebv3\index.php on line 203
+[20-Oct-2010 15:48:55] PHP Warning:  include(): Failed opening 'inc/admin/template_files/admin.config.php' for inclusion (include_path='.;C:\xampp\php\PEAR') in C:\xampp\htdocs\MangosWebv3\index.php on line 203
+[20-Oct-2010 15:51:19] PHP Warning:  include(inc/admin/template_files/admin.config.php): failed to open stream: No such file or directory in C:\xampp\htdocs\MangosWebv3\index.php on line 203
+[20-Oct-2010 15:51:19] PHP Warning:  include(): Failed opening 'inc/admin/template_files/admin.config.php' for inclusion (include_path='.;C:\xampp\php\PEAR') in C:\xampp\htdocs\MangosWebv3\index.php on line 203
+[20-Oct-2010 15:51:22] PHP Warning:  include(inc/admin/template_files/admin.config.php): failed to open stream: No such file or directory in C:\xampp\htdocs\MangosWebv3\index.php on line 203
+[20-Oct-2010 15:51:22] PHP Warning:  include(): Failed opening 'inc/admin/template_files/admin.config.php' for inclusion (include_path='.;C:\xampp\php\PEAR') in C:\xampp\htdocs\MangosWebv3\index.php on line 203
+[20-Oct-2010 19:20:27] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 191
+[20-Oct-2010 19:22:03] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 191
+[20-Oct-2010 19:24:24] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 191
+[20-Oct-2010 20:36:29] PHP Notice:  Undefined index: cur_selected_realm in C:\xampp\htdocs\MangosWebv3\index.php on line 166
+[20-Oct-2010 20:36:29] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\MangosWebv3\index.php:166) in C:\xampp\htdocs\MangosWebv3\core\class.template.php on line 24
+[20-Oct-2010 20:36:29] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\MangosWebv3\index.php:166) in C:\xampp\htdocs\MangosWebv3\core\common.php on line 338
+[20-Oct-2010 20:36:58] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 191
+[20-Oct-2010 22:05:56] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 191
+[21-Oct-2010 07:48:09] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 191
+[21-Oct-2010 07:50:50] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 191
+[21-Oct-2010 07:51:04] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 191
+[21-Oct-2010 07:51:05] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 191
+[21-Oct-2010 07:51:27] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 191
+[21-Oct-2010 07:56:55] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 191
+[21-Oct-2010 07:57:47] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 191
+[21-Oct-2010 08:16:55] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 191
+[21-Oct-2010 08:19:22] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 191
+[21-Oct-2010 08:20:38] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 191
+[21-Oct-2010 08:22:15] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:24:23] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:33:02] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:33:33] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:34:06] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:34:36] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:38:36] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:39:04] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:40:53] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:43:13] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:43:36] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:43:37] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:44:02] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:44:04] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:46:51] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:50:15] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:52:07] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:54:39] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:56:50] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 08:59:25] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:01:43] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:04:13] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:09:56] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:10:09] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:10:10] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:10:12] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:12:35] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:14:20] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:16:04] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:17:39] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:18:28] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:23:53] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:24:02] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:26:39] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:27:12] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:28:41] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:31:04] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:31:18] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:31:20] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:31:37] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:36:17] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:36:45] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:38:32] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:38:41] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:39:54] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:43:33] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:43:50] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:44:19] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:44:34] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:45:19] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:45:31] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:45:49] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:46:53] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:47:23] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:47:24] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:47:54] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:51:05] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:51:36] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:51:46] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:52:34] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:53:26] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:57:19] PHP Fatal error:  Call to undefined function writeLog() in C:\xampp\htdocs\MangosWebv3\inc\admin\script_files\admin.siteconfig.php on line 11
+[21-Oct-2010 09:59:32] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:59:34] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:59:45] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 09:59:50] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 10:06:15] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[21-Oct-2010 10:06:29] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193

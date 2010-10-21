@@ -59,10 +59,6 @@ foreach ($multirealms as $realmnow_arr)
             $server['playersonline'] = $CHDB_EXTRA->selectCell("SELECT count(1) FROM `characters` WHERE online=1");
             $server['onlineurl'] = mw_url('server', 'playersonline', $changerealmtoparam);
         }
-        if($cfg->get('fp_playermap') == 1)
-		{
-            $server['playermapurl'] = mw_url('server', 'playermap', $changerealmtoparam);
-        }
         if($cfg->get('fp_serverip') == 1)
 		{
             $server['server_ip'] = $data['address'];
