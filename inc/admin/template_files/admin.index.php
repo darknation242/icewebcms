@@ -2,7 +2,7 @@
 		<div id="main">			
 			<div class="content">	
 				<div class="content-header">
-					<h4><center>Welcome to the IceWeb Admin Control Panel. Please select an icon to begin.</center></h4>
+					<h4><center>Welcome to the MangosWeb Admin Control Panel. Please select an icon to begin.</center></h4>
 				</div> <!-- .content-header -->				
 				<div class="main-content">				
 					<table width="130px">

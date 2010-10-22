@@ -6,7 +6,7 @@
 
 class Core
 {
-	var $version = '0.1.1';
+	var $version = '3.0.0b';
 	var $version_date = '2010-10-11, 1:19 pm';
 	var $exp_dbversion = '1.0';
 
@@ -17,7 +17,8 @@ class Core
 	
 	function Initialize()
 	{
-		$this->copyright = 'Powered by IceWeb CMS version ' . $this->version . ' &copy; 2010, <a href="http://keyswow.com">KeysWow Dev Team.</a>';
+		$this->copyright = 'Powered by MangosWeb Enahnced version ' . $this->version . ' &copy; 2009-2010, <a href="http://keyswow.com">KeysWow Dev Team</a>.
+								All Rights Reserved.';
 		return true;
 	}
 	

@@ -1,5 +1,5 @@
 <?php
-$site_title = 'IceWeb';
+$site_title = 'MangosWeb v3';
 $site_email = 'your@email.com';
 $site_cookie = 'MangosWebv3';
 $site_href = '/MangosWebv3/';
@@ -60,4 +60,5 @@ $module_charfactionchange = 1;
 $module_charfactionchange_pts = 15;
 $module_charracechange = 1;
 $module_charracechange_pts = 10;
+$disable_installer = 1;
 ?>

@@ -116,19 +116,19 @@ CREATE TABLE `gallery_ssotd` (
 INSERT INTO `gallery_ssotd` VALUES ('Mangosweb_scr.jpg', '10.10.19');
 
 -- ----------------------------
--- Table structure for `iceweb_version`
+-- Table structure for `mangosweb_version`
 -- ----------------------------
-DROP TABLE IF EXISTS `iceweb_version`;
-CREATE TABLE `iceweb_version` (
+DROP TABLE IF EXISTS `mangosweb_version`;
+CREATE TABLE `mangosweb_version` (
   `dbver` varchar(20) NOT NULL DEFAULT '',
   `dbdate` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`dbver`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of iceweb_version
+-- Records of mangosweb_version
 -- ----------------------------
-INSERT INTO `iceweb_version` VALUES ('1.0', '0');
+INSERT INTO `mangosweb_version` VALUES ('1.0', '0');
 
 -- ----------------------------
 -- Table structure for `menu_items`

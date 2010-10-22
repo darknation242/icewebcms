@@ -13,7 +13,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-	<title>IceWeb Admin Panel</title>
+	<title>MangosWeb Enhanced Admin Panel</title>
 	<link rel="stylesheet" href="inc/admin/css/main.css" type="text/css"/>
 	
 	<!--[if IE 8]>	
@@ -30,12 +30,12 @@
 	<!-- Start #header -->
 	<div id="header">		
 		<div class="pad">			
-			<h1 id="title"><center>IceWeb Admin Panel</center></h1>
+			<h1 id="title"><center><img src="inc/admin/images/MangosWeb.png" /></center></h1>
 			<div id="subheader">
 				Core Version: <?php echo $Core->version; ?>
 				&nbsp;&nbsp;&nbsp; <font color='black'>|</font> &nbsp;&nbsp;&nbsp;
 				Database Version: <?php 
-                    $db_act_ver = $DB->selectCell("SELECT dbver FROM iceweb_version");
+                    $db_act_ver = $DB->selectCell("SELECT dbver FROM mangosweb_version");
 					if($db_act_ver < $Core->exp_dbversion) 
 					{ 
 						echo "<font color='red'>".$db_act_ver." (<a href=\"index.php?p=admin&sub=updates\" /><small>Needs Updated</small></a>)</font>";

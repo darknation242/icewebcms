@@ -26,7 +26,9 @@ body
 	font: 12px/1.7em arial, sans-serif;
 	padding: 0;
 	margin: 0;
-	background-image: url(../images/bg.jpg);
+	background-image: url(../images/bg2.jpg);
+	background-repeat: no repeat;
+	background-position: center top;
 	background-attachment:fixed;
 }
 
@@ -85,7 +87,7 @@ table thead th
 {	 	
 	font-weight: bold;
 	text-align: left;
-	background: #FFF;
+	background: #f3f3f3;
 	border-bottom: 1px solid #E5E2E2;
 }		
 th.header 
@@ -102,7 +104,7 @@ th.headerSortUp
 { 
 	background-image: url(../images/tables/sorter-asc.gif) !important; 
 }
-table tbody tr td { background: #FFF; }
+table tbody tr td { background: #f3f3f3; }
 table thead th, table tbody tr td { padding: 10px; }
 
 /* --- Buttons --- */
@@ -172,8 +174,8 @@ button.btn-sec span { background-position: left -100px !important; }
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 #page
  {
-	background-color: #FFF;
-	width: 1000px; 
+	background-color: #f8f8f8;
+	width: 960px; 
 	margin: 0 auto; 
 	border: 1px solid #CCC; 
 	-moz-border-radius: 6px;
@@ -184,7 +186,7 @@ button.btn-sec span { background-position: left -100px !important; }
 }
 .pad 
 { 
-	width: 960px; 
+	width: 920px; 
 	margin: 0 auto; 
 	position: relative; 
 }
@@ -202,24 +204,23 @@ button.btn-sec span { background-position: left -100px !important; }
 	position: relative;
 	border-top: 1px; 
 	-moz-border-radius: 6px 6px 0 0;
+	border-radius: 6px 6px 0 0;
 }
 
 #header h1#title
 {
 	color: #FFF;
 	font-size: 36px;
-	line-height: 2em;
+
 	text-decoration: none;
-	padding-top: 15px;
-	padding-bottom: 5px;
-	margin-bottom: 0;
+	padding-top: 3px;
+	margin-bottom: -10px;
 }
 
 #header div#subheader
 {
 	color: #FFF;
 	font-size: 12px;
-	line-height: 2em;
 	text-decoration: none;
 	text-align: center;
 	font-weight: bold;
@@ -259,7 +260,7 @@ button.btn-sec span { background-position: left -100px !important; }
 	
 #nav ul	
 { 
-	width: 960px; 
+	width: 860px; 
 	padding: 0 !important; 
 	margin: 0 auto !important; 
 }
@@ -268,10 +269,10 @@ button.btn-sec span { background-position: left -100px !important; }
 {
 	list-style-type: none;
 	/* float: left; */
-	padding-top: 1em;
+	padding-top: .75em;
 	padding-bottom: .5em;
 	margin-right: 0em;
-	padding-right: 1em;
+
 	position: relative;
 }
 	
@@ -317,7 +318,7 @@ button.btn-sec span { background-position: left -100px !important; }
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */	
 #body 
 { 
-	width: 960px; 
+	width: 920px; 
 	margin: 2em auto; 
 	position: relative; 
 }
@@ -337,13 +338,24 @@ button.btn-sec span { background-position: left -100px !important; }
 /* -------------------------------------------------------------
 6. MAIN
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-#main { width: 725px; float: right; margin-bottom: 3em; }
+#main 
+{ 
+	width: 700px; 
+	float: right; 
+	margin-bottom: 3em; 
+}
 
 
 /* -------------------------------------------------------------
 7. SIDEBAR
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-#sidebar { width: 210px; font-size: 11px; float: left; margin-bottom: 3em; }
+#sidebar 
+{ 
+	width: 200px; 
+	font-size: 11px; 
+	float: left; 
+	margin-bottom: 3em;
+}
 
 
 /* -------------------------------------------------------------
@@ -351,7 +363,7 @@ button.btn-sec span { background-position: left -100px !important; }
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 #footer
 {
-	width: 960px;
+	width: 920px;
 	font-size: 11px;
  	clear: both;
 	margin: 0 auto;
@@ -366,7 +378,7 @@ button.btn-sec span { background-position: left -100px !important; }
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 .content
 {
-	background: #FFF;
+	background: #f3f3f3;
 	width: 100%;	
 	border: 1px solid #CCC;
 	margin-bottom: 1.5em;
@@ -416,7 +428,7 @@ button.btn-sec span { background-position: left -100px !important; }
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 .form { padding: 5px; margin: 10px; }
-.form .field_help { margin-left: 145px; font-size: 90%; color: #777; }
+.form .field_help { margin-left: 145px; font-size: 90%; color: #444; }
 .form label, 
 .form span.label { margin-right: 10px; padding-right: 10px; width: 125px; display: block; float: left;  font-weight: bold; text-align: right; position: relative; }
 .form label em, 
