@@ -1,121 +1,148 @@
-<div class="content-head">
-	<div class="desc-title">Manage Frontpage News</div>
-	<div class="description">
-	<i>Description:</i> Add / Edit / Delete the news that displays on the frontpage.
-	</div>
-</div>
-<div class="content">
-<?php
-if(isset($_GET['action'])) {
-	if($_GET['action'] == 'add'){ 
-		if(isset($_POST['subject'])) {
-			addNews($_POST['subject'],$_POST['message'],$user['username']);
-		}
-?>
-		<form method="POST" action="index.php?p=admin&sub=news&action=add" onSubmit="return configvalidation(this);">
-		<input type="hidden" name="task" value="addnews">
-		
-		<table align="center" border="0" width="65%" style="border: 2px solid #808080;">
-			<tr>
-				<td colspan="3" class="form-head">Add News</td>
-			</tr>
-			<tr>
-				<td width="10%" align="right" valign="middle" class="form-text">Subject:</td>
-				<td width="20%" align="left" valign="middle">
-				<input type="text" name="subject" size="40" class="inputbox" /></td>
-				<td align="left" valign="top" class="form-desc">// News title.</td>
-			</tr>
-			<tr>
-				<td colspan="3" align="center" valign="top">
-				<textarea name="message" rows="15" cols="85" class="inputbox"></textarea>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3" align="right" class="form-text2">
-					Confirm Process:&nbsp;<input type="checkbox" name="confirm" />&nbsp;&nbsp;
-					<button name="process" class="button" type="submit"><b>Submit</b></button>&nbsp;&nbsp;
-					<button name="reset" class="button" type="reset">Cancel</button>
-				</td>
-			</tr>
-		</table>
-		</form>
+<!-- Start #main -->
+<div id="main">			
+	<div class="content">	
+	<?php
+		if(isset($_GET['action'])) {
+			if($_GET['action'] == 'add'){ 
+				if(isset($_POST['subject'])) {
+					addNews($_POST['subject'],$_POST['message'],$user['username']);
+				}
+	?>
+		<div class="content-header">
+			<h4><a href="index.php?p=admin">Main Menu</a> / <a href="index.php?p=admin&sub=news">News</a> / Add News</h4>
+		</div> <!-- .content-header -->				
+		<div class="main-content">
+			<form method="POST" action="index.php?p=admin&sub=news&action=add" class="form label-inline">
+			<input type="hidden" name="task" value="addnews">
+			
+				<table>
+					<thead>
+						<tr>
+							<th><center>Add News</center></th>
+						</tr>
+					</thead>
+				</table>
+				<br />
+				
+				<div class="field">
+					<label for="Subject">Subject: </label>
+					<input id="Subject" name="subject" size="20" type="text" class="medium" />
+					<p class="field_help">Enter your news item subject here.</p>
+				</div>
+				
+				<div class="field">
+					<label for="Message">Message: </label><br />
+					<textarea id="Message" name="message" rows="15" cols="78" class="inputbox"></textarea>
+				</div>
+				<br />		
+				<div class="buttonrow-border">								
+					<center><button><span>Submit News</span></button></center>			
+				</div>
+			</form>
+		</div>
 
 <?php 
 	// Otherwise, editing
-	}elseif($_GET['action'] == 'edit'){ 
-		if(isset($_GET['id'])) {
-			$loading = $DB->select("SELECT * FROM `site_news` WHERE `id`=?d",$_GET['id']);
-			foreach($loading as $content) {
+	}
+	elseif($_GET['action'] == 'edit')
+	{ 
+		if(isset($_GET['id'])) 
+		{
+			$content = $DB->selectRow("SELECT * FROM `site_news` WHERE `id`='".$_GET['id']."'");
+			if(isset($_POST['delete'])) 
+			{
+				delNews($_POST['id']);
 			}
-		if(isset($_POST['delete'])) {
-			delNews($_POST['id']);
-		}elseif(isset($_POST['editmessage'])) {
-			editNews($_POST['id'],$_POST['editmessage']);
-		}
+			elseif(isset($_POST['editmessage'])) 
+			{
+				editNews($_POST['id'],$_POST['editmessage']);
+			}
 ?>
-		<form method="POST" action="index.php?p=admin&sub=news&action=edit&id=<?php echo $_GET['id']; ?>" onSubmit="return configvalidation(this);">
-		<input type="hidden" name="task" value="editnews">
-		<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
-		
-		<table align="center" border="0" width="65%" style="border: 2px solid #808080;">
-			<tr>
-				<td colspan="3" class="form-head">Edit News</td>
-			</tr>
-			<tr>
-				<td width="10%" align="right" valign="middle" class="form-text">Subject:</td>
-				<td width="20%" align="left" valign="middle">
-				<input type="text" name="subject" size="40" class="inputbox" disabled="disabled" value="<?php echo $content['title']; ?>" /></td>
-				<td align="left" valign="top" class="form-desc">// News title.</td>
-			</tr>
-			<tr>
-				<td colspan="3" align="center" valign="top">
-				<textarea name="editmessage" rows="15" cols="85" class="inputbox"><?php echo $content['message']; ?></textarea>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3" align="right" class="form-text2">
-					<button name="process" class="button" type="submit"><b>Submit</b></button>&nbsp;&nbsp;
-					<button name="reset" class="button" type="reset">Cancel</button>&nbsp;&nbsp;
-					<button name="delete" type="submit" value="DELETE THIS NEWS TOPIC" class="button"><b>DELETE This News Topic</b></button>
-				</td>
-			</tr>
-		</table>
-		</form>
+		<div class="content-header">
+			<h4><a href="index.php?p=admin">Main Menu</a> / <a href="index.php?p=admin&sub=news">News</a> / Edit News</h4>
+		</div> <!-- .content-header -->				
+		<div class="main-content">
+			<form method="POST" action="index.php?p=admin&sub=news&action=edit&id=<?php echo $_GET['id']; ?>" class="form label-inline">
+			<input type="hidden" name="task" value="editnews">
+			<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">			
+				<table>
+					<thead>
+						<tr>
+							<th><center>Edit News</center></th>
+						</tr>
+					</thead>
+				</table>
+				<br />
+				
+				<div class="field">
+					<label for="Subject">Subject: </label>
+					<input id="Subject" name="subject" size="20" type="text" class="medium" disabled="disabled" value="<?php echo $content['title']; ?>" />
+					<p class="field_help">Enter your news item subject here.</p>
+				</div>
+				
+				<div class="field">
+					<label for="Message">Message: </label><br />
+					<textarea id="Message" name="editmessage" rows="15" cols="78" class="inputbox"><?php echo $content['message']; ?></textarea>
+				</div>
+				<br />		
+				<div class="buttonrow-border">								
+					<center>
+						<button><span>Submit News</span></button>
+						<button name="delete" class="btn-sec"><span>DELETE This News Topic</span></button>
+					</center>
+				</div>
+			</form>
+		</div>
 <?php 
-		}else{ ?>		
+		}
+		else
+		{ ?>		
 			<b><u><center>No Id Specified!</center></u></b><br /><br />
 
 	<?php	}
-	}else{ ?>
+	}
+	else
+	{ ?>
 You arent suppossed to be here :p
 <?php 
 	} 
-}else{
+}
+else
+{
 ?>
-	<div class="content" align="center">
-		<table width="90%" align="center" border="0" style="border: 2px solid #808080;">
-			<tr>
-				<td colspan="3" class="form-head">News List</td>
-			</tr>
-			<tr>
-				<td align="center" colspan="3"><a href="index.php?p=admin&sub=news&action=add" /><b>.:Add News:.</b></a></td>
-			</tr>
-			<tr>
-				<td width="160" align="center" class="header"><b>News Title</b></td>
-				<td width="100" align="center" class="header"><b>Posted By</b></td>
-				<td width="100" align="center" class="header"><b>Posted Date</b></td>
-			</tr>
-			<?php
-			foreach($gettopics as $row) {
-				$date_n = date("Y-m-d, g:i a", $row['post_time']);
-			?>
-			<tr class="content"'>
-				<td align="center"><a href="index.php?p=admin&sub=news&action=edit&id=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a></td>
-				<td align="center"><?php echo $row['posted_by']; ?></td>
-				<td align="center"><?php echo $date_n; ?></td>
-			</tr><?php } ?>
-		</table>
-	</div>
+		<div class="content-header">
+			<h4><a href="index.php?p=admin">Main Menu</a> / News</h4>
+		</div> <!-- .content-header -->				
+		<div class="main-content">
+			<h4><a href="index.php?p=admin&sub=news&action=add" /><center><b><u>.:Add News:.</u></b></center></a></h4>
+			<h2><center>News List</center></h2>
+			<table>
+				<tbody>
+					<thead>
+						<tr>
+							<th width="40%"><center>News Title</center></th>
+							<th width="30%"><center>Posted By</center></th>
+							<th width="30%"><center>Post Time</center></th>
+						</tr>
+					</thead>
+					<?php
+					if($gettopics != FALSE)
+					{
+						foreach($gettopics as $row) 
+						{
+							$date_n = date("Y-m-d, g:i a", $row['post_time']);
+					?>
+					<tr>
+						<td align="center"><a href="index.php?p=admin&sub=news&action=edit&id=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a></td>
+						<td align="center"><?php echo $row['posted_by']; ?></td>
+						<td align="center"><?php echo $date_n; ?></td>
+					</tr>
+					<?php } // END FOR EACH NEWS
+					} // END IF ?>
+				</tbody>
+			</table>
+		</div>
 <?php }
 ?>
+	</div>
 </div>

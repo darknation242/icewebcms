@@ -300,6 +300,7 @@ button.btn-sec span { background-position: left -100px !important; }
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 .info, .success, .warning, .error, .validation {
+	width: 80%;
     border: 1px solid;
     margin: 10px 0px;
     padding:15px 10px 15px 50px;

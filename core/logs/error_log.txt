@@ -218,3 +218,14 @@
 [22-Oct-2010 11:22:43] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
 [22-Oct-2010 11:24:00] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
 [22-Oct-2010 11:24:02] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[22-Oct-2010 12:00:05] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[22-Oct-2010 12:07:17] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[22-Oct-2010 12:38:49] PHP Notice:  Undefined index: id in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.news.php on line 58
+[22-Oct-2010 12:48:23] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.news.php on line 129
+[22-Oct-2010 12:58:45] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[22-Oct-2010 15:00:17] PHP Notice:  Undefined variable: db in C:\xampp\htdocs\MangosWebv3\core\class.config.php on line 44
+[22-Oct-2010 15:00:17] PHP Notice:  Undefined variable: db in C:\xampp\htdocs\MangosWebv3\core\class.config.php on line 44
+[22-Oct-2010 15:00:17] PHP Notice:  Undefined variable: db in C:\xampp\htdocs\MangosWebv3\core\class.config.php on line 44
+[22-Oct-2010 15:00:17] PHP Notice:  Undefined variable: db in C:\xampp\htdocs\MangosWebv3\core\class.config.php on line 44
+[22-Oct-2010 15:00:17] PHP Notice:  Undefined variable: db in C:\xampp\htdocs\MangosWebv3\core\class.config.php on line 44
+[22-Oct-2010 15:00:17] PHP Notice:  Undefined variable: db in C:\xampp\htdocs\MangosWebv3\core\class.config.php on line 44
