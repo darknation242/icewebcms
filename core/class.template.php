@@ -4,7 +4,8 @@ class Template
 	public $xml;
 	
 	// This function sets up what template is going to be used, based on what the user has picked as his/her template
-	function Init()
+	// We dont use __construct because it cant be used as an array, so there for we use Init()
+	public function Init()
 	{
 		global $user, $cfg, $DB;
 		$template_list = explode(",", $cfg->get('templates'));
@@ -68,7 +69,7 @@ class Template
 	
 	// Once the template is decided, we must load the xml that contains the template information, and return it back to the
 	// main function
-	function return_template_info()
+	public function return_template_info()
 	{
 		$this->xml = simplexml_load_file($this->path);
 		$ret = array(

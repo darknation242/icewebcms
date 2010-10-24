@@ -146,8 +146,7 @@ $Core = new Core();
 						</div>
 						<div class="clear"></div>
 					</div> <!-- .main-content -->
-					</form>
-				
+					</form>				
 			<?php
 				}
 				elseif($step == 4)
@@ -336,8 +335,7 @@ $Core = new Core();
 					</p>
 				</div>
 			<?php
-				} ?>
-				
+				} ?>				
 		</div> <!-- .content -->
 		<div id="footer">
 			<center>
