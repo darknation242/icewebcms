@@ -12,11 +12,14 @@
                                                       </div>
                                                     </div>
                                                   </td>
-<?php if(empty($_GET['p'])||$_GET['p']=="frontpage"): ?>
-                                                  <td valign="top">
-<?php include(dirname(__FILE__).'/body_right.php'); ?>
-                                                  </td>
-<?php endif; ?>
+								<?php 
+									if(empty($_GET['p']) || $_GET['p'] == "frontpage")
+									{
+										echo "<td valign=\"top\">";
+										include(dirname(__FILE__).'/body_right.php'); 
+										echo "</td>";
+									} 
+								?>
                                                 </tr>
                                               </table>                      
                                             </div>
@@ -75,6 +78,5 @@
     </center>
     <div id="ironframe" style="z-index: 11;"></div>
     <div id="pageend"></div>
-      <script type="text/javascript" src="js/wz_tooltip.js"></script>
   </body>
 </html>
