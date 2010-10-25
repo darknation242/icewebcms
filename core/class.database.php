@@ -66,7 +66,7 @@ class Database
 		else
 		{
 			// echo "- Returning True<br />";
-			$row = mysql_fetch_assoc($sql);
+			$row = mysql_fetch_array($sql);
 			return $row;
 		}
     }
@@ -75,8 +75,17 @@ class Database
     {
         $sql = mysql_query($query,$this->mysql) or die(mysql_error());
 		$this->_statistics['count']++;
-		$result = mysql_result($sql,0);
-        return $result;
+		if(mysql_num_rows($sql) == 0)
+		{
+			// echo "- Returning false<br />";
+			return FALSE;
+		}
+		else
+		{
+			// echo "- Returning True<br />";
+			$row = mysql_fetch_array($sql);
+			return $row['0'];
+		}
     }
 }
 ?>
