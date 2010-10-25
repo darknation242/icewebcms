@@ -77,7 +77,7 @@ if($cfg->get('site_base_href') !== $getbasehref)
 // Site functions & classes ...
 include ( 'core/common.php' ); 					// Holds most of the sites functions
 include ( 'core/class.template.php' );			// Sets up the template system
-include ( 'core/class.auth.php' ); 				// contains account related scripts and functions
+include ( 'core/lib/class.account.php' ); 		// contains account related scripts and functions
 
 // Super-Global variables.
 $GLOBALS['users_online'] = array();
@@ -161,7 +161,7 @@ $WDB = new Database(
 $realms = $DB->select("SELECT `id`, `name` FROM realmlist ORDER BY `id` ASC");
 
 // === Load auth system === //
-$auth = new AUTH($DB, $cfg);
+$auth = new Account($DB, $cfg);
 $user = $auth->user;
 $user['cur_selected_realm'] = (int)$_COOKIE['cur_selected_realm'];
 

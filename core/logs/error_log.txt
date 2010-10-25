@@ -1,9 +1,0 @@
-[23-Oct-2010 13:19:25] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
-[23-Oct-2010 13:24:51] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
-[24-Oct-2010 10:59:39] PHP Fatal error:  Cannot use object of type Template as array in C:\xampp\htdocs\MangosWebv3\index.php on line 171
-[24-Oct-2010 11:12:55] PHP Warning:  include(templates/offlike/body_header.php): failed to open stream: No such file or directory in C:\xampp\htdocs\MangosWebv3\index.php on line 223
-[24-Oct-2010 11:12:55] PHP Warning:  include(): Failed opening 'templates/offlike/body_header.php' for inclusion (include_path='.;C:\xampp\php\PEAR') in C:\xampp\htdocs\MangosWebv3\index.php on line 223
-[24-Oct-2010 11:12:55] PHP Warning:  include(templates/offlike/frontpage/frontpage.index.php): failed to open stream: No such file or directory in C:\xampp\htdocs\MangosWebv3\index.php on line 226
-[24-Oct-2010 11:12:55] PHP Warning:  include(): Failed opening 'templates/offlike/frontpage/frontpage.index.php' for inclusion (include_path='.;C:\xampp\php\PEAR') in C:\xampp\htdocs\MangosWebv3\index.php on line 226
-[24-Oct-2010 11:12:55] PHP Warning:  include(templates/offlike/body_footer.php): failed to open stream: No such file or directory in C:\xampp\htdocs\MangosWebv3\index.php on line 232
-[24-Oct-2010 11:12:55] PHP Warning:  include(): Failed opening 'templates/offlike/body_footer.php' for inclusion (include_path='.;C:\xampp\php\PEAR') in C:\xampp\htdocs\MangosWebv3\index.php on line 232
