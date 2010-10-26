@@ -473,8 +473,7 @@ button.btn-sec span { background-position: left -100px !important; }
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 #pg
 {
-	width: 400px;
-	background-color: #FFFFFF;
+	width: 500px;
 	text-align: center;
 	font-size: 10px;
 	margin: 0 auto;

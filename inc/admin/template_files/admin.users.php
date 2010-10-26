@@ -1,38 +1,52 @@
 <?php 
-if(isset($_GET['id'])){
-	if($_GET['id'] > 0) {
+if(isset($_GET['id']))
+{
+	if($_GET['id'] > 0) 
+	{
 		$gid = $_GET['id'];
-		if(isset($_GET['action'])) 	{
-			if($_GET['action'] == 'ban') {
+		if(isset($_GET['action'])) 	
+		{
+			if($_GET['action'] == 'ban') 
+			{
 				showBanForm($gid);
-			}elseif($_GET['action'] == 'unban') {
+			}
+			elseif($_GET['action'] == 'unban') 
+			{
 				unBan($gid);
-			}elseif($_GET['action'] == 'delete') {
+			}
+			elseif($_GET['action'] == 'delete') 
+			{
 				deleteUser($gid);
-			}else{
+			}
+			else
+			{
 				echo "Invalid Action";
 			}
-		}else{
+		}
+		else
+		{
 			showUser($gid);
 		}
-	}else{
+	}
+	else
+	{
 		echo "Invalid Request";
 	}
-}else{ ?>
-<div class="content-head">
-		<div class="desc-title">Manage Users</div>
-		<div class="description">
-		<i>Description:</i> This option displays this list of User accounts on your server.
-		</div>
-	</div>
-	<div class="content" align="center">
-		<form method="POST" action="index.php?p=admin&sub=users" name="adminform">
-		<table width="95%" border="0" style="border: 2px solid #808080;">
+}
+else
+{ ?>
+<!-- Start #main -->
+<div id="main">			
+	<div class="content">	
+		<div class="content-header">
+			<h4><a href="index.php?p=admin">Main Menu</a> / Manage Users</h4>
+		</div> <!-- .content-header -->				
+		<div class="main-content">	
+		<center><h2>User List</h2></center>
+		<table>
 			<tr>
-				<td colspan="4" class="form-head">User List</td>
-			</tr>
-			<tr>
-				<td colspan="4" align="right">
+				<td colspan="4" align="center">
+					<b>Sort by letter:</b>&nbsp;&nbsp;
 					<small>
 					<a href="index.php?p=admin&sub=users">All</a> | 
 					<a href="index.php?p=admin&sub=users&char=1">#</a> 
@@ -65,55 +79,78 @@ if(isset($_GET['id'])){
 					</small>           
 				</td>
 			</tr>
-			<tr>
-				<td width="120" align="center" class="header"><b>UserName</b></td>
-				<td width="140" align="center" class="header"><b>Email</b></td>
-				<td width="120" align="center" class="header"><b>Registration Date</b></td>
-				<td width="40" align="center" class="header"><b>Active/Ban</b></td>
-			</tr>
-			<?php
-			foreach($getusers as $row) { 
-			?>
-			<tr class="content">
-				<td align="center"><a href="index.php?p=admin&sub=users&id=<?php echo $row['id']; ?>"><?php echo $row['username']; ?></a></td>
-				<td align="center"><?php echo $row['email']; ?></td>
-				<td align="center"><?php echo $row['joindate']; ?></td>
-				<td align="center"><?php echo $row['locked']; ?></td>
-			</tr><?php } ?>
-		<tr>
-				<td colspan="4" align="right" class="form-pagenav">
-				<?php
-				// Display Page Links (Not written by me! :p )
-				if($page != 1) { 
-			        $pageprev = $page-1;
-					echo("<a href=\"index.php?p=admin&sub=users&page=".$pageprev."\">&lt;&lt; PREV</a> ");  
-				}else{
-					echo("&lt;&lt;PREV ");
-				}
-				$numofpages = $totalrows / $limit; 
-				for($j = 1; $j <= $numofpages; $j++){
-					if($j == $page){
-						echo($j." ");
-					}else{
-						echo("<a href=\"index.php?p=admin&sub=users&page=".$j."\">$j</a> "); 
-					}
-				}
-				if(($totalrows % $limit) != 0){
-		            if($j == $page){
-						echo($j." ");
-					}else{
-						echo("<a href=\"index.php?p=admin&sub=users&page=".$j."\">$j</a> ");
-					}
-				}	
-				if(($totalrows - ($limit * $page)) > 0){
-					$pagenext   = $page + 1;
-			        echo("<a href=\"index.php?p=admin&sub=users&page=".$pagenext."\">NEXT &gt;&gt;</a>");
-				}else{
-					echo("NEXT &gt;&gt;"); 
-				} ?>
-				</td>
-			</tr>
 		</table>
+		<form method="POST" action="index.php?p=admin&sub=users" name="adminform" class="form label-inline">
+			<table width="95%">
+				<thead>
+					<tr>
+						<th width="120"><b><center>UserName</center></b></th>
+						<th width="140"><b><center>Email</center></b></th>
+						<th width="120"><b><center>Registration Date</center></b></th>
+						<th width="40"><b><center>Active/Ban</center></b></th>
+					</tr>
+				</thead>
+				<?php
+				foreach($getusers as $row) { 
+				?>
+				<tr class="content">
+					<td align="center"><a href="index.php?p=admin&sub=users&id=<?php echo $row['id']; ?>"><?php echo $row['username']; ?></a></td>
+					<td align="center"><?php echo $row['email']; ?></td>
+					<td align="center"><?php echo $row['joindate']; ?></td>
+					<td align="center"><?php echo $row['locked']; ?></td>
+				</tr><?php } ?>
+			</table>
+			<div id="pg">
+			<?php
+				// If there is going to be more then 1 page, then show page nav at the bottom
+				if($totalrows > $limit)
+				{
+					// Display Page Links (Not written by me! :p )
+					if($page != 1) 
+					{ 
+						$pageprev = $page-1;
+						echo("<a href=\"index.php?p=admin&sub=users&page=".$pageprev."\">&laquo; Previous</a>&nbsp;&nbsp;");  
+					}
+					else
+					{
+						echo "<span class='disabled'>&laquo; Previous</span>&nbsp;&nbsp;";
+					}
+					$numofpages = $totalrows / $limit; 
+					for($j = 1; $j <= $numofpages; $j++)
+					{
+						if($j == $page)
+						{
+							echo "<a  class='current'  href=\"index.php?p=admin&sub=users&page=".$j."\">".$j."</a>&nbsp;&nbsp;";
+						}
+						else
+						{
+							echo "<a href=\"index.php?p=admin&sub=users&page=".$j."\">$j</a>&nbsp;&nbsp;"; 
+						}
+					}
+					if(($totalrows % $limit) != 0)
+					{
+						if($j == $page)
+						{
+							echo "<a  class='current'  href=\"index.php?p=admin&sub=users&page=".$j."\">".$j."</a>&nbsp;&nbsp;";
+						}
+						else
+						{
+							echo "<a href=\"index.php?p=admin&sub=users&page=".$j."\">$j</a>&nbsp;&nbsp;";
+						}
+					}	
+					if(($totalrows - ($limit * $page)) > 0)
+					{
+						$pagenext   = $page + 1;
+						echo "<a href=\"index.php?p=admin&sub=users&page=".$pagenext."\">Next &raquo;</a>&nbsp;&nbsp;";
+					}
+					else
+					{
+						echo "<span class='disabled'>Next &raquo;</span>"; 
+					} 
+				}
+			?>
+			</div>
 		</form>
+		</div>
 	</div>
 <?php } ?>

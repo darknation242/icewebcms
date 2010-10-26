@@ -7,21 +7,29 @@ if(INCLUDED!==true) {
 
 //====== Pagination Code ======/
 $limit = 50; //$cfg->get('admin_page_size');		// Sets how many results shown per page	
-if(!isset($_GET['page']) || (!is_numeric($_GET['page']))){
-        $page = 1;
-	} else {
-		$page = $_GET['page'];
-    }
+if(!isset($_GET['page']) || (!is_numeric($_GET['page'])))
+{
+    $page = 1;
+} 
+else 
+{
+	$page = $_GET['page'];
+}
 $limitvalue = $page * $limit - ($limit);	// Ex: (2 * 25) - 25 = 25 <- data starts at 25
 
-//===== Filter ==========// (Taken from MangosWeb :p )
-    if($_GET['char'] && preg_match("/[a-z]/", $_GET['char'])){
-        $filter = "WHERE `username` LIKE '" . $_GET['char'] . "%'";
-    }elseif($_GET['char'] == 1){
-        $filter = "WHERE `username` REGEXP '^[^A-Za-z]'";
-    }else{
-        $filter = '';
-    }
+//===== Filter ==========// 
+if($_GET['char'] && preg_match("/[a-z]/", $_GET['char']))
+{
+	$filter = "WHERE `username` LIKE '" . $_GET['char'] . "%'";
+}
+elseif($_GET['char'] == 1)
+{
+	$filter = "WHERE `username` REGEXP '^[^A-Za-z]'";
+}
+else
+{
+	$filter = '';
+}
 	
 // Get all users
 $getusers = $DB->select("SELECT * FROM account $filter ORDER BY `username` ASC LIMIT $limitvalue, $limit;");
@@ -31,37 +39,28 @@ $totalrows = count($getcnt);
 //===== Start of functions =====/
 
 // Change password admin style :p
-function adminChangePass($id, $newp) {
+function adminChangePass($id, $newp) 
+{
 	global $DB;
 	$newpd = trim($newp);
-    if(strlen($newpd) > 3){
-        $uname = $DB->selectCell("SELECT username FROM account WHERE id=?d",$id);
-        $DB->query("UPDATE account SET sessionkey = NULL WHERE id=?d",$id);
-        $sha_pass = sha_password($uname,$newpd);
-        $DB->query("UPDATE account SET sha_pass_hash='$sha_pass' WHERE id='$id'");
-        output_message('notice', '<b>Success!</b> '.$uname.'\'s password sucessfully changed to '.$newpd.'.');
-    }else{
-        output_message('alert', '<b>Failed!</b> Password too short.');
-    }
+    
 }
 
 // Unban user
-function unBan($unbanid) {
+function unBan($unbanid) 
+{
 	global $DB;
-	$DB->query("UPDATE account_banned SET active=0 WHERE id=?d ", $unbanid);
-    $ipd = $DB->selectCell("SELECT last_ip FROM account WHERE id=?d",$unbanid);
-    $DB->query("DELETE FROM ip_banned WHERE ip=?d",$ipd);
-	$DB->query("UPDATE account_extend SET `account_level`=2 WHERE account_id=?d",$unbanid);
-	output_message('notice','Success, User unbanned!<br />
-	Click <a href="index.php?p=admin&sub=users&id='.$unbanid.'" />Here</a> to return to users profile');
+	
 }
 
 // Delete user's account
-function deleteUser($did) {
+function deleteUser($did) 
+{
 }
 
 // Ban user
-function banUser($bannid,$banreason) {
+function banUser($bannid,$banreason) 
+{
 	global $DB, $user;
 	if(!$banreason) {
 		$banreason = "Not Specified";
@@ -78,23 +77,27 @@ function banUser($bannid,$banreason) {
 //===== Show Form Functions =====/
 
 // Show user form function. Returns users profile with admin options
-function showUser($pid) {
+function showUser($pid) 
+{
 	global $auth, $cfg, $DB;
-	$profile = $auth->getprofile($pid);
+	$profile = $auth->getProfile($pid);
 	$allgroups = $DB->select("SELECT * FROM account_groups");
-	$seebanned = $DB->select("SELECT * FROM account_banned WHERE id=?d AND `active`=1",$pid);
-		if(count($seebanned) > 0) {
-			$bann = 1;
-		}else{
-			$bann = 0;
-		}
+	$seebanned = $DB->select("SELECT * FROM account_banned WHERE id='$pid' AND `active`=1");
+	if(count($seebanned) > 0) 
+	{
+		$bann = 1;
+	}
+	else
+	{
+		$bann = 0;
+	}
 	$lastvisit = date("Y-m-d, g:i a", $profile['last_visit']);
-	echo "<div class=\"content-head\">
-			<div class=\"desc-title\">Manage User</div>
-			<div class=\"description\">
-				<i>Description:</i> Here you can modify ".$profile['username']."'s Profile.
-			</div>
-		</div>";
+	echo "<div id=\"main\">			
+			<div class=\"content\">	
+				<div class=\"content-header\">
+					<h4><a href=\"index.php?p=admin\">Main Menu</a> / <a href=\"index.php?p=admin&sub=users\">Manage Users</a> / ".$profile['username']."</h4>
+				</div> <!-- .content-header -->				
+				<div class=\"main-content\">";
 	// Establish all the posts that deal with functions
 	if(isset($_POST['edit_password'])) {
 		echo $_POST['profile_change_pass'];
@@ -295,12 +298,13 @@ function showUser($pid) {
 			</tr>
 			</table>
 			</form>
-        </div>
+        </div></div></div>
 	";
 }
 
 // Show ban form is used to input a Ban reason, before acutally banning
-function showBanForm($banid) {
+function showBanForm($banid) 
+{
 	global $DB, $cfg;
 	$unme = $DB->selectCell("SELECT username FROM account WHERE id=?d",$banid);
 	echo "
@@ -311,7 +315,8 @@ function showBanForm($banid) {
 		</div>
 	</div>
 	<div class=\"content\" align=\"center\">";
-	if(isset($_POST['ban_user'])) {
+	if(isset($_POST['ban_user'])) 
+	{
 		banUser($_POST['ban_user'],$_POST['ban_reason']);
 	}
 	echo "
