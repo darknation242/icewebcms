@@ -367,7 +367,7 @@ class Account
     function getid($acct_name=false)
 	{
         $res = $this->DB->selectCell("SELECT id FROM account WHERE username='".$acct_name."'");
-        if($res == null)
+        if($res == FALSE)
 		{
 			return false;  // no such account
 		}
@@ -389,19 +389,97 @@ class Account
 		}
     }
 	
+	function getSecretQuestions()
+	{
+		$getsc = $this->DB->select("SELECT * FROM `site_secret_questions`");
+		return $getsc;
+	}
+	
+	function setEmail($id, $newemail)
+	{
+		$id = mysql_real_escape_string($id);
+        $newemail = mysql_real_escape_string($newemail);
+		$this->DB->query("UPDATE `account` SET `email`='$newemail' WHERE `id`='$id' LIMIT 1");
+		return TRUE;
+	}
+	
+	function setExpansion($id, $nexp)
+    {
+        $id = mysql_real_escape_string($id);
+        $nexp = mysql_real_escape_string($nexp);
+        $this->DB->query("UPDATE `account` SET `expansion`='$nexp' WHERE `id`=$id");
+        return TRUE;
+    }
+	
+	function setPassword($id, $newpass)
+    {
+        $id = mysql_real_escape_string($id);
+        $newpass = mysql_real_escape_string($newpass);
+        $row = $this->DB->selectRow("SELECT `username` FROM `account` WHERE `id`='$id' LIMIT 1");
+        $pass_hash = sha_password($row['username'], $newpass);
+        $this->DB->query("UPDATE `account` SET `sha_pass_hash`='$pass_hash', `v`= 0, `s`= 0 WHERE `id`='$id' LIMIT 1");
+        return TRUE;
+    }
+	
+	function setSecretQuestions($id, $sq1, $sa1, $sq2, $sa2)
+	{
+		$sq1 = strip_if_magic_quotes($sq1);
+		$sa1 = strip_if_magic_quotes($sa1);
+		$sq2 = strip_if_magic_quotes($sq2);
+		$sa2 = strip_if_magic_quotes($sa2);
+		
+		// Check for symbols
+		if(check_for_symbols($sa1) == FALSE && check_for_symbols($sa2) == FALSE && $sq1 != '0' && $sq2!= '0')
+		{
+			if(strlen($sa1) > 4 && strlen($sa2) > 4)
+			{
+				if($sa1 != $sa2 && $sq1 != $sq2)
+				{
+					$this->DB->query("UPDATE account_extend SET secret_q1='$sq1', secret_q2='$sq2', secret_a1='$sa1', secret_a2='$sa2' WHERE account_id='$id'");
+					return TRUE;
+				}
+				else
+				{
+					return 2; // 2 = Answers or questions where the same
+				}
+			}
+			else
+			{
+				return 3; // Answers where less then 4 characters long
+			}
+		}
+		else
+		{
+			return 4; // Answers contained symbols
+		}
+	}
+	
+	function deleteAvatar($id, $file)
+	{
+		if(@unlink('images/avatars/'.$file))
+		{
+			$this->DB->query("UPDATE account_extend SET avatar=NULL WHERE account_id=".$id." LIMIT 1");
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	
 	// === ACCOUNT KEY FUNCTIONS === //
 	function matchAccountKey($id, $key) 
 	{
 		$this->clearOldAccountKeys();
 		global $DB;
-		$count = $DB->selectRow("SELECT * FROM account_keys WHERE id='$id'");
+		$count = $this->DB->selectRow("SELECT * FROM account_keys WHERE id='$id'");
 		if($count == FALSE) 
 		{
 			return false;
 		}
 		else
 		{
-			$account_key = $DB->selectRow("SELECT * FROM account_keys WHERE id='$id'");
+			$account_key = $this->DB->selectRow("SELECT * FROM account_keys WHERE id='$id'");
 			if($key == $account_key['key']) 
 			{
 				return true;
@@ -427,7 +505,7 @@ class Account
 
 		$expire_time = time() - $cookie_expire_time;
 
-		$DB->query("DELETE FROM account_keys WHERE assign_time < ".$expire_time."");
+		$this->DB->query("DELETE FROM account_keys WHERE assign_time < ".$expire_time."");
 	}
 
 	function addOrUpdateAccountKeys($id, $key) 
@@ -438,11 +516,11 @@ class Account
 		$go = $DB->selectRow("SELECT * FROM account_keys WHERE id = '".$id."'");
 		if($go == FALSE) //need to INSERT
 		{
-			$DB->query("INSERT INTO account_keys (`id`, `key`, `assign_time`) VALUES ('$id', '$key', '$current_time')");
+			$this->DB->query("INSERT INTO account_keys (`id`, `key`, `assign_time`) VALUES ('$id', '$key', '$current_time')");
 		}
 		else //need to UPDATE
 		{              
-			$DB->query("UPDATE `account_keys` SET `key`='$key', `assign_time`='$current_time' WHERE `id`='$id'");
+			$this->DB->query("UPDATE `account_keys` SET `key`='$key', `assign_time`='$current_time' WHERE `id`='$id'");
 		}
 	}
 
@@ -450,14 +528,14 @@ class Account
 	{
 		global $DB;
 
-		$count = $DB->selectRow("SELECT * FROM account_keys where id ='$id'");
+		$count = $this->DB->selectRow("SELECT * FROM account_keys where id ='$id'");
 		if($count == FALSE) 
 		{
 			//do nothing
 		}
 		else 
 		{
-			$DB->query("DELETE FROM account_keys WHERE id ='$id'");
+			$this->DB->query("DELETE FROM account_keys WHERE id ='$id'");
 		}
 	}
 }

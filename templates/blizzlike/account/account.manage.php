@@ -1,5 +1,5 @@
 <?php 
-if($user['id']>0 && isset($profile))
+if($user['id'] > 0 && isset($profile))
 { ?>
 	<style type="text/css">
 		.attribute { font-family: "Arial", "Helvetica", "Sans-Serif"; color: #000000; font-weight: bold; font-size: 12;}
@@ -57,7 +57,61 @@ if($user['id']>0 && isset($profile))
 	</table>
 	<!-- END PAGE BANNER -->
 
-	<?php builddiv_start() ?>
+	<?php 
+		builddiv_start();
+		// Here we want to see if the user has posted anything, and if so, then assign the functions to them to get em done //
+		
+		if(isset($_GET['action']))
+		{
+			if($_GET['action'] == 'changeemail')
+			{
+				changeemail();
+			}
+		
+			// CHANGE PASS
+			elseif($_GET['action'] == 'changepass')
+			{
+				changepass();
+			}
+			
+			// CHANGE BASICS
+			elseif($_GET['action'] == 'change')
+			{
+				if(isset($_POST['profile']['avatar']))
+				{
+					uploadAvatar();
+				}
+				changeDetails();
+			}
+			
+			// CHANGE SECRET Q's
+			elseif($_GET['action'] == 'changesecretq')
+			{
+				changeSQ();
+			}
+			
+			// RESET SECRET Q's
+			elseif($_GET['action']=='resetsecretq')
+			{
+				resetSQ();
+			}
+			
+			// CHANGE EXP.
+			elseif($_GET['action'] == 'change_gameplay')
+			{
+				changeExp();
+			}
+			
+			// Delete Avatar
+			if(isset($_POST['deleteavatar']))
+			{
+				if($_POST['deleteavatar'] == 1 && preg_match("/\d+\.\w+/i",$_POST['avatarfile']))
+				{
+					deleteAvatar();
+				}
+			}
+		}
+	?>
 	<center>
 	<!--Shadow Top-->
 	<table cellspacing = "0" cellpadding = "0" border = "0">
@@ -96,121 +150,196 @@ if($user['id']>0 && isset($profile))
 							</table>
 							</center>
 							<br />
-								<?php write_subheader($lang['general_info']); ?>
-								<table width = "520" style = "border-width: 1px; border-style: dotted; border-color: #928058;"><tr><td><table style = "border-width: 1px; border-style: solid; border-color: black; background-image: url('<?php echo $currtmp; ?>/images/light3.jpg');">
-								<tr>
-									<td>
-										<table border='0' cellspacing='0' cellpadding='4'>
-										<tr>
-											<td align=right valign = "top">
-												<font face="arial,helvetica" size=-1><span><b><?php echo $lang['username'];?><br /></b></span></font>
-											</td>
-											<td align=left>
-												<table border='0' cellspacing='0' cellpadding='0'>
-												<tr>
-													<td>
-														<input type='text' size='40' disabled="disabled" style="background-color:#FFFFFF" value='&nbsp;&nbsp;<?php echo $profile['username'];?>' readonly>
-													</td>
-													<td valign = "top"></td>
-												</tr>
-												</table>
-											</td>
-										</tr>
-										<!-- Hide Email -->
-										<tr>
-											<td width=200 align=right>
-												<font face="arial,helvetica" size=-1><span><b><?php echo $lang['hideemail'];?>&#058;<br /></b></span></font>
-											</td>
-											<td>
-												<table border='0' cellspacing='0' cellpadding='0'>
-												<tr>
-													<td>
-														<select name="profile[hideemail]" style="margin:1px;">
-															<option value="0"<?php if($profile['hideemail']==0)echo' selected';?>><?php echo $lang['no'];?> </option>
-															<option value="1"<?php if($profile['hideemail']==1)echo' selected';?>><?php echo $lang['yes'];?> </option>
-														</select>
-													</td>
-													<td valign = "top"></td>
-												</tr>
-												</table>
-											</td>
-										</tr>
-										<!-- Hide Profile -->
-										<tr>
-											<td align=right>
-												<font face="arial,helvetica" size=-1><span><b><?php echo $lang['hideprofile'];?>&#058;<br /></b></span></font>
-											</td>
-											<td align=left>
-												<table border='0' cellspacing='0' cellpadding='0'>
-												<tr>
-													<td>
-														<select name="profile[hideprofile]" style="margin:1px;">
-															<option value="0"<?php if($profile['hideprofile']==0)echo' selected';?>><?php echo $lang['no'];?> </option>
-															<option value="1"<?php if($profile['hideprofile']==1)echo' selected';?>><?php echo $lang['yes'];?> </option>
-														</select>
-													</td>
-													<td valign = "top"></td>
-												</tr>
-												</table>
-											</td>
-										</tr>
-										<!-- Gender -->
-										<tr>
-											<td align=right>
-												<font face="arial,helvetica" size=-1><span><b><?php echo $lang['gender'];?>&#058;<br /></b></span></font>
-											</td>
-											<td align=left>
-												<table border='0' cellspacing='0' cellpadding='0'>
-												<tr>
-													<td>
-														<select name="profile[gender]">
-															<option value="0"<?php if($profile['gender']==0)echo' selected';?>><?php echo $lang['notselected'];?> </option>
-															<option value="1"<?php if($profile['gender']==1)echo' selected';?>><?php echo $lang['male'];?> </option>
-															<option value="2"<?php if($profile['gender']==2)echo' selected';?>><?php echo $lang['female'];?> </option>
-														</select>
-													</td>
-													<td valign = "top"></td>
-												</tr>
-												</table>
-											</td>
-										</tr>
-										<!-- Home Page -->
-										<tr>
-											<td align=right>
-												<font face="arial,helvetica" size=-1><span><b><?php echo $lang['homepage'];?>&#058;<br />
-											</td>
-											<td align=left>
-												<table border='0' cellspacing='0' cellpadding='0'>
-												<tr>
-													<td>
-														<input name="profile[homepage]" type="text" size="36" style="margin:1px;" value="<?php echo$profile['homepage'];?>" />
-													</td>
-												</tr>
-												</table>
-											</td>
+							<?php write_subheader($lang['general_info']); ?>
+							<table width = "520" style = "border-width: 1px; border-style: dotted; border-color: #928058;"><tr><td><table style = "border-width: 1px; border-style: solid; border-color: black; background-image: url('<?php echo $currtmp; ?>/images/light3.jpg');">
+							<tr>
+								<td>
+									<table border='0' cellspacing='0' cellpadding='4'>
+									<tr>
+										<td align=right valign = "top">
+											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['username'];?><br /></b></span></font>
+										</td>
+										<td align=left>
+											<table border='0' cellspacing='0' cellpadding='0'>
+											<tr>
+												<td>
+													<input type='text' size='40' disabled="disabled" style="background-color:#FFFFFF" value='&nbsp;&nbsp;<?php echo $profile['username'];?>' readonly>
+												</td>
+												<td valign = "top"></td>
+											</tr>
+											</table>
+										</td>
+									</tr>
+									<!-- Hide Email -->
+									<tr>
+										<td width=200 align=right>
+											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['hideemail'];?>&#058;<br /></b></span></font>
+										</td>
+										<td>
+											<table border='0' cellspacing='0' cellpadding='0'>
+											<tr>
+												<td>
+													<select name="profile[hide_email]" style="margin:1px;">
+														<option value="0"<?php if($profile['hide_email']==0)echo' selected';?>><?php echo $lang['no'];?> </option>
+														<option value="1"<?php if($profile['hide_email']==1)echo' selected';?>><?php echo $lang['yes'];?> </option>
+													</select>
+												</td>
+												<td valign = "top"></td>
+											</tr>
+											</table>
+										</td>
+									</tr>
+									<!-- Hide Profile -->
+									<tr>
+										<td align=right>
+											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['hideprofile'];?>&#058;<br /></b></span></font>
+										</td>
+										<td align=left>
+											<table border='0' cellspacing='0' cellpadding='0'>
+											<tr>
+												<td>
+													<select name="profile[hide_profile]" style="margin:1px;">
+														<option value="0"<?php if($profile['hide_profile']==0)echo' selected';?>><?php echo $lang['no'];?> </option>
+														<option value="1"<?php if($profile['hide_profile']==1)echo' selected';?>><?php echo $lang['yes'];?> </option>
+													</select>
+												</td>
+												<td valign = "top"></td>
+											</tr>
+											</table>
+										</td>
+									</tr>
+									<!-- Gender -->
+									<tr>
+										<td align=right>
+											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['gender'];?>&#058;<br /></b></span></font>
+										</td>
+										<td align=left>
+											<table border='0' cellspacing='0' cellpadding='0'>
+											<tr>
+												<td>
+													<select name="profile[gender]">
+														<option value="0"<?php if($profile['gender']==0)echo' selected';?>><?php echo $lang['notselected'];?> </option>
+														<option value="1"<?php if($profile['gender']==1)echo' selected';?>><?php echo $lang['male'];?> </option>
+														<option value="2"<?php if($profile['gender']==2)echo' selected';?>><?php echo $lang['female'];?> </option>
+													</select>
+												</td>
+												<td valign = "top"></td>
+											</tr>
+											</table>
+										</td>
+									</tr>
+									<!-- Home Page -->
+									<tr>
+										<td align=right>
+											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['homepage'];?>&#058;<br />
+										</td>
+										<td align=left>
+											<table border='0' cellspacing='0' cellpadding='0'>
+											<tr>
+												<td>
+													<input name="profile[homepage]" type="text" size="36" style="margin:1px;" value="<?php echo$profile['homepage'];?>" />
+												</td>
+											</tr>
+											</table>
+										</td>
+										<br />
+										</td>
+									</tr>
+									<!-- MSN -->
+									<tr>
+										<td align=right>
+											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['msn'];?>:</b></span></font>
+										</td>
+										<td align=left>
+											<table border='0' cellspacing='0' cellpadding='0'>
+											<tr>
+												<td>
+													<input name="profile[msn]" type="text" size="36" style="margin:1px;" value="<?php echo $profile['msn'];?>" /><span></span></td><td valign = "top">
+												</td>
+											</tr>
+											</table>
+										</td>
+										</td>
+									</tr>
+									<!-- FROM -->
+									<tr>
+										<td align=right>
+											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['wherefrom'];?>
 											<br />
+											</b></span></font>
+										</td>
+										<td align=left>
+										<table border='0' cellspacing='0' cellpadding='0'>
+										<tr>
+											<td>
+												<input name="profile[location]" type="text" size="36" style="margin:1px;" value="<?php echo$profile['location'];?>" />
 											</td>
+											<td valign = "top"></td>
 										</tr>
-										<!-- MSN -->
+										</table>
+										</td>
+									</tr>
+									<!-- THEME -->
+									<tr>
+										<td align="right">
+											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['theme'];?><br /></b></span></font>
+										</td>
+										<td align="left">
+											<table border='0' cellspacing='0' cellpadding='0'>
+											<tr>
+												<td>
+													<select name="profile[theme]" style="margin:1px;">
+													<?php
+													$i = 0;			
+													foreach($tmpl_list as $templatez)
+													{ ?>
+														<option value="<?php echo $i; ?>"<?php if($profile['theme']== $i)echo' selected'; ?>><?php echo (string)$templatez;?>
+													<?php 
+														$i++; 
+													} 
+													unset($i);?>
+													</option>
+													</select>
+												</td>
+												<td valign = "top"></td>
+											</tr>
+											</table>
+										</td>
+									</tr>
+									<!-- AVATAR -->
+									<?php 
+									if($profile['avatar']) 
+									{ ?>
 										<tr>
 											<td align=right>
-												<font face="arial,helvetica" size=-1><span><b><?php echo $lang['msn'];?>:</b></span></font>
+												<font face="arial,helvetica" size=-1><span><b><?php echo $lang['avatar'];?>
+												<br />
+												</b></span></font>
 											</td>
 											<td align=left>
 												<table border='0' cellspacing='0' cellpadding='0'>
 												<tr>
 													<td>
-														<input name="profile[msn]" type="text" size="36" style="margin:1px;" value="<?php echo$profile['msn'];?>" /><span></span></td><td valign = "top">
+														<img src="images/avatars/<?php echo $profile['avatar'];?>" style="margin:1px;"> <br/>
+														<input type="hidden" name="avatarfile" value="<?php echo $profile['avatar'];?>">
+														<b><?php echo $lang['delavatar'];?></b>
+														<input type="checkbox" size="36" name="deleteavatar" style="margin:1px;" value="1">
 													</td>
+													<td valign = "top"></td>
 												</tr>
 												</table>
 											</td>
-											</td>
 										</tr>
-										<!-- FROM -->
+									<?php 
+									}
+									else
+									{ ?>
 										<tr>
 											<td align=right>
-												<font face="arial,helvetica" size=-1><span><b><?php echo $lang['wherefrom'];?>
+												<font face="arial,helvetica" size=-1><span><b><?php echo $lang['avatar'];?>
+												<img src="<?php echo $currtmp; ?>/images/icons/warning.gif" width="15" height="15"
+												onmouseover="ddrivetip('<?php echo $lang['maxavatarsize'];?>: <?php echo (int)$cfg->get('max_avatar_file_size');?> bytes, <?php echo $lang['maxavatarres'];?> <?php echo (string)$cfg->get('max_avatar_size');?> px.<br/>','#ffffff')";
+												onmouseout="hideddrivetip()">
 												<br />
 												</b></span></font>
 											</td>
@@ -218,125 +347,50 @@ if($user['id']>0 && isset($profile))
 											<table border='0' cellspacing='0' cellpadding='0'>
 											<tr>
 												<td>
-													<input name="profile[location]" type="text" size="36" style="margin:1px;" value="<?php echo$profile['location'];?>" />
+													<input type="file" size="36" name="avatar" style="margin:1px;">
 												</td>
 												<td valign = "top"></td>
 											</tr>
 											</table>
 											</td>
 										</tr>
-										<!-- THEME -->
-										<tr>
-											<td align="right">
-												<font face="arial,helvetica" size=-1><span><b><?php echo $lang['theme'];?><br /></b></span></font>
-											</td>
-											<td align="left">
-												<table border='0' cellspacing='0' cellpadding='0'>
-												<tr>
-													<td>
-														<select name="profile[theme]" style="margin:1px;">
-														<?php
-														$i = 0;			
-														foreach($tmpl_list as $templatez)
-														{ ?>
-															<option value="<?php echo $i; ?>"<?php if($profile['theme']== $i)echo' selected'; ?>><?php echo (string)$templatez;?>
-														<?php 
-															$i++; 
-														} 
-														unset($i);?>
-														</option>
-														</select>
-													</td>
-													<td valign = "top"></td>
-												</tr>
-												</table>
-											</td>
-										</tr>
-										<!-- AVATAR -->
-										<?php 
-										if($profile['avatar']) 
-										{ ?>
+									<?php 
+									} ?>
+									<!-- Signature -->
+									<tr>
+										<td align='right'>
+											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['signature'];?>
+											<img src="<?php echo $currtmp; ?>/images/icons/info.gif" width="16" height="16"
+											onmouseover="ddrivetip('You may use normal BBcode tags in signature.','#ffffff')";
+											onmouseout="hideddrivetip()">
+											<br />
+											</b></span></font>
+										</td>
+										<td align='left'>
+											<table border='0' cellspacing='0' cellpadding='0'>
 											<tr>
-												<td align=right>
-													<font face="arial,helvetica" size=-1><span><b><?php echo $lang['avatar'];?>
-													<br />
-													</b></span></font>
-												</td>
-												<td align=left>
-													<table border='0' cellspacing='0' cellpadding='0'>
-													<tr>
-														<td>
-															<img src="images/avatars/<?php echo $profile['avatar'];?>" style="margin:1px;"> <br/>
-															<input type="hidden" name="avatarfile" value="<?php echo $profile['avatar'];?>">
-															<b><?php echo $lang['delavatar'];?></b>
-															<input type="checkbox" size="36" name="deleteavatar" style="margin:1px;" value="1">
-														</td>
-														<td valign = "top"></td>
-													</tr>
-													</table>
-												</td>
+												<td>
+													<textarea name="profile[signature]" maxlength="255" rows="3" cols="40"><?php echo my_previewreverse($profile['signature']);?></textarea>
+												</td><td valign = "top"></td>
 											</tr>
-										<?php 
-										}
-										else
-										{ ?>
-											<tr>
-												<td align=right>
-													<font face="arial,helvetica" size=-1><span><b><?php echo $lang['avatar'];?>
-													<img src="<?php echo $currtmp; ?>/images/icons/warning.gif" width="15" height="15"
-													onmouseover="ddrivetip('<?php echo $lang['maxavatarsize'];?>: <?php echo (int)$cfg->get('max_avatar_file_size');?> bytes, <?php echo $lang['maxavatarres'];?> <?php echo (string)$cfg->get('max_avatar_size');?> px.<br/>','#ffffff')";
-													onmouseout="hideddrivetip()">
-													<br />
-													</b></span></font>
-												</td>
-												<td align=left>
-												<table border='0' cellspacing='0' cellpadding='0'>
-												<tr>
-													<td>
-														<input type="file" size="36" name="avatar" style="margin:1px;">
-													</td>
-													<td valign = "top"></td>
-												</tr>
-												</table>
-												</td>
-											</tr>
-										<?php 
-										} ?>
-										<!-- Signature -->
-										<tr>
-											<td align='right'>
-												<font face="arial,helvetica" size=-1><span><b><?php echo $lang['signature'];?>
-												<img src="<?php echo $currtmp; ?>/images/icons/info.gif" width="16" height="16"
-												onmouseover="ddrivetip('You may use normal BBcode tags in signature.','#ffffff')";
-												onmouseout="hideddrivetip()">
-												<br />
-												</b></span></font>
-											</td>
-											<td align='left'>
-												<table border='0' cellspacing='0' cellpadding='0'>
-												<tr>
-													<td>
-														<textarea name="profile[signature]" maxlength="255" rows="3" cols="40"><?php echo my_previewreverse($profile['signature']);?></textarea>
-													</td><td valign = "top"></td>
-												</tr>
-												</table>
-											</td>
-										</tr>
-										<tr>
-											<td align='left' colspan="2">
-												<font color="#FF0000">*</font><input type="checkbox" name="legal" value="yes">&nbsp;
-												<font face="arial,helvetica" size='-1' ><span><b>
-												<span><small><font color="black"><?php echo $lang['agreeement_detailschange']; ?></font></small></span><br/>
-												</b></span></font>
-											</td>
-											<td valign = "top"></td>
-										</tr>
-										</table>
-										<!-- END "change your info" TABLE -->
-									<div align="center">
-										<input type="image" src="<?php echo $currtmp; ?>/images/buttons/button-cancel.gif" size="16" class="button" style="font-size:12px;" value="<?php echo $lang['reset'];?>">
-										<input type="image" src="<?php echo $currtmp; ?>/images/buttons/button-update.gif" class="button" style="font-size:12px;" value="<?php echo $lang['dochange'];?>">
-									</div>
+											</table>
+										</td>
+									</tr>
+									<tr>
+										<td align='left' colspan="2">
+											<font color="#FF0000">*</font><input type="checkbox" name="legal" value="yes">&nbsp;
+											<font face="arial,helvetica" size='-1' ><span><b>
+											<span><small><font color="black"><?php echo $lang['agreeement_detailschange']; ?></font></small></span><br/>
+											</b></span></font>
+										</td>
+										<td valign = "top"></td>
+									</tr>
+									</table>
+									<!-- END "change your info" TABLE -->
+								<div align="center">
+									<input type="image" src="<?php echo $currtmp; ?>/images/buttons/button-cancel.gif" size="16" class="button" style="font-size:12px;" value="<?php echo $lang['reset'];?>">
+									<input type="image" src="<?php echo $currtmp; ?>/images/buttons/button-update.gif" class="button" style="font-size:12px;" value="<?php echo $lang['dochange'];?>">
+								</div>
 						</td>
 					</tr>
 				</table>
@@ -391,7 +445,7 @@ if($user['id']>0 && isset($profile))
 							if((int)$cfg->get('allow_user_emailchange')) 
 							{ ?>
 								<tr>
-									<form method="post" action="index.php?n=account&sub=manage&action=changeemail">
+									<form method="post" action="index.php?p=account&sub=manage&action=changeemail">
 									<td align=right valign = "top">
 										<font face="arial,helvetica" size=-1><span><b><?php if (isset($lang['newemail']))echo $lang['newemail'];?></b></span></font>
 									</td>
@@ -471,9 +525,10 @@ if($user['id']>0 && isset($profile))
 												<select name="secretq1">
 													<option <?php if($profile['secret_q1'] == '')echo "selected"; ?> value="0">None</option>
 													  <?php
-													  foreach ($MW->getConfig->secret_questions->question as $question){
+													  foreach ($secret_q as $question)
+													  {
 													  ?>
-													  <option value="<?php echo htmlspecialchars($question); ?>" <?php if ($profile['secret_q1'] == htmlspecialchars($question)){ echo "selected"; } ?>><?php echo $question; ?></option>
+														<option value="<?php echo htmlspecialchars($question['question']); ?>" <?php if ($profile['secret_q1'] == htmlspecialchars($question['question'])){ echo "selected"; } ?>><?php echo $question['question']; ?></option>
 													  <?php
 													  }
 													  ?>
@@ -502,9 +557,10 @@ if($user['id']>0 && isset($profile))
 												<select name="secretq2">
 													<option <?php if($profile['secret_q2'] == '')echo "selected"; ?> value="0">None</option>
 													<?php
-													foreach ($MW->getConfig->secret_questions->question as $question){
+													foreach ($secret_q as $question)
+													{
 													?>
-													<option value="<?php echo htmlspecialchars($question); ?>" <?php if ($profile['secret_q2'] == htmlspecialchars($question)){ echo "selected"; } ?>><?php echo $question; ?></option>
+														<option value="<?php echo htmlspecialchars($question['question']); ?>" <?php if ($profile['secret_q2'] == htmlspecialchars($question['question'])){ echo "selected"; } ?>><?php echo $question['question']; ?></option>
 													<?php
 													}
 													?>
