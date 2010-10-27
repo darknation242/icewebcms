@@ -1,24 +1,31 @@
-<?php 
-$upd = getContents();
-$listup = explode(",", $upd);
-foreach($listup as $list) 
-{
-	if($list > $Core->version) 
-	{
-		$uplist = "<option value=".$list.">".$list."</option>";
-	}
-} 
-$perms = $Core->load_permissions();
-if($perms[0] == 1 && $perms[1] == 1)
-{
-	$good_perms = 1
-}
-else
-{
-	$good_perms = 0
-}
-if($good_perms == 0)
-{
-	output_message('error', 'Allow Fopen disabled by server!');
-}
-?>
+
+<div class="content">	
+	<div class="content-header">
+		<h4><a href="index.php?p=admin">Main Menu</a> / Updates</h4>
+	</div> <!-- .content-header -->				
+	<div class="main-content">
+		<table width="100%">
+			<thead>
+				<th><center>Update Info</center></th>
+			</thead>
+		</table>
+		<br />
+		<table>
+			<tr>
+				<?php 
+					if(isset($_POST['action']))
+					{
+						if($_POST['action'] == 'update')
+						{
+							runUpdate();
+						}
+					}
+					else
+					{ 
+						checkUpdates();
+					} 
+				?>
+			</tr>
+		</table>		
+	</div>
+</div>
