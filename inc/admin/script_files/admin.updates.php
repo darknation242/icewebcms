@@ -15,6 +15,8 @@ function checkUpdates()
 	if($Update->check_for_updates() == TRUE)
 	{
 		echo "<center>Updates found! New verision: <font color='green'><b>".$Update->get_next_update()."</b></font></center>";
+		echo "<center><br /><u>Update Info:</u><br /></center>";
+		echo "<center>". $Update->print_update_info() ."</center>";
 		echo "<center><br /><u>Update File list:</u><br /></center>";
 		echo "<center>". $Update->print_updated_files_list() ."</center>";
 		echo "<br />To find out more about this update, click <a href='http://keyswow.com/forum/'>here</a>. Updates can sometimes take up to 30 seconds depending

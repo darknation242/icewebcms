@@ -94,6 +94,14 @@ class Update
 			{
 				$this->server_version = trim(substr($line,strpos($line,"=")+1));
 			}
+			elseif(strstr($line,"[update_info]") !== false)
+			{
+				$this->update_info[] = trim(substr($line,strpos($line,"=")+1));
+			}
+			elseif(strstr($line,"[update_make_dir]") !== false)
+			{
+				@mkdir(trim(substr($line,strpos($line,"=")+1)), 0700);
+			}
 			elseif(strstr($line,"[update_file_list]") !== false)
 			{
 				$this->updated_files_list[] = trim(substr($line,strpos($line,"=")+1));
@@ -116,6 +124,16 @@ class Update
 		return $filelist;
 	}
 	
+	function print_update_info()
+		{
+		$infolist = "";
+		foreach ($this->update_info as $desc) 
+		{
+			$infolist .= $desc."<br />";
+		}
+		return $infolist;
+	}
+
 	// This function checks to see if a file is writable
 	private function is__writable($path) 
 	{
@@ -172,6 +190,7 @@ class Update
 		}
 		return $total_len;
 	}
+
 	
 	// Main update function
 	function update_files()
