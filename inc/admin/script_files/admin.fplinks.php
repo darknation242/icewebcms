@@ -40,6 +40,13 @@ function editLink()
 	output_message('success', 'Link successfully updated!');
 }
 
+function deleteLink()
+{
+	global $DB;
+	$DB->query("DELETE FROM `menu_items` WHERE `id`='".$_GET['linkid']."'");
+	output_message('success', 'Deleted Menu Item');
+}
+
 function addLink()
 {
 	global $DB;

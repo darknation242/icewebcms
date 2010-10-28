@@ -1,4 +1,13 @@
 <?php
+// Change the FALSE to TRUE to disable installer, and vise-versa.
+$disabled = FALSE;
+
+if($disabled == TRUE)
+{
+	echo "Installer Disabled. Please edit you install/index.php file to re-enable the installer";
+	die();
+}
+
 include('../core/core.php');
 
 function output_message($type, $text)
@@ -243,7 +252,7 @@ $Core = new Core();
 						}
 					}
 					// Extra sql query with db settings
-					$dbinfo = $_POST['db_username'].";".$_POST['db_password'].";".$_POST['db_port'].";".$_POST['db_host'].";".$_POST['world_db_name'].";".$_POST['character_db_name'];
+					$dbinfo = $_POST['db_username'].";".$_POST['db_password'].";".$_POST['db_port'].";".$_POST['db_host'].";".$_POST['db_world'].";".$_POST['db_char'];
 					mysql_query("UPDATE `realmlist` SET `dbinfo` = '".$dbinfo."' WHERE `id` = 1 LIMIT 1") or die(mysql_error());
 				?>
 				
@@ -320,7 +329,7 @@ $Core = new Core();
 						mysql_query("INSERT INTO `account` (`username`, `sha_pass_hash`) VALUES ('".$_POST['account']."', '$password' );");
 						$accountid = mysql_query("SELECT `id` FROM `account` WHERE `username` LIKE '".$_POST['account']."'");
 						$acct = mysql_fetch_assoc($accountid);
-						//mysql_query("INSERT INTO `account_extend` (`account_id`, `account_level`) VALUES ('$acct['id']', '4');");
+						mysql_query("INSERT INTO `account_extend` (`account_id`, `account_level`) VALUES ('".$acct['id']."', '4')");
 						$return = 2;
 					}
 				?>
@@ -329,7 +338,8 @@ $Core = new Core();
 						<?php if($return > 0)
 						{ ?>
 							Congradulations! MangosWeb v3 is installed and ready for use! Please log in and visit the admin panel to further configure the site!
-							Also, remember to <u><b>Delete or Rename the install folder!</b></u> to prevent users from hacking your site.
+							Also, remember to <u><b>EDIT the install file! (install/index.php)</b></u>. Set the FALSE to TRUE on line 3 to prevent users from 
+							hacking your site.<br /><br /><a href="../index.php">Click Here</a> To go to your MangosWeb home page.
 						<?php
 						} ?>
 					</p>

@@ -11,28 +11,28 @@ if($user['id'] <= 0)
 }
 
 // First we need to load the users profile
-$profile = $auth->getProfile($user['id']);
+$profile = $Account->getProfile($user['id']);
 $profile['signature'] = str_replace('<br />','',$profile['signature']);
 
 // Load secret questions as $secret_1
-$secret_q = $auth->getSecretQuestions();
+$secret_q = $Account->getSecretQuestions();
 
 // ==== Functions ==== //
 
 // Change Email, Buffer function for the SDL
 function changeemail()
 {
-	global $lang, $user, $auth;
+	global $lang, $user, $Account;
 	$newemail = trim($_POST['new_email']);
 	
 	// First we check if the email is valid
-	if($auth->isvalidemail($newemail))
+	if($Account->isvalidemail($newemail))
 	{	
 		//Next we see if the email is used already
-		if($auth->isavailableemail($newemail))
+		if($Account->isavailableemail($newemail))
 		{
 			// Now we set the email by using the SDL
-			if($auth->setEmail($user['id'], $newemail) == TRUE)
+			if($Account->setEmail($user['id'], $newemail) == TRUE)
 			{
 				output_message('success','<b>'.$lang['change_mail'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
 			}
@@ -51,11 +51,11 @@ function changeemail()
 // Change Pass. Buffer function for the SDL
 function changepass()
 {
-	global $lang, $user, $auth;
+	global $lang, $user, $Account;
 	$newpass = trim($_POST['new_pass']);
 	if(strlen($newpass)>3)
 	{
-		if($auth->setPassword($user['id'], $newpass) == TRUE)
+		if($Account->setPassword($user['id'], $newpass) == TRUE)
 		{
 			output_message('success','<b>'.$lang['change_pass_succ'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
 		}
@@ -111,8 +111,8 @@ function uploadAvatar()
 // Delete avatar, Buffer function for the SDL
 function deleteAvatar()
 {
-	global $user, $auth;
-	$go = $auth->deleteAvatar($user['id'], $_POST['avatarfile']);
+	global $user, $Account;
+	$go = $Account->deleteAvatar($user['id'], $_POST['avatarfile']);
 	if($go == TRUE)
 	{
 		output_message('success', 'Avatar Deleted!<meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
@@ -126,8 +126,8 @@ function deleteAvatar()
 // Change secret questions, Buffer function for the SDL
 function changeSQ()
 {
-	global $user, $lang, $DB, $auth;
-	$change = $auth->setSecretQuestions($user['id'], $_POST['secretq1'], $_POST['secreta1'], $_POST['secretq2'], $_POST['secreta2']);
+	global $user, $lang, $DB, $Account;
+	$change = $Account->setSecretQuestions($user['id'], $_POST['secretq1'], $_POST['secreta1'], $_POST['secretq2'], $_POST['secreta2']);
 	if($change == TRUE)
 	{
 		output_message('success','<b>'.$lang['changed_secretq'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
@@ -157,24 +157,24 @@ function resetSQ()
 // Expansion Changer. Buffer function for the SDL
 function changeExp()
 {
-	global $user, $lang, $DB, $auth;
+	global $user, $lang, $DB, $Account;
 	if($_POST['switch_wow_type']=='wotlk')
 	{
-		if($auth->setExpansion($user['id'], 2) == TRUE)
+		if($Account->setExpansion($user['id'], 2) == TRUE)
 		{
 			output_message('success','<b>'.$lang['exp_set'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
 		}
 	}
 	elseif($_POST['switch_wow_type']=='tbc')
 	{
-		if($auth->setExpansion($user['id'], 1) == TRUE)
+		if($Account->setExpansion($user['id'], 1) == TRUE)
 		{
 			output_message('success','<b>'.$lang['exp_set'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
 		}
 	}
 	elseif($_POST['switch_wow_type']=='classic')
 	{
-		if($auth->setExpansion($user['id'], 0) == TRUE)
+		if($Account->setExpansion($user['id'], 0) == TRUE)
 		{
 			output_message('success','<b>'.$lang['exp_set'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
 		}

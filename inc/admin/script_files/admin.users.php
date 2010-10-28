@@ -79,8 +79,8 @@ function banUser($bannid,$banreason)
 // Show user form function. Returns users profile with admin options
 function showUser($pid) 
 {
-	global $auth, $cfg, $DB;
-	$profile = $auth->getProfile($pid);
+	global $Account, $cfg, $DB;
+	$profile = $Account->getProfile($pid);
 	$allgroups = $DB->select("SELECT * FROM account_groups");
 	$seebanned = $DB->select("SELECT * FROM account_banned WHERE id='$pid' AND `active`=1");
 	if(count($seebanned) > 0) 

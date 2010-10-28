@@ -161,8 +161,8 @@ $WDB = new Database(
 $realms = $DB->select("SELECT `id`, `name` FROM realmlist ORDER BY `id` ASC");
 
 // === Load auth system === //
-$auth = new Account($DB, $cfg);
-$user = $auth->user;
+$Account = new Account($DB, $cfg);
+$user = $Account->user;
 $user['cur_selected_realm'] = (int)$_COOKIE['cur_selected_realm'];
 
 

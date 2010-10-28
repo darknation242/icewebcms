@@ -13,7 +13,14 @@ if(isset($_GET['linkid']))
 				{
 					if($_POST['action'] == 'edit')
 					{
-						editLink();
+						if(isset($_POST['delete']))
+						{
+							deleteLink();
+						}
+						else
+						{
+							editLink();
+						}
 					}
 				}
 			?>
@@ -76,7 +83,10 @@ if(isset($_GET['linkid']))
 			</div>
 			
 			<div class="buttonrow-border">								
-				<center><button><span>Update Link</span></button></center>			
+				<center>
+					<button><span>Update Link</span></button>
+					<button class="btn-sec" name="delete"><span>DELETE Link</span></button>
+				</center>					
 			</div>
 			
 			</form>

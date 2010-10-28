@@ -8,6 +8,7 @@ if(INCLUDED!==true) {
 include('core/class.update.php');
 $Update = new Update;
 
+// Here we check for updates, and get the list of files for that update.
 function checkUpdates() 
 {
 	global $Update, $Core;
@@ -31,6 +32,8 @@ function checkUpdates()
 		echo "<center>There are no new updates. Your version <font color='green'>". $Core->version ."</font> is up to date.</center>";
 	}
 }
+
+// Runs the Update class, and updates the CMS
 function runUpdate()
 {
 	global $Update;
@@ -40,27 +43,56 @@ function runUpdate()
 		echo "<br /><b><u>1. Building file list: </u></b><br />"; 
 		ob_flush();
 		
+		// Echo the update list of files
 		echo $Update->print_updated_files_list(); 
 		ob_flush();
 
 		echo "<br /><b><u>2. Checking for write permissions: </u></b><br />"; 
 		ob_flush();
+		
+		// Check if all files are writable by the server, and list
+		// the results from each file
 		if($Update->check_if_are_writable() == TRUE) 
 		{
-			echo "<font color='green'>All files are writable!</font><br>"; 
+			foreach ($Update->writable_files as $file => $value) 
+			{
+				if($value = 'yes')
+				{
+					$e_val = "<font color='green'><i>Writable</i></font>";
+				}
+				else
+				{
+					$e_val = "<font color='red'><i>Not Writable!</i></font>";
+				}
+				echo $file." = ".$e_val."<br />"; 
+				ob_flush();
+			}
+			echo "<br /><font color='green'><b>All files are writable!</b></font><br>"; 
 			ob_flush();
-		} else 
+		} 
+		else 
 		{
+			foreach ($Update->writable_files as $file => $value) 
+			{
+				if($value = 'yes')
+				{
+					$e_val = "<font color='green'><i>Writable</i></font>";
+				}
+				else
+				{
+					$e_val = "<font color='red'><i>Not Writable!</i></font>";
+				}
+				echo $file." = ".$e_val."<br />"; 
+				ob_flush();
+			}
 			echo "<font color='red'>Some files are not writable.</font><br />"; 
 			ob_flush();
 		}
-		foreach ($Update->writable_files as $file => $value) 
-		{
-			echo $file." = ".$value."<br />"; 
-			ob_flush();
-		}
 
-		echo "<br /><br /><b><u>3. Starting to update files... </u></b><br />Updating...<br />"; ob_flush();
+		echo "<br /><b><u>3. Starting to update files... </u></b><br />Updating...<br />"; 
+		ob_flush();
+		
+		// Update the files
 		if($Update->update_files() == TRUE) 
 		{
 			echo "<br /><br /><center><font color='green'><b>All the files where succesfuly updated.</b></font></center><br />";
@@ -76,7 +108,8 @@ function runUpdate()
 	} 
 	else 
 	{
-		echo "<br>No update neccesary. <br>"; ob_flush();
+		echo "<br>No update neccesary. <br>"; 
+		ob_flush();
 	}
 }
 ?>
