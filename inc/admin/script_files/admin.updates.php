@@ -16,7 +16,7 @@ function checkUpdates()
 		echo "<center>Updates found! New verision: <font color='green'><b>".$Update->get_next_update()."</b></font></center>";
 		echo "<center><br /><u>Update File list:</u><br /></center>";
 		echo "<center>". $Update->print_updated_files_list() ."</center>";
-		echo "<br />To find out more about this update, click <a href='http://keyswow.com/forum/'>here</a>. Updates can sometimes take up to 1 minute depending
+		echo "<br />To find out more about this update, click <a href='http://keyswow.com/forum/'>here</a>. Updates can sometimes take up to 30 seconds depending
 					on server load. Also note that these updates are <u>incremental</u> and you should re-check for updates after this update.";
 		echo "<form method='POST' action='index.php?p=admin&sub=updates' class='form label-inline'>";
 		echo "<input type='hidden' name='action' value='update'>";
@@ -60,7 +60,7 @@ function runUpdate()
 			ob_flush();
 		}
 
-		echo "<br /><br /><b><u>3. Starting to update files... </u></b><br />Updating "; ob_flush();
+		echo "<br /><br /><b><u>3. Starting to update files... </u></b><br />Updating...<br />"; ob_flush();
 		if($Update->update_files() == TRUE) 
 		{
 			echo "<br /><br /><center><font color='green'><b>All the files where succesfuly updated.</b></font></center><br />";

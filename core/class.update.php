@@ -1,4 +1,10 @@
 <?php
+/*******************************************************************/
+/*    Update class for MangosWeb Enhanced. You the user are NOT    */
+/*     allowed to copy any of this code, and/or use it for any 	   */
+/*         purpose other than to update MangosWeb Enhanced         */
+/*******************************************************************/
+
 class Update
 {
 	var $current_version;
@@ -105,7 +111,7 @@ class Update
 		$filelist = "";
 		foreach ($this->updated_files_list as $filename) 
 		{
-			$filelist .= $filename."<br>";
+			$filelist .= $filename."<br />";
 		}
 		return $filelist;
 	}
@@ -188,7 +194,7 @@ class Update
 				}
 				$len_till_now += $this->charlen_file[$i];
 				$perc = $len_till_now * 100 / $this->get_total_charlen();
-				echo str_repeat(".",$perc);
+				echo $filename." <font color='green'>Updated Successfully!</font><br />";
 				$i++;
 			}
 		} 
@@ -205,10 +211,6 @@ class Update
 			$err .= "No file was updated.<br>";
 		}
 		return $err == "" ? TRUE : $err;
-	}
-	
-	function run_update()
-	{
 	}
 }
 ?>
