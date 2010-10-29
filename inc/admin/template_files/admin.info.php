@@ -2,7 +2,7 @@
 	<br />
 	<table>
 		<thead>
-			<th colspan="2"><center>Details</center></th>
+			<th colspan="2"><center>Core Details</center></th>
 		</thead>
 		<tr>
 			<td width="50%" align="right" valign="middle" class="form-text">MangosWeb Core Version:</td>
@@ -23,6 +23,28 @@
 		<tr>
 			<td width="50%" align="right" valign="middle" class="form-text">Database Version Release Date:</td>
 			<td width="50%" align="left" valign="middle" class="form-text"><?php echo $db_date; ?></td>
+		</tr>
+	</table>
+	<br />
+	<table>
+		<thead>
+			<th colspan="2"><center>SDL Details</center></th>
+		</thead>
+		<tr>
+			<td width="50%" align="right" valign="middle" class="form-text">SDL Version:</td>
+			<td width="50%" align="left" valign="middle" class="form-text"><?php echo $Lib->version; ?></td>
+		</tr>
+		<tr>
+			<td width="50%" align="right" valign="middle" class="form-text">SDL Revision:</td>
+			<td width="50%" align="left" valign="middle" class="form-text"><?php echo $Lib->revision; ?></td>
+		</tr>
+		<tr>
+			<td width="50%" align="right" valign="middle" class="form-text">SDL Core Support:</td>
+			<td width="50%" align="left" valign="middle" class="form-text"><?php echo $Lib->core; ?></td>
+		</tr>
+		<tr>
+			<td width="50%" align="right" valign="middle" class="form-text">SDL Revision Date:</td>
+			<td width="50%" align="left" valign="middle" class="form-text"><?php echo $Lib->revisionDate; ?></td>
 		</tr>
 	</table>
 	<br /><br />

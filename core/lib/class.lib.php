@@ -2,17 +2,13 @@
 // Main Library Class!
 class Lib
 {
-	function versionInfo()
+	function __construct()
 	{
-		$version = '3.3.5a';
-		$revision = '1';
-		$copyright = 'MangosWebSDL written by Steven Wilson, &copy 2010. All Rights Reserved';
-		$return = array(
-			'version' => $version,
-			'revision' => $revision,
-			'copyright' => $copyright
-			);
-		return $return;
+		$this->version = '3.3.5a';
+		$this->revision = '1';
+		$this->revisionDate = '2010-10-29';
+		$this->core = 'Mangos / Trinity';
+		$this->copyright = 'MangosWebSDL written by Steven Wilson, &copy 2010. All Rights Reserved';
 	}
 }
 ?>

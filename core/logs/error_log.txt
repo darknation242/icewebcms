@@ -2,3 +2,6 @@
 [29-Oct-2010 11:15:22] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.vote.php on line 170
 [29-Oct-2010 11:28:04] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.vote.php on line 170
 [29-Oct-2010 11:45:09] PHP Notice:  Undefined index: image in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.vote.php on line 148
+[29-Oct-2010 12:28:52] PHP Warning:  include(inc/admin/template_files/admin.faq.php): failed to open stream: No such file or directory in C:\xampp\htdocs\MangosWebv3\index.php on line 203
+[29-Oct-2010 12:28:52] PHP Warning:  include(): Failed opening 'inc/admin/template_files/admin.faq.php' for inclusion (include_path='.;C:\xampp\php\PEAR') in C:\xampp\htdocs\MangosWebv3\index.php on line 203
+[29-Oct-2010 14:26:50] PHP Notice:  Undefined property: Lib::$version in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.info.php on line 35
