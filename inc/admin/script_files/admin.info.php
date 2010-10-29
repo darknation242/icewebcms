@@ -5,6 +5,6 @@ if(INCLUDED!==true) {
 }
 //=======================//
 
-$get_db_date = $DB->selectCell("SELECT `dbdate`	FROM mangosweb_version");
+$get_db_date = $DB->selectCell("SELECT `dbdate`	FROM `mw_db_version`");
 $db_date = date("Y-m-d, g:i a", $get_db_date);
 ?>

@@ -26,12 +26,12 @@ class Database
         $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
 		$this->_statistics['count']++;
 		//echo $query."<br />";
-		return TRUE;
+		return $sql;
     }
 
     public function select($query)
     {
-        $sql = mysql_query($query,$this->mysql) or die(mysql_error());
+        $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
 		$this->_statistics['count']++;
 		// echo $query."<br />";
 		$i = 1;
@@ -55,7 +55,7 @@ class Database
 	
 	public function selectRow($query)
     {
-        $sql = mysql_query($query,$this->mysql) or die(mysql_error());
+        $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
 		$this->_statistics['count']++;
 		// echo $query."<br />";
 		if(mysql_num_rows($sql) == 0)
@@ -73,7 +73,7 @@ class Database
 	
 	public function selectCell($query)
     {
-        $sql = mysql_query($query,$this->mysql) or die(mysql_error());
+        $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
 		$this->_statistics['count']++;
 		if(mysql_num_rows($sql) == 0)
 		{

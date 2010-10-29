@@ -1,0 +1,4 @@
+[29-Oct-2010 10:59:05] PHP Notice:  Undefined variable: e_arsq in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.siteconfig.php on line 193
+[29-Oct-2010 11:15:22] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.vote.php on line 170
+[29-Oct-2010 11:28:04] PHP Warning:  Invalid argument supplied for foreach() in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.vote.php on line 170
+[29-Oct-2010 11:45:09] PHP Notice:  Undefined index: image in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.vote.php on line 148

@@ -87,7 +87,7 @@ function uploadAvatar()
 					$max_avatar_size = explode('x',(string)$cfg->get('max_avatar_size'));
 					if($width <= $max_avatar_size[0] || $height <= $max_avatar_size[1])
 					{
-						$DB->query("UPDATE account_extend SET avatar='".$user['id'].'.'.$ext."' WHERE account_id=?d LIMIT 1",$user['id']);
+						$DB->query("UPDATE mw_account_extend SET avatar='".$user['id'].'.'.$ext."' WHERE account_id=?d LIMIT 1",$user['id']);
 					}
 					else
 					{
@@ -150,7 +150,7 @@ function changeSQ()
 function resetSQ()
 {
 	global $user, $lang;
-	$DB->query("UPDATE account_extend SET secretq1='0',secretq2='0',secreta1='0',secreta2='0' WHERE account_id=?d", $user['id']);
+	$DB->query("UPDATE mw_account_extend SET secretq1='0',secretq2='0',secreta1='0',secreta2='0' WHERE account_id=?d", $user['id']);
 	output_message('success','<b>'.$lang['reset_succ_secretq'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
 }
 
@@ -186,7 +186,7 @@ function changeDetails()
 {
 	global $DB, $lang, $user;
 	$_POST['profile']['signature'] = htmlspecialchars($_POST['profile']['signature']);	
-	$DB->query("UPDATE `account_extend` SET
+	$DB->query("UPDATE `mw_account_extend` SET
 		`theme` = ".$_POST['profile']['theme'].",	
 		`hide_email` = ".$_POST['profile']['hide_email'].",
 		`hide_profile` = ".$_POST['profile']['hide_profile'].",
