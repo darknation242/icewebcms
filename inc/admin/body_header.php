@@ -1,10 +1,12 @@
 <?php
 	// Block out all users who arent admins
-	if($user['account_level'] == 5) {
+	if($user['account_level'] == 5) 
+	{
 		echo "You Are Banned";
 		exit;
 	}
-	if($user['account_level'] <= 2) {
+	if($user['account_level'] <= 2) 
+	{
 		redirect('index.php',1);
 	}
 ?>
@@ -83,7 +85,7 @@
 				Core Version: <?php echo $Core->version; ?>
 				&nbsp;&nbsp;&nbsp; <font color='black'>|</font> &nbsp;&nbsp;&nbsp;
 				Database Version: <?php 
-                    $db_act_ver = $DB->selectCell("SELECT dbver FROM mangosweb_version");
+                    $db_act_ver = $DB->selectCell("SELECT `dbver` FROM `mw_db_version`");
 					if($db_act_ver < $Core->exp_dbversion) 
 					{ 
 						echo "<font color='red'>".$db_act_ver." (<a href=\"index.php?p=admin&sub=updates\" /><small>Needs Updated</small></a>)</font>";

@@ -41,7 +41,7 @@ class Template
 				$tmpl_num = $user['theme'];
 				if($tmpl_cookienum !== $tmpl_num) // If the cookie and set theme in DB are not the same, fix that :)
 				{
-					$DB->query( "UPDATE `account_extend` SET `theme`='$tmpl_cookienum' WHERE `account_id`='$user[id]'");
+					$DB->query( "UPDATE `mw_account_extend` SET `theme`='$tmpl_cookienum' WHERE `account_id`='$user[id]'");
 					$tmpl_num = $tmpl_cookienum;
 				}
 			}
@@ -59,7 +59,7 @@ class Template
 			if($tmple == "")
 			{ 
 				$tmple = (string)$cfg->get('default_template');
-				$DB->query( "UPDATE `account_extend` SET `theme`='0' WHERE `account_id`=?d",$user['id'] );
+				$DB->query( "UPDATE `mw_account_extend` SET `theme`='0' WHERE `account_id`='".$user['id']."'" );
 			}
 			$this->slave_tmpl = "templates/".$tmple;
 			$this->path = "templates/".$tmple."/template.xml";

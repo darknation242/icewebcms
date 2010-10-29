@@ -27,7 +27,7 @@ if(isset($_GET['linkid']))
 			<form method="POST" action="index.php?p=admin&sub=fplinks&linkid=<?php echo $_GET['linkid']; ?>" class="form label-inline">
 			<input type="hidden" name="action" value="edit">
 			<?php
-				$edit_info = $DB->selectRow("SELECT * FROM `menu_items` WHERE `id`='".$_GET['linkid']."'");
+				$edit_info = $DB->selectRow("SELECT * FROM `mw_menu_items` WHERE `id`='".$_GET['linkid']."'");
 			?>
 			<div class="field">
 				<label for="Link Title">Link Title: </label>
@@ -190,7 +190,7 @@ else
 				foreach($mainnav_links as $menuname)
 				{
 					$menunamev = explode('-',$menuname);
-					$load_links = $DB->select("SELECT * FROM `menu_items` WHERE `menu_id`='$menunamev[0]' ORDER BY `order`");
+					$load_links = $DB->select("SELECT * FROM `mw_menu_items` WHERE `menu_id`='$menunamev[0]' ORDER BY `order`");
 					if($load_links != FALSE)
 					{
 						echo "<h5><center>Menu ".$menunamev['0'].", ".$menunamev['1']."</center></h5><br />";

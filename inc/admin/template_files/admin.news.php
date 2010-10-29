@@ -48,7 +48,7 @@
 	{ 
 		if(isset($_GET['id'])) 
 		{
-			$content = $DB->selectRow("SELECT * FROM `site_news` WHERE `id`='".$_GET['id']."'");
+			$content = $DB->selectRow("SELECT * FROM `mw_news` WHERE `id`='".$_GET['id']."'");
 			if(isset($_POST['delete'])) 
 			{
 				delNews($_POST['id']);

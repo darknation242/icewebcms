@@ -8,7 +8,7 @@ if(INCLUDED!==true) {
 $postnum = 0;
 $hl = '';
 
-$alltopics = $DB->select("SELECT * FROM site_news ORDER BY `id` DESC");
+$alltopics = $DB->select("SELECT * FROM mw_news ORDER BY `id` DESC");
 
 if ($cfg->get('fp_hitcounter') == 1)
 {

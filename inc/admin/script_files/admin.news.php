@@ -4,7 +4,7 @@ if(INCLUDED!==true) {
 	echo "Not Included!"; exit;
 }
 //=======================//
-$gettopics = $DB->select("SELECT `title`,`id`,`posted_by`,`post_time` FROM `site_news`");
+$gettopics = $DB->select("SELECT `title`,`id`,`posted_by`,`post_time` FROM `mw_news`");
 
 // If posting a new News post
 function addNews($subj,$message,$un) 
@@ -17,7 +17,7 @@ function addNews($subj,$message,$un)
 	else
 	{
 		$post_time = time();
-		$sql =  "INSERT INTO site_news(title, message, posted_by, post_time) VALUES('".$subj."','".$message."','".$un."','".$post_time."')";
+		$sql =  "INSERT INTO mw_news(title, message, posted_by, post_time) VALUES('".$subj."','".$message."','".$un."','".$post_time."')";
         $tabs = $DB->query($sql);
 		output_message('success', 'Successfully added news to database!');
     }
@@ -31,14 +31,14 @@ function editNews($idz,$mess)
 	}
 	else
 	{
-		$DB->query("UPDATE `site_news` SET `message`='$mess' WHERE `id`='$idz'");
+		$DB->query("UPDATE `mw_news` SET `message`='$mess' WHERE `id`='$idz'");
 		output_message('success', 'Successfully edited news in database!');
 	}
 }
 function delNews($idzz) 
 {
 	global $DB;
-	$DB->query("DELETE FROM `site_news` WHERE `id`='$idzz'");
+	$DB->query("DELETE FROM `mw_news` WHERE `id`='$idzz'");
 	output_message('success', 'Deleted News Item');
 }
 ?>

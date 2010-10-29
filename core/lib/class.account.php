@@ -34,8 +34,8 @@ class Account
 			}
             $res = $this->DB->selectRow("
                 SELECT * FROM account
-                LEFT JOIN account_extend ON account.id=account_extend.account_id
-                LEFT JOIN account_groups ON account_extend.account_level=account_groups.account_level
+                LEFT JOIN mw_account_extend ON account.id = mw_account_extend.account_id
+                LEFT JOIN mw_account_groups ON mw_account_extend.account_level = mw_account_groups.account_level
                 WHERE id ='".$cookie['user_id']."'");
             if(get_banned($res['id'], 1) == TRUE)
 			{
@@ -148,7 +148,7 @@ class Account
 		{
             if(time() - $uservars['last_visit'] > 60*10)
 			{
-                $this->DB->query("UPDATE `account_extend` SET last_visit='".time()."' WHERE account_id='".$uservars['id']."' LIMIT 1");
+                $this->DB->query("UPDATE `mw_account_extend` SET last_visit='".time()."' WHERE account_id='".$uservars['id']."' LIMIT 1");
             }
         }
     }
@@ -193,11 +193,11 @@ class Account
                 // If we dont want to insert special stuff in account_extend...
                 if ($account_extend == NULL)
 				{
-                    $this->DB->query("INSERT INTO account_extend SET account_id=?d, registration_ip=?, activation_code=?",$acc_id,$_SERVER['REMOTE_ADDR'],$tmp_act_key);
+                    $this->DB->query("INSERT INTO mw_account_extend SET account_id=?d, registration_ip=?, activation_code=?",$acc_id,$_SERVER['REMOTE_ADDR'],$tmp_act_key);
                 }
                 else 
 				{
-                    $this->DB->query("INSERT INTO account_extend SET account_id=?d, registration_ip=?, activation_code=?, secret_q1=?s, secret_a1=?s, secret_q2=?s, secret_a2=?s",$acc_id,$_SERVER['REMOTE_ADDR'],$tmp_act_key,$account_extend['secretq1'], $account_extend['secreta1'], $account_extend['secretq2'], $account_extend['secreta2']);
+                    $this->DB->query("INSERT INTO mw_account_extend SET account_id=?d, registration_ip=?, activation_code=?, secret_q1=?s, secret_a1=?s, secret_q2=?s, secret_a2=?s",$acc_id,$_SERVER['REMOTE_ADDR'],$tmp_act_key,$account_extend['secretq1'], $account_extend['secreta1'], $account_extend['secretq2'], $account_extend['secreta2']);
                 }
                 $act_link = (string)$cfg->get('base_href').'index.php?p=account&sub=activate&id='.$acc_id.'&key='.$tmp_act_key;
                 $email_text  = '== Account activation =='."\n\n";
@@ -219,11 +219,11 @@ class Account
 			{
                 if ($account_extend == false)
 				{
-                    $this->DB->query("INSERT INTO account_extend SET account_id=?d, registration_ip=?, activation_code=?",$acc_id,$_SERVER['REMOTE_ADDR'],$tmp_act_key);
+                    $this->DB->query("INSERT INTO mw_account_extend SET account_id=?d, registration_ip=?, activation_code=?",$acc_id,$_SERVER['REMOTE_ADDR'],$tmp_act_key);
                 }
 				else
 				{
-                    $this->DB->query("INSERT INTO account_extend SET account_id=?d, registration_ip=?, activation_code=?, secret_q1=?s, secret_a1=?s, secret_q2=?s, secret_a2=?s",$acc_id,$_SERVER['REMOTE_ADDR'],$tmp_act_key,$account_extend['secretq1'], $account_extend['secreta1'], $account_extend['secretq2'], $account_extend['secreta2']);
+                    $this->DB->query("INSERT INTO mw_account_extend SET account_id=?d, registration_ip=?, activation_code=?, secret_q1=?s, secret_a1=?s, secret_q2=?s, secret_a2=?s",$acc_id,$_SERVER['REMOTE_ADDR'],$tmp_act_key,$account_extend['secretq1'], $account_extend['secreta1'], $account_extend['secretq2'], $account_extend['secreta2']);
                 }
                 return true;
             }
@@ -268,7 +268,7 @@ class Account
 	
     function isvalidregkey($key)
 	{
-        $res = $this->DB->selectRow("SELECT * FROM site_regkeys WHERE key='".$key."'");
+        $res = $this->DB->selectRow("SELECT * FROM mw_regkeys WHERE key='".$key."'");
         if($res != FALSE) 
 		{
 			return true; // key is valid
@@ -281,7 +281,7 @@ class Account
 	
     function isvalidactkey($key)
 	{
-        $res = $this->DB->selectRow("SELECT * FROM account_extend WHERE activation_code='".$key."'");
+        $res = $this->DB->selectRow("SELECT * FROM mw_account_extend WHERE activation_code='".$key."'");
         if($res != FALSE) 
 		{
 			return $res['account_id']; // key is valid
@@ -314,34 +314,23 @@ class Account
 	
     function delete_key($key)
 	{
-        $this->DB->query("DELETE FROM site_regkeys WHERE key='".$key."'");
+        $this->DB->query("DELETE FROM mw_regkeys WHERE key='".$key."'");
     }
 	
 	function getProfile($acct_id=false)
 	{
 		global $cfg;
-		if($cfg->get('emulator') == 'trinity') 
-		{
-			$res = $this->DB->selectRow("
-				SELECT * FROM account
-				LEFT JOIN account_extend ON account.id=account_extend.account_id
-				LEFT JOIN account_groups ON account_extend.account_level=account_groups.account_level
-				WHERE id='".$acct_id."'");
-		}
-		else
-		{
-			$res = $this->DB->selectRow("
-				SELECT * FROM account
-				LEFT JOIN account_extend ON account.id=account_extend.account_id
-				LEFT JOIN account_groups ON account_extend.account_level=account_groups.account_level
-				WHERE id='".$acct_id."'");
-		}
+		$res = $this->DB->selectRow("
+			SELECT * FROM account
+			LEFT JOIN mw_account_extend ON account.id = mw_account_extend.account_id
+			LEFT JOIN mw_account_groups ON mw_account_extend.account_level = mw_account_groups.account_level
+			WHERE id='".$acct_id."'");
         return $res;
     }
 	
     function getgroup($g_id=false)
 	{
-        $res = $this->DB->selectRow("SELECT * FROM account_groups WHERE account_level='".$g_id."'");
+        $res = $this->DB->selectRow("SELECT * FROM mw_account_groups WHERE account_level='".$g_id."'");
         return $res;
     }
 	
@@ -391,7 +380,7 @@ class Account
 	
 	function getSecretQuestions()
 	{
-		$getsc = $this->DB->select("SELECT * FROM `site_secret_questions`");
+		$getsc = $this->DB->select("SELECT * FROM `mw_secret_questions`");
 		return $getsc;
 	}
 	
@@ -435,7 +424,7 @@ class Account
 			{
 				if($sa1 != $sa2 && $sq1 != $sq2)
 				{
-					$this->DB->query("UPDATE account_extend SET secret_q1='$sq1', secret_q2='$sq2', secret_a1='$sa1', secret_a2='$sa2' WHERE account_id='$id'");
+					$this->DB->query("UPDATE mw_account_extend SET secret_q1='$sq1', secret_q2='$sq2', secret_a1='$sa1', secret_a2='$sa2' WHERE account_id='$id'");
 					return TRUE;
 				}
 				else
@@ -458,7 +447,7 @@ class Account
 	{
 		if(@unlink('images/avatars/'.$file))
 		{
-			$this->DB->query("UPDATE account_extend SET avatar=NULL WHERE account_id=".$id." LIMIT 1");
+			$this->DB->query("UPDATE mw_account_extend SET avatar=NULL WHERE account_id=".$id." LIMIT 1");
 			return TRUE;
 		}
 		else
@@ -472,14 +461,14 @@ class Account
 	{
 		$this->clearOldAccountKeys();
 		global $DB;
-		$count = $this->DB->selectRow("SELECT * FROM account_keys WHERE id='$id'");
+		$count = $this->DB->selectRow("SELECT * FROM mw_account_keys WHERE id='$id'");
 		if($count == FALSE) 
 		{
 			return false;
 		}
 		else
 		{
-			$account_key = $this->DB->selectRow("SELECT * FROM account_keys WHERE id='$id'");
+			$account_key = $this->DB->selectRow("SELECT * FROM mw_account_keys WHERE id='$id'");
 			if($key == $account_key['key']) 
 			{
 				return true;
@@ -505,7 +494,7 @@ class Account
 
 		$expire_time = time() - $cookie_expire_time;
 
-		$this->DB->query("DELETE FROM account_keys WHERE assign_time < ".$expire_time."");
+		$this->DB->query("DELETE FROM mw_account_keys WHERE assign_time < ".$expire_time."");
 	}
 
 	function addOrUpdateAccountKeys($id, $key) 
@@ -513,14 +502,14 @@ class Account
 		global $DB;
 
 		$current_time = time();
-		$go = $DB->selectRow("SELECT * FROM account_keys WHERE id = '".$id."'");
+		$go = $DB->selectRow("SELECT * FROM mw_account_keys WHERE id = '".$id."'");
 		if($go == FALSE) //need to INSERT
 		{
-			$this->DB->query("INSERT INTO account_keys (`id`, `key`, `assign_time`) VALUES ('$id', '$key', '$current_time')");
+			$this->DB->query("INSERT INTO mw_account_keys (`id`, `key`, `assign_time`) VALUES ('$id', '$key', '$current_time')");
 		}
 		else //need to UPDATE
 		{              
-			$this->DB->query("UPDATE `account_keys` SET `key`='$key', `assign_time`='$current_time' WHERE `id`='$id'");
+			$this->DB->query("UPDATE `mw_account_keys` SET `key`='$key', `assign_time`='$current_time' WHERE `id`='$id'");
 		}
 	}
 
@@ -528,14 +517,14 @@ class Account
 	{
 		global $DB;
 
-		$count = $this->DB->selectRow("SELECT * FROM account_keys where id ='$id'");
+		$count = $this->DB->selectRow("SELECT * FROM mw_account_keys where id ='$id'");
 		if($count == FALSE) 
 		{
 			//do nothing
 		}
 		else 
 		{
-			$this->DB->query("DELETE FROM account_keys WHERE id ='$id'");
+			$this->DB->query("DELETE FROM mw_account_keys WHERE id ='$id'");
 		}
 	}
 }

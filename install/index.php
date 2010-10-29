@@ -319,7 +319,7 @@ $Core = new Core();
 					{
 						// Account exsist
 						$accountid = mysql_fetch_assoc($accountid);
-						mysql_query("UPDATE `account_extend` SET `account_level` = '4' WHERE `account_id` = ".$accountid['id']." LIMIT 1 ;");
+						mysql_query("UPDATE `mw_account_extend` SET `account_level` = '4' WHERE `account_id` = ".$accountid['id']." LIMIT 1 ;");
 						$return = 1;
 						}
 					else 
@@ -329,7 +329,7 @@ $Core = new Core();
 						mysql_query("INSERT INTO `account` (`username`, `sha_pass_hash`) VALUES ('".$_POST['account']."', '$password' );");
 						$accountid = mysql_query("SELECT `id` FROM `account` WHERE `username` LIKE '".$_POST['account']."'");
 						$acct = mysql_fetch_assoc($accountid);
-						mysql_query("INSERT INTO `account_extend` (`account_id`, `account_level`) VALUES ('".$acct['id']."', '4')");
+						mysql_query("INSERT INTO `mw_account_extend` (`account_id`, `account_level`) VALUES ('".$acct['id']."', '4')");
 						$return = 2;
 					}
 				?>

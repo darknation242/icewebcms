@@ -21,7 +21,7 @@ function updateOrder()
 	global $DB;
 	foreach($_POST as $key => $value)
 	{
-		$DB->query("UPDATE `menu_items` SET `order`='$value' WHERE `id`='$key'");
+		$DB->query("UPDATE `mw_menu_items` SET `order`='$value' WHERE `id`='$key'");
 	}
 	output_message('success', 'Link Order updated successfully!');
 }
@@ -29,7 +29,7 @@ function updateOrder()
 function editLink()
 {
 	global $DB;
-	$DB->query("UPDATE `menu_items` SET
+	$DB->query("UPDATE `mw_menu_items` SET
 		`menu_id`='".$_POST['menu_id']."',
 		`link_title`='".$_POST['link_title']."',
 		`link`='".$_POST['link']."',
@@ -43,14 +43,14 @@ function editLink()
 function deleteLink()
 {
 	global $DB;
-	$DB->query("DELETE FROM `menu_items` WHERE `id`='".$_GET['linkid']."'");
+	$DB->query("DELETE FROM `mw_menu_items` WHERE `id`='".$_GET['linkid']."'");
 	output_message('success', 'Deleted Menu Item');
 }
 
 function addLink()
 {
 	global $DB;
-	$DB->query("INSERT INTO menu_items(
+	$DB->query("INSERT INTO mw_menu_items(
 		`menu_id`,
 		`link_title`,
 		`link`,

@@ -42,7 +42,7 @@ if($check == TRUE)
 	
 	
 	// Do the DB injection here
-	$DB->query("INSERT INTO `donate_transactions`(
+	$DB->query("INSERT INTO `mw_donate_transactions`(
 		`trans_id`,
 		`account`,
 		`buyer_email`,

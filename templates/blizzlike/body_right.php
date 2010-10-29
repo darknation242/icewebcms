@@ -26,35 +26,37 @@
 
 <!-- VoteLinks  -->
 
-<?php if($cfg->get('fp_vote_banner') == 1) { ?>
+<?php if($cfg->get('fp_vote_banner') == 1) 
+{ ?>
 
-<div id="box3">
-<h3><?php echo $lang['vote_system'];?></h3>
-<ul>
-<li><div>
-<center>
-  <a href="index.php?p=community&sub=vote"><img src="<?php echo $currtmp; ?>/images/vote.png" width="264" height="247" /></a>
-</center>
-<center><?php echo $lang['vote_desc'];?></center>
-</div></li>
-</ul></div>
-<span class="gfxhook"></span>
-<hr>
+	<div id="box3">
+	<h3><?php echo $lang['vote_system'];?></h3>
+	<ul>
+	<li><div>
+	<center>
+	  <a href="index.php?p=community&sub=vote"><img src="<?php echo $currtmp; ?>/images/vote.png" width="264" height="247" /></a>
+	</center>
+	<center><?php echo $lang['vote_desc'];?></center>
+	</div></li>
+	</ul></div>
+	<span class="gfxhook"></span>
+	<hr>
 
-<?php } ?>
+<?php 
+} ?>
 
 <!-- Screenshot of the Momment -->
 <?php
 if ($cfg->get('module_fp_ssotd') == 1) 
 {
-	$date_ssotd = $DB->selectCell("SELECT date FROM gallery_ssotd LIMIT 1");
+	$date_ssotd = $DB->selectCell("SELECT `date` FROM `mw_gallery_ssotd` LIMIT 1");
 	$today_ssotd = date("y.m.d");
 	if ($date_ssotd != $today_ssotd) 
 	{
-		$rand_ssotd = $DB->selectCell("SELECT img FROM gallery WHERE cat ='screenshot' ORDER BY RAND() LIMIT 1");
+		$rand_ssotd = $DB->selectCell("SELECT `img` FROM `mw_gallery` WHERE cat ='screenshot' ORDER BY RAND() LIMIT 1");
 		$DB->query("UPDATE gallery_ssotd SET image = '$rand_ssotd', date = '$today_ssotd'");
 	}
-	$screen_otd = $DB->selectCell("SELECT img FROM gallery WHERE cat ='screenshot' ORDER BY RAND() LIMIT 1");
+	$screen_otd = $DB->selectCell("SELECT `img` FROM `mw_gallery` WHERE cat ='screenshot' ORDER BY RAND() LIMIT 1");
 ?>
 	<div id="rightbox">
 	<h3 style="height: 20px; color: #eff0ef; font-size: 12px; letter-spacing: 1px; font-weight: bold; width: 308px; padding: 1px 0 0 8px; font-family: 'Trebuchet MS', Verdana, Arial, sans-serif;"><?php echo $lang['random_screen']; ?></h3>
