@@ -54,7 +54,7 @@ if ($cfg->get('module_fp_ssotd') == 1)
 	if ($date_ssotd != $today_ssotd) 
 	{
 		$rand_ssotd = $DB->selectCell("SELECT `img` FROM `mw_gallery` WHERE cat ='screenshot' ORDER BY RAND() LIMIT 1");
-		$DB->query("UPDATE gallery_ssotd SET image = '$rand_ssotd', date = '$today_ssotd'");
+		$DB->query("UPDATE mw_gallery_ssotd SET image = '$rand_ssotd', date = '$today_ssotd'");
 	}
 	$screen_otd = $DB->selectCell("SELECT `img` FROM `mw_gallery` WHERE cat ='screenshot' ORDER BY RAND() LIMIT 1");
 ?>

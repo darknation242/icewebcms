@@ -22,7 +22,7 @@ else
 	{
 		redirect('index.php?p=account&sub=manage',1);
 	}
-	$sc_q = $DB->select("SELECT * FROM secret_questions"); // Load Secret Questions
+	$sc_q = $DB->select("SELECT * FROM mw_secret_questions"); // Load Secret Questions
 	$allow_reg = true;
 	$err_array = array();
 	$err_array[0] = $lang['ref_fail'];
@@ -30,7 +30,7 @@ else
 	// If users are required to have an invite key
 	if($_POST['step'] && (int)$cfg->get('reg_invite'))
 	{
-		if($auth->isvalidregkey($_POST['r_key'])!==true)
+		if($Account->isvalidregkey($_POST['r_key'])!==true)
 		{
 			output_message('validation',$lang['bad_reg_key']);
 			$allow_reg = false;
@@ -41,7 +41,7 @@ else
 	// If users are limited to how many accounts per IP, we find out how many this IP has.
 	if((int)$cfg->get('max_act_per_ip') > 0)
 	{
-		$count_ip = $DB->selectCell("SELECT count(*) FROM account_extend WHERE registration_ip=?",$_SERVER['REMOTE_ADDR']);
+		$count_ip = $DB->select("SELECT count(*) FROM account_extend WHERE registration_ip=?",$_SERVER['REMOTE_ADDR']);
 		if($count_ip >= (int)$cfg->get('max_act_per_ip'))
 		{
 			output_message('alert',$lang['reg_acclimit']);
@@ -114,7 +114,7 @@ else
 			// Main add into the database
 			if ($notreturn === FALSE)
 			{
-				if($auth->register(array(
+				if($Account->register(array(
 					'username' => $_POST['r_login'],
 					'sha_pass_hash' => sha_password($_POST['r_login'],$_POST['r_pass']),
 					'sha_pass_hash2' => sha_password($_POST['r_login'],$_POST['r_cpass']),
@@ -128,11 +128,11 @@ else
 				{
 					if((int)$cfg->get('reg_invite'))
 					{
-						$auth->delete_key($_POST['r_key']);
+						$Account->delete_key($_POST['r_key']);
 					}
 					if((int)$cfg->get('require_act_activation') == 0)
 					{
-						$auth->login(array('username' => $_POST['r_login'],'sha_pass_hash' => sha_password($_POST['r_login'],$_POST['r_pass'])));
+						$Account->login(array('username' => $_POST['r_login'],'sha_pass_hash' => sha_password($_POST['r_login'],$_POST['r_pass'])));
 					}
 					$reg_succ = true;
 				}

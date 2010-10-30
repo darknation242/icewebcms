@@ -26,7 +26,7 @@ class Database
         $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
 		$this->_statistics['count']++;
 		//echo $query."<br />";
-		return $sql;
+		return TRUE;
     }
 
     public function select($query)

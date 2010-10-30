@@ -6,10 +6,10 @@ class Account
 {
 	var $DB;
     var $user = array(
-     'id'    => -1,
-     'username'  => 'Guest',
-     'account_level' => 1,
-	 'theme' => 0
+		'id'    => -1,
+		'username'  => 'Guest',
+		'account_level' => 1,
+		'theme' => 0
     );
 
     function Account($DB)
@@ -106,33 +106,37 @@ class Account
             output_message('error','Your account is not active. Please check your email to activate your account.');
             $success = 0;
         }
+		
         if($success != 1) 
 		{
 			return false;
 		}
-        if( strtoupper($res['sha_pass_hash']) == strtoupper($params['sha_pass_hash']))
-		{
-            $this->user['id'] = $res['id'];
-            $this->user['name'] = $res['username'];
-            $generated_key = $this->generate_key();
-            $this->addOrUpdateAccountKeys($res['id'],$generated_key);
-            $uservars_hash = serialize(array($res['id'], $generated_key));
-            $cookie_expire_time = intval($cfg->get('account_key_retain_length'));
-            if(!$cookie_expire_time) 
-			{
-                $cookie_expire_time = (60*60*24*365);   //default is 1 year
-            }
-            (string)$cookie_name = $cfg->get('site_cookie');
-            (string)$cookie_href = $cfg->get('site_href');
-            (int)$cookie_delay = (time()+$cookie_expire_time);
-            setcookie($cookie_name, $uservars_hash, $cookie_delay, $cookie_href);
-            return true;
-        }
 		else
 		{
-            output_message('validation','Your password is incorrect');
-            return false;
-        }
+			if( strtoupper($res['sha_pass_hash']) == strtoupper($params['sha_pass_hash']))
+			{
+				$this->user['id'] = $res['id'];
+				$this->user['name'] = $res['username'];
+				$generated_key = $this->generate_key();
+				$this->addOrUpdateAccountKeys($res['id'],$generated_key);
+				$uservars_hash = serialize(array($res['id'], $generated_key));
+				$cookie_expire_time = intval($cfg->get('account_key_retain_length'));
+				if(!$cookie_expire_time) 
+				{
+					$cookie_expire_time = (60*60*24*365);   //default is 1 year
+				}
+				(string)$cookie_name = $cfg->get('site_cookie');
+				(string)$cookie_href = $cfg->get('site_href');
+				(int)$cookie_delay = (time()+$cookie_expire_time);
+				setcookie($cookie_name, $uservars_hash, $cookie_delay, $cookie_href);
+				return true;
+			}
+			else
+			{
+				output_message('validation','Your password is incorrect');
+				return false;
+			}
+		}
     }
 
     function logout()
@@ -154,7 +158,7 @@ class Account
     }
 	
 	// Main register script
-    function register($params, $account_extend = false)
+    function register($params, $account_extend = NULL)
     {
         global $cfg;
         $success = 1;
@@ -188,18 +192,57 @@ class Account
 		{
             $tmp_act_key = $this->generate_key();
             $params['locked'] = 1;
-            if($acc_id = $this->DB->query("INSERT INTO account SET ?a",$params))
+			$acc_id = $this->DB->query("INSERT INTO account(
+				`username`,
+				`sha_pass_hash`,
+				`email`,
+				`locked`,
+				`expansion`)
+			   VALUES(
+				'".$params['username']."',
+				'".$params['sha_pass_hash']."',
+				'".$params['email']."',
+				'".$params['locked']."',
+				'".$params['expansion']."')
+			   ");
+            if($acc_id == TRUE)
 			{
+				$u_id = $this->DB->selectCell("SELECT `id` FROM `account` WHERE `username` LIKE '".$params['username']."'");
+				
                 // If we dont want to insert special stuff in account_extend...
                 if ($account_extend == NULL)
 				{
-                    $this->DB->query("INSERT INTO mw_account_extend SET account_id=?d, registration_ip=?, activation_code=?",$acc_id,$_SERVER['REMOTE_ADDR'],$tmp_act_key);
+                    $this->DB->query("INSERT INTO mw_account_extend(
+						`account_id`,
+						`registration_ip`,
+						`activation_code`)
+					   VALUES(
+						'".$u_id."',
+						'".$_SERVER['REMOTE_ADDR']."',
+						'".$tmp_act_key."')
+					");
                 }
                 else 
 				{
-                    $this->DB->query("INSERT INTO mw_account_extend SET account_id=?d, registration_ip=?, activation_code=?, secret_q1=?s, secret_a1=?s, secret_q2=?s, secret_a2=?s",$acc_id,$_SERVER['REMOTE_ADDR'],$tmp_act_key,$account_extend['secretq1'], $account_extend['secreta1'], $account_extend['secretq2'], $account_extend['secreta2']);
+                    $this->DB->query("INSERT INTO mw_account_extend(
+						`account_id`, 
+						`registration_ip`, 
+						`activation_code`, 
+						`secret_q1`, 
+						`secret_a1`, 
+						`secret_q2`, 
+						`secret_a2`)
+					   VALUES(
+						'".$u_id."',
+						'".$_SERVER['REMOTE_ADDR']."',
+						'".$tmp_act_key."',
+						'".$account_extend['secretq1']."', 
+						'".$account_extend['secreta1']."', 
+						'".$account_extend['secretq2']."', 
+						'".$account_extend['secreta2']."')
+					");
                 }
-                $act_link = (string)$cfg->get('base_href').'index.php?p=account&sub=activate&id='.$acc_id.'&key='.$tmp_act_key;
+                $act_link = (string)$cfg->get('site_base_href').'index.php?p=account&sub=activate&id='.$acc_id.'&key='.$tmp_act_key;
                 $email_text  = '== Account activation =='."\n\n";
                 $email_text .= 'Username: '.$params['username']."\n";
                 $email_text .= 'Password: '.$password."\n";
@@ -210,25 +253,61 @@ class Account
             }
 			else
 			{
+				echo "Error with a return true code!";
                 return false;
             }
         }
 		else
 		{
-            if($acc_id = $this->DB->query("INSERT INTO account SET ?a",$params))
+			$acc_id = $this->DB->query("INSERT INTO account(
+				`username`,
+				`sha_pass_hash`,
+				`email`,
+				`expansion`)
+			   VALUES(
+				'".$params['username']."',
+				'".$params['sha_pass_hash']."',
+				'".$params['email']."',
+				'".$params['expansion']."')
+			");
+            if($acc_id == TRUE)
 			{
-                if ($account_extend == false)
+				$u_id = $this->DB->selectCell("SELECT `id` FROM `account` WHERE `username` LIKE '".$params['username']."'");
+				echo $u_id;
+                if ($account_extend == NULL)
 				{
-                    $this->DB->query("INSERT INTO mw_account_extend SET account_id=?d, registration_ip=?, activation_code=?",$acc_id,$_SERVER['REMOTE_ADDR'],$tmp_act_key);
+                    $this->DB->query("INSERT INTO mw_account_extend(
+						`account_id`, 
+						`registration_ip`)
+					   VALUES(
+						'".$u_id."',
+						'".$_SERVER['REMOTE_ADDR']."'
+					   )
+					");
                 }
 				else
 				{
-                    $this->DB->query("INSERT INTO mw_account_extend SET account_id=?d, registration_ip=?, activation_code=?, secret_q1=?s, secret_a1=?s, secret_q2=?s, secret_a2=?s",$acc_id,$_SERVER['REMOTE_ADDR'],$tmp_act_key,$account_extend['secretq1'], $account_extend['secreta1'], $account_extend['secretq2'], $account_extend['secreta2']);
+                    $this->DB->query("INSERT INTO mw_account_extend(
+						`account_id`, 
+						`registration_ip`, 
+						`secret_q1`, 
+						`secret_a1`, 
+						`secret_q2`, 
+						`secret_a2`)
+					   VALUES(
+						'".$u_id."',
+						'".$_SERVER['REMOTE_ADDR']."',
+						'".$account_extend['secretq1']."', 
+						'".$account_extend['secreta1']."', 
+						'".$account_extend['secretq2']."', 
+						'".$account_extend['secreta2']."')
+					");
                 }
                 return true;
             }
             else
 			{
+				echo "Bad return";
                 return false;
             }
         }
