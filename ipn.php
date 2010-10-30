@@ -15,12 +15,16 @@ $DB = new Database(
 );
 
 // Lets check to see if we are valid or not
+$Paypal->setLogFile('core/logs/ipn_log.txt');
 $check = $Paypal->checkPayment($_POST);
 if($check == TRUE)
 {
-	$account = explode(" - ", $_POST['item_name']);
+	// We must break down all the fancy stuff to get the account ID
+	$account = explode(" --- ", $_POST['item_name']);
 	$pre_accountid = $account['1'];
-	$accountid = str_replace("Account: ", "", $pre_accountid);
+	$pre_accountid = str_replace("Account: ", "", $pre_accountid);
+	$pre_accountid = explode("(#", $pre_accountid);
+	$accountid = str_replace(")", "", $pre_accountid['1']);
 	
 	if(isset($_POST['pending_reason']))
 	{
@@ -64,7 +68,5 @@ if($check == TRUE)
 		'0'
 		)
 	");
-		`
 }
 ?>
-	
