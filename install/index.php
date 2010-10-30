@@ -180,7 +180,6 @@ $Core = new Core();
 					$build = '';
 					$build .= "<?php\n";
 					$build .= "\$db = array(\n";
-					$build .= "'db_type'         => '".$_POST['db_type']."',\n";
 					$build .= "'db_host'         => '".$_POST['db_host']."',\n";
 					$build .= "'db_port'         => '".$_POST['db_port']."',\n";
 					$build .= "'db_username'     => '".$_POST['db_username']."',\n";

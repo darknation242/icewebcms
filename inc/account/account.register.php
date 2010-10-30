@@ -2,7 +2,7 @@
 if(INCLUDED!==true)exit;
 // ==================== //
 $pathway_info[] = array('title'=>$lang['register'],'link'=>'');
-include('core/class.captcha.php');
+include('core/lib/class.captcha.php');
 
 if ((int)$cfg->get('allow_registration') == 0)
 {
