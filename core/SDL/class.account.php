@@ -313,6 +313,13 @@ class Account
         }
     }
 	
+	function sha_password($user, $pass)
+	{
+		$user = strtoupper($user);
+		$pass = strtoupper($pass);
+		return SHA1($user.':'.$pass);
+	}
+	
     function isavailableusername($username)
 	{
         $res = $this->DB->selectCell("SELECT count(*) FROM account WHERE username='".$username."'");
@@ -484,7 +491,7 @@ class Account
         $id = mysql_real_escape_string($id);
         $newpass = mysql_real_escape_string($newpass);
         $row = $this->DB->selectRow("SELECT `username` FROM `account` WHERE `id`='$id' LIMIT 1");
-        $pass_hash = sha_password($row['username'], $newpass);
+        $pass_hash = $this->sha_password($row['username'], $newpass);
         $this->DB->query("UPDATE `account` SET `sha_pass_hash`='$pass_hash', `v`= 0, `s`= 0 WHERE `id`='$id' LIMIT 1");
         return TRUE;
     }

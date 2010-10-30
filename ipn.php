@@ -2,7 +2,7 @@
 
 include('core/class.config.php');
 include('core/class.database.php');
-include('core/class.paypal.php');
+include('core/lib/class.paypal.php');
 
 $cfg = new Config;
 $Paypal = new Paypal;

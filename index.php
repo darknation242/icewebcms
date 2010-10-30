@@ -77,7 +77,7 @@ if($cfg->get('site_base_href') !== $getbasehref)
 // Site functions & classes ...
 include ( 'core/common.php' ); 					// Holds most of the sites functions
 include ( 'core/class.template.php' );			// Sets up the template system
-include ( 'core/lib/class.account.php' ); 		// contains account related scripts and functions
+include ( 'core/SDL/class.account.php' ); 		// contains account related scripts and functions
 
 // Super-Global variables.
 $GLOBALS['users_online'] = array();

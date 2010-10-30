@@ -69,13 +69,6 @@ function customError($errno, $errstr)
 	//die();
 }
 
-function sha_password($user,$pass)
-{
-    $user = strtoupper($user);
-    $pass = strtoupper($pass);
-    return SHA1($user.':'.$pass);
-}
-
 // ======== Realm Functions ======== //
 function get_realm_byid($id)
 {
