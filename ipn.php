@@ -49,6 +49,7 @@ if($check == TRUE)
 	$DB->query("INSERT INTO `mw_donate_transactions`(
 		`trans_id`,
 		`account`,
+		`item_number`,
 		`buyer_email`,
 		`payment_type`,
 		`payment_status`,
@@ -59,6 +60,7 @@ if($check == TRUE)
 	   VALUES(
 		'".$_POST['txn_id']."',
 		'".$accountid."',
+		'".$_POST['item_number']."',
 		'".$_POST['buyer_email']."',
 		'".$_POST['payment_type']."',
 		'".$_POST['payment_status']."',

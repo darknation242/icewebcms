@@ -7,36 +7,41 @@ $defaultOpen    =  0;	// First N items that are "opened" by default.
 $hl             = '';   // High lighted item
 $startpage      = (isset($_GET['sp']) ? quote_smart($_GET['sp']) : 1 );
 $userid = $user['id'];
-if($project == "mangos") {
+
+if($cfg->get('emulator') == "mangos") 
+{
 	$userlevel = $DB->selectCell("SELECT `gmlevel` FROM `account` WHERE `id`='$userid'");
-}elseif($project == "trinity") {
-$userlevel = $DB->selectCell("SELECT `gmlevel` FROM `account_access` WHERE `id`='$userid'");
+}
+elseif($cfg->get('emulator') == "trinity") 
+{
+	$userlevel = $DB->selectCell("SELECT `gmlevel` FROM `account_access` WHERE `id`='$userid'");
 }
 
-
-if($WSDB) {
-	$maxtopics  = $WSDB->selectCell("
+	$maxtopics  = $WDB->select("
 		SELECT COUNT(*)
 		FROM command
-		WHERE security <= $userlevel");
+		WHERE security <= $userlevel
+	");
 
-	$maxpages   = round($maxtopics / $items_per_page);
-	if ( ($maxpages * $items_per_page) < $maxtopics ) {
+	$maxpages = round($maxtopics / $items_per_page);
+	if ( ($maxpages * $items_per_page) < $maxtopics ) 
+	{
 		$maxpages   += 1;
 	}
-	if ($startpage < 1) {
+	if ($startpage < 1) 
+	{
 		$startpage   = 1;
 	}
-	if ($startpage > $maxpages) {
+	if ($startpage > $maxpages) 
+	{
 		$startpage   = $maxpages;
 	}
 	$sp   = ($startpage * $items_per_page ) - $items_per_page;
-	$alltopics = $WSDB->select("
+	$alltopics = $WDB->select("
 	    SELECT *
 	    FROM command
 	    WHERE security <= $userlevel
 	    ORDER BY `security` ASC, `name` ASC
-	    LIMIT $sp , $items_per_page");
-}
-
+	    LIMIT $sp , $items_per_page
+	");
 ?>
