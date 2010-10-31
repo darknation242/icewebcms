@@ -158,7 +158,7 @@ $WDB = new Database(
 	$mangos['db_name']
 	);
 
-$realms = $DB->select("SELECT `id`, `name` FROM realmlist ORDER BY `id` ASC");
+$realms = $DB->select("SELECT * FROM realmlist ORDER BY `id` ASC");
 
 // === Load auth system === //
 $Account = new Account($DB, $cfg);
