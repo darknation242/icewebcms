@@ -36,5 +36,36 @@ class Core
 		$ret = array('allow_url_fopen' => $allow_url_fopen, 'allow_fsockopen' => $fsock);
 		return $ret;
 	}
+	
+	function runSQL($file)
+	{
+		global $DB;
+		$file_content = file($url);
+		foreach($file_content as $sql_line)
+		{
+			if(trim($sql_line) != "" && strpos($sql_line, "--") && strpos ($aquery, "#") === false)
+			{
+				foreach ($sql_line as $key => $aquery) 
+				{
+					$aquery = rtrim($aquery);
+					$compare = rtrim($aquery, ";");
+					if ($compare != $aquery) 
+					{
+						$sql_line[$key] = $compare . "|br3ak|";
+					}
+				}
+			}
+		}
+		unset($key, $aquery);
+
+		$sql_line = implode($sql_line);
+		$queries = explode("|br3ak|", $sql_line);
+		
+		foreach($queries as $sql)
+		{
+			$DB->query($sql);
+		}
+		return TRUE;
+	}
 }
 ?>

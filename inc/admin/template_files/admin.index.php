@@ -43,14 +43,14 @@
 								<a href="index.php?p=admin&sub=shop"><img src="inc/admin/images/icons/shop-icon.png" width="48" height="48" border="0" /></a><br />
 								<a href="index.php?p=admin&sub=shop">Manage Shop</a>
 							</td>
+							<td height="80px" width="130"align="center">
+								<a href="index.php?p=admin&sub=donate"><img src="inc/admin/images/icons/donate-icon.png" width="48" height="48" border="0" /></a><br />
+								<a href="index.php?p=admin&sub=donate">Donate Admin</a>
+							</td>
 							<td height="80px" width="130" align="center">
 								<a href="index.php?p=admin&sub=faq"><img src="inc/admin/images/icons/faq-icon.png" width="48" height="48" border="0" /></a><br />
 								<a href="index.php?p=admin&sub=faq">FAQ Admin</a>
 							</td> 
-							<td height="80px" width="130"align="center">
-								<a href="index.php?p=admin&sub=dbmanager"><img src="inc/admin/images/icons/dbm-icon.png" width="48" height="48" border="0" /></a><br />
-								<a href="index.php?p=admin&sub=dbmanager">Database Managment</a>
-							</td>
 						</tr>
 						
 					<!-- ROW 3 -->
