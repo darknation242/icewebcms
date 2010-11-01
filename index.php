@@ -3,7 +3,7 @@
 /*    < MangosWeb is a Web-Fonted for Mangos (mangosproject.org) >          */
 /*    		  Copyright (C) <2007>  <Sasha,TGM,Peec,Nafe>                   */
 /*																			*/
-/*  < MangosWeb Enhanced / IceWeb CMS is a Web-Fonted for mangos/trinity >  */
+/*  	< MangosWeb Enhanced is a Web-Fonted for mangos/trinity >  			*/
 /*              Copyright (C) <2009 - 2010>  <Wilson212>                    */
 /*																			*/
 /*                                                                          */
@@ -130,7 +130,8 @@ $mangos_info = $DB->selectRow("SELECT * FROM realmlist WHERE id='".$GLOBALS['cur
 $dbinfo_mangos = explode( ';', $mangos_info['dbinfo'] ) ;
 
 //DBinfo column:  username;password;port;host;WorldDBname;CharDBname
-$mangos = array( 'db_type' => 'mysql', 'db_host' => $dbinfo_mangos['3'],
+$mangos = array(
+	'db_host' => $dbinfo_mangos['3'],
 	'db_port' => $dbinfo_mangos['2'], //port
 	'db_username' => $dbinfo_mangos['0'], //world user
 	'db_password' => $dbinfo_mangos['1'], //world password
@@ -158,6 +159,7 @@ $WDB = new Database(
 	$mangos['db_name']
 	);
 
+unset($mangos);
 $realms = $DB->select("SELECT * FROM realmlist ORDER BY `id` ASC");
 
 // === Load auth system === //

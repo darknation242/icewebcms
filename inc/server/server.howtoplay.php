@@ -1,8 +1,12 @@
 <?php
-if(INCLUDED!==true)exit;
+//========================//
+if(INCLUDED!==true) {
+	echo "Not Included!"; exit;
+}
+//=======================//
 
 $pathway_info[] = array('title'=>$lang['howtoplay'],'link'=>'');
-$content = lang_resource('howtoplay.html');
+$content = file_get_contents("lang/howtoplay/".$GLOBALS['user_cur_lang'].".html");
 
 ?>
 

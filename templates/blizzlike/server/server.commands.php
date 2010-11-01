@@ -1,22 +1,33 @@
 <br>
-<?php builddiv_start(0, $lang['commands']) ?>
-<?php if($maxpages > 1) { ?>
-<div align="right" class="news-listing">
-<b><?php echo $lang['page'];?> :&nbsp;<?php for ($CurrPage = 1; $CurrPage <= $maxpages; $CurrPage++) { ?>
- <a href="index.php?n=server&sub=commands&sp=<?php echo $CurrPage; ?>"><?php echo $CurrPage; ?></a>&nbsp;
-<?php }?>
-</b><br/>
-</div>
-<br/><?php
+<?php builddiv_start(0, $lang['commands']); 
+if($maxpages > 1) 
+{ ?>
+	<div align="right" class="news-listing">
+		<b><?php echo $lang['page']; ?> :&nbsp; <?php for ($CurrPage = 1; $CurrPage <= $maxpages; $CurrPage++) 
+		{ ?>
+			<a href="index.php?n=server&sub=commands&sp=<?php echo $CurrPage; ?>"><?php echo $CurrPage; ?></a>&nbsp;
+	<?php 
+		}?>
+		</b><br/>
+	</div>
+	<br/>
+<?php
+} ?>
+
+<center>
+<?php 
+if($maxpages > 1) 
+{?>
+	<h5><?php echo $lang['page'].": ".htmlentities((isset($_GET['sp']) ? $_GET['sp'] : '')); ?></h5>
+<?php
 }?>
-<center><?php if($maxpages > 1) {?>
-<h5><?php echo $lang['page'].": ".htmlentities((isset($_GET['sp']) ? $_GET['sp'] : ''));?></h5><?php
-}?>
+
 <div class="module-container">
 <?php
 $postnum = 0;
 
-foreach($alltopics as $postanum => $topic){
+foreach($alltopics as $postanum => $topic)
+{
     $postnum++;
     if($hl=='alt')$hl='';else $hl='alt';
 ?>
@@ -24,45 +35,46 @@ foreach($alltopics as $postanum => $topic){
         var postId<?php echo$postnum;?>="<?php echo $postnum;?>";
     </script>
     <div class="news-expand" id="news<?php echo $postnum;?>">
-      <div class="news-border-left"></div>
-      <div class="news-border-right"></div>
-      <div class="news-listing">
-        <div onclick="javascript:toggleEntry('<?php echo $postnum;?>','<?php echo$hl;?>')" onmouseout="javascript:this.style.background='none'" onmouseover="javascript:this.style.background='#EEDB99'" class="hoverContainer">
-          <div>
-            <div class="news-top">
-              <ul>
-                <li class="item-icon">
-                  <img border="0" alt="new-post" src="<?php echo $currtmp; ?>/images/news-contests.gif"></li>
-                <li class="news-entry">
-                  <h1>
-                    <a href="javascript:dummyFunction();"><?php echo $topic['name'];?></a>
-                  </h1>
-                </li>
-                <li class="news-toggle">
-                  <a href="javascript:toggleEntry('<?php echo $postnum;?>','<?php echo$hl;?>')"><img alt="" src="<?php echo $currtmp; ?>/images/pixel001.gif"></a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="news-item">
-        <blockquote>
-          <dl>
-            <dd>
-              <ul>
-                <li>
-                  <div class="letter-box0"></div>
-                  <div class="blog-post">
-                  	<playerlevel><?php echo "Level : ".$topic['security']."<br/>";?></playerlevel>
-                    <description><?php echo str_replace("\r",'<br/>',$topic['help']);?></description>
-                  </div>
-                </li>
-              </ul>
-            </dd>
-          </dl>
-        </blockquote>
-      </div>
+		<div class="news-border-left"></div>
+		<div class="news-border-right"></div>
+		<div class="news-listing">
+			<div onclick="javascript:toggleEntry('<?php echo $postnum;?>','<?php echo$hl;?>')" onmouseout="javascript:this.style.background='none'" onmouseover="javascript:this.style.background='#EEDB99'" class="hoverContainer">
+				<div>
+					<div class="news-top">
+						<ul>
+							<li class="item-icon">
+								<img border="0" alt="new-post" src="<?php echo $currtmp; ?>/images/news-contests.gif">
+							</li>
+							<li class="news-entry">
+								<h1>
+									<a href="javascript:dummyFunction();"><?php echo $topic['name'];?></a>
+								</h1>
+							</li>
+							<li class="news-toggle">
+								<a href="javascript:toggleEntry('<?php echo $postnum;?>','<?php echo$hl;?>')"><img alt="" src="<?php echo $currtmp; ?>/images/pixel001.gif"></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="news-item">
+			<blockquote>
+				<dl>
+					<dd>
+						<ul>
+							<li>
+								<div class="letter-box0"></div>
+								<div class="blog-post">
+									<playerlevel><?php echo "Level : ".$topic['security']."<br/>";?></playerlevel>
+									<description><?php echo str_replace("\r",'<br/>',$topic['help']);?></description>
+								</div>
+							</li>
+						</ul>
+					</dd>
+				</dl>
+			</blockquote>
+		</div>
     </div>
     <script type="text/javascript">
     var position = <?php echo$postnum;?>;
@@ -74,7 +86,8 @@ foreach($alltopics as $postanum => $topic){
         document.getElementById("news"+localId).className = "news-collapse"+"<?php echo$hl;?>";
     }
     </script>
-<?php } ?>
+<?php 
+} ?>
 </div>
 </center>
 <?php builddiv_end() ?>

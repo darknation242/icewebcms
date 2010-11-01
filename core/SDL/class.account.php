@@ -39,15 +39,16 @@ class Account
                 WHERE id ='".$cookie['user_id']."'");
             if(get_banned($res['id'], 1) == TRUE)
 			{
+				output_message('error','Your account is currently banned');
                 $this->setgroup();
-                output_message('error','Your account is currently banned');
                 $this->logout();
                 return false;
             }
-            if($res['activation_code'] != null)
+            if($res['activation_code'] != NULL)
 			{
 				output_message('warning','Your account is not active');
                 $this->setgroup();
+				$this->logout();
                 return false;
             }
             if($this->matchAccountKey($cookie['user_id'], $cookie['account_key']))
@@ -101,7 +102,7 @@ class Account
             output_message('error','Your account is currently banned');
             $success = 0;
         }
-        if($res['activation_code'] != null)
+        if($res['activation_code'] != NULL)
 		{
             output_message('error','Your account is not active. Please check your email to activate your account.');
             $success = 0;
@@ -109,7 +110,7 @@ class Account
 		
         if($success != 1) 
 		{
-			return false;
+			return FALSE;
 		}
 		else
 		{
@@ -129,12 +130,12 @@ class Account
 				(string)$cookie_href = $cfg->get('site_href');
 				(int)$cookie_delay = (time()+$cookie_expire_time);
 				setcookie($cookie_name, $uservars_hash, $cookie_delay, $cookie_href);
-				return true;
+				return TRUE;
 			}
 			else
 			{
 				output_message('validation','Your password is incorrect');
-				return false;
+				return FALSE;
 			}
 		}
     }
@@ -144,17 +145,6 @@ class Account
         global $cfg;
         setcookie((string)$cfg->get('site_cookie'), '', time()-3600,(string)$cfg->get('site_href'));
         $this->removeAccountKeyForUser($this->user['id']);
-    }
-
-    function lastvisit_update($uservars)
-    {
-        if($uservars['id']>0)
-		{
-            if(time() - $uservars['last_visit'] > 60*10)
-			{
-                $this->DB->query("UPDATE `mw_account_extend` SET last_visit='".time()."' WHERE account_id='".$uservars['id']."' LIMIT 1");
-            }
-        }
     }
 	
 	// Main register script
@@ -313,6 +303,20 @@ class Account
         }
     }
 	
+	// Last update set the current time under the account_extend database to get
+	// an approximate time when the user was last online. Post $user['id'] here.
+	function lastvisit_update($uservars)
+    {
+        if($uservars['id'] > 0)
+		{
+            if(time() - $uservars['last_visit'] > 60*10)
+			{
+                $this->DB->query("UPDATE `mw_account_extend` SET last_visit='".time()."' WHERE account_id='".$uservars['id']."' LIMIT 1");
+            }
+        }
+    }
+	
+	// Converts the username:password into a SHA1 encryption
 	function sha_password($user, $pass)
 	{
 		$user = strtoupper($user);
@@ -320,51 +324,62 @@ class Account
 		return SHA1($user.':'.$pass);
 	}
 	
+	// Check if the username is available. Post user['username'] here.
     function isavailableusername($username)
 	{
-        $res = $this->DB->selectCell("SELECT count(*) FROM account WHERE username='".$username."'");
-        if($res < 1) return true; // username is available
-        return false; // username is not available
-    }
-
-    function isavailableemail($email)
-	{
-        $res = $this->DB->selectCell("SELECT count(*) FROM account WHERE email='".$email."'");
+        $res = $this->DB->query("SELECT count(*) FROM account WHERE username='".$username."'");
         if($res < 1) 
 		{
-			return true; // email is available
+			return TRUE; // username is available
 		}
 		else
 		{
-			return false; // email is not available
+			return FALSE; // username is not available
+		}
+    }
+
+	// Check if the email is available. Post an email address here.
+    function isavailableemail($email)
+	{
+        $res = $this->DB->query("SELECT count(*) FROM account WHERE email='".$email."'");
+        if($res < 1) 
+		{
+			return TRUE; // email is available
+		}
+		else
+		{
+			return FALSE; // email is not available
 		}
     }
 	
+	// Checks if the email is in valid format.
     function isvalidemail($email)
 	{
         if(preg_match('#^.{1,}@.{2,}\..{2,}$#', $email)==1)
 		{
-            return true; // email is valid
+            return TRUE; // email is valid
         }
 		else
 		{
-            return false; // email is not valid
+            return FALSE; // email is not valid
         }
     }
 	
+	// Checks if the register key is valid
     function isvalidregkey($key)
 	{
         $res = $this->DB->selectRow("SELECT * FROM mw_regkeys WHERE key='".$key."'");
         if($res != FALSE) 
 		{
-			return true; // key is valid
+			return TRUE; // key is valid
 		}
         else
 		{
-			return false; // key is not valid
+			return FALSE; // key is not valid
 		}
     }
 	
+	// Checks is the account activation key is valid
     function isvalidactkey($key)
 	{
         $res = $this->DB->selectRow("SELECT * FROM mw_account_extend WHERE activation_code='".$key."'");
@@ -374,36 +389,43 @@ class Account
 		}
 		else
 		{
-			return false; // key is not valid
+			return FALSE; // key is not valid
 		}
     }
 	
+	// Generate a unique key
     function generate_key()
     {
         $str = microtime(1);
         return sha1(base64_encode(pack("H*", md5(utf8_encode($str)))));
     }
 	
+	// Generate multiple keys. Post amount of keys needed
     function generate_keys($n)
     {
         set_time_limit(600);
         for($i=1;$i<=$n;$i++)
         {
-            if($i>1000)exit;
+            if($i > 1000)
+			{
+				exit;
+			}
             $keys[] = $this->generate_key();
             $slt = rand(15000, 500000);
             usleep($slt);
-            //sleep(1);
         }
         return $keys;
     }
 	
+	// Deletes a register key
     function delete_key($key)
 	{
         $this->DB->query("DELETE FROM mw_regkeys WHERE key='".$key."'");
     }
 	
-	function getProfile($acct_id=false)
+	// Gets all the users info from the database including username, email
+	// account level, id, and all sorts. post an account id here
+	function getProfile($acct_id=FALSE)
 	{
 		global $cfg;
 		$res = $this->DB->selectRow("
@@ -414,7 +436,7 @@ class Account
         return $res;
     }
 	
-    function getgroup($g_id=false)
+    function getgroup($g_id=FALSE)
 	{
         $res = $this->DB->selectRow("SELECT * FROM mw_account_groups WHERE account_level='".$g_id."'");
         return $res;
@@ -426,12 +448,13 @@ class Account
         $this->user = array_merge($this->user,$guest_g);
     }
 	
-    function getlogin($acct_id=false)
+	// Returns an account username. Post an account ID here.
+    function getlogin($acct_id=FALSE)
 	{
         $res = $this->DB->selectRow("SELECT username FROM account WHERE id='".$acct_id."'");
         if($res == FALSE)
 		{
-			return false;  // no such account
+			return FALSE;  // no such account
 		}
 		else
 		{
@@ -439,12 +462,13 @@ class Account
 		}
     }
 	
-    function getid($acct_name=false)
+	// Gets an account id. Post username here
+    function getid($acct_name=FALSE)
 	{
         $res = $this->DB->selectCell("SELECT id FROM account WHERE username='".$acct_name."'");
         if($res == FALSE)
 		{
-			return false;  // no such account
+			return FALSE;  // no such account
 		}
 		else
 		{
@@ -452,7 +476,8 @@ class Account
 		}
     }
 	
-    function gethash($str=false)
+	// Generates a random 40 char hash
+    function gethash($str=FALSE)
 	{
         if($str)
 		{
@@ -460,24 +485,28 @@ class Account
 		}
         else 
 		{
-			return false;
+			return FALSE;
 		}
     }
 	
+	// Loads secret questions from the Database and returns them in an array.
 	function getSecretQuestions()
 	{
 		$getsc = $this->DB->select("SELECT * FROM `mw_secret_questions`");
 		return $getsc;
 	}
 	
+	// Sets an accounts email. Post an account id and new email address.
 	function setEmail($id, $newemail)
 	{
 		$id = mysql_real_escape_string($id);
         $newemail = mysql_real_escape_string($newemail);
-		$this->DB->query("UPDATE `account` SET `email`='$newemail' WHERE `id`='$id' LIMIT 1");
+		$this->DB->query("UPDATE `account` SET `email`='".$newemail."' WHERE `id`='$id' LIMIT 1");
 		return TRUE;
 	}
 	
+	// Sets the expansion for an account. Post an account id and Expansion number here.
+	// 2 = WotLK, 1 = TBC, 0 = Base
 	function setExpansion($id, $nexp)
     {
         $id = mysql_real_escape_string($id);
@@ -486,6 +515,7 @@ class Account
         return TRUE;
     }
 	
+	// Sets a password for an account. Post an account id and New password here.
 	function setPassword($id, $newpass)
     {
         $id = mysql_real_escape_string($id);
@@ -496,6 +526,8 @@ class Account
         return TRUE;
     }
 	
+	// Sets the secret questions and answers for an account.
+	// Post in order, account id, question 1 ,  answer 1, question 2, answer 2.
 	function setSecretQuestions($id, $sq1, $sa1, $sq2, $sa2)
 	{
 		$sq1 = strip_if_magic_quotes($sq1);
@@ -550,19 +582,19 @@ class Account
 		$count = $this->DB->selectRow("SELECT * FROM mw_account_keys WHERE id='$id'");
 		if($count == FALSE) 
 		{
-			return false;
+			return FALSE;
 		}
 		else
 		{
 			$account_key = $this->DB->selectRow("SELECT * FROM mw_account_keys WHERE id='$id'");
 			if($key == $account_key['key']) 
 			{
-				return true;
+				return TRUE;
 			}
 			else 
 			{
 				output_message('error', 'Account Keys Error!');
-				return false;
+				return FALSE;
 			}
 		}
 	}
