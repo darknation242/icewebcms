@@ -13,15 +13,16 @@
 <?php
 	if(isset($_POST['step']) && $_POST['step'] == 3 && $allow_reg === true)
     {
-		if($reg_succ == TRUE)
+		$finalize = finalize();
+		if($finalize == TRUE)
 		{
 			if((int)$cfg->get('require_act_activation'))
 			{
-				echo $lang['email_sent_act'];
+				output_message('success', $lang['email_sent_act']);
 			}
 			else
 			{
-				echo $lang['reg_succ'].'<meta http-equiv=refresh content="3;url='.$cfg->get('site_href').'">';
+				output_message('success', $lang['reg_succ'].'<meta http-equiv=refresh content="5;url=index.php?p=account&sub=login">');
 			}
 		}
     }

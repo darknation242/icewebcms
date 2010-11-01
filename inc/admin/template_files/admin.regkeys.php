@@ -38,7 +38,7 @@
 				}
 			}
 		$allkeys = $DB->select("SELECT * FROM `mw_regkeys`");
-		$num_keys = $DB->query("SELECT COUNT(*) FROM mw_regkeys");
+		$num_keys = $DB->count("SELECT COUNT(*) FROM mw_regkeys");
 		?>
 		
 		<p>

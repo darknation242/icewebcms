@@ -1,7 +1,0 @@
-[01-Nov-2010 11:05:55] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.register.php on line 272
-[01-Nov-2010 11:07:22] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.register.php on line 272
-[01-Nov-2010 11:07:25] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.register.php on line 272
-[01-Nov-2010 11:09:29] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.register.php on line 272
-[01-Nov-2010 11:11:53] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.register.php on line 272
-[01-Nov-2010 11:17:14] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.register.php on line 272
-[01-Nov-2010 11:17:21] PHP Notice:  Undefined index: r_key in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.register.php on line 272

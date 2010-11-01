@@ -126,10 +126,11 @@ echo $GLOBALS['redirect'];
 								<div class="loginboxleft"></div>
 								<div class="loginboxbg">
 									<form action="<?php echo mw_url('account', 'login'); ?>" method="post">
-									<?php $accountid = $user['id'];
-									if($user['id']>0)
+									<?php 
+									$accountid = $user['id'];
+									if($user['id'] > 0)
 									{
-										$userpm_num = 0;
+										$userpm_num = $DB->count("SELECT COUNT(*) FROM `mw_pms` WHERE `owner_id`='".$user['id']."' AND `showed`=0");
 									?>
 										<input type="hidden" name="action" value="logout"/>
 										<?php 

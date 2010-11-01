@@ -92,6 +92,9 @@ class Account
         $res = $this->DB->selectRow("
             SELECT id, username, sha_pass_hash, locked FROM account
             WHERE username='".$params['username']."'");
+		$res2 = $this->DB->selectRow("
+			SELECT * FROM mw_account_extend 
+			WHERE `account_id`='".$res['id']."'");
         if($res['id'] < 1)
 		{
 			$success = 0;
@@ -102,7 +105,7 @@ class Account
             output_message('error','Your account is currently banned');
             $success = 0;
         }
-        if($res['activation_code'] != NULL)
+        if($res2['activation_code'] != NULL)
 		{
             output_message('error','Your account is not active. Please check your email to activate your account.');
             $success = 0;

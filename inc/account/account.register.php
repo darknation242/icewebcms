@@ -49,7 +49,7 @@ else
 	// When finished registering, this is the function
 	function finalize()
 	{
-		global $DB, $cfg, $allow_req;
+		global $DB, $cfg, $allow_reg, $Account;
 		
 		// Check to see if we still are allowed to register
 		if($allow_reg == TRUE)
@@ -124,34 +124,32 @@ else
 					'email' => $_POST['r_email'],
 					'expansion' => $_POST['r_account_type'],
 					'password' => $_POST['r_pass']), 
-						array('secretq1 '=> strip_if_magic_quotes($_POST['secretq1']),
+						array(
+						'secretq1'=> strip_if_magic_quotes($_POST['secretq1']),
 						'secreta1' => strip_if_magic_quotes($_POST['secreta1']),
 						'secretq2' => strip_if_magic_quotes($_POST['secretq2']), 
-						'secreta2' => strip_if_magic_quotes($_POST['secreta2']))) == TRUE)
+						'secreta2' => strip_if_magic_quotes($_POST['secreta2']))
+						) == TRUE)
 				{
 					if($cfg->get('reg_invite') == 1)
 					{
 						$Account->delete_key($_POST['r_key']);
 					}
-					if($cfg->get('require_act_activation') == 0)
-					{
-						$Account->login(array('username' => $_POST['r_login'],'sha_pass_hash' => $Account->sha_password($_POST['r_login'],$_POST['r_pass'])));
-					}
 					$reg_succ = TRUE;
 				}
 				else
 				{
-					$reg_succ = false;
+					$reg_succ = FALSE;
 					$err_array[] = "Account Creation [FATAL ERROR]: User cannot be created, likely due to incorrect database configuration.  Contact the administrator.";
 				}
 			}
 			else
 			{
-				$reg_succ = false;
+				$reg_succ = FALSE;
 			}
 			  
 			// If there were any errors, then they are outputed here
-			if($reg_succ == false) 
+			if($reg_succ == FALSE) 
 			{
 				if(!$err_array[1]) 
 				{
@@ -160,6 +158,14 @@ else
 				$output_error = implode("<br>\n",$err_array);
 				output_message('error',$output_error);
 			}
+			else
+			{
+				return TRUE;
+			}
+		}
+		else
+		{
+			return FALSE;
 		}
 	}
 }
