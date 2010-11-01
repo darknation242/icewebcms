@@ -57,7 +57,7 @@
 						if($key['used'] == 0)
 						{
 							echo'<li><a href="index.php?p=admin&sub=regkeys&action=delete&keyid='.$key['id'].'" title="Delete">[Delete]</a>
-								&nbsp; <a href="index.php?p=admin&sub=regkeys&action=setused&keyid='.$key['id'].'" title="Mark as used">'.$key['id'].') '.$key['key'].'</a></li>'."\n";
+								&nbsp; '.$key['id'].') <a href="index.php?p=admin&sub=regkeys&action=setused&keyid='.$key['id'].'" title="Mark as used">'.$key['key'].'</a></li>'."\n";
 						}
 						else 
 						{

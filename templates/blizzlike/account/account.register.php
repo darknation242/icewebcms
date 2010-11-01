@@ -13,7 +13,7 @@
 <?php
 	if(isset($_POST['step']) && $_POST['step'] == 3 && $allow_reg === true)
     {
-		if($reg_succ === true)
+		if($reg_succ == TRUE)
 		{
 			if((int)$cfg->get('require_act_activation'))
 			{
@@ -205,7 +205,7 @@ p.nm, p.wm {
 					} ?>
 
 				<?php 
-					if ((int)$cfg->get('reg_secret_questions'))
+					if ($cfg->get('reg_secret_questions') == 1)
 					{ ?>
 						<label for="secretq1"><?php echo $lang['secretq']; ?> 1:</label>
 						Q: <select id="secretq1" name="secretq1">
@@ -248,7 +248,7 @@ p.nm, p.wm {
 						$captcha->delold();
 						$filename = $captcha->filename;
 						$privkey = $captcha->privkey;
-						$DB->query("INSERT INTO `acc_creation_captcha`(filename, acc_creation_captcha.key) VALUES('$filename','$privkey')");
+						$DB->query("INSERT INTO `mw_acc_creation_captcha`(filename, acc_creation_captcha.key) VALUES('$filename','$privkey')");
 				?>
 						<img src="<?php echo $filename; ?>" alt=""/><br />
 						<input type="hidden" name="filename_image" value="<?php echo $filename; ?>"/>
@@ -264,8 +264,33 @@ p.nm, p.wm {
 			</div>
 <?php
     }
-    elseif((isset($_POST['step']) && $_POST['step']==1 || (int)$cfg->get('req_invite') == 0) && $allow_reg === true)
+	elseif(empty($_POST['step']) && $cfg->get('reg_invite') == 0 && $allow_reg === true)
     {
+?>
+		<form method="post" action="index.php?p=account&amp;sub=register">
+			<input type="hidden" name="step" value="2"/>
+			<input type="hidden" name="r_key" value="0"/>
+			<div style="margin:4px;padding:6px 9px 6px 9px;text-align:left;">
+				<h2 style="margin:2px;"> <?php echo $lang['rules_agreement'] ?> </h2>
+				<div style="color: red"><?php echo $lang['warn_email'] ?></div>
+				<br/>
+				<?php include("lang/server_rules/".$GLOBALS['user_cur_lang'].".html"); ?>
+			</div>
+			<div style="margin:4px;padding:6px 9px 0px 9px;text-align:left;">
+				<input type="button" class="button" value="<?php echo $lang['disagree']; ?>" onclick="location.href='index.php'"/> &nbsp;&nbsp;
+				<input type="submit" class="button" value="<?php echo $lang['agree']; ?>"/>
+			</div>
+		</form>
+<?php
+	}
+    elseif(isset($_POST['step']) && $_POST['step'] == 1 && $cfg->get('reg_invite') == 1)
+    {
+		if($Account->isvalidregkey($_POST['r_key']) !== TRUE)
+		{
+			output_message('validation',$lang['bad_reg_key']);
+			$allow_reg = false;
+			$err_array[] = "Your registration key was invalid. Please check it for typos.";
+		}
 ?>
 		<form method="post" action="index.php?p=account&amp;sub=register">
 			<input type="hidden" name="step" value="2"/>
@@ -283,13 +308,14 @@ p.nm, p.wm {
 		</form>
 <?php
     }
-    elseif(empty($_POST['step']) && (int)$cfg->get('reg_invite') == 1 && $allow_reg === true)
+    elseif(empty($_POST['step']) && $cfg->get('reg_invite') == 1 && $allow_reg === true)
     {
 ?>
 		<form method="post" action="index.php?p=account&amp;sub=register">
 			<input type="hidden" name="step" value="1"/>
 			<div style="margin:4px;padding:6px 9px 6px 9px;text-align:left;">
-				<b><?php echo $lang['reg_key'];?>:</b> <input type="text" name="r_key" size="45" maxlength="50"/>
+				<b><?php echo $lang['reg_key'];?>:</b> 
+				<input type="text" name="r_key" size="45" maxlength="50"/>
 			</div>
 			<div style="background:none;margin:4px;padding:6px 9px 0px 9px;text-align:left;">
 				<input type="submit" class="button" value="<?php echo $lang['next'];?>"/>

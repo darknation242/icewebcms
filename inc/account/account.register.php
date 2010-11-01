@@ -27,21 +27,10 @@ else
 	$err_array = array();
 	$err_array[0] = $lang['ref_fail'];
 	
-	// If users are required to have an invite key
-	if($_POST['step'] && (int)$cfg->get('reg_invite'))
-	{
-		if($Account->isvalidregkey($_POST['r_key'])!==true)
-		{
-			output_message('validation',$lang['bad_reg_key']);
-			$allow_reg = false;
-			$err_array[] = "Your registration key was invalid. Please check it for typos.";
-		}
-	}
-	
 	// If users are limited to how many accounts per IP, we find out how many this IP has.
-	if((int)$cfg->get('max_act_per_ip') > 0)
+	if($cfg->get('max_act_per_ip') > 0)
 	{
-		$count_ip = $DB->select("SELECT count(*) FROM account_extend WHERE registration_ip=?",$_SERVER['REMOTE_ADDR']);
+		$count_ip = $DB->query("SELECT count(*) FROM account_extend WHERE registration_ip='".$_SERVER['REMOTE_ADDR']."'");
 		if($count_ip >= (int)$cfg->get('max_act_per_ip'))
 		{
 			output_message('alert',$lang['reg_acclimit']);
@@ -52,9 +41,9 @@ else
 	}
 	
 	// When finished registering, this is the final code
-	if($_POST['step']==3)
+	if($_POST['step'] == 3)
 	{
-		if($allow_reg === true)
+		if($allow_reg == true)
 		{
 			$notreturn = FALSE; // Inizialize variable, we use this after. Use this to add extensions.
 
@@ -67,7 +56,7 @@ else
 			{
 				$image_key =& $_POST['image_key'];
 				$filename = quote_smart($_POST['filename_image']);
-				$correctkey = $DB->selectCell("SELECT key FROM acc_creation_captcha WHERE filename=".$filename);
+				$correctkey = $DB->selectCell("SELECT key FROM mw_acc_creation_captcha WHERE filename=".$filename);
 				if (strtolower($correctkey) != strtolower($image_key) || $image_key == '')
 				{
 					$notreturn = TRUE;
@@ -76,23 +65,27 @@ else
 			}
 
 			// Ext 2 - secret questions
-			if ((int)$cfg->get('reg_secret_questions'))
+			if ($cfg->get('reg_secret_questions') == 1)
 			{
 				if ($_POST['secretq1'] && $_POST['secretq2'] && $_POST['secreta1'] && $_POST['secreta2']) 
 				{
-					if(check_for_symbols($_POST['secreta1']) || check_for_symbols($_POST['secreta2'])){
+					if(check_for_symbols($_POST['secreta1']) || check_for_symbols($_POST['secreta2']))
+					{
 						$notreturn = TRUE;
 						$err_array[] = "Answers to Secret Questions contain unallowed symbols.";
 					}
-					if($_POST['secretq1'] == $_POST['secretq2']) {
+					if($_POST['secretq1'] == $_POST['secretq2']) 
+					{
 						$notreturn = TRUE;
 						$err_array[] = "Secret Questions cannot be the same.";
 					}
-					if($_POST['secreta1'] == $_POST['secreta2']) {
+					if($_POST['secreta1'] == $_POST['secreta2']) 
+					{
 						$notreturn = TRUE;
 						$err_array[] = "Answers to Secret Questions cannot be the same.";
 					}
-					if(strlen($_POST['secreta1']) < 4 || strlen($_POST['secreta2']) < 4) {
+					if(strlen($_POST['secreta1']) < 4 || strlen($_POST['secreta2']) < 4) 
+					{
 						$notreturn = TRUE;
 						$err_array[] = "Answers to Secret Questions must be at least 4 characters in length.";
 					}
@@ -112,29 +105,29 @@ else
 			}
 
 			// Main add into the database
-			if ($notreturn === FALSE)
+			if ($notreturn == FALSE)
 			{
 				if($Account->register(array(
 					'username' => $_POST['r_login'],
-					'sha_pass_hash' => sha_password($_POST['r_login'],$_POST['r_pass']),
-					'sha_pass_hash2' => sha_password($_POST['r_login'],$_POST['r_cpass']),
+					'sha_pass_hash' => $Account->sha_password($_POST['r_login'],$_POST['r_pass']),
+					'sha_pass_hash2' => $Account->sha_password($_POST['r_login'],$_POST['r_cpass']),
 					'email' => $_POST['r_email'],
 					'expansion' => $_POST['r_account_type'],
 					'password' => $_POST['r_pass']), 
 						array('secretq1 '=> strip_if_magic_quotes($_POST['secretq1']),
 						'secreta1' => strip_if_magic_quotes($_POST['secreta1']),
 						'secretq2' => strip_if_magic_quotes($_POST['secretq2']), 
-						'secreta2' => strip_if_magic_quotes($_POST['secreta2']))) === true)
+						'secreta2' => strip_if_magic_quotes($_POST['secreta2']))) == TRUE)
 				{
-					if((int)$cfg->get('reg_invite'))
+					if($cfg->get('reg_invite') == 1)
 					{
 						$Account->delete_key($_POST['r_key']);
 					}
-					if((int)$cfg->get('require_act_activation') == 0)
+					if($cfg->get('require_act_activation') == 0)
 					{
-						$Account->login(array('username' => $_POST['r_login'],'sha_pass_hash' => sha_password($_POST['r_login'],$_POST['r_pass'])));
+						$Account->login(array('username' => $_POST['r_login'],'sha_pass_hash' => $Account->sha_password($_POST['r_login'],$_POST['r_pass'])));
 					}
-					$reg_succ = true;
+					$reg_succ = TRUE;
 				}
 				else
 				{

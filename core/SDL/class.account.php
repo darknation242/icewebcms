@@ -171,14 +171,14 @@ class Account
             output_message('validation','You did not provide your email');
             $success = 0;
         }
-        if($success!=1) 
+        if($success != 1) 
 		{
 			return false;
 		}
         unset($params['sha_pass_hash2']);
         $password = $params['password'];
         unset($params['password']);
-        if((int)$cfg->get('require_act_activation'))
+        if((int)$cfg->get('require_act_activation') == 1)
 		{
             $tmp_act_key = $this->generate_key();
             $params['locked'] = 1;
@@ -263,7 +263,6 @@ class Account
             if($acc_id == TRUE)
 			{
 				$u_id = $this->DB->selectCell("SELECT `id` FROM `account` WHERE `username` LIKE '".$params['username']."'");
-				echo $u_id;
                 if ($account_extend == NULL)
 				{
                     $this->DB->query("INSERT INTO mw_account_extend(
@@ -341,7 +340,7 @@ class Account
 	// Check if the email is available. Post an email address here.
     function isavailableemail($email)
 	{
-        $res = $this->DB->query("SELECT count(*) FROM account WHERE email='".$email."'");
+        $res = $this->DB->query("SELECT COUNT(*) FROM account WHERE email='".$email."'");
         if($res < 1) 
 		{
 			return TRUE; // email is available
@@ -368,7 +367,7 @@ class Account
 	// Checks if the register key is valid
     function isvalidregkey($key)
 	{
-        $res = $this->DB->selectRow("SELECT * FROM mw_regkeys WHERE key='".$key."'");
+        $res = $this->DB->selectCell("SELECT `id` FROM `mw_regkeys` WHERE `key`='".$key."'");
         if($res != FALSE) 
 		{
 			return TRUE; // key is valid
@@ -382,8 +381,8 @@ class Account
 	// Checks is the account activation key is valid
     function isvalidactkey($key)
 	{
-        $res = $this->DB->selectRow("SELECT * FROM mw_account_extend WHERE activation_code='".$key."'");
-        if($res != FALSE) 
+        $res = $this->DB->selectRow("SELECT * FROM `mw_account_extend` WHERE `activation_code`='".$key."'");
+        if($res == 1) 
 		{
 			return $res['account_id']; // key is valid
 		}
@@ -411,7 +410,7 @@ class Account
 				exit;
 			}
             $keys[] = $this->generate_key();
-            $slt = rand(15000, 500000);
+            $slt = 15000;
             usleep($slt);
         }
         return $keys;
@@ -420,7 +419,8 @@ class Account
 	// Deletes a register key
     function delete_key($key)
 	{
-        $this->DB->query("DELETE FROM mw_regkeys WHERE key='".$key."'");
+        $this->DB->query("DELETE FROM `mw_regkeys` WHERE `key`='".$key."'");
+		return TRUE;
     }
 	
 	// Gets all the users info from the database including username, email
