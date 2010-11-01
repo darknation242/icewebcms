@@ -88,5 +88,12 @@ class Database
 			return $row['0'];
 		}
     }
+	
+	public function count($query)
+    {
+        $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
+		$this->_statistics['count']++;
+		return mysql_result($sql, 0);
+    }
 }
 ?>

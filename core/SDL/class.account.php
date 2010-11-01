@@ -326,7 +326,7 @@ class Account
 	// Check if the username is available. Post user['username'] here.
     function isavailableusername($username)
 	{
-        $res = $this->DB->query("SELECT count(*) FROM account WHERE username='".$username."'");
+        $res = $this->DB->count("SELECT COUNT(*) FROM account WHERE username='".$username."'");
         if($res < 1) 
 		{
 			return TRUE; // username is available
@@ -340,7 +340,7 @@ class Account
 	// Check if the email is available. Post an email address here.
     function isavailableemail($email)
 	{
-        $res = $this->DB->query("SELECT COUNT(*) FROM account WHERE email='".$email."'");
+        $res = $this->DB->count("SELECT COUNT(*) FROM account WHERE email='".$email."'");
         if($res < 1) 
 		{
 			return TRUE; // email is available
@@ -381,7 +381,7 @@ class Account
 	// Checks is the account activation key is valid
     function isvalidactkey($key)
 	{
-        $res = $this->DB->selectRow("SELECT * FROM `mw_account_extend` WHERE `activation_code`='".$key."'");
+        $res = $this->DB->count("SELECT COUNT(*) FROM `mw_account_extend` WHERE `activation_code`='".$key."'");
         if($res == 1) 
 		{
 			return $res['account_id']; // key is valid

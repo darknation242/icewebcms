@@ -22,15 +22,21 @@ else
 	{
 		redirect('index.php?p=account&sub=manage',1);
 	}
-	$sc_q = $DB->select("SELECT * FROM mw_secret_questions"); // Load Secret Questions
-	$allow_reg = true;
+	
+	// Load Secret Questions
+	$sc_q = $DB->select("SELECT * FROM mw_secret_questions");
+	
+	// Define that users can register (for error reporting)
+	$allow_reg = TRUE;
+	
+	// Init the error array
 	$err_array = array();
 	$err_array[0] = $lang['ref_fail'];
 	
 	// If users are limited to how many accounts per IP, we find out how many this IP has.
 	if($cfg->get('max_act_per_ip') > 0)
 	{
-		$count_ip = $DB->query("SELECT count(*) FROM account_extend WHERE registration_ip='".$_SERVER['REMOTE_ADDR']."'");
+		$count_ip = $DB->count("SELECT COUNT(*) FROM mw_account_extend WHERE registration_ip='".$_SERVER['REMOTE_ADDR']."'");
 		if($count_ip >= (int)$cfg->get('max_act_per_ip'))
 		{
 			output_message('alert',$lang['reg_acclimit']);
@@ -40,19 +46,23 @@ else
 		}
 	}
 	
-	// When finished registering, this is the final code
-	if($_POST['step'] == 3)
+	// When finished registering, this is the function
+	function finalize()
 	{
-		if($allow_reg == true)
+		global $DB, $cfg, $allow_req;
+		
+		// Check to see if we still are allowed to register
+		if($allow_reg == TRUE)
 		{
-			$notreturn = FALSE; // Inizialize variable, we use this after. Use this to add extensions.
+			// Inizialize variable, we use this after. Use this to add extensions.
+			$notreturn = FALSE;
 
 			// Extensions
 			// Each extention you see down-under will check for specific user input,
 			// In this step we set "requirements" for what user may input.
 
 			// Ext 1 - Image verification
-			if ((int)$cfg->get('reg_act_imgvar'))
+			if ($cfg->get('reg_act_imgvar') == 1)
 			{
 				$image_key =& $_POST['image_key'];
 				$filename = quote_smart($_POST['filename_image']);
