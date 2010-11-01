@@ -1,4 +1,3 @@
-<!-- EDITING A REALM -->
 <div class="content">	
 	<div class="content-header">
 		<h4><a href="index.php?p=admin">Main Menu</a> / Create Page</h4>
