@@ -24,7 +24,7 @@ CREATE TABLE `mw_account_extend` (
   `theme` smallint(3) NOT NULL DEFAULT '0',
   `last_visit` int(25) DEFAULT NULL,
   `registration_ip` varchar(15) NOT NULL DEFAULT '0.0.0.0',
-  `activation_code` bigint(255) DEFAULT NULL,
+  `activation_code` varchar(255) DEFAULT NULL,
   `avatar` varchar(255) DEFAULT NULL,
   `secret_q1` text,
   `secret_a1` text,
@@ -33,8 +33,10 @@ CREATE TABLE `mw_account_extend` (
   `hide_email` smallint(3) NOT NULL DEFAULT '0',
   `hide_profile` smallint(3) NOT NULL DEFAULT '0',
   `web_points` int(3) NOT NULL DEFAULT '0',
-  `points_earned` smallint(5) NOT NULL DEFAULT '0',
-  `points_spent` smallint(5) NOT NULL DEFAULT '0',
+  `points_earned` int(11) NOT NULL DEFAULT '0',
+  `points_spent` int(11) NOT NULL DEFAULT '0',
+  `date_points` varchar(100) DEFAULT NULL,
+  `points_today` int(11) DEFAULT NULL,
   `total_donations` varchar(5) NOT NULL DEFAULT '0.00',
   `total_votes` smallint(5) NOT NULL DEFAULT '0',
   `gender` int(3) NOT NULL DEFAULT '0',
@@ -99,6 +101,22 @@ CREATE TABLE `mw_db_version` (
 INSERT INTO `mw_db_version` VALUES ('1.0', '0');
 
 -- ----------------------------
+-- Table structure for `mw_donate_packages`
+-- ----------------------------
+DROP TABLE IF EXISTS `mw_donate_packages`;
+CREATE TABLE `mw_donate_packages` (
+  `id` smallint(5) NOT NULL AUTO_INCREMENT,
+  `desc` varchar(255) DEFAULT NULL,
+  `cost` varchar(11) NOT NULL DEFAULT '1.00',
+  `points` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of mw_donate_packages
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `mw_donate_transactions`
 -- ----------------------------
 DROP TABLE IF EXISTS `mw_donate_transactions`;
@@ -106,6 +124,7 @@ CREATE TABLE `mw_donate_transactions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `trans_id` varchar(255) DEFAULT NULL,
   `account` int(8) DEFAULT NULL,
+  `item_number` int(11) DEFAULT NULL,
   `buyer_email` varchar(255) DEFAULT NULL,
   `payment_type` varchar(255) DEFAULT NULL,
   `payment_status` varchar(255) DEFAULT NULL,
@@ -190,6 +209,7 @@ CREATE TABLE `mw_menu_items` (
 INSERT INTO `mw_menu_items` VALUES ('1', 'Archived News', 'index.php', '1', '1', '0', '1');
 INSERT INTO `mw_menu_items` VALUES ('1', 'RSS', 'rss.php', '2', '1', '0', '2');
 INSERT INTO `mw_menu_items` VALUES ('2', 'Register', 'index.php?p=account&sub=register', '1', '1', '1', '3');
+INSERT INTO `mw_menu_items` VALUES ('2', 'Admin Panel', 'index.php?p=admin', '1', '3', '0', '4');
 
 -- ----------------------------
 -- Table structure for `mw_news`
@@ -253,9 +273,9 @@ CREATE TABLE `mw_pms` (
 -- ----------------------------
 DROP TABLE IF EXISTS `mw_regkeys`;
 CREATE TABLE `mw_regkeys` (
-  `id` smallint(9) NOT NULL DEFAULT '0',
-  `key` int(255) DEFAULT '0',
-  `used` smallint(3) DEFAULT NULL,
+  `id` smallint(9) NOT NULL AUTO_INCREMENT,
+  `key` varchar(255) NOT NULL DEFAULT '0',
+  `used` smallint(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -277,6 +297,10 @@ CREATE TABLE `mw_secret_questions` (
 -- Records of mw_secret_questions
 -- ----------------------------
 INSERT INTO `mw_secret_questions` VALUES ('1', 'What is your mothers maiden name?');
+INSERT INTO `mw_secret_questions` VALUES ('2', 'What is your favorite color?');
+INSERT INTO `mw_secret_questions` VALUES ('3', 'What street did you grow up on?');
+INSERT INTO `mw_secret_questions` VALUES ('4', 'What is your fathers middle name?');
+INSERT INTO `mw_secret_questions` VALUES ('5', 'What is the name of your first pet?');
 
 -- ----------------------------
 -- Table structure for `mw_shop_items`
@@ -290,7 +314,6 @@ CREATE TABLE `mw_shop_items` (
   `quanity` int(25) NOT NULL DEFAULT '1',
   `desc` varchar(255) DEFAULT NULL,
   `wp_cost` varchar(5) NOT NULL DEFAULT '0',
-  `donation_cost` varchar(5) NOT NULL DEFAULT '0.00',
   `realms` int(100) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -314,6 +337,21 @@ CREATE TABLE `mw_vote_sites` (
 
 -- ----------------------------
 -- Records of mw_vote_sites
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `mw_voting`
+-- ----------------------------
+DROP TABLE IF EXISTS `mw_voting`;
+CREATE TABLE `mw_voting` (
+  `user_ip` varchar(30) NOT NULL,
+  `sites` int(10) unsigned NOT NULL DEFAULT '0',
+  `time` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`user_ip`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of mw_voting
 -- ----------------------------
 
 -- ----------------------------

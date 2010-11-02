@@ -246,7 +246,6 @@ class Account
             }
 			else
 			{
-				echo "Error with a return true code!";
                 return false;
             }
         }
@@ -299,7 +298,6 @@ class Account
             }
             else
 			{
-				echo "Bad return";
                 return false;
             }
         }

@@ -1,0 +1,2 @@
+[02-Nov-2010 08:15:04] PHP Notice:  Undefined variable: get_sites in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.donate.php on line 141
+[02-Nov-2010 08:25:58] PHP Fatal error:  Call to undefined function editSite() in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.donate.php on line 22
