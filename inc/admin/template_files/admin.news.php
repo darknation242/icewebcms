@@ -2,9 +2,12 @@
 <div id="main">			
 	<div class="content">	
 	<?php
-		if(isset($_GET['action'])) {
-			if($_GET['action'] == 'add'){ 
-				if(isset($_POST['subject'])) {
+		if(isset($_GET['action'])) 
+		{
+			if($_GET['action'] == 'add')
+			{ 
+				if(isset($_POST['subject'])) 
+				{
 					addNews($_POST['subject'],$_POST['message'],$user['username']);
 				}
 	?>
@@ -114,33 +117,37 @@ else
 			<h4><a href="index.php?p=admin">Main Menu</a> / News</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">
-			<h4><a href="index.php?p=admin&sub=news&action=add" /><center><b><u>.:Add News:.</u></b></center></a></h4>
-			<h2><center>News List</center></h2>
-			<table>
-				<tbody>
-					<thead>
-						<tr>
-							<th width="40%"><center>News Title</center></th>
-							<th width="30%"><center>Posted By</center></th>
-							<th width="30%"><center>Post Time</center></th>
-						</tr>
-					</thead>
-					<?php
-					if($gettopics != FALSE)
-					{
-						foreach($gettopics as $row) 
+			<form method="POST" action="index.php?p=admin&sub=news&action=add" class="form label-inline">
+				<h2><center>News List</center></h2>
+				<table>
+					<tbody>
+						<thead>
+							<tr>
+								<th width="40%"><center>News Title</center></th>
+								<th width="30%"><center>Posted By</center></th>
+								<th width="30%"><center>Post Time</center></th>
+							</tr>
+						</thead>
+						<?php
+						if($gettopics != FALSE)
 						{
-							$date_n = date("Y-m-d, g:i a", $row['post_time']);
-					?>
-					<tr>
-						<td align="center"><a href="index.php?p=admin&sub=news&action=edit&id=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a></td>
-						<td align="center"><?php echo $row['posted_by']; ?></td>
-						<td align="center"><?php echo $date_n; ?></td>
-					</tr>
-					<?php } // END FOR EACH NEWS
-					} // END IF ?>
-				</tbody>
-			</table>
+							foreach($gettopics as $row) 
+							{
+								$date_n = date("Y-m-d, g:i a", $row['post_time']);
+						?>
+						<tr>
+							<td align="center"><a href="index.php?p=admin&sub=news&action=edit&id=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a></td>
+							<td align="center"><?php echo $row['posted_by']; ?></td>
+							<td align="center"><?php echo $date_n; ?></td>
+						</tr>
+						<?php } // END FOR EACH NEWS
+						} // END IF ?>
+					</tbody>
+				</table>
+				<div class="buttonrow-border">								
+					<center><button><span>Add News</span></button></center>			
+				</div>
+			</form>
 		</div>
 <?php }
 ?>
