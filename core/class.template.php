@@ -20,6 +20,13 @@ class Template
 				}
 				$asd = $_GET['theme'];
 				$tmple = $currtmp2[$asd];
+				
+				// If template doesnt exist anymore, then we must load the default one
+				if(!$tmple) 
+				{ 
+					$tmple = $currtmp2['0']; 
+				}
+				
 				$this->slave_tmpl = "templates/".$tmple;
 				$this->path = "templates/".$tmple."/template.xml";
 				return $this->return_template_info();
@@ -31,7 +38,12 @@ class Template
 				{
 					$currtmp2[] = $template ;
 				}
-				$tmple = $currtmp2[$ct] ;
+				$tmple = $currtmp2[$ct];
+				
+				if(!$tmple) 
+				{ 
+					$tmple = $currtmp2['0']; 
+				}
 			}
 			else
 			{
@@ -57,6 +69,13 @@ class Template
 				}
 				$asd = $_GET['theme'];
 				$tmple = $currtmp2[$asd];
+				
+				// If template doesnt exist anymore, then we must load the default one
+				if(!$tmple) 
+				{ 
+					$tmple = $currtmp2['0']; 
+				}
+				
 				$this->slave_tmpl = "templates/".$tmple;
 				$this->path = "templates/".$tmple."/template.xml";
 				return $this->return_template_info();
@@ -82,9 +101,9 @@ class Template
 			}
 			$tmple = $currtmp2[$tmpl_num] ;
 			// If persons current template is no longer available, this resets his template to default
-			if($tmple == "")
+			if(!$tmple)
 			{ 
-				$tmple = (string)$cfg->get('default_template');
+				$tmple = $currtmp2['0'];
 				$DB->query( "UPDATE `mw_account_extend` SET `theme`='0' WHERE `account_id`='".$user['id']."'" );
 			}
 			$this->slave_tmpl = "templates/".$tmple;
