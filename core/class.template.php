@@ -11,7 +11,20 @@ class Template
 		$template_list = explode(",", $cfg->get('templates'));
 		if ( $user['id'] == -1 ) // If user is a guest and not logged in 
 		{
-			if(isset($_COOKIE['cur_selected_theme'])) // If a cookie is set
+			if(isset($_GET['theme']))
+			{
+				setcookie("cur_selected_theme", $_GET['theme'], time() + (3600 * 24 * 365));
+				foreach($template_list as $template) 
+				{
+					$currtmp2[] = $template ;
+				}
+				$asd = $_GET['theme'];
+				$tmple = $currtmp2[$asd];
+				$this->slave_tmpl = "templates/".$tmple;
+				$this->path = "templates/".$tmple."/template.xml";
+				return $this->return_template_info();
+			}
+			elseif(isset($_COOKIE['cur_selected_theme'])) // If a cookie is set
 			{
 				$ct = (int)$_COOKIE['cur_selected_theme'];
 				foreach($template_list as $template) 
@@ -35,7 +48,20 @@ class Template
 		}
 		else // If user is logged in
 		{
-			if(isset($_COOKIE['cur_selected_theme'])) // If there is a cookie set with the theme
+			if(isset($_GET['theme']))
+			{
+				setcookie("cur_selected_theme", $_GET['theme'], time() + (3600 * 24 * 365));
+				foreach($template_list as $template) 
+				{
+					$currtmp2[] = $template ;
+				}
+				$asd = $_GET['theme'];
+				$tmple = $currtmp2[$asd];
+				$this->slave_tmpl = "templates/".$tmple;
+				$this->path = "templates/".$tmple."/template.xml";
+				return $this->return_template_info();
+			}
+			elseif(isset($_COOKIE['cur_selected_theme'])) // If there is a cookie set with the theme
 			{
 				$tmpl_cookienum = (int)$_COOKIE['cur_selected_theme'];
 				$tmpl_num = $user['theme'];

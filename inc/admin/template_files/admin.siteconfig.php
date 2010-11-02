@@ -188,7 +188,7 @@
 				<select id="type" class="small" name="cfg__reg_secret_questions">
 					<?php 
 						if($cfg->get('reg_secret_questions') == 1)
-						{ $e_ariv = 'selected="selected"'; $e_arsq2 = ''; }else{ $e_arsq2 = 'selected="selected"'; $e_arsq = ''; }
+						{ $e_arsq = 'selected="selected"'; $e_arsq2 = ''; }else{ $e_arsq2 = 'selected="selected"'; $e_arsq = ''; }
 					?>
 					<option value="1" <?php echo $e_arsq; ?>>Enabled</option>
 					<option value="0" <?php echo $e_arsq2; ?>>Disabled</option>

@@ -1,2 +1,6 @@
-[02-Nov-2010 08:15:04] PHP Notice:  Undefined variable: get_sites in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.donate.php on line 141
-[02-Nov-2010 08:25:58] PHP Fatal error:  Call to undefined function editSite() in C:\xampp\htdocs\MangosWebv3\inc\admin\template_files\admin.donate.php on line 22
+[02-Nov-2010 13:45:21] PHP Notice:  Undefined index: cur_selected_realm in C:\xampp\htdocs\MangosWebv3\index.php on line 168
+[02-Nov-2010 13:45:21] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\MangosWebv3\index.php:168) in C:\xampp\htdocs\MangosWebv3\core\class.template.php on line 25
+[02-Nov-2010 13:45:21] PHP Notice:  Undefined index: cur_selected_theme in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\body_header.php on line 173
+[02-Nov-2010 13:45:21] PHP Notice:  Undefined index: cur_selected_theme in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\body_header.php on line 173
+[02-Nov-2010 13:45:29] PHP Notice:  Undefined index: cur_selected_theme in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\body_header.php on line 173
+[02-Nov-2010 13:45:29] PHP Notice:  Undefined index: cur_selected_theme in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\body_header.php on line 173

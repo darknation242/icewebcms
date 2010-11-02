@@ -9,7 +9,7 @@ $site_forums = 'http://keyswow.com/forum/';
 $site_copyright = 'WoW Cyanite is Copyright 2010';
 $emulator = 'trinity';
 $default_realm_id = 1;
-$templates = 'WotLK';
+$templates = 'WotLK,Cataclysm_1';
 $default_lang = 'English';
 $available_lang = 'English,Spanish,Deutsch';
 $disable_installer = 1;
@@ -60,5 +60,4 @@ $module_charfactionchange = 1;
 $module_charfactionchange_pts = 15;
 $module_charracechange = 1;
 $module_charracechange_pts = 10;
-$disable_installer = 1;
 ?>

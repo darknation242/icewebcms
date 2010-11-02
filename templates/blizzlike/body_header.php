@@ -201,6 +201,7 @@ echo $GLOBALS['redirect'];
                         <div id="navwrapper">
                           <div id="nav">
                             <div id="left-bg"></div>
+							<div id="right-bg"></div>
                             <div id="leftmenu">
                               <div id="leftmenucontainer">
                                 <?php 
