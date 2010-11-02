@@ -1,6 +1,0 @@
-[02-Nov-2010 13:45:21] PHP Notice:  Undefined index: cur_selected_realm in C:\xampp\htdocs\MangosWebv3\index.php on line 168
-[02-Nov-2010 13:45:21] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\MangosWebv3\index.php:168) in C:\xampp\htdocs\MangosWebv3\core\class.template.php on line 25
-[02-Nov-2010 13:45:21] PHP Notice:  Undefined index: cur_selected_theme in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\body_header.php on line 173
-[02-Nov-2010 13:45:21] PHP Notice:  Undefined index: cur_selected_theme in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\body_header.php on line 173
-[02-Nov-2010 13:45:29] PHP Notice:  Undefined index: cur_selected_theme in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\body_header.php on line 173
-[02-Nov-2010 13:45:29] PHP Notice:  Undefined index: cur_selected_theme in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\body_header.php on line 173

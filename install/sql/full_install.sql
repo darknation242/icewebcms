@@ -227,7 +227,7 @@ CREATE TABLE `mw_news` (
 -- ----------------------------
 -- Records of mw_news
 -- ----------------------------
-INSERT INTO `mw_news` VALUES ('1', 'Welcome!', '<center><b><p>Thank you for installing IceWeb CMS!</p></b> <p>Please login with your Admin account username and password to configure the CMS further.</p></center>', 'KeysCMS Dev Team', null);
+INSERT INTO `mw_news` VALUES ('1', 'Welcome!', '<center><b><p>Thank you for installing MangosWeb v3!</p></b> <p>Please login with your Admin account username and password to configure the CMS further.</p></center>', 'KeysCMS Dev Team', '1288727884');
 
 
 -- ----------------------------

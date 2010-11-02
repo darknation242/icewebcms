@@ -8,7 +8,7 @@
 /* === Page BG's === */
 body { background: #000; color: #000; font-family: arial, helvetica, sans-serif; font-size: 12px; padding: 0; margin: 0; }
 #left-bg { background: url('../images/page_leftbg.png') no-repeat; position: absolute; top: -101px; left: -289px; height: 1026px; width: 478px; }
-#right-bg { background: url('../images/page_rightbg.png') no-repeat; position: absolute; top: -104px; right: -1120px; height: 621px; width: 296px; }
+#right-bg { background: url('../images/page_rightbg.png') no-repeat; position: absolute; top: -103px; right: -1071px; height: 621px; width: 296px; z-index: -20; }
 /* === END BG === */
 
 /* === Main Nav (Icons in newhp_icons.css) === */
