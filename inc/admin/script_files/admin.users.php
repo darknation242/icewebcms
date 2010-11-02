@@ -62,16 +62,41 @@ function deleteUser($did)
 function banUser($bannid,$banreason) 
 {
 	global $DB, $user;
-	if(!$banreason) {
+	if(!$banreason) 
+	{
 		$banreason = "Not Specified";
 	}
-	$DB->query("INSERT into account_banned (id, bandate, unbandate, bannedby, banreason, active) 
-		values (?d, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()-10, ?d, ?d, 1)", $bannid, $user['username'], $banreason);
-    $getipadd = $DB->selectCell("SELECT last_ip FROM account WHERE id=?d",$bannid);
-    $DB->query("INSERT into ip_banned (ip, bandate, unbandate, bannedby, banreason) values (?d, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()-10, ?d, ?d)",$getipadd, $user['username'], $banreason);
-	$DB->query("UPDATE account_extend SET `account_level`=5 WHERE account_id=?",$bannid);
-	output_message('notice','Success. Account #'.$bannid.' Successfully banned. Reason: '.$banreason.'.<br />
-	Click <a href="index.php?p=admin&sub=users&id='.$bannid.'" />Here</a> to return to users profile');
+	$DB->query("INSERT INTO `account_banned`(
+		`id`, 
+		`bandate`, 
+		`unbandate`, 
+		`bannedby`, 
+		`banreason`, 
+		`active`) 
+	   VALUES(
+		'".$bannid."', 
+		'". UNIX_TIMESTAMP() ."', 
+		'". UNIX_TIMESTAMP()-10 ."',
+		'".$user['username']."',
+		'".$banreason."',
+		1)
+	");
+    $getipadd = $DB->selectCell("SELECT `last_ip` FROM `account` WHERE id='".$bannid."'");
+    $DB->query("INSERT INTO `ip_banned`(
+		`ip`, 
+		`bandate`, 
+		`unbandate`, 
+		`bannedby`, 
+		`banreason`) 
+	   VALUES(
+		'".$getipadd."', 
+		'". UNIX_TIMESTAMP() ."', 
+		'". UNIX_TIMESTAMP()-10 ."',
+		'".$user['username']."', 
+		'".$banreason."')
+	");
+	$DB->query("UPDATE account_extend SET `account_level`=5 WHERE account_id='".$bannid."'");
+	output_message('success','Success. Account #'.$bannid.' Successfully banned. Reason: '.$banreason.'');
 }
 
 
@@ -81,36 +106,34 @@ function showBanForm($banid)
 	global $DB, $cfg;
 	$unme = $DB->selectCell("SELECT username FROM account WHERE id='".$banid."'");
 	echo "
-	<div class=\"content-head\">
-		<div class=\"desc-title\">Ban User Form</div>
-		<div class=\"description\">
-		<i>Description:</i> Ban users here.
-		</div>
-	</div>
-	<div class=\"content\" align=\"center\">";
+		<div class=\"content\">	
+			<div class=\"content-header\">
+				<h4><a href=\"index.php?p=admin\">Main Menu</a> / <a href=\"index.php?p=admin&sub=users\">Manage Users</a> / ".$unme." / Ban</h4>
+			</div> <!-- .content-header -->				
+			<div class=\"main-content\">
+	";
 	if(isset($_POST['ban_user'])) 
 	{
 		banUser($_POST['ban_user'],$_POST['ban_reason']);
 	}
 	echo "
-		<form method=\"POST\" action=\"index.php?p=admin&sub=users&id=".$banid."&action=ban\" name=\"adminform\">
-		<table border=\"0\" width=\"95%\" style=\"border: 2px solid #808080;\">
-			<tr>
-				<td colspan=\"3\" class=\"form-head\">Ban Account #".$banid." (".$unme.")</td>
-			</tr>
-			<tr>
-				<td width=\"20%\" align=\"right\" valign=\"middle\" class=\"form-text\">Ban Reason:</td>
-				<td width=\"15%\" align=\"left\" valign=\"middle\">
-				<input type=\"text\" name=\"ban_reason\" size=\"60\" class=\"inputbox\" /></td>
-				<input type=\"hidden\" name=\"ban_user\" value=\"".$banid."\" />
-				<td align=\"left\" valign=\"top\" class=\"form-desc\"></td>
-			</tr>
-			<tr>
-				<td colspan=\"3\" align=\"center\" class=\"form-text2\">
-					<button name=\"process\" class=\"button\" type=\"submit\"><b>Ban User</b></button>&nbsp;&nbsp;
-				</td>
-			</tr>
-		</table>
+		<form method=\"POST\" action=\"index.php?p=admin&sub=users&id=".$banid."&action=ban\" name=\"adminform\" class=\"form label-inline\">
+			<input type='hidden' name='ban_user'  value='".$banid."' />
+			<table>
+				<thead>
+					<th><center><b>Ban Account #".$banid." (".$unme.")</b></center></th>
+				</thead>
+			</table>
+			<br />
+			<div class='field'>
+				<label for='Username'>Ban Reason: </label>
+				<input id='Username' name='ban_reason' size='20' type='text' class='large' />
+			</div>
+			
+			<div class=\"buttonrow-border\">								
+				<center><button><span>Ban User</span></button></center>			
+			</div>
+
 		</form>
 	</div>
 	";
