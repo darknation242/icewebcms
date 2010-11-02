@@ -3,6 +3,7 @@ if(INCLUDED!==true)exit;
 // ==================== //
 $pathway_info[] = array('title'=>$lang['vote'],'link'=>'index.php?n=community&sub=vote');
 // ==================== //
+exit;
 
 /****************************************************************************/
 /*               MangowWeb Enhanced Vote System version 2.1                 */

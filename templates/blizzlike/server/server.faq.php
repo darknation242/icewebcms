@@ -26,14 +26,24 @@
 </style>
 <center><img src="<?php echo $currtmp ?>/images/confusedorc.jpg" width="153" height="200" /></center><br />
 <?php echo $lang['faq_desc']; ?><br /><br />
-<table align="center" width="100%"><tr><td align="center">
-<?php foreach($alltopics as $topic){
-$cc1++
-?>
-<div style="margin-right: 0pt;" class="postContainerPlain" align="left">
-    <h3 class="title"><?php echo $cc1 ?>. <?php echo $topic['question'];?><br/></h3>
-    <div class="postBody"><b style="color: rgb(35, 67, 3);">Answer: </b><?php echo $topic['answer'];?></div>
-</div>
-<?php } ?>
-</td></tr></table>
+<table align="center" width="100%">
+	<tr>
+		<td align="center">
+			<?php 
+			if($alltopics != FALSE)
+			{
+				foreach($alltopics as $topic)
+				{
+				$cc1++
+				?>
+				<div style="margin-right: 0pt;" class="postContainerPlain" align="left">
+					<h3 class="title"><?php echo $cc1 ?>. <?php echo $topic['question'];?><br/></h3>
+					<div class="postBody"><b style="color: rgb(35, 67, 3);">Answer: </b><?php echo $topic['answer'];?></div>
+				</div>
+				<?php 
+				}
+			} ?>
+		</td>
+	</tr>
+</table>
 <?php builddiv_end() ?>
