@@ -255,7 +255,9 @@ else
 						} ?>
 			
 						<br />
-						<input type="submit" class="button" value="<?php echo $lang['register'];?>"/>
+						<center>
+							<input type='image' class="button" src='<?php echo $currtmp; ?>/images/buttons/createaccount-button2.gif' />
+						</center>
 					</form>
 				</div>
 	<?php	build_CommBox_Footer();
@@ -273,9 +275,9 @@ else
 					<br/>
 					<?php include("lang/server_rules/".$GLOBALS['user_cur_lang'].".html"); ?>
 				</div>
-				<div style="margin:4px;padding:6px 9px 0px 9px;text-align:left;">
-					<input type="button" class="button" value="<?php echo $lang['disagree']; ?>" onclick="location.href='index.php'"/> &nbsp;&nbsp;
-					<input type="submit" class="button" value="<?php echo $lang['agree']; ?>"/>
+				<div style="margin:4px;padding:6px 9px 0px 9px;text-align:center;">
+					<input type='image' class="button" src="<?php echo $currtmp; ?>/images/buttons/disagree-button.gif" name="disagree" value="1" />
+					<input type='image' class="button" src='<?php echo $currtmp; ?>/images/buttons/agree-button.gif' />
 				</div>
 			</form>
 	<?php
@@ -302,9 +304,9 @@ else
 						<br/>
 						<?php include("lang/server_rules/".$GLOBALS['user_cur_lang'].".html"); ?>
 					</div>
-					<div style="margin:4px;padding:6px 9px 0px 9px;text-align:left;">
-						<input type="button" class="button" value="<?php echo $lang['disagree']; ?>" onclick="location.href='index.php'"/> &nbsp;&nbsp;
-						<input type="submit" class="button" value="<?php echo $lang['agree']; ?>"/>
+					<div style="margin:4px;padding:6px 9px 0px 9px;text-align:center;">
+						<input type='image' class="button" src="<?php echo $currtmp; ?>/images/buttons/disagree-button.gif" name="disagree" value="1" />
+						<input type='image' class="button" src='<?php echo $currtmp; ?>/images/buttons/agree-button.gif' />
 					</div>
 				</form>
 				

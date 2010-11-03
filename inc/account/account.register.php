@@ -18,6 +18,11 @@ if($user['id'] > 0)
 	redirect('index.php?p=account&sub=manage',1);
 }
 
+if(isset($_POST['disagree']))
+{
+	redirect('index.php',1);
+}	
+
 // Load Secret Questions
 $sc_q = $DB->select("SELECT * FROM mw_secret_questions");
 
