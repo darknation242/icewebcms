@@ -68,8 +68,8 @@
 								<a href="index.php?p=admin&sub=banlist">Ban List</a>
 							</td>
 							<td height="80px" width="130" align="center">
-								<a href="index.php?p=admin&sub=email"><img src="inc/admin/images/icons/mailbox-icon.png" width="48" height="48" border="0" /></a><br />
-								<a href="index.php?p=admin&sub=email">Send eMail</a>
+								<a href="index.php?p=admin&sub=chartools"><img src="inc/admin/images/icons/char-icon.png" width="48" height="48" border="0" /></a><br />
+								<a href="index.php?p=admin&sub=chartools">Character Tools</a>
 							</td>
 							<td height="80px" width="130"align="center">
 								<a href="index.php?p=admin&sub=sendgamemail"><img src="inc/admin/images/icons/ingame-mail-icon.png" width="48" height="48" border="0" /></a><br />
@@ -82,6 +82,10 @@
 							<td height="80px" width="130"align="center">
 								<a href="index.php?p=admin&sub=stats"><img src="inc/admin/images/icons/Statistics-icon.png" width="48" height="48" border="0" /></a><br />
 								<a href="index.php?p=admin&sub=stats">Statistics</a>
+							</td>
+							<td height="80px" width="130" align="center">
+								<a href="index.php?p=admin&sub=email"><img src="inc/admin/images/icons/mailbox-icon.png" width="48" height="48" border="0" /></a><br />
+								<a href="index.php?p=admin&sub=email">Send eMail</a>
 							</td>
 							<td height="80px" width="130"align="center">
 								<a href="index.php?p=admin&sub=info"><img src="inc/admin/images/icons/info-icon.png" width="48" height="48" border="0" /></a><br />
