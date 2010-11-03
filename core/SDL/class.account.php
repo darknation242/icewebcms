@@ -19,6 +19,18 @@ class Account
         $this->DB = $DB;
         $this->check();
         $this->user['ip'] = $_SERVER['REMOTE_ADDR'];
+		if($cfg->get('module_onlinelist') == 1)
+		{
+			if($this->user['id'] < 1)
+			{
+				$this->onlinelist_addguest();
+			}
+			else 
+			{
+				$this->onlinelist_add();
+			}
+			$this->onlinelist_update();
+		}
         $this->lastvisit_update($this->user);
     }
 
@@ -588,6 +600,91 @@ class Account
 			return FALSE;
 		}
 	}
+	
+	// === ONLINE FUNCTIONS === //
+    function onlinelist_update()  // Updates list & delete old
+    {
+        $GLOBALS['guests_online'] = 0;
+        $rows  = $this->DB->select("SELECT * FROM `mw_online`");
+        foreach($rows as $result_row)
+        {
+            if(time()-$result_row['logged'] <= 60*5)
+            {
+                if($result_row['user_id'] > 0)
+				{
+					$GLOBALS['users_online'][] = $result_row['user_name'];
+                }
+				else
+				{
+					$GLOBALS['guests_online']++;
+                }
+            }
+            else
+            {
+                $this->DB->query("DELETE FROM `mw_online` WHERE `id`='".$result_row['id']."' LIMIT 1");
+            }
+        }
+    }
+
+    function onlinelist_add() // Add or update list with new user
+    {
+        global $user;
+
+        $result = $this->DB->count("SELECT COUNT(*) FROM `mw_online` WHERE `user_id`='".$this->user['id']."'");
+        if($result > 0)
+        {
+            $this->DB->query("UPDATE `mw_online` SET 
+				`user_ip`='".$this->user['ip']."',
+				`logged`='".time()."',
+				`currenturl`='".$_SERVER['REQUEST_URI']."' 
+			  WHERE `user_id`='".$this->user['id']."' LIMIT 1
+			");
+        }
+        else
+        {
+            $this->DB->query("INSERT INTO `mw_online`(
+				`user_id`,
+				`user_name`,
+				`user_ip`,
+				`logged`,
+				`currenturl`) 
+			  VALUES(
+				'".$this->user['id']."',
+				'".$this->user['username']."',
+				'".$this->user['ip']."',
+				'".time()."',
+				'".$_SERVER['REQUEST_URI']."')
+			");
+        }
+    }
+
+    function onlinelist_addguest() // Add or update list with new guest
+    {
+        global $user;
+
+        $result = $this->DB->count("SELECT  COUNT(*) FROM `mw_online` WHERE `user_id`='0' AND `user_ip`='".$this->user['ip']."'");
+        if($result > 0)
+        {
+            $this->DB->query("UPDATE `mw_online` SET 
+				`user_ip`='".$this->user['ip']."',
+				`logged`='".time()."',
+				`currenturl`='".$_SERVER['REQUEST_URI']."' 
+			  WHERE `user_id`='0' AND `user_ip`='".$this->user['ip']."' LIMIT 1");
+        }
+        else
+        {
+            $this->DB->query("INSERT INTO `mw_online`(
+				`user_ip`,
+				`logged`,
+				`currenturl`) 
+			  VALUES(
+				'".$this->user['ip']."',
+				'".time()."',
+				'".$_SERVER['REQUEST_URI']."')
+			");
+        }
+    }
+
 	
 	// === ACCOUNT KEY FUNCTIONS === //
 	function matchAccountKey($id, $key) 
