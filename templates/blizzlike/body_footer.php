@@ -63,7 +63,7 @@
                               </div>
                             </div>
                             <div style="position: relative; z-index: 10;">
-                              <img style="position: absolute; top: -445px; left: -243px;" alt="statue" src="./templates/WotLK/images/statue.png"/></div>
+                              <img style="position: absolute; top: -445px; left: -243px;" alt="statue" src="./<?php echo $currtmp; ?>/images/statue.png"/></div>
                           </div>
                         </div>
                       </td>

@@ -5,7 +5,8 @@ $templategenderimage = array(
     2 => $currtmp.'/images/icons/female.gif'
 );
 
-function population_view($n) {
+function population_view($n) 
+{
     global $lang;
     $maxlow = 100;
     $maxmedium = 200;
@@ -45,7 +46,8 @@ function build_menu_items($links_arr)
     return $r;
 }
 
-function build_main_menu(){
+function build_main_menu()
+{
 	global $DB, $user;
     $mainnav_links = array(
 		'1-menuNews', 
@@ -57,7 +59,8 @@ function build_main_menu(){
 		'7-menuCommunity',
 		'8-menuSupport'
 		);
-    foreach($mainnav_links as $menuname){
+    foreach($mainnav_links as $menuname)
+	{
         $menunamev = explode('-',strtolower($menuname));
 		if($user['id'] > 0)
 		{
@@ -73,7 +76,7 @@ function build_main_menu(){
             static $index = 0;
             $index++;
             echo '
-                <div id="'.$menunamev[1].'">
+                <div id="'.$menunamev[1].'"  style="position: relative; z-index: 11;"> 
 					<div onclick="javascript:toggleNewMenu('.$menunamev[0].'-1);" class="menu-button-off" id="'.$menunamev[1].'-button">
 						<span class="'.$menunamev[1].'-icon-off" id="'.$menunamev[1].'-icon">&nbsp;</span><a class="'.$menunamev[1].'-header-off" id="'.$menunamev[1].'-header"><em>Menu item</em></a><a id="'.$menunamev[1].'-collapse"></a><span class="menuentry-rightborder"></span>
                     </div>
@@ -119,46 +122,50 @@ function build_main_menu(){
 	unset($menuquery);
 }
 
-function write_subheader($subheader){
-    global $MW;
+function write_subheader($subheader)
+{
 	global $currtmp;
-    echo '<table border="0" cellpadding="0" cellspacing="0" width="100%">
-<tbody><tr>
-    <td width="24"><img src="'.$currtmp.'/images/subheader/subheader-left-sword.gif" height="20" width="24" alt=""/></td>
-    <td bgcolor="#05374a" width="100%"><b style="color:white;">'.$subheader.':</b></td>
-    <td width="10"><img src="'.$currtmp.'/images/subheader/subheader-right.gif" height="20" width="10" alt=""/></td>
-</tr>
-</tbody></table>';
+    echo '
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody>
+			<tr>
+				<td width="24"><img src="'.$currtmp.'/images/subheader/subheader-left-sword.gif" height="20" width="24" alt=""/></td>
+				<td bgcolor="#05374a" width="100%"><b style="color:white;">'.$subheader.':</b></td>
+				<td width="10"><img src="'.$currtmp.'/images/subheader/subheader-right.gif" height="20" width="10" alt=""/></td>
+			</tr>
+		</tbody>
+	</table>';
 }
-function write_metalborder_header(){
-    global $MW;
+function write_metalborder_header()
+{
 	global $currtmp;
-    echo '<table border="0" cellpadding="0" cellspacing="0" width="100%">
-<tbody>
-<tr>
-    <td width="12"><img src="'.$currtmp.'/images/metalborder-top-left.gif" height="12" width="12" alt=""/></td>
-    <td style="background:url(\''.$currtmp.'/images/metalborder-top.gif\');"></td>
-    <td width="12"><img src="'.$currtmp.'/images/metalborder-top-right.gif" height="12" width="12" alt=""/></td>
-</tr>
-<tr>
-    <td style="background:url(\''.$currtmp.'/images/metalborder-left.gif\');"></td>
-    <td>
+    echo '
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody>
+			<tr>
+				<td width="12"><img src="'.$currtmp.'/images/metalborder-top-left.gif" height="12" width="12" alt=""/></td>
+				<td style="background:url(\''.$currtmp.'/images/metalborder-top.gif\');"></td>
+				<td width="12"><img src="'.$currtmp.'/images/metalborder-top-right.gif" height="12" width="12" alt=""/></td>
+			</tr>
+			<tr>
+				<td style="background:url(\''.$currtmp.'/images/metalborder-left.gif\');"></td>
+				<td>
 ';
 }
 
-function write_metalborder_footer(){
-    global $MW;
+function write_metalborder_footer()
+{
 	global $currtmp;
-    echo '        </td>
-        <td style="background:url(\''.$currtmp.'/images/metalborder-right.gif\');"></td>
-    </tr>
-    <tr>
-        <td><img src="'.$currtmp.'/images/metalborder-bot-left.gif" height="11" width="12" alt=""/></td>
-        <td style="background:url(\''.$currtmp.'/images/metalborder-bot.gif\');"></td>
-        <td><img src="'.$currtmp.'/images/metalborder-bot-right.gif" height="11" width="12" alt=""/></td>
-    </tr>
-    </tbody>
-</table>
+	echo '      </td>
+				<td style="background:url(\''.$currtmp.'/images/metalborder-right.gif\');"></td>
+			</tr>
+			<tr>
+				<td><img src="'.$currtmp.'/images/metalborder-bot-left.gif" height="11" width="12" alt=""/></td>
+				<td style="background:url(\''.$currtmp.'/images/metalborder-bot.gif\');"></td>
+				<td><img src="'.$currtmp.'/images/metalborder-bot-right.gif" height="11" width="12" alt=""/></td>
+			</tr>
+		</tbody>
+	</table>
 ';
 }
 
@@ -251,19 +258,23 @@ endforeach;
 <?php
 }
 
-function random_screenshot(){
-  $fa = array();
-  if ($handle = opendir('images/screenshots/thumbs/')) {
-    while (false !== ($file = readdir($handle))) {
-        if ($file != "." && $file != ".." && $file != "Thumbs.db" && $file != "index.html") {
-            $fa[] = $file;
-        }
-    }
-    closedir($handle);
-  }
-  $fnum = count($fa);
-  $fpos = rand(0, $fnum-1);
-  return $fa[$fpos];
+function random_screenshot()
+{
+	$fa = array();
+	if ($handle = opendir('images/screenshots/thumbs/')) 
+	{
+		while (false !== ($file = readdir($handle))) 
+		{
+			if ($file != "." && $file != ".." && $file != "Thumbs.db" && $file != "index.html") 
+			{
+				$fa[] = $file;
+			}
+		}
+		closedir($handle);
+	}
+	$fnum = count($fa);
+	$fpos = rand(0, $fnum-1);
+	return $fa[$fpos];
 }
 function build_pathway()
 {
@@ -273,13 +284,28 @@ function build_pathway()
     $path_c = count($pathway_info);
     $pathway_info[$path_c-1]['link'] = '';
     $pathway_str = '';
-    if(empty($_REQUEST['p']) || !is_array($pathway_info))$pathway_str .= ' <b><u>Main</u></b>';
-    else $pathway_str .= '<a href="./">Main</a>';
-    if(is_array($pathway_info)){
-        foreach($pathway_info as $newpath){
-            if(isset($newpath['title'])){
-                if(empty($newpath['link'])) $pathway_str .= ' &raquo; '.$newpath['title'].'';
-                else $pathway_str .= ' &raquo; <a href="'.$newpath['link'].'">'.$newpath['title'].'</a>';
+    if(empty($_REQUEST['p']) || !is_array($pathway_info))
+	{
+		$pathway_str .= ' <b><u>Main</u></b>';
+	}
+    else
+	{
+		$pathway_str .= '<a href="./">Main</a>';
+	}
+    if(is_array($pathway_info))
+	{
+        foreach($pathway_info as $newpath)
+		{
+            if(isset($newpath['title']))
+			{
+                if(empty($newpath['link']))
+				{
+					$pathway_str .= ' &raquo; '.$newpath['title'].'';
+				}
+                else
+				{
+					$pathway_str .= ' &raquo; <a href="'.$newpath['link'].'">'.$newpath['title'].'</a>';
+				}
                 $title_str .= ' &raquo; '.$newpath['title'];
             }
         }
@@ -291,46 +317,51 @@ build_pathway();
 
 function paginate($num_pages, $cur_page, $link_to)
 {
-  $pages = array();
-  $link_to_all = false;
-  if ($cur_page == -1)
-  {
-    $cur_page = 1;
-    $link_to_all = true;
-  }
-  if ($num_pages <= 1)
-    $pages = array('1');
-  else
-  {
-    $tens = floor($num_pages/10);
-    for ($i=1;$i<=$tens;$i++)
-    {
-      $tp = $i*10;
-      $pages[$tp] = "<a href='$link_to&p=$tp'>$tp</a>";
-    }
-    if ($cur_page > 3)
-    {
-      $pages[1] = "<a href='$link_to&p=1'>1</a>";
-    }
-    for ($current = $cur_page - 2, $stop = $cur_page + 3; $current < $stop; ++$current)
-    {
-      if ($current < 1 || $current > $num_pages){
-        continue;
-      }elseif ($current != $cur_page || $link_to_all){
-        $pages[$current] = "<a href='$link_to&p=$current'>$current</a>";
-      }else{
-        $pages[$current] = '[ '.$current.' ]';
-      }
-    }
-    if ($cur_page <= ($num_pages-3))
-    {
-      $pages[$num_pages] = "<a href='$link_to&p=$num_pages'>$num_pages</a>";
-    }
-  }
-  $pages = array_unique($pages);
-  ksort($pages);
-  $pp = implode(' ', $pages);
-  return str_replace('//','/',$pp);
+	$pages = array();
+	$link_to_all = false;
+	if ($cur_page == -1)
+	{
+		$cur_page = 1;
+		$link_to_all = true;
+	}
+	if ($num_pages <= 1)
+		$pages = array('1');
+	else
+	{
+		$tens = floor($num_pages/10);
+		for ($i=1;$i<=$tens;$i++)
+		{
+			$tp = $i*10;
+			$pages[$tp] = "<a href='$link_to&p=$tp'>$tp</a>";
+		}
+		if ($cur_page > 3)
+		{
+			$pages[1] = "<a href='$link_to&p=1'>1</a>";
+		}
+		for ($current = $cur_page - 2, $stop = $cur_page + 3; $current < $stop; ++$current)
+		{
+			if ($current < 1 || $current > $num_pages)
+			{
+				continue;
+			}
+			elseif ($current != $cur_page || $link_to_all)
+			{
+				$pages[$current] = "<a href='$link_to&p=$current'>$current</a>";
+			}
+			else
+			{
+				$pages[$current] = '[ '.$current.' ]';
+			}
+		}
+		if ($cur_page <= ($num_pages-3))
+		{
+			$pages[$num_pages] = "<a href='$link_to&p=$num_pages'>$num_pages</a>";
+		}
+	}
+	$pages = array_unique($pages);
+	ksort($pages);
+	$pp = implode(' ', $pages);
+	return str_replace('//','/',$pp);
 }
 
 function builddiv_start($type = 0, $title = "No title set") 
