@@ -162,6 +162,38 @@ function write_metalborder_footer(){
 ';
 }
 
+function build_CommBox_Header()
+{
+	global $currtmp;
+	echo "<br />
+	<table align='center' width='60%' style='font-size:0.8em;'>
+	<tr>
+		<td align='left'>
+			<div id='container-community'>
+				<div class='phatlootbox-top'>
+					<h2 class='community'><span class='hide'>Registration</span></h2>
+					<span class='phatlootbox-visual comm'></span>
+					</div>
+					<div class='phatlootbox-wrapper'>
+						<div style='background: url(".$currtmp."/images/phatlootbox-top-parchment.jpg) repeat-y top right; height: 7px; width: 456px; margin-left: 6px; font-size: 1px;'></div>
+						<div class='community-cnt'>
+	";
+}
+
+function build_CommBox_Footer()
+{
+	echo "
+					<br/>
+				</div>
+			</div>
+		<div class='phatlootbox-bottom'></div>
+		</div>
+	</td>
+	</tr>
+	</table>
+	";
+}
+
 function write_form_tool(){
     global $MW;
 	global $currtmp;
