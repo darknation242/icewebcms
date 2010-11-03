@@ -1,4 +1,7 @@
 <?php
+// RA class for MangosWebSDL. Originally from TrinMangSDK
+// Re-written and added SOAP functions by Steven Wilson (Wilson212)
+
 class RA
 {
 	private $handle;
@@ -11,7 +14,7 @@ class RA
     */
     public function __construct()
     {
-        $this->handle = false;
+        $this->handle = FALSE;
     }
 
     /**

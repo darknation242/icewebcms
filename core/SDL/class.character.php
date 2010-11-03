@@ -166,7 +166,7 @@ class Character
     {
 		global $CDB;
 		$guid = mysql_real_escape_string($guid);
-        $row = $CDB->select("SELECT COUNT(*) AS `count` FROM `characters` WHERE `guid` = '$guid' AND `online` = '1'");
+        $row = $CDB->count("SELECT COUNT(*) AS `count` FROM `characters` WHERE `guid` = '$guid' AND `online` = '1'");
         if($row['count'] > 0) 
 		{
 			return TRUE;
@@ -407,13 +407,13 @@ class Character
 				$mount2 = 35713;
 				break;
         }
-        $pop = $CDB->query("SELECT * FROM character_spell WHERE guid='$guid' AND spell=33388");
-        if (count($pop) > 0) 
+        $pop = $CDB->count("SELECT COUNT(*) FROM character_spell WHERE guid='$guid' AND spell=33388");
+        if ($pop > 0) 
 		{
            $CDB->query("INSERT INTO character_spell (guid,spell) VALUES ('$guid','$mount1')");
         }
-        $pep = $CDB->query("SELECT * FROM character_spell WHERE guid='$guid' AND (spell=33391 or spell=34090 or spell=34091)");
-        if (count($pep) > 0) 
+        $pep = $CDB->count("SELECT COUNT(*) FROM character_spell WHERE guid='$guid' AND (spell=33391 or spell=34090 or spell=34091)");
+        if ($pep > 0) 
 		{
            $CDB->query("INSERT INTO character_spell (guid,spell) VALUES ('$guid','$mount1')");
            $CDB->query("INSERT INTO character_spell (guid,spell) VALUES ('$guid','$mount2')");

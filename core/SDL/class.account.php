@@ -1,6 +1,6 @@
 <?php
 // Account class for MangosWebSDL written by Steven Wilson, aka Wilson212
-// Most functions used from the original MangosWeb AUTH Class
+// Some functions used from the original MangosWeb AUTH Class
 
 class Account
 {
@@ -11,8 +11,9 @@ class Account
 		'account_level' => 1,
 		'theme' => 0
     );
-
-    function Account($DB)
+	
+	// Initialize with checking for user cookies, and getting their IP
+    function __construct($DB)
     {
         global $cfg;
         $this->DB = $DB;
@@ -181,6 +182,8 @@ class Account
         unset($params['sha_pass_hash2']);
         $password = $params['password'];
         unset($params['password']);
+		
+		// If email activation is set
         if((int)$cfg->get('require_act_activation') == 1)
 		{
             $tmp_act_key = $this->generate_key();
@@ -198,6 +201,8 @@ class Account
 				'".$params['locked']."',
 				'".$params['expansion']."')
 			   ");
+			   
+			// If the insert into account query was successful
             if($acc_id == TRUE)
 			{
 				$u_id = $this->DB->selectCell("SELECT `id` FROM `account` WHERE `username` LIKE '".$params['username']."'");
@@ -215,6 +220,7 @@ class Account
 						'".$tmp_act_key."')
 					");
                 }
+				// We do want to insert into account extend
                 else 
 				{
                     $this->DB->query("INSERT INTO mw_account_extend(
@@ -235,6 +241,8 @@ class Account
 						'".$account_extend['secreta2']."')
 					");
                 }
+				
+				// Send email
                 $act_link = (string)$cfg->get('site_base_href').'index.php?p=account&sub=activate&id='.$acc_id.'&key='.$tmp_act_key;
                 $email_text  = '== Account activation =='."\n\n";
                 $email_text .= 'Username: '.$params['username']."\n";
@@ -242,13 +250,17 @@ class Account
                 $email_text .= 'This is your activation key: '.$tmp_act_key."\n";
                 $email_text .= 'CLICK HERE : '.$act_link."\n";
                 send_email($params['email'],$params['username'],'== '.(string)$cfg->get('site_title').' account activation ==',$email_text);
-                return true;
+                return TRUE;
             }
+			
+			// Insert into account table failed
 			else
 			{
-                return false;
+                return FALSE;
             }
         }
+		
+		// Email activation disabled
 		else
 		{
 			$acc_id = $this->DB->query("INSERT INTO account(
@@ -262,6 +274,8 @@ class Account
 				'".$params['email']."',
 				'".$params['expansion']."')
 			");
+			
+			// If insert into account table was successfull
             if($acc_id == TRUE)
 			{
 				$u_id = $this->DB->selectCell("SELECT `id` FROM `account` WHERE `username` LIKE '".$params['username']."'");
@@ -294,11 +308,11 @@ class Account
 						'".$account_extend['secreta2']."')
 					");
                 }
-                return true;
+                return TRUE;
             }
             else
 			{
-                return false;
+                return FALSE;
             }
         }
     }

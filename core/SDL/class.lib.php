@@ -1,5 +1,10 @@
 <?php
-// Main Library Class!
+/********************************************/
+/*   Main Library Class for MangosWeb SDL   */
+/* This Library is written by Steven Wilson */
+/* 	 Copyright 2010, All Rights Reserved    */
+/********************************************/
+
 class Lib
 {
 	function __construct()
