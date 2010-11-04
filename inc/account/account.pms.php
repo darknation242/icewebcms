@@ -7,9 +7,10 @@ if($user['id']<=0){
     redirect('index.php?n=account&sub=login',1);
 }else{
 
-    if(!$_GET['action']){
-        $_GET['action']='view';
-        $_GET['dir']='in';
+    if(!$_GET['action'])
+	{
+        $_GET['action'] = 'view';
+        $_GET['dir'] = 'in';
     }
 
     $items = array();

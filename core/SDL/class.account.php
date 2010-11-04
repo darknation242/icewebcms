@@ -61,7 +61,6 @@ class Account
 			{
 				output_message('warning','Your account is not active');
                 $this->setgroup();
-				$this->logout();
                 return false;
             }
             if($this->matchAccountKey($cookie['user_id'], $cookie['account_key']))
@@ -255,7 +254,7 @@ class Account
                 }
 				
 				// Send email
-                $act_link = (string)$cfg->get('site_base_href').'index.php?p=account&sub=activate&id='.$acc_id.'&key='.$tmp_act_key;
+                $act_link = (string)$cfg->get('site_base_href').'index.php?p=account&sub=activate&id='.$u_id.'&key='.$tmp_act_key;
                 $email_text  = '== Account activation =='."\n\n";
                 $email_text .= 'Username: '.$params['username']."\n";
                 $email_text .= 'Password: '.$password."\n";
@@ -406,12 +405,12 @@ class Account
     }
 	
 	// Checks is the account activation key is valid
-    function isvalidactkey($key)
+    function isValidActivationKey($key)
 	{
-        $res = $this->DB->count("SELECT COUNT(*) FROM `mw_account_extend` WHERE `activation_code`='".$key."'");
-        if($res == 1) 
+        $res = $this->DB->selectCell("SELECT `account_id` FROM `mw_account_extend` WHERE `activation_code`='".$key."'");
+        if($res != FALSE) 
 		{
-			return $res['account_id']; // key is valid
+			return $res; // key is valid
 		}
 		else
 		{
