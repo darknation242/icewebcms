@@ -214,7 +214,17 @@ class Update
 				$len_till_now += $this->charlen_file[$i];
 				$perc = $len_till_now * 100 / $this->get_total_charlen();
 				echo $filename." <font color='green'>Updated Successfully!</font><br />";
+				ob_flush();
 				$i++;
+			}
+			
+			// These next few lines are for the server to get statistics. The update server will log your servers IP
+			// Address so we can get a good count on how many users are using mangosweb, and how many are updating
+			$open_add = $this->server_address ."index.php?server=".$_SERVER['SERVER_ADDR']."&update=".$this->update_version;
+			$calc = @fopen($open_add, 'r');
+			if($calc)
+			{
+				@fclose($calc);
 			}
 		} 
 		else 

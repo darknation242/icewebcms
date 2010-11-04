@@ -34,8 +34,8 @@ ini_set('display_errors',TRUE);
 define( 'INCLUDED', true ) ;
 
 // Start a variable that shows how fast page loaded.
-$time_start = microtime( 1 ) ;
-$_SERVER['REQUEST_TIME'] = time() ;
+$time_start = microtime(1);
+$_SERVER['REQUEST_TIME'] = time();
 
 // Load the Core and config class
 include('core/core.php');
@@ -46,8 +46,8 @@ $cfg = new Config;
 //Site notice cookie
 if($cfg->get('site_notice_enable') == 1 && ! isset($_COOKIE['agreement_accepted']))
 {
-	include( 'modules/notice/notice.php' ) ;
-	exit() ;
+	include( 'modules/notice/notice.php' );
+	exit();
 }
 
 // Check if the site is installed by checking config defaults
@@ -99,7 +99,6 @@ else
 	$GLOBALS['user_cur_lang'] = (string)$cfg->get('default_lang');
 	setcookie("Language", $GLOBALS['user_cur_lang'], time() + (3600 * 24 * 365));
 }
-
 include( 'lang/' . $GLOBALS["user_cur_lang"] . '.php' );
 
 
@@ -111,12 +110,12 @@ if(isset($_COOKIE['cur_selected_realm']))
 else
 {
 	$GLOBALS['cur_selected_realm'] = (int)$cfg->get('default_realm_id');
-	setcookie("cur_selected_realm", $GLOBALS['cur_selected_realm'], time() + (3600 * 24 * 365));
+	setcookie("cur_selected_realm", (int)$cfg->get('default_realm_id'), time() + (3600 * 24 * 365));
 }
 
 
 // === Setup the connections to other DB's - Holds DB connector classes === //
-require ( 'core/class.database.php' );
+require ('core/class.database.php');
 $DB = new Database(
 	$cfg->getDbInfo('db_host'), 
 	$cfg->getDbInfo('db_port'), 
@@ -127,7 +126,7 @@ $DB = new Database(
 	
 // Make an array from `dbinfo` column for the selected realm..
 $mangos_info = $DB->selectRow("SELECT * FROM realmlist WHERE id='".$GLOBALS['cur_selected_realm']."'");
-$dbinfo_mangos = explode( ';', $mangos_info['dbinfo'] ) ;
+$dbinfo_mangos = explode(';', $mangos_info['dbinfo']);
 
 //DBinfo column:  username;password;port;host;WorldDBname;CharDBname
 $mangos = array(
@@ -141,8 +140,9 @@ $mangos = array(
 	) ;
 
 // Free up memory.
-unset( $dbinfo_mangos, $mangos_info ) ; 
+unset($dbinfo_mangos, $mangos_info); 
 
+// Establish the Character DB connection
 $CDB = new Database(
 	$mangos['db_host'],
 	$mangos['db_port'],
@@ -150,7 +150,8 @@ $CDB = new Database(
 	$mangos['db_password'],
 	$mangos['db_char']
 	);
-	
+
+// Establish the World DB connection	
 $WDB = new Database(
 	$mangos['db_host'],
 	$mangos['db_port'],
@@ -159,79 +160,102 @@ $WDB = new Database(
 	$mangos['db_name']
 	);
 
+// Free up memory
 unset($mangos);
 $realms = $DB->select("SELECT * FROM realmlist ORDER BY `id` ASC");
 
 // === Load auth system === //
-$Account = new Account($DB, $cfg);
+$Account = new Account();
 $user = $Account->user;
-$user['cur_selected_realm'] = (int)$_COOKIE['cur_selected_realm'];
+$user['cur_selected_realm'] = $GLOBALS['cur_selected_realm'];
 
 
 // === Sets up the template system. === //
 $tmpl = new Template;
-$template = $tmpl->Init();
-$currtmp = $template['path'];
-$master_tmp = "templates/".$template['script'];
+$Template = $tmpl->Init();
+$currtmp = $Template['path'];
+$master_tmp = $Template['script'];
+unset($tmpl);
 
 
 // === Start of page loading === //
-$ext = ( isset( $_GET['p'] ) ? $_GET['p'] : ( string )$cfg->get('default_component') ) ;
-if ( strpos( $ext, '/' ) !== false ) 
+
+// Start off by checking if the requested page is a module or not
+if(!isset($_GET['p']) && isset($_GET['module']))
 {
-	list( $ext, $sub ) = explode( '/', $ext ) ;
+	// Scan the directory for installed modules to prevent XSS
+	$Modulelist = scandir("modules/");
+	if(in_array($_GET['module'], $Modulelist))
+	{
+		include("modules/".$_GET['module']."/index.php");
+	}
+	else
+	{
+		echo "No Module of that name found!";
+	}
 }
+
+// If page is not a module, then lets load our template pages.
 else
 {
-	$sub = ( isset( $_GET['sub'] ) ? $_GET['sub'] : 'index' ) ;
-}
-	$script_file = 'inc/' . $ext . '/' . $ext . '.' . $sub . '.php' ;
-	$template_file = '' . $master_tmp . '/' . $ext . '/' . $ext . '.' . $sub . '.php' ;
-
-// Start Loading of Template Files
-
-// If the requested page is the admin Panel
-if( $ext == 'admin') 
-{
-	if(file_exists('inc/admin/body_functions.php')) 
+	$ext = (isset($_GET['p']) ? $_GET['p'] : (string)$cfg->get('default_component'));
+	if (strpos($ext, '/') !== FALSE) 
 	{
-		include ('inc/admin/body_functions.php');
+		list($ext, $sub) = explode('/', $ext);
 	}
-	@include('inc/admin/script_files/admin.' . $sub .'.php');
-	ob_start();
-		include('inc/admin/body_header.php');
-	ob_end_flush();
-	ob_start();
-		include('inc/admin/template_files/admin.' . $sub .'.php');
-	ob_end_flush();
-	
-	// Set our time end, so we can see how fast the page loaded.
-	$time_end = microtime( 1 ) ;
-	$exec_time = $time_end - $time_start ;
-	include('inc/admin/body_footer.php');
-}
-else
-{
-// Else, it requested page isnt the admin panel		
-// Start Loading Of Script Files
-	@include ( $script_file ) ;
-
-	// If a body functions file exists, include it.
-	if(file_exists(''. $master_tmp . '/body_functions.php')) 
+	else
 	{
-		include ( ''. $master_tmp . '/body_functions.php' );
+		$sub = (isset($_GET['sub']) ? $_GET['sub'] : 'index');
 	}
-	ob_start() ;
-		include ( '' . $master_tmp . '/body_header.php' );
-	ob_end_flush() ;
-	ob_start() ;
-		include ( $template_file ) ;
-	ob_end_flush() ;
+		$script_file = 'inc/' . $ext . '/' . $ext . '.' . $sub . '.php';
+		$template_file = '' . $master_tmp . '/' . $ext . '/' . $ext . '.' . $sub . '.php';
 
-	// Set our time end, so we can see how fast the page loaded.
-	$time_end = microtime( 1 ) ;
-	$exec_time = $time_end - $time_start ;
-	include ( '' . $master_tmp . '/body_footer.php' ) ;
+	// Start Loading of Template Files
+
+	// If the requested page is the admin Panel, then we load the admin template
+	if($ext == 'admin') 
+	{
+		if(file_exists('inc/admin/body_functions.php')) 
+		{
+			include ('inc/admin/body_functions.php');
+		}
+		@include('inc/admin/script_files/admin.' . $sub .'.php');
+		ob_start();
+			include('inc/admin/body_header.php');
+		ob_end_flush();
+		ob_start();
+			include('inc/admin/template_files/admin.' . $sub .'.php');
+		ob_end_flush();
+		
+		// Set our time end, so we can see how fast the page loaded.
+		$time_end = microtime(1);
+		$exec_time = $time_end - $time_start;
+		include('inc/admin/body_footer.php');
+	}
+
+	// Else, if requested page isnt the admin panel, then load the template
+	else
+	{	
+		// Start Loading Of Script Files
+		@include ($script_file);
+
+		// If a body functions file exists, include it.
+		if(file_exists(''. $master_tmp . '/body_functions.php')) 
+		{
+			include (''. $master_tmp . '/body_functions.php');
+		}
+		ob_start();
+			include ('' . $master_tmp . '/body_header.php');
+		ob_end_flush();
+		ob_start();
+			include ($template_file);
+		ob_end_flush();
+
+		// Set our time end, so we can see how fast the page loaded.
+		$time_end = microtime(1);
+		$exec_time = $time_end - $time_start;
+		include ('' . $master_tmp . '/body_footer.php');
+	}
 }
 
 // Close all DB Connections

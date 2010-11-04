@@ -117,9 +117,10 @@ class Template
 	public function return_template_info()
 	{
 		$this->xml = simplexml_load_file($this->path);
+		$this->master_template = "templates/".$this->xml->masterTemplate;
 		$ret = array(
 			'path' => $this->slave_tmpl, 
-			'script' => $this->xml->masterTemplate,
+			'script' => $this->master_template,
 			'name' => $this->xml->name,
 			'author' => $this->xml->author,
 			'authorEmail' => $this->xml->authorEmail,

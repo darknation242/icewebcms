@@ -13,9 +13,9 @@ class Account
     );
 	
 	// Initialize with checking for user cookies, and getting their IP
-    function __construct($DB)
+    function __construct()
     {
-        global $cfg;
+        global $cfg, $DB;
         $this->DB = $DB;
         $this->check();
         $this->user['ip'] = $_SERVER['REMOTE_ADDR'];

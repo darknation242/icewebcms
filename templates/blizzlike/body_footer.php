@@ -36,7 +36,7 @@
                                               Query's: (RDB: <?php echo $DB->_statistics['count']; ?>,
                                               WDB: <?php echo $WDB->_statistics['count']?>,
                                               CDB: <?php echo $CDB->_statistics['count']?>)<br/>
-											  <b>&copy; <?php echo (string)$template['copyright']; ?></b>
+											  <b>&copy; <?php echo (string)$Template['copyright']; ?></b>
 											  <br /><b><?php echo $Core->copyright; ?></b>
                                               <br/>
                                               <a class="small" href="index.php?n=html&amp;text=license">GNU GPL Licence</a> |

@@ -172,14 +172,14 @@
 					<tr>
 						<td width="50%">
 							<div align="center" style="position:relative; top:1px; left:0px;">
-								<a href="<?php $cfg->get('site_forums'); ?>">
+								<a href="<?php echo $cfg->get('site_forums'); ?>">
 									<img src="<?php echo $currtmp; ?>/images/box-support.gif" width="226" height="93" />
 								</a>
 							</div>
 						</td>
 						<td width="50%">
 							<div align="center">
-								<a href="<?php $cfg->get('site_forums'); ?>">
+								<a href="<?php echo $cfg->get('site_forums'); ?>">
 									<img src="<?php echo $currtmp; ?>/images/box-jobs.gif" width="226" height="93" />
 								</a>
 							</div>
