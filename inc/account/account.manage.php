@@ -1,7 +1,7 @@
 <?php
 if(INCLUDED!==true)exit;
 // ==================== //
-$pathway_info[] = array('title'=>$lang['accediting'],'link'=>'');
+$pathway_info[] = array('title'=>$lang['title_acct_manage'],'link'=>'');
 // ==================== //
 
 // check if the user is logged in. if not, redirect
@@ -34,17 +34,17 @@ function changeemail()
 			// Now we set the email by using the SDL
 			if($Account->setEmail($user['id'], $newemail) == TRUE)
 			{
-				output_message('success','<b>'.$lang['change_mail'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
+				output_message('success','<b>'.$lang['change_email_success'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
 			}
 		}
 		else
 		{
-			output_message('validation','<b>'.$lang['reg_checkemailex'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
+			output_message('validation','<b>'.$lang['reg_email_used'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
 		}
 	}
 	else
 	{
-		output_message('validation','<b>'.$lang['bad_mail'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
+		output_message('validation','<b>'.$lang['bad_email'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
 	}
 }
 
@@ -57,7 +57,7 @@ function changepass()
 	{
 		if($Account->setPassword($user['id'], $newpass) == TRUE)
 		{
-			output_message('success','<b>'.$lang['change_pass_succ'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
+			output_message('success','<b>'.$lang['change_pass_success'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
 		}
 		else
 		{
@@ -151,7 +151,7 @@ function resetSQ()
 {
 	global $user, $lang;
 	$DB->query("UPDATE mw_account_extend SET secretq1='0',secretq2='0',secreta1='0',secreta2='0' WHERE account_id=?d", $user['id']);
-	output_message('success','<b>'.$lang['reset_succ_secretq'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
+	output_message('success','<b>'.$lang['reset_secretq_success'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
 }
 
 // Expansion Changer. Buffer function for the SDL

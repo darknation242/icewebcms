@@ -362,7 +362,7 @@ if($user['id'] > 0 && isset($profile))
 									<!-- END "change your info" TABLE -->
 								<div align="center">
 									<input type="image" src="<?php echo $currtmp; ?>/images/buttons/button-cancel.gif" size="16" class="button" style="font-size:12px;" value="<?php echo $lang['reset'];?>">
-									<input type="image" src="<?php echo $currtmp; ?>/images/buttons/button-update.gif" class="button" style="font-size:12px;" value="<?php echo $lang['dochange'];?>">
+									<input type="image" src="<?php echo $currtmp; ?>/images/buttons/button-update.gif" class="button" style="font-size:12px;" value="<?php echo $lang['change'];?>">
 								</div>
 						</td>
 					</tr>

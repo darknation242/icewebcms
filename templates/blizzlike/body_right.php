@@ -93,8 +93,8 @@ if ($cfg->get('fp_newbie_guide') == 1)
 				<?php echo $lang['newcomers2']; ?>
 			</p>
 			<ul>
-				<li>&nbsp; <a href="index.php?n=server&sub=howtoplay"><?php echo $lang['byj_1']; ?></a></li>
-				<li>&nbsp; <a href="index.php?p=server&sub=faq"><?php echo $lang['byj_2']; ?></a></li>
+				<li>&nbsp; <a href="index.php?n=server&sub=howtoplay"><?php echo $lang['newcomers']; ?></a></li>
+				<li>&nbsp; <a href="index.php?p=server&sub=faq"><?php echo $lang['faq']; ?></a></li>
 			</ul>
 		</div>
 	</div>
