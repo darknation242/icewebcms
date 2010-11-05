@@ -79,17 +79,16 @@ function get_realm_byid($id)
 
 function check_port_status($ip, $port)
 {
-    $ERROR_NO = null;
-    $ERROR_STR = null;
-	$fp1 = fsockopen($ip, $port, $ERROR_NO, $ERROR_STR,(float)1.0);
+
+	$fp1 = fsockopen($ip, $port, $ERROR_NO, $ERROR_STR,1);
     if($fp1)
 	{
         fclose($fp1);
-		return true;
+		return TRUE;
     }
 	else
 	{
-        return false;
+        return FALSE;
     }
 }
 
@@ -164,8 +163,8 @@ function send_email($goingto,$toname,$sbj,$messg)
 		$c = SMTP::MXconnect($h[1]); // connect to SMTP server (direct) from MX hosts list
 		$s = SMTP::Send($c, array($t), $m, $f); // send mail
 		// print result
-		if ($s) output_message('notice', 'Mail Sent!');
-		else output_message('alert', print_r($_RESULT));
+		if ($s) output_message('success', 'Mail Sent!');
+		else output_message('error', print_r($_RESULT));
 		SMTP::Disconnect($c); // disconnect
 	}
 	elseif($cfg->get('email_type') == 1) 	// If email type "1" (MIME)
@@ -177,7 +176,7 @@ function send_email($goingto,$toname,$sbj,$messg)
 		// send mail
 		$send = mail($goingto, $sbj, $mess['content'], 'From: '.$core_em.''."\n".$mess['header']);
 		// print result
-		echo $send ? output_message('notice', 'Mail Sent!') : output_message('alert', 'Error!');
+		echo $send ? output_message('success', 'Mail Sent!') : output_message('error', 'Error!');
 	}
 	elseif($cfg->get('email_type') == 2)	// If email type "2" (MTA Relay)
 	{
@@ -202,7 +201,7 @@ function send_email($goingto,$toname,$sbj,$messg)
 		}
 
 		// send mail relay using the '$c' resource connection
-		echo $m->Send($c) ? output_message('notice', 'Mail Sent!') : output_message('alert', 'Error! Please check your config and make sure you inserted your MTA info correctly.');
+		echo $m->Send($c) ? output_message('success', 'Mail Sent!') : output_message('error', 'Error! Please check your config and make sure you inserted your MTA info correctly.');
 
 		$m->Disconnect(); // disconnect from server
 		// print_r($m->History); // optional, for debugging
@@ -214,35 +213,6 @@ function load_smiles($dir='images/smiles/')
     $allfiles = scandir($dir);
     $smiles = array_diff($allfiles, array(".", "..", ".svn", "Thumbs.db", "index.html"));
     return $smiles;
-}
-
-// Gets Banned IP's. Mainly Used in the Auth.class.php
-function get_banned($account_id,$returncont)
-{
-    global $DB;
-
-    $get_last_ip = $DB->selectRow("SELECT * FROM account WHERE id='".$account_id."'");
-    $db_IP = $get_last_ip['last_ip'];
-
-    $ip_check = $DB->selectRow("SELECT * FROM ip_banned WHERE ip='".$db_IP."'");
-    if ($ip_check == FALSE)
-	{
-        if ($returncont == "1")
-		{
-            return FALSE;
-        }
-    }
-	else
-	{
-        if ($returncont == "1")
-		{
-            return TRUE;
-        }
-        else
-		{
-            return $db_IP;
-        }
-    }
 }
 
 // ======== Misc functions ======= // 

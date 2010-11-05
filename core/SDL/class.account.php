@@ -50,7 +50,7 @@ class Account
                 LEFT JOIN mw_account_extend ON account.id = mw_account_extend.account_id
                 LEFT JOIN mw_account_groups ON mw_account_extend.account_level = mw_account_groups.account_level
                 WHERE id ='".$cookie['user_id']."'");
-            if(get_banned($res['id'], 1) == TRUE)
+            if($this->isBannedAccount($res['id']) == TRUE)
 			{
 				output_message('error','Your account is currently banned');
                 $this->setgroup();
@@ -112,7 +112,7 @@ class Account
 			$success = 0;
 			output_message('alert','Bad username');
 		}
-        if(get_banned($res['id'], 1) == TRUE)
+        if($this->isBannedAccount($res['id']) == TRUE)
 		{
             output_message('error','Your account is currently banned');
             $success = 0;
@@ -184,6 +184,11 @@ class Account
         if(empty($params['email']))
 		{
             output_message('validation','You did not provide your email');
+            $success = 0;
+        }
+		if($this->isBannedIp($res['id']) == TRUE)
+		{
+            output_message('error','Your IP Address is currently banned');
             $success = 0;
         }
         if($success != 1) 
@@ -341,6 +346,18 @@ class Account
         }
     }
 	
+	function getgroup($g_id=FALSE)
+	{
+        $res = $this->DB->selectRow("SELECT * FROM mw_account_groups WHERE account_level='".$g_id."'");
+        return $res;
+    }
+	
+	function setgroup($gid=1) // 1 - guest, 5- banned
+    {
+        $guest_g = $this->getgroup($gid);
+        $this->user = array_merge($this->user,$guest_g);
+    }
+	
 	// Converts the username:password into a SHA1 encryption
 	function sha_password($user, $pass)
 	{
@@ -350,7 +367,7 @@ class Account
 	}
 	
 	// Check if the username is available. Post user['username'] here.
-    function isavailableusername($username)
+    function isAvailableUsername($username)
 	{
         $res = $this->DB->count("SELECT COUNT(*) FROM account WHERE username='".$username."'");
         if($res < 1) 
@@ -364,7 +381,7 @@ class Account
     }
 
 	// Check if the email is available. Post an email address here.
-    function isavailableemail($email)
+    function isAvailableEmail($email)
 	{
         $res = $this->DB->count("SELECT COUNT(*) FROM account WHERE email='".$email."'");
         if($res < 1) 
@@ -378,7 +395,7 @@ class Account
     }
 	
 	// Checks if the email is in valid format.
-    function isvalidemail($email)
+    function isValidEmail($email)
 	{
         if(preg_match('#^.{1,}@.{2,}\..{2,}$#', $email)==1)
 		{
@@ -391,7 +408,7 @@ class Account
     }
 	
 	// Checks if the register key is valid
-    function isvalidregkey($key)
+    function isValidRegkey($key)
 	{
         $res = $this->DB->selectCell("SELECT `id` FROM `mw_regkeys` WHERE `key`='".$key."'");
         if($res != FALSE) 
@@ -417,6 +434,34 @@ class Account
 			return FALSE; // key is not valid
 		}
     }
+	
+	function isBannedAccount($account_id)
+	{
+		global $DB;
+		$check = $DB->count("SELECT COUNT(*) FROM `account_banned` WHERE `id`='".$account_id."' AND `active`=1");
+		if ($check < 1)
+		{
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
+	
+	function isBannedIp()
+	{
+		global $DB;
+		$check = $DB->count("SELECT COUNT(*) FROM `ip_banned` WHERE `ip`='".$_SERVER['REMOTE_ADDR']."'");
+		if ($check < 1)
+		{
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
 	
 	// Generate a unique key
     function generate_key()
@@ -462,20 +507,8 @@ class Account
         return $res;
     }
 	
-    function getgroup($g_id=FALSE)
-	{
-        $res = $this->DB->selectRow("SELECT * FROM mw_account_groups WHERE account_level='".$g_id."'");
-        return $res;
-    }
-	
-	function setgroup($gid=1) // 1 - guest, 5- banned
-    {
-        $guest_g = $this->getgroup($gid);
-        $this->user = array_merge($this->user,$guest_g);
-    }
-	
 	// Returns an account username. Post an account ID here.
-    function getlogin($acct_id=FALSE)
+    function getLogin($acct_id=FALSE)
 	{
         $res = $this->DB->selectRow("SELECT username FROM account WHERE id='".$acct_id."'");
         if($res == FALSE)
@@ -489,7 +522,7 @@ class Account
     }
 	
 	// Gets an account id. Post username here
-    function getid($acct_name=FALSE)
+    function getAccountId($acct_name=FALSE)
 	{
         $res = $this->DB->selectCell("SELECT id FROM account WHERE username='".$acct_name."'");
         if($res == FALSE)
@@ -499,19 +532,6 @@ class Account
 		else
 		{
 			return $res;
-		}
-    }
-	
-	// Generates a random 40 char hash
-    function gethash($str=FALSE)
-	{
-        if($str)
-		{
-			return sha1(base64_encode(md5(utf8_encode($str)))); // Returns 40 char hash.
-		}
-        else 
-		{
-			return FALSE;
 		}
     }
 	

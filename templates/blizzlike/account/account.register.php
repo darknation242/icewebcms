@@ -285,7 +285,7 @@ else
 		}
 		elseif(isset($_POST['step']) && $_POST['step'] == 1 && $cfg->get('reg_invite') == 1)
 		{
-			if($Account->isvalidregkey($_POST['r_key']) !== TRUE)
+			if($Account->isValidRegkey($_POST['r_key']) !== TRUE)
 			{
 				output_message('validation',$lang['bad_reg_key']);
 				$allow_reg = false;
