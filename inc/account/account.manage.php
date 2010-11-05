@@ -26,10 +26,10 @@ function changeemail()
 	$newemail = trim($_POST['new_email']);
 	
 	// First we check if the email is valid
-	if($Account->isvalidemail($newemail))
+	if($Account->isValidEmail($newemail))
 	{	
 		//Next we see if the email is used already
-		if($Account->isavailableemail($newemail))
+		if($Account->isAvailableEmail($newemail))
 		{
 			// Now we set the email by using the SDL
 			if($Account->setEmail($user['id'], $newemail) == TRUE)
@@ -186,8 +186,7 @@ function changeDetails()
 {
 	global $DB, $lang, $user;
 	$_POST['profile']['signature'] = htmlspecialchars($_POST['profile']['signature']);	
-	$DB->query("UPDATE `mw_account_extend` SET
-		`theme` = ".$_POST['profile']['theme'].",	
+	$DB->query("UPDATE `mw_account_extend` SET	
 		`hide_email` = ".$_POST['profile']['hide_email'].",
 		`hide_profile` = ".$_POST['profile']['hide_profile'].",
 		`gender` = ".$_POST['profile']['gender'].",

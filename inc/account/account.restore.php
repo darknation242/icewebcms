@@ -63,7 +63,7 @@ if($_POST['retr_login'] && $_POST['retr_email'] && $_POST['secretq1'] && $_POST[
 		if($we !== FALSE)
 		{
 			$pas = random_string(7);
-			$c_pas = sha_password($username_name,$pas);
+			$c_pas = $Account->sha_password($username_name,$pas);
 			$DB->query("UPDATE `account` SET sha_pass_hash='".$c_pas."' WHERE id='".$username."'");
 			$DB->query("UPDATE `account` SET sessionkey=NULL WHERE id='".$username."'");
 			output_message('success','<b>'.$lang['restore_pass_ok'].'<br /> New password: '.$pas.'</b>');

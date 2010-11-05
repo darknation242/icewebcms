@@ -24,106 +24,6 @@ else
 	{
 		build_CommBox_Header();
 ?>
-	<script type="text/javascript">
-	<!--
-	var MIN_LOGIN_L = <?php echo $regparams['MIN_LOGIN_L']; ?>;
-	var MAX_LOGIN_L = <?php echo $regparams['MAX_LOGIN_L']; ?>;
-	var MIN_PASS_L  = <?php echo $regparams['MIN_PASS_L']; ?>;
-	var MAX_PASS_L  = <?php echo $regparams['MAX_PASS_L']; ?>;
-	var SUCCESS = false;
-	function check_login(){
-		if (!document.regform.r_login.value || document.regform.r_login.value.length > MAX_LOGIN_L || document.regform.r_login.value.length < MIN_LOGIN_L || !document.regform.r_login.value.match(/^[A-Za-z0-9_]+$/)) {
-			$('t_login').innerHTML ='<?php echo sprintf($lang['reg_checklogin'],$regparams['MIN_LOGIN_L'],$regparams['MAX_LOGIN_L']) ?>!';
-			$('t_login').show();
-			SUCCESS = false;
-		} else {
-			$('t_login').hide();
-			try
-			{
-				var request = new Ajax.Request(
-					SITE_HREF+'index.php?p=ajax&sub=checklogin&nobody=1&ajaxon=1',
-					{
-						method: 'get',
-						parameters: 'q=' + encodeURIComponent($F('r_login')),
-						onSuccess: function(reply){
-							if (reply.responseText == 'false') {
-								$('t_login').innerHTML ='<?php $lang['reg_checkloginex'];?>!';
-								$('t_login').show();
-								SUCCESS = false;
-							} else {
-								SUCCESS = true;
-							}
-						}
-					}
-				);
-			}
-			catch (e)
-			{
-				alert('Error: ' + e.toString());
-			}
-		}
-	}
-	function check_pass(){
-		if (!document.regform.r_pass.value || document.regform.r_pass.value.length > MAX_PASS_L || document.regform.r_pass.value.length < MIN_PASS_L) {
-			$('t_pass').innerHTML = '<?php echo sprintf($lang['reg_checkpass'],$regparams['MIN_PASS_L'],$regparams['MAX_PASS_L']) ?>!';
-			$('t_pass').show();
-			SUCCESS = false;
-		} else {
-			$('t_pass').hide();
-			SUCCESS = true;
-		}
-	}
-	function check_cpass(){
-		if (!document.regform.r_cpass.value || document.regform.r_pass.value!=document.regform.r_cpass.value) {
-			$('t_cpass').innerHTML ='<?php echo $lang['reg_checkcpass'];?>!';
-			$('t_cpass').show();
-			SUCCESS = false;
-		} else {
-			$('t_cpass').hide();
-			SUCCESS = true;
-		}
-	}
-	function check_email(){
-		if (document.regform.r_email.value.length < 1 || !document.regform.r_email.value.match(/^[A-Za-z0-9_\-\.]+\@[A-Za-z0-9_\-\.]+\.\w+$/)) {
-			$('t_email').innerHTML ='<?php echo $lang['reg_checkemail'];?>!';
-			$('t_email').show();
-			SUCCESS = false;
-		} else {
-			$('t_email').hide();
-			try
-			{
-				var request = new Ajax.Request(
-					SITE_HREF+'index.php?p=ajax&sub=checkemail&nobody=1&ajaxon=1',
-					{
-						method: 'get',
-						parameters: 'q=' + encodeURIComponent($F('r_email')),
-						onComplete: function(reply){
-							if (reply.responseText == 'false') {
-								$('t_email').innerHTML ='<?php echo $lang['reg_checkemailex'];?>!';
-								$('t_email').show();
-								SUCCESS = false;
-							} else {
-								SUCCESS = true;
-							}
-						}
-					}
-				);
-			}
-			catch (e)
-			{
-				alert('Error: ' + e.toString());
-			}
-		}
-	}
-	function check_all(){
-		check_login();
-		check_pass();
-		check_cpass();
-		check_email();
-		return SUCCESS;
-	}
-	// -->
-	</script>
 	<style media="screen" title="currentStyle" type="text/css">
 	p.nm, p.wm { 
 			margin: 0.5em 0 0.5em 0; 
@@ -151,24 +51,24 @@ else
 	}
 	</style>
 				<div style="padding-left:8px; padding-right: 14px">
-					<form method="post" action="index.php?p=account&amp;sub=register" name="regform" id="regform" onsubmit="return check_all();">
+					<form method="post" action="index.php?p=account&amp;sub=register" name="regform" id="regform">
 						<input type="hidden" name="r_key" value="<?php echo $_POST['r_key'];?>"/>
 						<input type="hidden" name="step" value="3"/>
 						
 						<label for="r_login"><?php echo $lang['username'];?>:</label>
-						<input type="text" id="r_login" name="r_login" size="40" maxlength="16" onblur="check_login();"/>
+						<input type="text" id="r_login" name="r_login" size="40" maxlength="16"/>
 						<p id="t_login" style="display:none;" class="wm"></p>
 
 						<label for="r_pass"><?php echo $lang['pass'];?>:</label>
-						<input type="password" id="r_pass" name="r_pass" size="40" maxlength="16" onblur="check_pass();"/>
+						<input type="password" id="r_pass" name="r_pass" size="40" maxlength="16"/>
 						<p id="t_pass" style="display:none;" class="wm"></p>
 
 						<label for="r_cpass"><?php echo $lang['cpass'];?>:</label>
-						<input type="password" id="r_cpass" name="r_cpass" size="40" maxlength="16" onblur="check_cpass();"/>
+						<input type="password" id="r_cpass" name="r_cpass" size="40" maxlength="16"/>
 						<p id="t_cpass" style="display:none;" class="wm"></p>
 
 						<label for="r_email"><?php echo $lang['email'];?>:</label>
-						<input type="text" id="r_email" name="r_email" size="40" maxlength="50" onblur="check_email();"/>
+						<input type="text" id="r_email" name="r_email" size="40" maxlength="50"/>
 						<p id="t_email" style="display:none;" class="wm"></p>
 
 					<?php 
@@ -330,6 +230,5 @@ else
 	<?php
 			build_CommBox_Footer();
 		}
-
 }
 ?>

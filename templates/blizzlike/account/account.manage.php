@@ -279,33 +279,6 @@ if($user['id'] > 0 && isset($profile))
 										</table>
 										</td>
 									</tr>
-									<!-- THEME -->
-									<tr>
-										<td align="right">
-											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['theme'];?><br /></b></span></font>
-										</td>
-										<td align="left">
-											<table border='0' cellspacing='0' cellpadding='0'>
-											<tr>
-												<td>
-													<select name="profile[theme]" style="margin:1px;">
-													<?php
-													$i = 0;			
-													foreach($tmpl_list as $templatez)
-													{ ?>
-														<option value="<?php echo $i; ?>"<?php if($profile['theme']== $i)echo' selected'; ?>><?php echo (string)$templatez;?>
-													<?php 
-														$i++; 
-													} 
-													unset($i);?>
-													</option>
-													</select>
-												</td>
-												<td valign = "top"></td>
-											</tr>
-											</table>
-										</td>
-									</tr>
 									<!-- AVATAR -->
 									<?php 
 									if($profile['avatar']) 

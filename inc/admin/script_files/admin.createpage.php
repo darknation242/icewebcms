@@ -51,11 +51,13 @@ function buildPage()
 		$temp_templ = explode(",", $cfg->get('templates'));
 		foreach($temp_templ as $sub_tmpl) 
 		{
-			$sub_handle = "templates/".$sub_tmpl."/".$_POST['page_ext']."/".$_POST['page_ext'].".".$_POST['page_sub'].".php";
-			@mkdir("templates/".$sub_tmpl."/".$_POST['page_ext']."", 0700);
+			$load_xml = simplexml_load_file("templates/".$sub_tmpl."/template.xml");
+			$sub_handle = "templates/". $load_xml->masterTemplate ."/".$_POST['page_ext']."/".$_POST['page_ext'].".".$_POST['page_sub'].".php";
+			@mkdir("templates/". $load_xml->masterTemplate ."/".$_POST['page_ext']."", 0700);
 			$createsub = fopen($sub_handle, 'w+');
 			fwrite($createsub, $build_sub);
 			fclose($createsub);
+			unset($load_xml);
 		}
 		$output_mess = "Page Created Successfully!";
 		output_message('success', $output_mess);
