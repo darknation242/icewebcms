@@ -5,7 +5,7 @@ if($maxpages > 1)
 	<div align="right" class="news-listing">
 		<b><?php echo $lang['page']; ?> :&nbsp; <?php for ($CurrPage = 1; $CurrPage <= $maxpages; $CurrPage++) 
 		{ ?>
-			<a href="index.php?n=server&sub=commands&sp=<?php echo $CurrPage; ?>"><?php echo $CurrPage; ?></a>&nbsp;
+			<a href="index.php?p=server&sub=commands&sp=<?php echo $CurrPage; ?>"><?php echo $CurrPage; ?></a>&nbsp;
 	<?php 
 		}?>
 		</b><br/>
@@ -29,16 +29,16 @@ $postnum = 0;
 foreach($alltopics as $postanum => $topic)
 {
     $postnum++;
-    if($hl=='alt')$hl='';else $hl='alt';
+    if($hl=='alt')$hl=''; else $hl='alt';
 ?>
     <script type="text/javascript">
-        var postId<?php echo$postnum;?>="<?php echo $postnum;?>";
+        var postId<?php echo $postnum;?>="<?php echo $postnum;?>";
     </script>
     <div class="news-expand" id="news<?php echo $postnum;?>">
 		<div class="news-border-left"></div>
 		<div class="news-border-right"></div>
 		<div class="news-listing">
-			<div onclick="javascript:toggleEntry('<?php echo $postnum;?>','<?php echo$hl;?>')" onmouseout="javascript:this.style.background='none'" onmouseover="javascript:this.style.background='#EEDB99'" class="hoverContainer">
+			<div onclick="javascript:toggleEntry('<?php echo $postnum;?>','<?php echo $hl;?>')" onmouseout="javascript:this.style.background='none'" onmouseover="javascript:this.style.background='#EEDB99'" class="hoverContainer">
 				<div>
 					<div class="news-top">
 						<ul>
@@ -51,7 +51,7 @@ foreach($alltopics as $postanum => $topic)
 								</h1>
 							</li>
 							<li class="news-toggle">
-								<a href="javascript:toggleEntry('<?php echo $postnum;?>','<?php echo$hl;?>')"><img alt="" src="<?php echo $currtmp; ?>/images/pixel001.gif"></a>
+								<a href="javascript:toggleEntry('<?php echo $postnum;?>','<?php echo $hl;?>')"><img alt="" src="<?php echo $currtmp; ?>/images/pixel001.gif"></a>
 							</li>
 						</ul>
 					</div>
@@ -83,7 +83,7 @@ foreach($alltopics as $postanum => $topic)
     var defaultOpen = "<?php echo($postnum>$defaultOpen?'0':'1');?>";
     if ((cookieState == 1) || (position==1 && cookieState!='0') || (defaultOpen == 1 && cookieState!='0')) {
     } else {
-        document.getElementById("news"+localId).className = "news-collapse"+"<?php echo$hl;?>";
+        document.getElementById("news"+localId).className = "news-collapse"+"<?php echo $hl;?>";
     }
     </script>
 <?php 

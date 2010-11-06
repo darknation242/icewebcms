@@ -276,6 +276,7 @@ function random_screenshot()
 	$fpos = rand(0, $fnum-1);
 	return $fa[$fpos];
 }
+
 function build_pathway()
 {
     global $lang;

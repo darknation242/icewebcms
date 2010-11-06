@@ -32,7 +32,7 @@ elseif($cfg->get('emulator') == 'trinity')
 	}
 }
 
-$maxtopics  = $WDB->query("
+$maxtopics  = $WDB->count("
 	SELECT COUNT(*)
 	FROM command
 	WHERE security <= $userlevel

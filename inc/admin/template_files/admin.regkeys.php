@@ -44,7 +44,7 @@
 		<p>
 			<a href="index.php?p=admin&sub=regkeys&action=deleteall" onclick="return confirm('Are you sure?');"><b>[ <font color="red">Delete all keys</font> ]</b></a><br/>
 			<form method="post" action="index.php?p=admin&sub=regkeys&action=create" class="form label-inline">
-				<?php echo $lang['l_newkeys'];?>: <input type="text" name="num" size="4"> 
+				Enter number of keys desired (1-300): <input type="text" name="num" size="4"> 
 				&nbsp; &nbsp; <button><span>Create</span></button>
 			</form>
 		</p>

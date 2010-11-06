@@ -15,18 +15,8 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <link rel="shortcut icon" href="<?php echo $currtmp; ?>/images/favicon.ico"/>
 <script src="http://static.wowhead.com/widgets/power.js"></script>
-<?php
-$this_rss_url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-$this_rss_url = explode('/index.php',$this_rss_url);
-$this_rss_url = "http://".$this_rss_url[0];
-if($this_rss_url[strlen($this_rss_url)-1] != '/') 
-{
-    $this_rss_url .= '/';
-}
-$this_rss_url .= "rss.php";
-?>
-<link rel="alternate" href="<?php echo $this_rss_url;?>" type="application/rss+xml" title="<?php echo (string)$cfg->get('site_title');?> RSS News Feed"/>
-<title><?php echo (string)$cfg->get('site_title');?><?php echo $title_str;?></title>
+<link rel="alternate" href="<?php echo $cfg->get('site_base_href')."rss.php"; ?>" type="application/rss+xml" title="<?php echo (string)$cfg->get('site_title');?> RSS News Feed"/>
+<title><?php echo (string)$cfg->get('site_title'); echo $title_str;?></title>
 <style media="screen" title="currentStyle" type="text/css">
     @import url("<?php echo $currtmp; ?>/css/newhp.css");
     @import url("<?php echo $currtmp; ?>/css/newhp_basic.css");
@@ -248,7 +238,18 @@ echo $GLOBALS['redirect'];
                                                             <div style="padding-right:10px; margin-left:11px;" id="compcont"> 
                                                             <div style="clear:both;display:block;position:relative;width:100%;margin-top:-4px;">
                                                             <!-- Pathway -->
-                                                            <?php if(isset($_GET['p'])){ ?><div class="redbannerbg"><div class="redbannerleft"></div><div class="redbannerlabel"><?php echo $pathway_str;?></div><div class="redbannerright"></div></div><?php } ?>
+                                                            <?php 
+																if(isset($_GET['p']))
+																{ ?>
+																	<div class="redbannerbg">
+																		<div class="redbannerleft"></div>
+																		<div class="redbannerlabel">
+																			<?php echo $pathway_str;?>
+																		</div>
+																		<div class="redbannerright"></div>
+																	</div>
+															<?php 
+																} ?>
                                                             <?php echo $GLOBALS['messages']; ?>
                                                             <!-- Component body BEGIN -->
                                                             
