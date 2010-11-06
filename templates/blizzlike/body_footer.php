@@ -16,7 +16,18 @@
 									if(empty($_GET['p']) || $_GET['p'] == "frontpage")
 									{
 										echo "<td valign=\"top\">";
-										include(dirname(__FILE__).'/body_right.php'); 
+										if($Core->isCached($_COOKIE['cur_selected_theme']."_bodyright"))
+										{
+											$Contents = $Core->getCache($_COOKIE['cur_selected_theme']."_bodyright");
+											echo $Contents;
+										}
+										else
+										{
+											ob_start();
+												include(dirname(__FILE__).'/body_right.php');
+											$Contents = ob_get_flush();
+											$Core->writeCache($_COOKIE['cur_selected_theme']."_bodyright", $Contents);
+										}
 										echo "</td>";
 									} 
 								?>

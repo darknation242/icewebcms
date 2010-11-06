@@ -237,7 +237,7 @@ else
 	else
 	{	
 		// Start Loading Of Script Files
-		@include ($script_file);
+		@include($script_file);
 
 		// If a body functions file exists, include it.
 		if(file_exists(''. $master_tmp . '/body_functions.php')) 
@@ -247,9 +247,19 @@ else
 		ob_start();
 			include ('' . $master_tmp . '/body_header.php');
 		ob_end_flush();
-		ob_start();
-			include ($template_file);
-		ob_end_flush();
+		if($Core->isCached($_COOKIE['cur_selected_theme']."_".$ext.".".$sub))
+		{
+			$Contents = $Core->getCache($_COOKIE['cur_selected_theme']."_".$ext.".".$sub);
+			echo $Contents;
+		}
+		else
+		{
+			ob_start();
+				include($template_file);
+			$Contents = ob_get_flush();
+			$Core->writeCache($_COOKIE['cur_selected_theme']."_".$ext.".".$sub, $Contents);
+		}
+		unset($Contents);
 
 		// Set our time end, so we can see how fast the page loaded.
 		$time_end = microtime(1);

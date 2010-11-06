@@ -48,7 +48,7 @@ function build_menu_items($links_arr)
 
 function build_main_menu()
 {
-	global $DB, $user;
+	global $DB, $user, $Core;
     $mainnav_links = array(
 		'1-menuNews', 
 		'2-menuAccount', 
@@ -75,7 +75,7 @@ function build_main_menu()
         {
             static $index = 0;
             $index++;
-            echo '
+			echo '
                 <div id="'.$menunamev[1].'"  style="position: relative; z-index: 11;"> 
 					<div onclick="javascript:toggleNewMenu('.$menunamev[0].'-1);" class="menu-button-off" id="'.$menunamev[1].'-button">
 						<span class="'.$menunamev[1].'-icon-off" id="'.$menunamev[1].'-icon">&nbsp;</span><a class="'.$menunamev[1].'-header-off" id="'.$menunamev[1].'-header"><em>Menu item</em></a><a id="'.$menunamev[1].'-collapse"></a><span class="menuentry-rightborder"></span>

@@ -9,6 +9,7 @@ class Core
 	var $version = '3.0.0';
 	var $version_date = '2010-10-29, 2:19 pm';
 	var $exp_dbversion = '1.0';
+	var $Cache_Refresh_Time = 300;
 
 	function Core()
 	{
@@ -37,35 +38,69 @@ class Core
 		return $ret;
 	}
 	
-	function runSQL($file)
+	
+	// === CACHING FUNCTIONS === //
+
+	function isCached($id)
 	{
-		global $DB;
-		$file_content = file($url);
-		foreach($file_content as $sql_line)
+		// Check if the cache file exists. If not, return false
+		if(file_exists('core/cache/'.$id.'.cache'))
 		{
-			if(trim($sql_line) != "" && strpos($sql_line, "--") && strpos ($aquery, "#") === false)
+			// If the cache file is expired
+			if($this->getNextUpdate('core/cache/'.$id.'.cache') < 0)
 			{
-				foreach ($sql_line as $key => $aquery) 
-				{
-					$aquery = rtrim($aquery);
-					$compare = rtrim($aquery, ";");
-					if ($compare != $aquery) 
-					{
-						$sql_line[$key] = $compare . "|br3ak|";
-					}
-				}
+				unlink('core/cache/'.$id.'.cache'); #remove file
+				return FALSE;
+			}
+			// Otherwise return true, the cache file exists
+			else if ($this->getNextUpdate('core/cache/'.$id.'.cache') > 0)
+			{
+				return TRUE;
 			}
 		}
-		unset($key, $aquery);
-
-		$sql_line = implode($sql_line);
-		$queries = explode("|br3ak|", $sql_line);
-		
-		foreach($queries as $sql)
+		else
 		{
-			$DB->query($sql);
+			return FALSE;
+		}		
+	}
+
+	function getCache($id)
+	{
+		// Check if file exists incase isCache wasnt checked first. Else return false
+		if(file_exists('core/cache/'.$id.'.cache'))
+		{
+			return file_get_contents('core/cache/'.$id.'.cache'); #return contents
 		}
-		return TRUE;
+		else
+		{
+			return false;
+		}		
+	}
+
+	function writeCache($id, $content)
+	{
+		// Write the cache file
+		file_put_contents('core/cache/'.$id.'.cache', $content);
+	}
+	
+	function clearCache()
+	{
+		// get a list of all files and directories
+		$files = scandir('core/cache/');
+		foreach($files as $file)
+		{
+			// We only want to delete the the cache files, not subfolders
+			if(is_file('core/cache/'.$file) && $file != 'index.html')
+			{
+				unlink('core/cache/'.$file); #Remove file
+			}
+		}
+	}
+	
+	// Return the next cache update time on a file.
+	function getNextUpdate($filename)
+	{
+		return (fileatime($filename) + $this->Cache_Refresh_Time) - time();
 	}
 }
 ?>

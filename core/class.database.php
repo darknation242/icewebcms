@@ -26,7 +26,6 @@ class Database
     {
         $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
 		$this->_statistics['count']++;
-		//echo $query."<br />";
 		return TRUE;
     }
 
@@ -34,7 +33,6 @@ class Database
     {
         $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
 		$this->_statistics['count']++;
-		// echo $query."<br />";
 		$i = 1;
 		if(mysql_num_rows($sql) == 0)
 		{
@@ -58,15 +56,12 @@ class Database
     {
         $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
 		$this->_statistics['count']++;
-		// echo $query."<br />";
 		if(mysql_num_rows($sql) == 0)
 		{
-			// echo "- Returning false<br />";
 			return FALSE;
 		}
 		else
 		{
-			// echo "- Returning True<br />";
 			$row = mysql_fetch_array($sql);
 			return $row;
 		}
@@ -78,12 +73,10 @@ class Database
 		$this->_statistics['count']++;
 		if(mysql_num_rows($sql) == 0)
 		{
-			// echo "- Returning false<br />";
 			return FALSE;
 		}
 		else
 		{
-			// echo "- Returning True<br />";
 			$row = mysql_fetch_array($sql);
 			return $row['0'];
 		}
@@ -95,5 +88,35 @@ class Database
 		$this->_statistics['count']++;
 		return mysql_result($sql, 0);
     }
+	
+	function runSQL($file)
+	{
+		$file_content = file($url);
+		foreach($file_content as $sql_line)
+		{
+			if(trim($sql_line) != "" && strpos($sql_line, "--") && strpos ($aquery, "#") === false)
+			{
+				foreach ($sql_line as $key => $aquery) 
+				{
+					$aquery = rtrim($aquery);
+					$compare = rtrim($aquery, ";");
+					if ($compare != $aquery) 
+					{
+						$sql_line[$key] = $compare . "|br3ak|";
+					}
+				}
+			}
+		}
+		unset($key, $aquery);
+
+		$sql_line = implode($sql_line);
+		$queries = explode("|br3ak|", $sql_line);
+		
+		foreach($queries as $sql)
+		{
+			mysql_query($sql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
+		}
+		return TRUE;
+	}
 }
 ?>
