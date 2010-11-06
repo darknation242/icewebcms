@@ -195,17 +195,24 @@ echo $GLOBALS['redirect'];
                             <div id="leftmenu">
                               <div id="leftmenucontainer">
                                 <?php 
-									if($Core->isCached($_COOKIE['cur_selected_theme']."_main_nav_links"))
+									if($cfg->get('enable_cache') == 1)
 									{
-										$Contents = $Core->getCache($_COOKIE['cur_selected_theme']."_main_nav_links");
-										echo $Contents;
+										if($Core->isCached($_COOKIE['cur_selected_theme']."_main_nav_links"))
+										{
+											$Contents = $Core->getCache($_COOKIE['cur_selected_theme']."_main_nav_links");
+											echo $Contents;
+										}
+										else
+										{
+											ob_start();
+												build_main_menu(); // MAIN LINKS HERE!!!
+											$Contents = ob_get_flush();
+											$Core->writeCache($_COOKIE['cur_selected_theme']."_main_nav_links", $Contents);
+										}
 									}
 									else
 									{
-										ob_start();
-											build_main_menu(); // MAIN LINKS HERE!!!
-										$Contents = ob_get_flush();
-										$Core->writeCache($_COOKIE['cur_selected_theme']."_main_nav_links", $Contents);
+										build_main_menu(); // MAIN LINKS HERE!!!
 									}
                                 ?>
                               </div>

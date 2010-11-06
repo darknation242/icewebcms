@@ -10,7 +10,6 @@ class Core
 	var $version = '3.0.0';
 	var $version_date = '2010-10-29, 2:19 pm';
 	var $exp_dbversion = '1.0';
-	var $Cache_Refresh_Time = 300;
 
 	function Core()
 	{
@@ -19,9 +18,11 @@ class Core
 	
 	function Initialize()
 	{
+		global $cfg;
+		$this->Cache_Refresh_Time = (int)$cfg->get('cache_expire_time');
 		$this->copyright = 'Powered by MangosWeb Enahnced version ' . $this->version . ' &copy; 2009-2010, <a href="http://keyswow.com">KeysWow Dev Team</a>.
-								All Rights Reserved.';
-		return true;
+			All Rights Reserved.';
+		return TRUE;
 	}
 	
 	function load_permissions()
@@ -54,7 +55,7 @@ class Core
 				return FALSE;
 			}
 			// Otherwise return true, the cache file exists
-			else if ($this->getNextUpdate('core/cache/'.$id.'.cache') > 0)
+			else
 			{
 				return TRUE;
 			}

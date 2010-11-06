@@ -12,25 +12,32 @@
                                                       </div>
                                                     </div>
                                                   </td>
-								<?php 
-									if(empty($_GET['p']) || $_GET['p'] == "frontpage")
-									{
-										echo "<td valign=\"top\">";
-										if($Core->isCached($_COOKIE['cur_selected_theme']."_bodyright"))
-										{
-											$Contents = $Core->getCache($_COOKIE['cur_selected_theme']."_bodyright");
-											echo $Contents;
-										}
-										else
-										{
-											ob_start();
-												include(dirname(__FILE__).'/body_right.php');
-											$Contents = ob_get_flush();
-											$Core->writeCache($_COOKIE['cur_selected_theme']."_bodyright", $Contents);
-										}
-										echo "</td>";
-									} 
-								?>
+												<?php 
+													if(empty($_GET['p']) || $_GET['p'] == "frontpage")
+													{
+														echo "<td valign=\"top\">";
+														if($cfg->get('enable_cache') == 1)
+														{	
+															if($Core->isCached($_COOKIE['cur_selected_theme']."_bodyright"))
+															{
+																$Contents = $Core->getCache($_COOKIE['cur_selected_theme']."_bodyright");
+																echo $Contents;
+															}
+															else
+															{
+																ob_start();
+																	include($master_tmp.'/body_right.php');
+																$Contents = ob_get_flush();
+																$Core->writeCache($_COOKIE['cur_selected_theme']."_bodyright", $Contents);
+															}											
+														}
+														else
+														{
+															include($master_tmp.'/body_right.php');
+														}
+														echo "</td>";
+													} 
+												?>
                                                 </tr>
                                               </table>                      
                                             </div>

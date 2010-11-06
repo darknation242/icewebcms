@@ -38,10 +38,10 @@ $time_start = microtime(1);
 $_SERVER['REQUEST_TIME'] = time();
 
 // Load the Core and config class
-include('core/core.php');
 include('core/class.config.php');
-$Core = new Core;
 $cfg = new Config;
+include('core/core.php');
+$Core = new Core;
 
 //Site notice cookie
 if($cfg->get('site_notice_enable') == 1 && ! isset($_COOKIE['agreement_accepted']))
@@ -249,7 +249,19 @@ else
 		ob_end_flush();
 		
 		// === Start the loading of the template cache === //
-		if($cfg->get('enable_cache') && @CACHE_FILE == TRUE)
+		
+		// Lets check to see if the page is flagged to cache or not. defined in scriptfile of each page
+		if(defined('CACHE_FILE'))
+		{
+			$CacheFile = CACHE_FILE;
+		}
+		else # Not defined
+		{
+			$CacheFile = FALSE;
+		}
+		
+		// Check if admin has enabled caching, and CACHE_FILE is enabled
+		if($cfg->get('enable_cache') && $CacheFile == TRUE)
 		{
 			// If file is cached
 			if($Core->isCached($_COOKIE['cur_selected_theme']."_".$ext.".".$sub))
