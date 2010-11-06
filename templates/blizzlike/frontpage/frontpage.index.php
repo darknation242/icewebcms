@@ -41,86 +41,89 @@
 		} ?>
 	</div>
 	<div class="module-container" style="position: relative;">
-	<?php 
-		foreach($alltopics as $topic)
-		{ 
-			$postnum++;
-			if($hl=='alt')
-			{
-				$hl='';
-			}
-			else 
-			{
-				$hl='alt';
-			}
-	?>                                                              
-			<script type="text/javascript">
-				var postId<?php echo $postnum; ?>="<?php echo $topic['id'];?>";
-			</script>
-			<div class="news-expand" id="news<?php echo $topic['id'];?>">
-				<div class="news-border-left"></div>
-				<div class="news-border-right"></div>
-				<div class="news-listing">
-					<div onclick="javascript:toggleEntry('<?php echo $topic['id'];?>','<?php echo $hl;?>')" onmouseout="javascript:this.style.background='none'" onmouseover="javascript:this.style.background='#EEDB99'" class="hoverContainer">
-						<div>
-							<div class="news-top">
-								<ul>
-									<li class="item-icon">
-										<img border="0" alt="new-post" src="<?php echo $currtmp; ?>/images/news-contests.gif"/>
-									</li>
-									<li class="news-entry">
-										<h1>
-											<a href="javascript:dummyFunction();"><?php echo $topic['title'];?></a>
-										</h1>
-										<span class="user">Posted by: <b><?php echo $topic['posted_by'];?></b>|</span>&nbsp;<span class="posted-date">
-											<?php echo date('d-m-Y',$topic['post_time']);?>
-										</span>
-									</li>
-									<li class="news-entry-date">
-										<span><strong><?php echo date('d-m-Y',$topic['post_time']);?> </strong></span>
-									</li>
-									<li class="news-toggle">
-										<a href="javascript:toggleEntry('<?php echo $topic['id'];?>','<?php echo$hl;?>')">
-											<img src="<?php echo $currtmp; ?>/images/pixel001.gif" alt=""/>
-										</a>
-									</li>
-								</ul>
+	<?php
+		if($alltopics != FALSE)
+		{
+			foreach($alltopics as $topic)
+			{ 
+				$postnum++;
+				if($hl=='alt')
+				{
+					$hl='';
+				}
+				else 
+				{
+					$hl='alt';
+				}
+		?>                                                              
+				<script type="text/javascript">
+					var postId<?php echo $postnum; ?>="<?php echo $topic['id'];?>";
+				</script>
+				<div class="news-expand" id="news<?php echo $topic['id'];?>">
+					<div class="news-border-left"></div>
+					<div class="news-border-right"></div>
+					<div class="news-listing">
+						<div onclick="javascript:toggleEntry('<?php echo $topic['id'];?>','<?php echo $hl;?>')" onmouseout="javascript:this.style.background='none'" onmouseover="javascript:this.style.background='#EEDB99'" class="hoverContainer">
+							<div>
+								<div class="news-top">
+									<ul>
+										<li class="item-icon">
+											<img border="0" alt="new-post" src="<?php echo $currtmp; ?>/images/news-contests.gif"/>
+										</li>
+										<li class="news-entry">
+											<h1>
+												<a href="javascript:dummyFunction();"><?php echo $topic['title'];?></a>
+											</h1>
+											<span class="user">Posted by: <b><?php echo $topic['posted_by'];?></b>|</span>&nbsp;<span class="posted-date">
+												<?php echo date('d-m-Y',$topic['post_time']);?>
+											</span>
+										</li>
+										<li class="news-entry-date">
+											<span><strong><?php echo date('d-m-Y',$topic['post_time']);?> </strong></span>
+										</li>
+										<li class="news-toggle">
+											<a href="javascript:toggleEntry('<?php echo $topic['id'];?>','<?php echo$hl;?>')">
+												<img src="<?php echo $currtmp; ?>/images/pixel001.gif" alt=""/>
+											</a>
+										</li>
+									</ul>
+								</div>
 							</div>
 						</div>
 					</div>
+					<div class="news-item">
+						<blockquote>
+							<dl>
+								<dd>
+									<ul>
+										<li>
+											<div class="letter-box0"></div>
+											<div class="blog-post">
+												<?php echo $topic['message'];?>
+												<div align="right"></div>                
+											</div>                
+										</li>
+									</ul>
+								</dd>
+							</dl>
+						</blockquote>
+					</div>
 				</div>
-				<div class="news-item">
-					<blockquote>
-						<dl>
-							<dd>
-								<ul>
-									<li>
-										<div class="letter-box0"></div>
-										<div class="blog-post">
-											<?php echo $topic['message'];?>
-											<div align="right"></div>                
-										</div>                
-									</li>
-								</ul>
-							</dd>
-						</dl>
-					</blockquote>
-				</div>
-			</div>
 
-			<script type="text/javascript"><!--
-			var position = <?php echo $postnum;?>;
-			var localId = postId<?php echo $postnum;?>;
-			var cookieState = getcookie("news"+localId);
-			var defaultOpen = "<?php echo $cfg->get('module_news_open');?>";
-			if ((cookieState == 1) || (position==1 && cookieState!='0') || (defaultOpen == 1 && cookieState!='0')) {
-			} else {
-				document.getElementById("news"+localId).className = "news-collapse"+"<?php echo $hl;?>";       
+				<script type="text/javascript"><!--
+				var position = <?php echo $postnum;?>;
+				var localId = postId<?php echo $postnum;?>;
+				var cookieState = getcookie("news"+localId);
+				var defaultOpen = "<?php echo $cfg->get('module_news_open');?>";
+				if ((cookieState == 1) || (position==1 && cookieState!='0') || (defaultOpen == 1 && cookieState!='0')) {
+				} else {
+					document.getElementById("news"+localId).className = "news-collapse"+"<?php echo $hl;?>";       
+				}
+				--></script>
+		<?php 
 			}
-			--></script>
-	<?php 
+			unset($alltopics, $hl, $postnum);
 		}
-		unset($alltopics, $hl, $postnum);
 	?>                                                                
 	</div>
 	<div class="news-archive-link" <?php if ($banner==1) echo 'style="position: relative;"';?>>

@@ -1,7 +1,8 @@
 <?php
 /********************************************************************************************************/
-/* 	DONOT touch anything in this file. Modification to this file will result in a break in agreement	*/
-/*		terms. Also, any modification to this file will result in loss of all support by KeysWoW		*/
+/* 	DO NOT change the copyright in this file. Modification to this copyright will result in a break in  */
+/* 	agreement terms. Also, any modification to this Copyright, or version info. will result in loss of  */
+/*  all support by KeysWoW																				*/
 /********************************************************************************************************/
 
 class Core
@@ -83,6 +84,7 @@ class Core
 		file_put_contents('core/cache/'.$id.'.cache', $content);
 	}
 	
+	// Clean out all cache files. For individual delete, use deleteCache 
 	function clearCache()
 	{
 		// get a list of all files and directories
@@ -95,6 +97,11 @@ class Core
 				unlink('core/cache/'.$file); #Remove file
 			}
 		}
+	}
+	
+	function deleteCache($id)
+	{
+		unlink('core/cache/'.$id); #Remove file
 	}
 	
 	// Return the next cache update time on a file.

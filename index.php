@@ -75,9 +75,9 @@ if($cfg->get('site_base_href') !== $getbasehref)
 }
 
 // Site functions & classes ...
-include ( 'core/common.php' ); 					// Holds most of the sites functions
-include ( 'core/class.template.php' );			// Sets up the template system
-include ( 'core/SDL/class.account.php' ); 		// contains account related scripts and functions
+include('core/common.php'); 					// Holds most of the sites functions
+include('core/class.template.php');			// Sets up the template system
+include('core/SDL/class.account.php'); 		// contains account related scripts and functions
 
 // Super-Global variables.
 $GLOBALS['users_online'] = array();
@@ -207,10 +207,10 @@ else
 	{
 		$sub = (isset($_GET['sub']) ? $_GET['sub'] : 'index');
 	}
-		$script_file = 'inc/' . $ext . '/' . $ext . '.' . $sub . '.php';
-		$template_file = '' . $master_tmp . '/' . $ext . '/' . $ext . '.' . $sub . '.php';
+	$script_file = 'inc/' . $ext . '/' . $ext . '.' . $sub . '.php';
+	$template_file = '' . $master_tmp . '/' . $ext . '/' . $ext . '.' . $sub . '.php';
 
-	// Start Loading of Template Files
+	// === Start Loading of the Page files === //
 
 	// If the requested page is the admin Panel, then we load the admin template
 	if($ext == 'admin') 
@@ -247,19 +247,34 @@ else
 		ob_start();
 			include ('' . $master_tmp . '/body_header.php');
 		ob_end_flush();
-		if($Core->isCached($_COOKIE['cur_selected_theme']."_".$ext.".".$sub))
+		
+		// === Start the loading of the template cache === //
+		if($cfg->get('enable_cache') && @CACHE_FILE == TRUE)
 		{
-			$Contents = $Core->getCache($_COOKIE['cur_selected_theme']."_".$ext.".".$sub);
-			echo $Contents;
+			// If file is cached
+			if($Core->isCached($_COOKIE['cur_selected_theme']."_".$ext.".".$sub))
+			{
+				$Contents = $Core->getCache($_COOKIE['cur_selected_theme']."_".$ext.".".$sub);
+				echo $Contents;
+			}
+			// If not cached, then get contents of the page and cache them.
+			else
+			{
+				ob_start();
+					include($template_file);
+				$Contents = ob_get_flush();
+				$Core->writeCache($_COOKIE['cur_selected_theme']."_".$ext.".".$sub, $Contents);
+			}
+			unset($Contents);
 		}
 		else
 		{
 			ob_start();
 				include($template_file);
-			$Contents = ob_get_flush();
-			$Core->writeCache($_COOKIE['cur_selected_theme']."_".$ext.".".$sub, $Contents);
+			ob_end_flush();
 		}
-		unset($Contents);
+		
+		// === End cache system, Load the footer === //
 
 		// Set our time end, so we can see how fast the page loaded.
 		$time_end = microtime(1);
