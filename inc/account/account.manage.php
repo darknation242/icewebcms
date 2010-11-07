@@ -4,6 +4,9 @@ if(INCLUDED!==true)exit;
 $pathway_info[] = array('title'=>$lang['account_manage'],'link'=>'');
 // ==================== //
 
+// Tell the cache system not to cache this page
+define('CACHE_FILE', FALSE);
+
 // check if the user is logged in. if not, redirect
 if($user['id'] <= 0)
 {

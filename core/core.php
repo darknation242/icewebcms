@@ -98,6 +98,7 @@ class Core
 				unlink('core/cache/'.$file); #Remove file
 			}
 		}
+		return TRUE;
 	}
 	
 	function deleteCache($id)

@@ -1,6 +1,10 @@
 <?php
 if(INCLUDED!==true)exit;
 // ==================== //
+
+// Tell the cache system not to cache this page
+define('CACHE_FILE', FALSE);
+
 $pathway_info[] = array('title'=>$lang['register'],'link'=>'');
 include('core/lib/class.captcha.php');
 

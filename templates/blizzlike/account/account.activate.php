@@ -15,7 +15,7 @@
 					<b>Account Username:</b> <input type="text" size="25" maxlength='50' class="addbutton2" style="font-size:11px;" name="user">					
 				</div>			
 				<div style="background:none; margin:4px; padding:6px 9px 6px 9px; text-align:center; width:80%;">
-					<input type="submit" size="16" class="button" style="font-size:12px;" value="<?php echo $lang['account_activate'] ?>">
+					<input type="submit" size="16" class="button" style="font-size:12px;" value="<?php echo $lang['account_activate']; ?>">
 				</div>
 			</form>	
 		<?php

@@ -4,6 +4,9 @@ if(INCLUDED!==true)exit;
 $pathway_info[] = array('title'=>$lang['activation'],'link'=>'');
 // ==================== //
 
+// Tell the cache system not to cache this page
+define('CACHE_FILE', FALSE);
+
 if(isset($_POST['key']) && isset($_POST['user']))
 {
 	$sub_id = $DB->selectCell("SELECT `id` FROM `account` WHERE `username` LIKE '".$_POST['user']."'");

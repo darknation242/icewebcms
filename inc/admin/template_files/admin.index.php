@@ -56,8 +56,8 @@
 					<!-- ROW 3 -->
 						<tr>
 							<td height="80px" width="130" align="center">
-								<a href="index.php?p=admin&sub=createpage"><img src="inc/admin/images/icons/machine-icon.png" width="48" height="48" border="0" /></a><br />
-								<a href="index.php?p=admin&sub=createpage">Page Creator</a>
+								<a href="index.php?p=admin&sub=cache"><img src="inc/admin/images/icons/cache-icon.png" width="48" height="48" border="0" /></a><br />
+								<a href="index.php?p=admin&sub=cache">Cache Settings</a>
 							</td>
 							<td height="80px" width="130" align="center">
 								<a href="index.php?p=admin&sub=regkeys"><img src="inc/admin/images/icons/keys-icon.png" width="48" height="48" border="0" /></a><br />

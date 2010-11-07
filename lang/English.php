@@ -7,6 +7,7 @@ $lang = array(
 	'account_create' => 'Account Creation',
 	'activation_email_sent' => 'Registration successful. You must now check your email, and activate your account before logging in.',
 	'active_accounts' => ' (%d Active)',
+	'account_activate' => 'Activate Account',
 	'agreeement_detailschange' => 'You agree that you are the owner of this account.',
 	'avatar' => 'Avatar',
 	'bad_register_key' => 'The register key entered is invlaid!',

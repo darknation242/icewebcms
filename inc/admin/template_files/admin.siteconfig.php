@@ -28,7 +28,6 @@
 						<a href="#fp">Frontpage Settings</a> |
 						<br />
 						| <a href="#email">Email Settings</a> |
-						<a href="#cache">Cache Settings</a> |
 					</center>
 				</p>
 			</div>
@@ -558,35 +557,6 @@
 				<label for="Site email_smtp_pass">MTA - SMTP Pass: </label>
 				<input id="Site email_smtp_pass" name="cfg__email_smtp_pass" size="10" type="password" class="medium" value="<?php echo $cfg->get('email_smtp_pass'); ?>" />
 				<p class="field_help">MTA Email type only - SMTP Password.</p>
-			</div>
-			
-			<!-- Cache Settings -->
-			<table>
-				<thead>
-					<tr>
-						<th><center><a name="cache"></a>Cache Settings</center></th>
-					</tr>
-				</thead>
-			</table>
-			<br />
-			
-			<div class="field">
-				<label for="Site Enable Cache">Cache System: </label>
-				<select id="type" class="small" name="cfg__enable_cache">
-					<?php 
-						if($cfg->get('enable_cache') == 1)
-						{ $e_cc = 'selected="selected"'; $e_cc2 = ''; }else{ $e_cc2 = 'selected="selected"'; $e_cc = ''; }
-					?>
-					<option value="1" <?php echo $e_cc; ?>>Enabled</option>
-					<option value="0" <?php echo $e_cc2; ?>>Disabled</option>
-				</select>																											
-				<p class="field_help">Enable cache. Provides faster page loading, and lightens the load off the server.</p>
-			</div>
-			
-			<div class="field">
-				<label for="Site cache_expire_time">Cache Expire Time: </label>
-				<input id="Site cache_expire_time" name="cfg__cache_expire_time" size="10" type="text" class="medium" value="<?php echo $cfg->get('cache_expire_time'); ?>" />
-				<p class="field_help">Time in seconds before each page needs to be re-cached. Default: 30 Min. (1800)</p>
 			</div>
 			
 			<div class="buttonrow-border">								

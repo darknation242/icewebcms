@@ -129,21 +129,7 @@
 					<div class="clear"></div>
 				</div> <!-- .main-content -->	
 			</div> <!-- .content -->
-			<div class="content">
-				<b><center><a href='index.php?p=admin&action=cachereset'>[<font color='red'>Clear Cache</font>]</a></center></b>
-			</div>
 		</div> <!-- #sidebar -->
 		
 		<!-- Start #main -->
-		<div id="main">	
-		<?php 
-			if(isset($_GET['action']))
-			{
-				if($_GET['action'] == 'cachereset')
-				{
-					$Core->clearCache();
-					output_message('success', 'Cache cleared successfully!, Please wait while your redirected... 
-						<meta http-equiv=refresh content="3;url=index.php?p=admin">');
-				}
-			}
-		?>			
+		<div id="main">
