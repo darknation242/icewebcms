@@ -159,7 +159,7 @@ $WDB = new Database(
 	$mangos['db_password'],
 	$mangos['db_name']
 	);
-
+	
 // Free up memory
 unset($mangos);
 $realms = $DB->select("SELECT * FROM realmlist ORDER BY `id` ASC");

@@ -60,7 +60,7 @@ if($cfg->get('enable_cache') == 1 && $Core->isCached($_COOKIE['cur_selected_them
 			if((int)$cfg->get('fp_realmstatus') == 1)
 			{
 				$checkaddress = $data['address'];
-				$server['realm_status'] = (check_port_status($checkaddress, $data['port']) === true) ? true : false;
+				$server['realm_status'] = (check_port_status($checkaddress, $data['port'], 0.5) === true) ? true : false;
 			}
 			$changerealmtoparam = array("changerealm_to" => $realmnow_arr['id']);
 			if($cfg->get('fp_playersonline') == 1)

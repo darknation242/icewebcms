@@ -77,10 +77,13 @@ function get_realm_byid($id)
     return $search_q;
 }
 
-function check_port_status($ip, $port)
+function check_port_status($ip, $port, $timeout)
 {
-
-	$fp1 = fsockopen($ip, $port, $ERROR_NO, $ERROR_STR,1);
+	if(!isset($timeout))
+	{
+		$timeout = 1;
+	}
+	$fp1 = fsockopen($ip, $port, $ERROR_NO, $ERROR_STR, $timeout);
     if($fp1)
 	{
         fclose($fp1);

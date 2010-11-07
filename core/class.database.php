@@ -89,32 +89,52 @@ class Database
 		return mysql_result($sql, 0);
     }
 	
+	// Run a sql file function. Not written by me.
+	// $file is the path location to the sql file
 	function runSQL($file)
 	{
-		$file_content = file($url);
-		foreach($file_content as $sql_line)
+		$handle = @fopen($file, "r");
+		if ($handle) 
 		{
-			if(trim($sql_line) != "" && strpos($sql_line, "--") && strpos ($aquery, "#") === false)
+			while(!feof($handle)) 
 			{
-				foreach ($sql_line as $key => $aquery) 
-				{
-					$aquery = rtrim($aquery);
-					$compare = rtrim($aquery, ";");
-					if ($compare != $aquery) 
-					{
-						$sql_line[$key] = $compare . "|br3ak|";
-					}
-				}
+				$sql_line[] = fgets($handle);
+			}
+			fclose($handle);
+		}
+		else 
+		{
+			return FALSE;
+		}
+		foreach ($sql_line as $key => $query) 
+		{
+			if (trim($query) == "" || strpos ($query, "--") === 0 || strpos ($query, "#") === 0) 
+			{
+				unset($sql_line[$key]);
 			}
 		}
-		unset($key, $aquery);
+		unset($key, $query);
 
-		$sql_line = implode($sql_line);
-		$queries = explode("|br3ak|", $sql_line);
-		
-		foreach($queries as $sql)
+		foreach ($sql_line as $key => $query) 
 		{
-			mysql_query($sql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
+			$query = rtrim($query);
+			$compare = rtrim($query, ";");
+			if ($compare != $query) 
+			{
+				$sql_line[$key] = $compare . "|br3ak|";
+			}
+		}
+		unset($key, $query);
+
+		$sql_lines = implode($sql_line);
+		$sql_line = explode("|br3ak|", $sql_lines);
+		
+		foreach($sql_line as $query)
+		{
+			if($query)
+			{
+				mysql_query($query, $this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
+			}
 		}
 		return TRUE;
 	}
