@@ -3,22 +3,22 @@
 	<h3><?php echo $lang['quicklinks'];?></h3>
 	<ul>
 		<li>
-			<a href="<?php echo mw_url('account', 'manage'); ?>"><?php echo $lang['quicklink2']; ?></a>
+			<a href="<?php echo mw_url('account', 'manage'); ?>"><?php echo $lang['account_manage']; ?></a>
 		</li>
 		<li class="e">
-			<a href="<?php echo mw_url('account', 'register'); ?>"><?php echo $lang['quicklink1']; ?></a>
+			<a href="<?php echo mw_url('account', 'register'); ?>"><?php echo $lang['account_create']; ?></a>
 		</li>
 		<li>
-			<a href="<?php echo mw_url('server', 'realmstatus'); ?>"><?php echo $lang['quicklink3']; ?></a>
+			<a href="<?php echo mw_url('server', 'realmstatus'); ?>"><?php echo $lang['realmstatus']; ?></a>
 		</li>
 		<li class="e">
-			<a href="<?php echo mw_url('server', 'faq'); ?>"><?php echo $lang['quicklink4']; ?></a>
+			<a href="<?php echo mw_url('server', 'faq'); ?>"><?php echo $lang['faq']; ?></a>
 		</li>
 		<li>
 			<a href="<?php echo mw_url('server', 'howtoplay'); ?>"><?php echo $lang['howtoplay']; ?></a>
 		</li>
 		<li class="e">
-			<a href="<?php echo mw_url('server', 'commands'); ?>"><?php echo $lang['quicklink7']; ?></a>
+			<a href="<?php echo mw_url('server', 'commands'); ?>"><?php echo $lang['ingame_commands']; ?></a>
 		</li>
 	</ul>
 </div>
@@ -37,7 +37,7 @@
 				<div>
 					<center>
 						<a href="index.php?p=community&sub=vote"><img src="<?php echo $currtmp; ?>/images/vote.png" width="264" height="247" /></a>
-						<?php echo $lang['vote_desc'];?>
+						<?php echo $lang['fp_vote_desc'];?>
 					</center>
 				</div>
 			</li>
@@ -71,9 +71,9 @@ if ($cfg->get('module_fp_ssotd') == 1)
 	{ ?>
 		<a href="images/screenshots/<?php echo $screen_otd; ?>" target="_blank"><img src="modules/ssotd/show_picture.php?filename=<?php echo $screen_otd; ?>&amp;gallery=screen&amp;width=282" width="282" alt="" style="border: 1px solid #333333"/></a>
 		<select onchange="window.location = options[this.selectedIndex].value" style="width: 284px;">
-			<option value=""><?php echo $lang['galleries']; ?> -&gt;</option>
-			<option value="index.php?p=media&sub=screen"><?php echo $lang['GallScreen']; ?></option>
-			<option value="index.php?p=media&sub=wallp"><?php echo $lang['GallWalp']; ?></option>
+			<option value=""><?php echo $lang['screenshot_galleries']; ?> -&gt;</option>
+			<option value="index.php?p=media&sub=screen"><?php echo $lang['screenshot_gallery']; ?></option>
+			<option value="index.php?p=media&sub=wallp"><?php echo $lang['wallpaper_gallery']; ?></option>
 		</select>
 <?php
 	}
@@ -121,7 +121,7 @@ if(isset($usersonhomepage) || isset($hits))
 			<li>
 				<a href="index.php?p=whoisonline">&nbsp;<?php echo $usersonhomepage;?>&nbsp;</a>
 				<?php 
-					echo ($usersonhomepage == 1) ? $lang['isonline'] : $lang['areonline']; 
+					echo ($usersonhomepage == 1) ? $lang['user_online'] : $lang['users_online']; 
 				?>           
 			</li>
 		<?php 
@@ -132,7 +132,7 @@ if(isset($usersonhomepage) || isset($hits))
 		if(isset($hits))
 		{ ?>
 			<li>
-				<p  style="padding-left:19px; margin-top:-8px"><?php echo $lang['hits']; ?>: <?php echo $hits; ?></p>
+				<p  style="padding-left:19px; margin-top:-8px"><?php echo $lang['website_hits']; ?>: <?php echo $hits; ?></p>
 			</li>
 		<?php 
 		} ?>
@@ -156,26 +156,26 @@ if(isset($servers))
 							<div>&nbsp;</div>
 						</li>
 						<li>
-							<div><?php echo $lang['si_name']; ?>:&nbsp;<b><?php echo $server['name'];?></b></div>
+							<div><?php echo $lang['realm_name']; ?>:&nbsp;<b><?php echo $server['name'];?></b></div>
 						</li>
 					<?php 
 						if(isset($server['realm_status']))
 						{
 					?>
 							<li>
-								<div><?php echo $lang['si_status']; ?>:&nbsp;
+								<div><?php echo $lang['realm_status']; ?>:&nbsp;
 								<?php 
 									if ($server['realm_status'])
 									{ 
 								?>
-										<img src="<?php echo $master_tmp; ?>/images/uparrow2.gif" height="15" alt="Online" /> 
+										<img src="<?php echo $currtmp; ?>/images/icons/uparrow2.gif" height="15" alt="Online" /> 
 										<b style="color: rgb(35, 67, 3);">Online</b>
 								<?php 
 									}
 									else
 									{
 								?>
-										<img src="<?php echo $master_tmp; ?>/images/downarrow2.gif" height="15" alt="Offline" /> 
+										<img src="<?php echo $currtmp; ?>/images/icons/downarrow2.gif" height="15" alt="Offline" /> 
 										<b style="color: rgb(102, 13, 2);">Offline</b>
 								<?php 
 									}?>
@@ -188,7 +188,7 @@ if(isset($servers))
 					?>
 							<li>
 								<div>
-									<?php echo $lang['si_on']; ?>:&nbsp;
+									<?php echo $lang['Online']; ?>:&nbsp;
 									<a href="<?php echo $server['onlineurl'] ?>"><?php echo $server['playersonline']; ?></a>
 								</div>
 							</li>
@@ -200,7 +200,7 @@ if(isset($servers))
 					?>
 							<li>
 								<div>
-									<?php echo $lang['si_ip']; ?>:&nbsp;<b><?php echo $server['server_ip']; ?></b>
+									<?php echo $lang['server_ip']; ?>:&nbsp;<b><?php echo $server['server_ip']; ?></b>
 								</div>
 							</li>
 					<?php 
@@ -210,7 +210,7 @@ if(isset($servers))
 					?>
 							<li>
 								<div>
-									<?php echo $lang['si_type']; ?>:&nbsp;<b><?php echo $server['type'];?></b>
+									<?php echo $lang['Type']; ?>:&nbsp;<b><?php echo $server['type'];?></b>
 								</div>
 							</li>
 					<?php 
@@ -220,7 +220,7 @@ if(isset($servers))
 					?>
 							<li>
 								<div>
-									<?php echo $lang['si_lang']; ?>:&nbsp;<b><?php echo $server['language']; ?></b>
+									<?php echo $lang['Language']; ?>:&nbsp;<b><?php echo $server['language']; ?></b>
 								</div>
 							</li>
 					<?php 
@@ -230,7 +230,7 @@ if(isset($servers))
 					?>
 							<li>
 								<div>
-									<?php echo $lang['si_pop']; ?>:&nbsp;<b><?php echo population_view($server['population']);?></b>
+									<?php echo $lang['Population']; ?>:&nbsp;<b><?php echo population_view($server['population']);?></b>
 								</div>
 							</li>
 					<?php 
@@ -240,10 +240,10 @@ if(isset($servers))
 					?>
 							<li>
 								<div>
-									<?php echo $lang['si_acc']; ?>:&nbsp;<b><?php echo $server['accounts'];
+									<?php echo $lang['Accounts']; ?>:&nbsp;<b><?php echo $server['accounts'];
 									if(isset($server['active_accounts']))
 									{
-										echo sprintf($lang['si_active_acc'], $server['active_accounts']);
+										echo sprintf($lang['active_accounts'], $server['active_accounts']);
 									} ?></b>
 								</div>
 							</li>
@@ -255,7 +255,7 @@ if(isset($servers))
 					?>
 							<li>
 								<div>
-									<?php echo $lang['si_chars']; ?>:&nbsp;<b><?php echo $server['characters'];?></b>
+									<?php echo $lang['Characters']; ?>:&nbsp;<b><?php echo $server['characters'];?></b>
 								</div>
 							</li>
 					<?php 

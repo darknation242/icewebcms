@@ -4,13 +4,34 @@
 		<div class="content-header">
 			<h4><a href="index.php?p=admin">Main Menu</a> / Site Config</h4>
 		</div> <!-- .content-header -->				
-		<div class="main-content">	
-				
-		<?php if(isset($_POST['task'])) {
-			if($_POST['task'] == 'saveconfig') {
+		<div class="main-content">					
+		<?php 
+		if(isset($_POST['task'])) 
+		{
+			if($_POST['task'] == 'saveconfig') 
+			{
 				saveConfig();
 			}
 		} ?>
+			<div class="mini-nav" style="width: 98%;">
+				<table>
+					<thead>
+						<th  style="background: #FFD;"><center>Sub - Navigation</center></th>
+					</thead>
+				</table>
+				<p>
+					<center>
+						| <a href="#basic">Basic Settings</a> |
+						<a href="#config">Site Configuration</a> |
+						<a href="#lang">Language Settings</a> |
+						<a href="#acct">Account & Register Settings</a> |
+						<a href="#fp">Frontpage Settings</a> |
+						<br />
+						| <a href="#email">Email Settings</a> |
+						<a href="#cache">Cache Settings</a> |
+					</center>
+				</p>
+			</div>
 			<form method="POST" action="index.php?p=admin&sub=siteconfig" name="adminform" class="form label-inline">
 			<input type="hidden" name="task" value="saveconfig">
 	
@@ -18,7 +39,7 @@
 			<table>
 				<thead>
 					<tr>
-						<th><center>Basic Site Settings</center></th>
+						<th><center><a name="basic"></a>Basic Site Settings</center></th>
 					</tr>
 				</thead>
 			</table>
@@ -58,7 +79,7 @@
 			<table>
 				<thead>
 					<tr>
-						<th><center>Site Configuration</center></th>
+						<th><center><a name="config"></a>Site Configuration</center></th>
 					</tr>
 				</thead>
 			</table>
@@ -102,7 +123,7 @@
 			<table>
 				<thead>
 					<tr>
-						<th><center>Site Language Configuration</center></th>
+						<th><center><a name="lang"></a>Site Language Configuration</center></th>
 					</tr>
 				</thead>
 			</table>
@@ -125,7 +146,7 @@
 			<table>
 				<thead>
 					<tr>
-						<th><center>Site Registration / Account Configuration</center></th>
+						<th><center><a name="acct"></a>Site Registration / Account Configuration</center></th>
 					</tr>
 				</thead>
 			</table>
@@ -247,7 +268,7 @@
 			<table>
 				<thead>
 					<tr>
-						<th><center>Frontpage Settings</center></th>
+						<th><center><a name="fp"></a>Frontpage Settings</center></th>
 					</tr>
 				</thead>
 			</table>
@@ -465,7 +486,7 @@
 			<table>
 				<thead>
 					<tr>
-						<th><center>Email Settings</center></th>
+						<th><center><a name="email"></a>Email Settings</center></th>
 					</tr>
 				</thead>
 			</table>
@@ -537,6 +558,35 @@
 				<label for="Site email_smtp_pass">MTA - SMTP Pass: </label>
 				<input id="Site email_smtp_pass" name="cfg__email_smtp_pass" size="10" type="password" class="medium" value="<?php echo $cfg->get('email_smtp_pass'); ?>" />
 				<p class="field_help">MTA Email type only - SMTP Password.</p>
+			</div>
+			
+			<!-- Cache Settings -->
+			<table>
+				<thead>
+					<tr>
+						<th><center><a name="cache"></a>Cache Settings</center></th>
+					</tr>
+				</thead>
+			</table>
+			<br />
+			
+			<div class="field">
+				<label for="Site Enable Cache">Cache System: </label>
+				<select id="type" class="small" name="cfg__enable_cache">
+					<?php 
+						if($cfg->get('enable_cache') == 1)
+						{ $e_cc = 'selected="selected"'; $e_cc2 = ''; }else{ $e_cc2 = 'selected="selected"'; $e_cc = ''; }
+					?>
+					<option value="1" <?php echo $e_cc; ?>>Enabled</option>
+					<option value="0" <?php echo $e_cc2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Enable cache. Provides faster page loading, and lightens the load off the server.</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site cache_expire_time">Cache Expire Time: </label>
+				<input id="Site cache_expire_time" name="cfg__cache_expire_time" size="10" type="text" class="medium" value="<?php echo $cfg->get('cache_expire_time'); ?>" />
+				<p class="field_help">Time in seconds before each page needs to be re-cached. Default: 30 Min. (1800)</p>
 			</div>
 			
 			<div class="buttonrow-border">								

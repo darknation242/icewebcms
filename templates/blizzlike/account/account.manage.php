@@ -77,9 +77,16 @@ if($user['id'] > 0 && isset($profile))
 			// CHANGE BASICS
 			elseif($_GET['action'] == 'change')
 			{
-				if(isset($_POST['profile']['avatar']))
+				if(!$profile['avatar'])
 				{
 					uploadAvatar();
+				}
+				if(isset($_POST['deleteavatar']))
+				{
+					if($_POST['deleteavatar'] == 1 && preg_match("/\d+\.\w+/i",$_POST['avatarfile']))
+					{
+						deleteAvatar();
+					}
 				}
 				changeDetails();
 			}
@@ -100,15 +107,6 @@ if($user['id'] > 0 && isset($profile))
 			elseif($_GET['action'] == 'change_gameplay')
 			{
 				changeExp();
-			}
-			
-			// Delete Avatar
-			if(isset($_POST['deleteavatar']))
-			{
-				if($_POST['deleteavatar'] == 1 && preg_match("/\d+\.\w+/i",$_POST['avatarfile']))
-				{
-					deleteAvatar();
-				}
 			}
 		}
 	?>
@@ -144,7 +142,7 @@ if($user['id'] > 0 && isset($profile))
 							<table width = "510" cellspacing = "0" cellpadding = "0" border = "0">
 							<tr>
 								<td>
-									<span><?php echo add_pictureletter("$lang[accountmanange_intro]"); ?></span>
+									<span><?php echo add_pictureletter("$lang[account_manange_intro]"); ?></span>
 								</td>
 							</tr>
 							</table>
@@ -218,9 +216,9 @@ if($user['id'] > 0 && isset($profile))
 											<tr>
 												<td>
 													<select name="profile[gender]">
-														<option value="0"<?php if($profile['gender']==0)echo' selected';?>><?php echo $lang['notselected'];?> </option>
-														<option value="1"<?php if($profile['gender']==1)echo' selected';?>><?php echo $lang['male'];?> </option>
-														<option value="2"<?php if($profile['gender']==2)echo' selected';?>><?php echo $lang['female'];?> </option>
+														<option value="0"<?php if($profile['gender']==0)echo' selected';?>><?php echo $lang['not_selected'];?> </option>
+														<option value="1"<?php if($profile['gender']==1)echo' selected';?>>Male</option>
+														<option value="2"<?php if($profile['gender']==2)echo' selected';?>>Female</option>
 													</select>
 												</td>
 												<td valign = "top"></td>
@@ -248,7 +246,7 @@ if($user['id'] > 0 && isset($profile))
 									<!-- MSN -->
 									<tr>
 										<td align=right>
-											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['msn'];?>:</b></span></font>
+											<font face="arial,helvetica" size=-1><span><b>MSN:</b></span></font>
 										</td>
 										<td align=left>
 											<table border='0' cellspacing='0' cellpadding='0'>
@@ -264,7 +262,7 @@ if($user['id'] > 0 && isset($profile))
 									<!-- FROM -->
 									<tr>
 										<td align=right>
-											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['wherefrom'];?>
+											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['location'];?>
 											<br />
 											</b></span></font>
 										</td>
@@ -295,7 +293,7 @@ if($user['id'] > 0 && isset($profile))
 													<td>
 														<img src="images/avatars/<?php echo $profile['avatar'];?>" style="margin:1px;"> <br/>
 														<input type="hidden" name="avatarfile" value="<?php echo $profile['avatar'];?>">
-														<b><?php echo $lang['delavatar'];?></b>
+														<b><?php echo $lang['delete_avatar'];?></b>
 														<input type="checkbox" size="36" name="deleteavatar" style="margin:1px;" value="1">
 													</td>
 													<td valign = "top"></td>
@@ -311,7 +309,7 @@ if($user['id'] > 0 && isset($profile))
 											<td align=right>
 												<font face="arial,helvetica" size=-1><span><b><?php echo $lang['avatar'];?>
 												<img src="<?php echo $currtmp; ?>/images/icons/warning.gif" width="15" height="15"
-												onmouseover="ddrivetip('<?php echo $lang['maxavatarsize'];?>: <?php echo (int)$cfg->get('max_avatar_file_size');?> bytes, <?php echo $lang['maxavatarres'];?> <?php echo (string)$cfg->get('max_avatar_size');?> px.<br/>','#ffffff')";
+												onmouseover="ddrivetip('<?php echo $lang['max_avatar_size'];?>: <?php echo (int)$cfg->get('max_avatar_file_size');?> bytes, <?php echo $lang['max_avatar_res'];?> <?php echo (string)$cfg->get('max_avatar_size');?> px.<br/>','#ffffff')";
 												onmouseout="hideddrivetip()">
 												<br />
 												</b></span></font>
@@ -377,13 +375,13 @@ if($user['id'] > 0 && isset($profile))
 	<table width = "510" cellspacing = "0" cellpadding = "0" border = "0">
 		<tr>
 			<td>
-				<span><?php echo add_pictureletter($lang['accountmanage_important']); ?></span>
+				<span><?php echo add_pictureletter($lang['password_email_settings']); ?></span>
 			</td>
 		</tr>
 	</table>
 	</center>
 	<br />
-	<?php write_subheader($lang['other_info']); ?>
+	<?php write_subheader($lang['Other_Info']); ?>
 	<table width = "520" style = "border-width: 1px; border-style: dotted; border-color: #928058;">
 		<tr>
 			<td>
@@ -397,7 +395,7 @@ if($user['id'] > 0 && isset($profile))
 								<tr>
 									<form method="post" action="index.php?p=account&sub=manage&action=changepass">
 									<td align=right valign = "top">
-										<font face="arial,helvetica" size=-1><span><b><?php if (isset($lang['newpass']))echo $lang['newpass'];?></b></span></font>
+										<font face="arial,helvetica" size=-1><span><b><?php echo $lang['newpass']; ?></b></span></font>
 									</td>
 									<td align=left>
 										<table border=0 cellspacing=0 cellpadding=0>
@@ -420,13 +418,13 @@ if($user['id'] > 0 && isset($profile))
 								<tr>
 									<form method="post" action="index.php?p=account&sub=manage&action=changeemail">
 									<td align=right valign = "top">
-										<font face="arial,helvetica" size=-1><span><b><?php if (isset($lang['newemail']))echo $lang['newemail'];?></b></span></font>
+										<font face="arial,helvetica" size=-1><span><b><?php echo $lang['newemail'];?></b></span></font>
 									</td>
 									<td align=left><table border=0 cellspacing=0 cellpadding=0>
 										<tr>
 											<td>
 												<input type='text' name='new_email' size='36' value='&nbsp;&nbsp;<?php echo $profile['email'];?>'>
-												<input type="submit" value="<?php echo $lang['change_email_button'] ?>" class="button" style="font-size:11px;"><span></span>
+												<input type="submit" value="<?php echo $lang['change_email'] ?>" class="button" style="font-size:11px;"><span></span>
 											</td>
 											<td valign = "top"></td>
 										</tr>
@@ -469,11 +467,11 @@ if($user['id'] > 0 && isset($profile))
 												<?php
 												if ($profile['secret_q1'] == '')
 												{
-													echo '<span style="color: red">'.$lang['not_have_secretq'].'</span>';
+													echo '<span style="color: red">'.$lang['secretq_not_set'].'</span>';
 												}
 												else
 												{
-													echo '<span style="color: green">'.$lang['have_secretq'].'</span>';
+													echo '<span style="color: green">'.$lang['secretq_set'].'</span>';
 												} ?>
 											</td>
 											<td valign = "top"></td>

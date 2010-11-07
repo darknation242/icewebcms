@@ -1,0 +1,29 @@
+[07-Nov-2010 08:04:54] PHP Notice:  Undefined index: newcomers2 in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\body_right.php on line 97
+[07-Nov-2010 08:04:54] PHP Notice:  Undefined index: pagegenerated in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\body_footer.php on line 53
+[07-Nov-2010 09:26:00] PHP Notice:  Undefined index: avatar in C:\xampp\htdocs\MangosWebv3\inc\account\account.manage.php on line 77
+[07-Nov-2010 09:26:25] PHP Notice:  Undefined index: avatar in C:\xampp\htdocs\MangosWebv3\inc\account\account.manage.php on line 77
+[07-Nov-2010 09:30:09] PHP Notice:  Undefined index: avatar in C:\xampp\htdocs\MangosWebv3\inc\account\account.manage.php on line 81
+[07-Nov-2010 09:47:23] PHP Notice:  Undefined index: login in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.login.php on line 2
+[07-Nov-2010 09:47:23] PHP Notice:  Undefined index: now_logged_in in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.login.php on line 22
+[07-Nov-2010 09:47:23] PHP Warning:  include(templates/blizzlike/frontpage/frontpage.login.php): failed to open stream: No such file or directory in C:\xampp\htdocs\MangosWebv3\index.php on line 285
+[07-Nov-2010 09:47:23] PHP Warning:  include(): Failed opening 'templates/blizzlike/frontpage/frontpage.login.php' for inclusion (include_path='.;C:\xampp\php\PEAR') in C:\xampp\htdocs\MangosWebv3\index.php on line 285
+[07-Nov-2010 09:48:08] PHP Notice:  Undefined index: login in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.login.php on line 2
+[07-Nov-2010 09:48:08] PHP Notice:  Undefined index: pass in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.login.php on line 13
+[07-Nov-2010 09:48:08] PHP Notice:  Undefined index: login in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.login.php on line 16
+[07-Nov-2010 09:48:22] PHP Notice:  Undefined index: login in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.login.php on line 2
+[07-Nov-2010 09:48:22] PHP Notice:  Undefined index: now_logged_in in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.login.php on line 22
+[07-Nov-2010 09:48:22] PHP Notice:  Undefined index: login in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.login.php on line 2
+[07-Nov-2010 09:48:22] PHP Notice:  Undefined index: pass in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.login.php on line 13
+[07-Nov-2010 09:48:22] PHP Notice:  Undefined index: login in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.login.php on line 16
+[07-Nov-2010 09:48:44] PHP Notice:  Undefined index: login in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.login.php on line 2
+[07-Nov-2010 09:48:44] PHP Notice:  Undefined index: pass in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.login.php on line 13
+[07-Nov-2010 09:48:44] PHP Notice:  Undefined index: login in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.login.php on line 16
+[07-Nov-2010 09:49:00] PHP Notice:  Undefined index: login in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.login.php on line 2
+[07-Nov-2010 09:49:00] PHP Notice:  Undefined index: pass in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.login.php on line 13
+[07-Nov-2010 09:49:00] PHP Notice:  Undefined index: login in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\account\account.login.php on line 16
+[07-Nov-2010 09:49:16] PHP Notice:  Undefined variable: DB in C:\xampp\htdocs\MangosWebv3\inc\account\account.manage.php on line 153
+[07-Nov-2010 09:49:16] PHP Fatal error:  Call to a member function query() on a non-object in C:\xampp\htdocs\MangosWebv3\inc\account\account.manage.php on line 153
+[07-Nov-2010 10:39:58] PHP Notice:  Undefined index: low in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\body_functions.php on line 14
+[07-Nov-2010 10:39:58] PHP Notice:  Undefined index: low in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\body_functions.php on line 14
+[07-Nov-2010 10:55:38] PHP Notice:  Undefined index: page in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\server\server.commands.php on line 6
+[07-Nov-2010 10:55:38] PHP Notice:  Undefined index: page in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\server\server.commands.php on line 21

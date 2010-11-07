@@ -42,7 +42,11 @@
 				</div>
 				<?php 
 				}
-			} ?>
+			}
+			else
+			{
+				echo "<b style='color: rgb(35, 67, 3);'>No FAQ in the database!</b>";
+			}?>
 		</td>
 	</tr>
 </table>

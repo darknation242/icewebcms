@@ -63,8 +63,9 @@ if($cfg->get('enable_cache') == 1 && $Core->isCached($_COOKIE['cur_selected_them
 				$server['realm_status'] = (check_port_status($checkaddress, $data['port']) === true) ? true : false;
 			}
 			$changerealmtoparam = array("changerealm_to" => $realmnow_arr['id']);
-			if($cfg->get('fp_playersonline') == 1){
-				$server['playersonline'] = $CHDB_EXTRA->selectCell("SELECT count(1) FROM `characters` WHERE online=1");
+			if($cfg->get('fp_playersonline') == 1)
+			{
+				$server['playersonline'] = $CHDB_EXTRA->count("SELECT count(*) FROM `characters` WHERE online=1");
 				$server['onlineurl'] = mw_url('server', 'playersonline', $changerealmtoparam);
 			}
 			if($cfg->get('fp_serverip') == 1)
@@ -81,19 +82,19 @@ if($cfg->get('enable_cache') == 1 && $Core->isCached($_COOKIE['cur_selected_them
 			}
 			if($cfg->get('fp_serverpop') == 1)
 			{
-				$server['population'] = $CHDB_EXTRA->selectCell("SELECT count(1) FROM `characters` WHERE online=1");
+				$server['population'] = $CHDB_EXTRA->count("SELECT count(*) FROM `characters` WHERE online=1");
 			}
 			if($cfg->get('fp_serveract') == 1)
 			{
-				$server['accounts'] = $DB->selectCell("SELECT count(*) FROM `account`");
+				$server['accounts'] = $DB->count("SELECT count(*) FROM `account`");
 			}
 			if($cfg->get('fp_serveractive_act') == 1)
 			{
-				$server['active_accounts'] = $DB->selectCell("SELECT count(1) FROM `account` WHERE `last_login` > ?", date("Y-m-d", strtotime("-2 week")) . " 00:00:00");
+				$server['active_accounts'] = $DB->count("SELECT count(*) FROM `account` WHERE `last_login` > ". date("Y-m-d", strtotime("-2 week")));
 			}
 			if($cfg->get('fp_serverchars') == 1)
 			{
-				$server['characters'] = $CHDB_EXTRA->selectCell("SELECT count(1) FROM `characters`");
+				$server['characters'] = $CHDB_EXTRA->count("SELECT count(*) FROM `characters`");
 			}
 			unset($CHDB_EXTRA, $data); // Free up memory.
 

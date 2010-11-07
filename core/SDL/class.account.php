@@ -566,10 +566,17 @@ class Account
     {
         $id = mysql_real_escape_string($id);
         $newpass = mysql_real_escape_string($newpass);
-        $row = $this->DB->selectRow("SELECT `username` FROM `account` WHERE `id`='$id' LIMIT 1");
-        $pass_hash = $this->sha_password($row['username'], $newpass);
-        $this->DB->query("UPDATE `account` SET `sha_pass_hash`='$pass_hash', `v`= 0, `s`= 0 WHERE `id`='$id' LIMIT 1");
-        return TRUE;
+        $username = $this->DB->selectCell("SELECT `username` FROM `account` WHERE `id`='$id' LIMIT 1");
+		if($username != FALSE)
+		{
+			$pass_hash = $this->sha_password($username, $newpass);
+			$this->DB->query("UPDATE `account` SET `sha_pass_hash`='$pass_hash', `sessionkey`= NULL, `v`= '0', `s`= '0' WHERE `id`='$id' LIMIT 1");
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
     }
 	
 	// Sets the secret questions and answers for an account.
@@ -584,12 +591,12 @@ class Account
 		// Check for symbols
 		if(check_for_symbols($sa1) == FALSE && check_for_symbols($sa2) == FALSE && $sq1 != '0' && $sq2!= '0')
 		{
-			if(strlen($sa1) > 4 && strlen($sa2) > 4)
+			if(strlen($sa1) >= 4 && strlen($sa2) >= 4)
 			{
 				if($sa1 != $sa2 && $sq1 != $sq2)
 				{
-					$this->DB->query("UPDATE mw_account_extend SET secret_q1='$sq1', secret_q2='$sq2', secret_a1='$sa1', secret_a2='$sa2' WHERE account_id='$id'");
-					return TRUE;
+					$this->DB->query("UPDATE `mw_account_extend` SET `secret_q1`='$sq1', `secret_q2`='$sq2', `secret_a1`='$sa1', `secret_a2`='$sa2' WHERE `account_id`='$id'");
+					return 1; // 1 = Set
 				}
 				else
 				{
@@ -605,6 +612,12 @@ class Account
 		{
 			return 4; // Answers contained symbols
 		}
+	}
+	
+	function resetSecretQuestions($id)
+	{
+		$this->DB->query("UPDATE mw_account_extend SET secret_q1=NULL, secret_q2=NULL, secret_a1=NULL, secret_a2=NULL WHERE account_id='".$id."'");
+		return TRUE;
 	}
 	
 	function deleteAvatar($id, $file)

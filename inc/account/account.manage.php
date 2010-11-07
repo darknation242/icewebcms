@@ -1,13 +1,13 @@
 <?php
 if(INCLUDED!==true)exit;
 // ==================== //
-$pathway_info[] = array('title'=>$lang['title_acct_manage'],'link'=>'');
+$pathway_info[] = array('title'=>$lang['account_manage'],'link'=>'');
 // ==================== //
 
 // check if the user is logged in. if not, redirect
 if($user['id'] <= 0)
 {
-    redirect('index.php?n=account&sub=login',1);
+    redirect('index.php?p=account&sub=login',1);
 }
 
 // First we need to load the users profile
@@ -39,12 +39,12 @@ function changeemail()
 		}
 		else
 		{
-			output_message('validation','<b>'.$lang['reg_email_used'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
+			output_message('validation','<b>'.$lang['register_email_used'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
 		}
 	}
 	else
 	{
-		output_message('validation','<b>'.$lang['bad_email'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
+		output_message('validation','<b>'.$lang['invalid_email'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
 	}
 }
 
@@ -87,7 +87,7 @@ function uploadAvatar()
 					$max_avatar_size = explode('x',(string)$cfg->get('max_avatar_size'));
 					if($width <= $max_avatar_size[0] || $height <= $max_avatar_size[1])
 					{
-						$DB->query("UPDATE mw_account_extend SET avatar='".$user['id'].'.'.$ext."' WHERE account_id=?d LIMIT 1",$user['id']);
+						$DB->query("UPDATE mw_account_extend SET avatar='".$user['id'].'.'.$ext."' WHERE account_id='".$user['id']."' LIMIT 1");
 					}
 					else
 					{
@@ -128,30 +128,33 @@ function changeSQ()
 {
 	global $user, $lang, $DB, $Account;
 	$change = $Account->setSecretQuestions($user['id'], $_POST['secretq1'], $_POST['secreta1'], $_POST['secretq2'], $_POST['secreta2']);
-	if($change == TRUE)
+	if($change == 1)
 	{
 		output_message('success','<b>'.$lang['changed_secretq'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
 	}
 	elseif($change == 2)
 	{
-		output_message('error','<b>Secret answers or secret questions cannot be the same!</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
+		output_message('error','<b>'.$lang['secretq_error_same'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
 	}
 	elseif($change == 3)
 	{
-		output_message('error','<b>Secret answers must be at least 4 letters long!</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
+		output_message('error','<b>'.$lang['secretq_error_short'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
 	}
 	else
 	{
-		output_message('error','<b>Secret answers cannot contain symbols!</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
+		output_message('error','<b>'.$lang['secretq_error_symbols'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
 	}
 }
 
 // Reset secret questions
 function resetSQ()
 {
-	global $user, $lang;
-	$DB->query("UPDATE mw_account_extend SET secretq1='0',secretq2='0',secreta1='0',secreta2='0' WHERE account_id=?d", $user['id']);
-	output_message('success','<b>'.$lang['reset_secretq_success'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
+	global $user, $lang, $Account;
+	if($Account->resetSecretQuestions($user['id']) == TRUE)
+	{
+		output_message('success','<b>'.$lang['reset_secretq_success'].' Please wait while you are redirected...
+			</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
+	}
 }
 
 // Expansion Changer. Buffer function for the SDL
@@ -162,21 +165,21 @@ function changeExp()
 	{
 		if($Account->setExpansion($user['id'], 2) == TRUE)
 		{
-			output_message('success','<b>'.$lang['exp_set'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
+			output_message('success','<b>'.$lang['expansion_set'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
 		}
 	}
 	elseif($_POST['switch_wow_type']=='tbc')
 	{
 		if($Account->setExpansion($user['id'], 1) == TRUE)
 		{
-			output_message('success','<b>'.$lang['exp_set'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
+			output_message('success','<b>'.$lang['expansion_set'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
 		}
 	}
 	elseif($_POST['switch_wow_type']=='classic')
 	{
 		if($Account->setExpansion($user['id'], 0) == TRUE)
 		{
-			output_message('success','<b>'.$lang['exp_set'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
+			output_message('success','<b>'.$lang['expansion_set'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
 		}
 	}
 }
@@ -195,6 +198,6 @@ function changeDetails()
 		`location` = '".$_POST['profile']['location']."',
 		`signature` = '".$_POST['profile']['signature']."'
 	WHERE `account_id` = '".$user['id']."'");
-	output_message('success', 'Account Information Updated!<meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
+	output_message('success', $lang['account_update_success'].'<meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
 }
 ?>

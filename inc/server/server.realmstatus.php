@@ -6,8 +6,11 @@ if(INCLUDED!==true) {
 //=======================//
 
 // ==================== //
-$pathway_info[] = array('title'=>$lang['realms_status'],'link'=>'');
+$pathway_info[] = array('title'=>$lang['realmstatus'],'link'=>'');
 // ==================== //
+
+// Define we want this page to be cached
+define("CACHE_FILE", FALSE);
 
 $items = array();
 $items = $DB->select("SELECT * FROM `realmlist` ORDER BY `name`");
@@ -101,7 +104,7 @@ function print_time($time_array)
 	if($time_array['d'] > 0) 
 	{
 		echo $time_array['d'];
-		echo $lang['rs_days'];
+		echo "Days";
 		$count++;
 	}
 	if($time_array['h'] > 0) 
@@ -111,7 +114,7 @@ function print_time($time_array)
 			echo ',';
 		}
 		echo $time_array['h'];
-		echo $lang['rs_hours'];
+		echo "h";
 		$count++;
 	}
 	if($time_array['m'] > 0) 
@@ -121,7 +124,7 @@ function print_time($time_array)
 			echo ',';
 		}
 		echo $time_array['m'];
-		echo $lang['rs_minutes'];
+		echo "m";
 		$count++;
 	}
 	if($time_array['s'] > 0) 
@@ -131,7 +134,7 @@ function print_time($time_array)
 			echo ',';
 		}
 		echo $time_array['s'];
-		echo $lang['rs_seconds'];
+		echo "s";
 	}
 }
 ?>

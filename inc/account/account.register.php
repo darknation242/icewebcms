@@ -31,7 +31,7 @@ $allow_reg = TRUE;
 
 // Init the error array
 $err_array = array();
-$err_array[0] = $lang['ref_fail'];
+$err_array[0] = $lang['register_fail'];
 
 // If users are limited to how many accounts per IP, we find out how many this IP has.
 if($cfg->get('max_act_per_ip') > 0)
@@ -39,9 +39,8 @@ if($cfg->get('max_act_per_ip') > 0)
 	$count_ip = $DB->count("SELECT COUNT(*) FROM mw_account_extend WHERE registration_ip='".$_SERVER['REMOTE_ADDR']."'");
 	if($count_ip >= (int)$cfg->get('max_act_per_ip'))
 	{
-		output_message('alert',$lang['reg_acclimit']);
+		output_message('alert',$lang['register_acct_limit']);
 		$allow_reg = false;
-		$err_array[] = "You are not allowed to create any more accounts. If you feel this is in error, please contact the administrator.";
 		$err_array[] = "If you are registering through a shared connection, it is advised that you use a private connection for registration.";
 	}
 }
@@ -50,7 +49,7 @@ if($cfg->get('max_act_per_ip') > 0)
 // When finished registering, this is the function
 function finalize()
 {
-	global $DB, $cfg, $allow_reg, $Account;
+	global $DB, $cfg, $allow_reg, $Account, $lang;
 	
 	// Check to see if we still are allowed to register
 	if($allow_reg == TRUE)
@@ -71,7 +70,7 @@ function finalize()
 			if (strtolower($correctkey) != strtolower($image_key) || $image_key == '')
 			{
 				$notreturn = TRUE;
-				$err_array[] = "Inputted text for Image Verification was incorrect.";
+				$err_array[] = $lang['image_var_incorrect'];
 			}
 		}
 
@@ -83,28 +82,28 @@ function finalize()
 				if(check_for_symbols($_POST['secreta1']) || check_for_symbols($_POST['secreta2']))
 				{
 					$notreturn = TRUE;
-					$err_array[] = "Answers to Secret Questions contain unallowed symbols.";
+					$err_array[] = $lang['secretq_error_symbols'];
 				}
 				if($_POST['secretq1'] == $_POST['secretq2']) 
 				{
 					$notreturn = TRUE;
-					$err_array[] = "Secret Questions cannot be the same.";
+					$err_array[] = $lang['secretq_error_same'];
 				}
 				if($_POST['secreta1'] == $_POST['secreta2']) 
 				{
 					$notreturn = TRUE;
-					$err_array[] = "Answers to Secret Questions cannot be the same.";
+					$err_array[] = $lang['secretq_error_same'];
 				}
 				if(strlen($_POST['secreta1']) < 4 || strlen($_POST['secreta2']) < 4) 
 				{
 					$notreturn = TRUE;
-					$err_array[] = "Answers to Secret Questions must be at least 4 characters in length.";
+					$err_array[] = $lang['secretq_error_short'];
 				}
 			}
 			else 
 			{
 				$notreturn = TRUE;
-				$err_array[] = "User didn't type any answers to the secret questions.";
+				$err_array[] = $lang['secretq_error_empty'];
 			}
 		}
 
@@ -112,7 +111,7 @@ function finalize()
 		if($_POST['r_login'] == $_POST['r_pass']) 
 		{
 			$notreturn = TRUE;
-			$err_array[] = "Password cannot be the same as username.";
+			$err_array[] = $lang['user_pass_same'];
 		}
 
 		// Main add into the database
@@ -154,7 +153,7 @@ function finalize()
 		{
 			if(!$err_array[1]) 
 			{
-				$err_array[1] = $lang['ref_fail'].": Unknown Reason";
+				$err_array[1] = $lang['register_fail'].": Unknown Reason";
 			}
 			$output_error = implode("<br>\n",$err_array);
 			output_message('error',$output_error);

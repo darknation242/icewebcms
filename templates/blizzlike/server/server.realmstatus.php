@@ -13,7 +13,7 @@
 	$down = '<img src="'.$currtmp.'/images/icons/downarrow2.gif" style="vertical-align: bottom;" height="19" width="18" alt=""/> <b style="color: rgb(102, 13, 2);">' . $lang['down'] . '</b>';
 
 	$realmstatusforum = '<a href="'.$cfg->get('site_forums').'">' . $lang['realm_status_forum'] . '</a>';
-	$desc = $lang['realmstatus_desc'];
+	$desc = $lang['realm_status_desc'];
 	$desc = str_replace('[up]', $up, $desc);
 	$desc = str_replace('[down]', $down, $desc);
 	$desc = str_replace('[realm_status_forum]', $realmstatusforum, $desc);
@@ -31,8 +31,8 @@
             <td class="rankingHeader" align="left" nowrap="nowrap" width="53"><div align="center"><?php echo $lang['status'];?></div></td>
             <td align="left" nowrap="nowrap" class="rankingHeader"><div align="center"><?php echo $lang['uptime'];?></div></td>
             <td align="left" nowrap="nowrap" class="rankingHeader"><?php echo $lang['realm_name'];?></td>
-            <td class="rankingHeader" align="center" nowrap="nowrap" width="120"><?php echo $lang['si_type'];?></td>
-            <td class="rankingHeader" align="center" nowrap="nowrap" width="120"><?php echo $lang['si_pop'];?></td>
+            <td class="rankingHeader" align="center" nowrap="nowrap" width="120"><?php echo $lang['Type'];?></td>
+            <td class="rankingHeader" align="center" nowrap="nowrap" width="120"><?php echo $lang['Population'];?></td>
         </tr>
         <tr>
             <td colspan="6" style="background: url('<?php echo $currtmp; ?>/images/shadow.gif');">

@@ -128,7 +128,7 @@
 	</div>
 	<div class="news-archive-link" <?php if ($banner==1) echo 'style="position: relative;"';?>>
 		<div class="news-archive-button">
-			<a href="<?php echo $cfg->get('site_forums'); ?>"><span><?php echo $lang['news_archives'];?></span></a>
+			<a href="<?php echo $cfg->get('site_forums'); ?>"><span><?php echo $lang['view_news_archives'];?></span></a>
 		</div>
 	</div>
 	<div>
@@ -141,7 +141,7 @@
 			</div>
 			<div class="phatlootbox-wrapper">
 				<div style="background: url(<?php echo $currtmp; ?>/images/phatlootbox-top-parchment.jpg) repeat-y top right; height: 7px; width: 456px; margin-left: 6px; font-size: 1px;"></div>
-				<div class="community-cnt"><font size="-1"><?php echo $lang['comm_header1'];?></font>
+				<div class="community-cnt"><font size="-1"><?php echo $lang['community_header1'];?></font>
 					<br /><br />
 					<font size="-1">
 					<center>
@@ -155,7 +155,7 @@
 							<img src="<?php echo $currtmp; ?>/images/wowwiki.png" width="152" height="35" /></a><a href="http://www.wowhead.com/">
 						</a>
 					</center>
-					<br /><?php echo $lang['comm_header2'];?>
+					<br /><?php echo $lang['community_header2'];?>
 					</font>
 				</div>
 				<div class="phatlootbox-bottom"></div>

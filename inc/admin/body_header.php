@@ -106,8 +106,8 @@
 	<div id="nav" class="clearfix">		
 		<ul>
 			<li>
-				<center><a href="index.php?p=admin">Admin Home</a> | <a href="index.php">Site Index</a></center>		
-			</li>					
+				<center><a href="index.php?p=admin">Admin Home</a> | <a href="index.php">Site Index</a></center>
+			</li>
 		</ul>		
 	</div> <!-- #nav -->
 	
@@ -128,8 +128,22 @@
 					</p>						
 					<div class="clear"></div>
 				</div> <!-- .main-content -->	
-			</div> <!-- .content -->		
+			</div> <!-- .content -->
+			<div class="content">
+				<b><center><a href='index.php?p=admin&action=cachereset'>[<font color='red'>Clear Cache</font>]</a></center></b>
+			</div>
 		</div> <!-- #sidebar -->
 		
 		<!-- Start #main -->
-		<div id="main">		
+		<div id="main">	
+		<?php 
+			if(isset($_GET['action']))
+			{
+				if($_GET['action'] == 'cachereset')
+				{
+					$Core->clearCache();
+					output_message('success', 'Cache cleared successfully!, Please wait while your redirected... 
+						<meta http-equiv=refresh content="3;url=index.php?p=admin">');
+				}
+			}
+		?>			

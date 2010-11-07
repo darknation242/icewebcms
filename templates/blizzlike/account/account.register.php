@@ -12,11 +12,11 @@ else
 		{
 			if((int)$cfg->get('require_act_activation'))
 			{
-				output_message('success', $lang['email_sent_act']);
+				output_message('success', $lang['activation_email_sent']);
 			}
 			else
 			{
-				output_message('success', $lang['reg_succ'].'<meta http-equiv=refresh content="5;url=index.php?p=account&sub=login">');
+				output_message('success', $lang['register_success'].'<meta http-equiv=refresh content="5;url=index.php?p=account&sub=login">');
 			}
 		}
 	}
@@ -59,11 +59,11 @@ else
 						<input type="text" id="r_login" name="r_login" size="40" maxlength="16"/>
 						<p id="t_login" style="display:none;" class="wm"></p>
 
-						<label for="r_pass"><?php echo $lang['pass'];?>:</label>
+						<label for="r_pass"><?php echo $lang['password'];?>:</label>
 						<input type="password" id="r_pass" name="r_pass" size="40" maxlength="16"/>
 						<p id="t_pass" style="display:none;" class="wm"></p>
 
-						<label for="r_cpass"><?php echo $lang['cpass'];?>:</label>
+						<label for="r_cpass"><?php echo $lang['confirm_password'];?>:</label>
 						<input type="password" id="r_cpass" name="r_cpass" size="40" maxlength="16"/>
 						<p id="t_cpass" style="display:none;" class="wm"></p>
 
@@ -127,10 +127,10 @@ else
 					<?php 
 						} ?>
 
-						<label for="r_account_type"><?php echo $lang['exp_select']; ?>:</label>
+						<label for="r_account_type"><?php echo $lang['select_expansion']; ?>:</label>
 						<select id="r_account_type" name="r_account_type">
-							<option selected="selected" value="2"><?php echo $lang['wotlk'];?></option>
-							<option value="1"><?php echo $lang['tbc'];?></option>
+							<option selected="selected" value="2"><?php echo $lang['wrath'];?></option>
+							<option value="1"><?php echo $lang['burning_crusade'];?></option>
 							<option value="0"><?php echo $lang['classic'];?></option>
 						</select><br /><br />
 
@@ -187,7 +187,7 @@ else
 		{
 			if($Account->isValidRegkey($_POST['r_key']) !== TRUE)
 			{
-				output_message('validation',$lang['bad_reg_key']);
+				output_message('validation',$lang['bad_register_key']);
 				$allow_reg = false;
 				$err_array[] = "Your registration key was invalid. Please check it for typos.";
 			}
@@ -220,11 +220,11 @@ else
 			<form method="post" action="index.php?p=account&amp;sub=register">
 				<input type="hidden" name="step" value="1"/>
 				<div style="margin:4px;padding:6px 9px 6px 9px;text-align:left;">
-					<b><?php echo $lang['reg_key'];?>:</b> 
+					<b><?php echo $lang['register_key'];?>:</b> 
 					<input type="text" name="r_key" size="45" maxlength="50"/>
 				</div>
 				<div style="background:none;margin:4px;padding:6px 9px 0px 9px;text-align:left;">
-					<input type="submit" class="button" value="<?php echo $lang['next'];?>"/>
+					<input type="submit" class="button" value="Next"/>
 				</div>
 			</form>
 	<?php

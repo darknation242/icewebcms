@@ -10,7 +10,7 @@ if($user['id']<=0){
           <b><?php echo $lang['username'] ?></b> <input type="text" size="26" style="font-size:11px;" name="login">
         </div>
         <div style="border:background:none;margin:1px;padding:6px 9px 6px 9px;text-align:center;width:70%;">
-          <b><?php echo $lang['pass'] ?></b> <input type="password" size="26" style="font-size:11px;" name="pass">
+          <b><?php echo $lang['password'] ?></b> <input type="password" size="26" style="font-size:11px;" name="pass">
         </div>
         <div style="background:none;margin:1px;padding:6px 9px 0px 9px;text-align:center;width:70%;">
           <input type="submit" size="16" class="button" style="font-size:12px;" value="<?php echo $lang['login'] ?>">
