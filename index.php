@@ -177,6 +177,12 @@ $currtmp = $Template['path'];
 $master_tmp = $Template['script'];
 unset($tmpl);
 
+// first time page loaders cant load the cookie just set
+// therefor we need to clearify so theres no errors
+if(!isset($_COOKIE['cur_selected_theme']))
+{
+	$_COOKIE['cur_selected_theme'] = $Template['number'];
+}
 
 // === Start of page loading === //
 

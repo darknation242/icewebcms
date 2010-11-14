@@ -14,7 +14,7 @@ $hl = '';
 
 if ($cfg->get('fp_hitcounter') == 1)
 {
-    $count_my_page = "templates/offlike/hitcounter.txt";
+    $count_my_page = "templates/".$master_tmp."/hitcounter.txt";
     $hits = (int)file_get_contents($count_my_page);
     $hits++;
     file_put_contents($count_my_page, $hits);

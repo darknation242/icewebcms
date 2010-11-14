@@ -29,6 +29,7 @@ class Template
 				
 				$this->slave_tmpl = "templates/".$tmple;
 				$this->path = "templates/".$tmple."/template.xml";
+				$this->template_number = 0;
 				return $this->return_template_info();
 			}
 			elseif(isset($_COOKIE['cur_selected_theme'])) // If a cookie is set
@@ -39,10 +40,13 @@ class Template
 					$currtmp2[] = $template ;
 				}
 				$tmple = $currtmp2[$ct];
+				$this->template_number = $ct;
 				
+				// If template is no longer available
 				if(!$tmple) 
 				{ 
-					$tmple = $currtmp2['0']; 
+					$tmple = $currtmp2['0'];
+					$this->template_number = 0;
 				}
 			}
 			else
@@ -53,6 +57,7 @@ class Template
 					$currtmp2[] = $template ;
 				}
 				$tmple = $currtmp2['0'] ;
+				$this->template_number = 0;
 			}
 			$this->slave_tmpl = "templates/".$tmple;
 			$this->path = "templates/".$tmple."/template.xml";
@@ -69,11 +74,13 @@ class Template
 				}
 				$asd = $_GET['theme'];
 				$tmple = $currtmp2[$asd];
+				$this->template_number = $asd;
 				
 				// If template doesnt exist anymore, then we must load the default one
 				if(!$tmple) 
 				{ 
-					$tmple = $currtmp2['0']; 
+					$tmple = $currtmp2['0'];
+					$this->template_number = 0;
 				}
 				
 				$this->slave_tmpl = "templates/".$tmple;
@@ -89,11 +96,13 @@ class Template
 					$DB->query( "UPDATE `mw_account_extend` SET `theme`='$tmpl_cookienum' WHERE `account_id`='$user[id]'");
 					$tmpl_num = $tmpl_cookienum;
 				}
+				$this->template_number = $tmpl_cookienum;
 			}
 			else // If a cookie is not set for a theme
 			{
 				$tmpl_num = $user['theme'];
 				setcookie("cur_selected_theme", $tmpl_num, time() + (3600 * 24 * 365));
+				$this->template_number = $tmpl_num;
 			}
 			foreach($template_list as $template) 
 			{
@@ -105,6 +114,7 @@ class Template
 			{ 
 				$tmple = $currtmp2['0'];
 				$DB->query( "UPDATE `mw_account_extend` SET `theme`='0' WHERE `account_id`='".$user['id']."'" );
+				$this->template_number = 0;
 			}
 			$this->slave_tmpl = "templates/".$tmple;
 			$this->path = "templates/".$tmple."/template.xml";
@@ -122,6 +132,7 @@ class Template
 			'path' => $this->slave_tmpl, 
 			'script' => $this->master_template,
 			'name' => $this->xml->name,
+			'number' => $this->template_number,
 			'author' => $this->xml->author,
 			'authorEmail' => $this->xml->authorEmail,
 			'authorUrl' => $this->xml->authorUrl,

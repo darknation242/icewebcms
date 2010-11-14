@@ -18,7 +18,7 @@ class Update
 	function Update()
 	{
 		global $Core;
-		$this->server_address = 'http://127.0.0.1/downloads/updates/';
+		$this->server_address = 'http://update.keyswow.com/mangoswebv3/';
 		$this->current_version = $Core->version;
 		$this->handle = FALSE;
 	}
@@ -26,7 +26,7 @@ class Update
 	// Standard check to see if the server is online function
 	function connect()
 	{
-		$this->handle = @fsockopen('127.0.0.1', 80, $errno, $errstr, 5);
+		$this->handle = @fsockopen('www.keyswow.com', 80, $errno, $errstr, 3);
 		if($this->handle)
 		{
 			return TRUE;
@@ -43,10 +43,10 @@ class Update
 	{
 		if($this->connect() == TRUE)
 		{
-			$this->updates = file_get_contents("". $this->server_address ."mangosweb.txt");
+			$this->updates = file_get_contents("". $this->server_address ."updates.txt");
 			$ups = explode(",", $this->updates );
 			$this->newest = $ups['0'];
-			if($this->current_version < $this->newest)
+			if($this->current_version != $this->newest)
 			{
 				return TRUE;
 			}
@@ -100,7 +100,7 @@ class Update
 			}
 			elseif(strstr($line,"[update_make_dir]") !== false)
 			{
-				@mkdir(trim(substr($line,strpos($line,"=")+1)), 0700);
+				@mkdir(trim(substr($line,strpos($line,"=")+1)), 0777);
 			}
 			elseif(strstr($line,"[update_file_list]") !== false)
 			{
@@ -164,7 +164,7 @@ class Update
 	// Checks if the files are writable
 	function check_if_are_writable() 
 	{
-		$err = "";
+		$err = 0;
 		foreach ($this->updated_files_list as $filename) 
 		{
 			if($this->is__writable($filename) == TRUE) 
@@ -174,10 +174,18 @@ class Update
 			else 
 			{
 				$this->writable_files[$filename] = "no";
-				$err = 1;
+				$err++;
 			}
 		}
-		return $err == 1 ? FALSE:TRUE;
+		if($err == 0)
+		{
+			$return = TRUE;
+		}
+		else
+		{
+			$return = $err;
+		}
+		return $return;
 	}
 	
 	// Gets the total character length of all updated files
@@ -229,17 +237,25 @@ class Update
 		} 
 		else 
 		{
-			$err = "Some file or all are not writable.";
+			$err = "<font color='red'>Some file(s) are not writable.</font>";
 			foreach ($this->writable_files as $id => $value) 
 			{
 				if($value == "no") 
 				{
-					echo $id." file is not writable!<br>";
+					echo $id." file is <font color='red'><i>not writable!</i></font><br>";
 				}
 			}
-			$err .= "No file was updated.<br>";
+			$err .= "<font color='red'>No file(s) were updated.<br></font>";
 		}
-		return $err == "" ? TRUE : $err;
+		if($err == '')
+		{
+			$return = TRUE;
+		}
+		else
+		{
+			$return = $err;
+		}
+		return $return;
 	}
 }
 ?>
