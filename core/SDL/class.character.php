@@ -2,6 +2,47 @@
 // Character class for MangosWebSDL written by Steven Wilson, aka Wilson212
 class Character
 {
+	function __construct()
+	{
+		$this->constructCharInfo();
+	}
+	
+	function constructCharInfo()
+	{
+		$this->charInfo = array(
+			'race' => array(
+                1 => 'Human',
+                2 => 'Orc',
+                3 => 'Dwarf',
+                4 => 'Night Elf',
+                5 => 'Undead',
+                6 => 'Tauren',
+                7 => 'Gnome',
+                8 => 'Troll',
+                9 => 'Goblin',
+                10 => 'Bloodelf',
+                11 => 'Dranei'
+            ),
+            'class' => array(
+                1 => 'Warrior',
+                2 => 'Paladin',
+                3 => 'Hunter',
+                4 => 'Rogue',
+                5 => 'Priest',
+				6 => 'Death_Knight',
+                7 => 'Shaman',
+                8 => 'Mage',
+                9 => 'Warlock',
+                11 => 'Druid'
+            ),
+            'gender' => array(
+                0 => 'Male',
+                1 => 'Female',
+                2 => 'None'
+            )
+		);
+	}
+	
 	public function adjustLevel($id, $mod)
 	{
 		global $CDB;

@@ -316,55 +316,6 @@ function build_pathway()
 // !!!!!!!!!!!!!!!! //
 build_pathway();
 
-function paginate($num_pages, $cur_page, $link_to)
-{
-	$pages = array();
-	$link_to_all = false;
-	if ($cur_page == -1)
-	{
-		$cur_page = 1;
-		$link_to_all = true;
-	}
-	if ($num_pages <= 1)
-		$pages = array('1');
-	else
-	{
-		$tens = floor($num_pages/10);
-		for ($i=1;$i<=$tens;$i++)
-		{
-			$tp = $i*10;
-			$pages[$tp] = "<a href='$link_to&p=$tp'>$tp</a>";
-		}
-		if ($cur_page > 3)
-		{
-			$pages[1] = "<a href='$link_to&p=1'>1</a>";
-		}
-		for ($current = $cur_page - 2, $stop = $cur_page + 3; $current < $stop; ++$current)
-		{
-			if ($current < 1 || $current > $num_pages)
-			{
-				continue;
-			}
-			elseif ($current != $cur_page || $link_to_all)
-			{
-				$pages[$current] = "<a href='$link_to&p=$current'>$current</a>";
-			}
-			else
-			{
-				$pages[$current] = '[ '.$current.' ]';
-			}
-		}
-		if ($cur_page <= ($num_pages-3))
-		{
-			$pages[$num_pages] = "<a href='$link_to&p=$num_pages'>$num_pages</a>";
-		}
-	}
-	$pages = array_unique($pages);
-	ksort($pages);
-	$pp = implode(' ', $pages);
-	return str_replace('//','/',$pp);
-}
-
 function builddiv_start($type = 0, $title = "No title set") 
 {
 	global $currtmp;

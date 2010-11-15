@@ -73,7 +73,7 @@ function customError($errno, $errstr)
 function get_realm_byid($id)
 {
     global $DB;
-    $search_q = $DB->selectRow("SELECT * FROM realmlist WHERE id=".$id."");
+    $search_q = $DB->selectRow("SELECT * FROM `realmlist` WHERE `id`='".$id."'");
     return $search_q;
 }
 
@@ -390,5 +390,57 @@ function mw_url($page, $subpage, $params=null, $encodeentities=true)
         }
     }
     return $encodeentities ? htmlentities($url) : $url;
+}
+
+
+function paginate($num_pages, $cur_page, $link_to)
+{
+	$pages = array();
+    $link_to_all = false;
+    if ($cur_page == -1)
+    {
+        $cur_page = 1;
+        $link_to_all = true;
+    }
+    if ($num_pages <= 1)
+	{
+        $pages = array('1');
+	}
+    else
+    {
+        $tens = floor($num_pages/10);
+        for ($i=1; $i <= $tens; $i++)
+        {
+            $tp = $i*10;
+            $pages[$tp] = "<a href='$link_to&page=$tp'>$tp</a>";
+        }
+        if ($cur_page > 3)
+        {
+            $pages[1] = "<a href='$link_to&p=1'>1</a>";
+        }
+        for ($current = $cur_page - 2, $stop = $cur_page + 3; $current < $stop; $current++)
+        {
+            if ($current < 1 || $current > $num_pages) 
+			{
+                continue;
+            } 
+			elseif ($current != $cur_page || $link_to_all) 
+			{
+                $pages[$current] = "<a href='$link_to&page=$current'>$current</a>";
+            } 
+			else 
+			{
+                $pages[$current] = '['.$current.']';
+            }
+        }
+        if ($cur_page <= ($num_pages-3))
+        {
+            $pages[$num_pages] = "<a href='$link_to&page=$num_pages'>$num_pages</a>";
+        }
+    }
+    $pages = array_unique($pages);
+    ksort($pages);
+    $pp = implode(' ', $pages);
+    return $pp;
 }
 ?>
