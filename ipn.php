@@ -20,6 +20,8 @@ $check = $Paypal->checkPayment($_POST);
 if($check == TRUE)
 {
 	// We must break down all the fancy stuff to get the account ID
+	// Format: Item info --- Account: (Account name) (# (account number))
+	// ex: Item: 5 Shortswords --- Account: wilson212(#6)
 	$account = explode(" --- ", $_POST['item_name']);
 	$pre_accountid = $account['1'];
 	$pre_accountid = str_replace("Account: ", "", $pre_accountid);

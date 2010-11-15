@@ -8,15 +8,10 @@ if($disabled == TRUE)
 	die();
 }
 
-include('../core/core.php');
-
 function output_message($type, $text)
 {
     echo "<div class=\"".$type."\">$text</div>";
 }
-
-// Init core
-$Core = new Core();
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -137,18 +132,6 @@ $Core = new Core();
 							<p class="field_help">Enter your Realm database.</p>
 						</div>
 						
-						<div class="field">
-							<label for="db user">Character Database: </label>
-							<input id="Site Title" name="db_char" size="20" type="text" class="medium" value="characters" />
-							<p class="field_help">Enter your Character DB name, for your realm id #1.</p>
-						</div>
-						
-						<div class="field">
-							<label for="db user">World Database: </label>
-							<input id="Site Title" name="db_world" size="20" type="text" class="medium" value="world" />
-							<p class="field_help">Enter your World DB name, for your realm id #1.</p>
-						</div>
-						
 						<div class="buttonrow-border">								
 							<center><button><span>Install Database</span></button></center><br />
 							<center><button name="skip" class="btn-sec"><span>Skip Database Install</span></button></center>							
@@ -161,19 +144,23 @@ $Core = new Core();
 				elseif($step == 4)
 				{
 					// Check if everything is given
-					if (!$_POST['db_host'] | !$_POST['db_port'] | !$_POST['db_username'] | !$_POST['db_password'] | !$_POST['db_name'] | !$_POST['db_world'] | !$_POST['db_char']) 
+					if (!$_POST['db_host'] | !$_POST['db_port'] | !$_POST['db_username'] | !$_POST['db_password'] | !$_POST['db_name']) 
 					{
-						output_message('error', 'One or more fields are blank. Please go back and try again.');
+						echo '<div class="error">One or more fields are blank. Please <a href="javascript: history.go(-1)">Go Back</a> and correct it.</div>';
+						die();
 					}
 					// Check if provided info is correct
 					@mysql_connect($_POST['db_host'].":".$_POST['db_port'], $_POST['db_username'], $_POST['db_password']) 
-						or output_message('error', 'Couldn\'t connect to MySQL Database. Please go back and re-enter MySQL Database Information.<br /><br />MySql error log:<br />'.mysql_error());
-					@mysql_select_db($_POST['db_world']) or output_message('error', 'Couldn\'t select World db, most likely the given name is wrong. Please go back and correct it.<br /><br />MySql error log:<br />'.mysql_error());
-					@mysql_select_db($_POST['db_char']) or output_message('error', 'Couldn\'t select Characters db, most likely the given name is wrong. Please go back and correct it.<br /><br />MySql error log:<br />'.mysql_error());
-					@mysql_select_db($_POST['db_name']) or output_message('error', 'Couldn\'t select Realmd db, most likely the given name is wrong. Please go back and correct it.<br /><br />MySql error log:<br />'.mysql_error());
+						or die('<div class="error">Couldn\'t connect to MySQL Database. Please <a href="javascript: history.go(-1)">Go Back</a> and re-enter MySQL Database Information.<br /><br />MySql error log:<br />
+							'.mysql_error().'</div');
+					mysql_select_db($_POST['db_name']) 
+						or die('<div class="error">Counld Not select Realm database! Please go back and re-submit realm DB information.</div>');
+					
+					output_message('success', 'Successfully Connected to Realm DB.');
 					
 					// Check if "account" table exsists, so we make (almost) sure mangos is actually installed (which is necesarry for this whole thing to work)
-					@mysql_query("SELECT * FROM `account` LIMIT 1") or die('Error!<br /><br />Account table not found, seems like mangos isn\'t installed.<br /><br />MySql error log:<br />'.mysql_error());
+					@mysql_query("SELECT * FROM `account` LIMIT 1") or die('<div class="error">Error!<br /><br />Account table not found! Cannot Continue with the installation without an Account
+						table!<br /><br />MySql error log:<br />'.mysql_error().'</div>');
 					
 					// Everthing should be fine, so first insert info into protected config file
 					$conffile = "../config/config-protected.php";
@@ -198,6 +185,7 @@ $Core = new Core();
 					else 
 					{ 
 						output_message('error', 'Couldn\'t open config-protected.php for editing, it must be writable by webserver! <br />Go back, and try again.');
+						die();
 					}
 								
 					// Preparing for sql injection... (prashing, etc...)
@@ -250,13 +238,130 @@ $Core = new Core();
 							mysql_query($query);
 						}
 					}
-					// Extra sql query with db settings
-					$dbinfo = $_POST['db_username'].";".$_POST['db_password'].";".$_POST['db_port'].";".$_POST['db_host'].";".$_POST['db_world'].";".$_POST['db_char'];
-					mysql_query("UPDATE `realmlist` SET `dbinfo` = '".$dbinfo."' WHERE `id` = 1 LIMIT 1") or die(mysql_error());
+					$get_name = mysql_query("SELECT `name` FROM `realmlist` WHERE `id`=1 LIMIT 1") or die('<div class="error">'.mysql_error().'</div>');
+					$DB_name = mysql_result($get_name,0);
 				?>
-				
 				<!-- STEP 4 -->
 					<form method="POST" action="index.php?step=5" class="form label-inline">
+						<input type="hidden" name="db_host" value="<?php echo $_POST['db_host']; ?>">
+						<input type="hidden" name="db_port" value="<?php echo $_POST['db_port']; ?>">
+						<input type="hidden" name="db_name" value="<?php echo $_POST['db_name']; ?>">
+						<input type="hidden" name="db_username" value="<?php echo $_POST['db_username']; ?>">
+						<input type="hidden" name="db_password" value="<?php echo $_POST['db_password']; ?>">					
+					<div class="main-content">
+						<div>
+							In order for MangosWeb Enhanced to function properly, we need at least 1 realm to have its information stored in the DB correctly.
+							Please fill out the information for the realm "<u><b><?php echo $DB_name; ?></b></u>"
+						</div>
+						<table>
+							<thead>
+								<th><center>Character Database Info (<?php echo $DB_name; ?>)</center></th>
+							</thead>
+						</table>
+						<br />
+						
+						<!-- Character DB Info -->
+						
+						<div class="field">
+							<label for="db user">Database Host: </label>
+							<input id="Site Title" name="char_db_host" size="20" type="text" class="medium" value="localhost" />
+							<p class="field_help">Enter you database host.</p>
+						</div>
+						
+						<div class="field">
+							<label for="db user">Database port: </label>
+							<input id="Site Title" name="char_db_port" size="20" type="text" class="medium" value="3306" />
+							<p class="field_help">Enter the port number of your database.</p>
+						</div>
+						
+						<div class="field">
+							<label for="db user">Database Username: </label>
+							<input id="Site Title" name="char_db_username" size="20" type="text" class="medium" value="root" />
+							<p class="field_help">Enter you database username.</p>
+						</div>
+						
+						<div class="field">
+							<label for="db user">Database Password: </label>
+							<input id="Site Title" name="char_db_password" size="20" type="password" class="medium" value="ascent"/>
+							<p class="field_help">Enter you database Password.</p>
+						</div>
+						
+						<div class="field">
+							<label for="db user">Character Database: </label>
+							<input id="Site Title" name="char_db_name" size="20" type="text" class="medium" value="characters" />
+							<p class="field_help">Enter your Character DB name, for your realm id #1.</p>
+						</div>
+						
+						<table>
+							<thead>
+								<th><center>World Database Info (<?php echo $DB_name; ?>)</center></th>
+							</thead>
+						</table>
+						<br />
+						
+						<!-- WORLD DB Info -->
+						
+						<div class="field">
+							<label for="db user">Database Host: </label>
+							<input id="Site Title" name="w_db_host" size="20" type="text" class="medium" value="localhost" />
+							<p class="field_help">Enter you database host.</p>
+						</div>
+						
+						<div class="field">
+							<label for="db user">Database port: </label>
+							<input id="Site Title" name="w_db_port" size="20" type="text" class="medium" value="3306" />
+							<p class="field_help">Enter the port number of your database.</p>
+						</div>
+						
+						<div class="field">
+							<label for="db user">Database Username: </label>
+							<input id="Site Title" name="w_db_username" size="20" type="text" class="medium" value="root" />
+							<p class="field_help">Enter you database username.</p>
+						</div>
+						
+						<div class="field">
+							<label for="db user">Database Password: </label>
+							<input id="Site Title" name="w_db_password" size="20" type="password" class="medium" value="ascent"/>
+							<p class="field_help">Enter you database Password.</p>
+						</div>
+						
+						<div class="field">
+							<label for="db user">World Database: </label>
+							<input id="Site Title" name="w_db_name" size="20" type="text" class="medium" value="world" />
+							<p class="field_help">Enter your World DB name, for your realm id #1.</p>
+						</div>
+						
+						<div class="buttonrow-border">								
+							<center><button><span>Submit</span></button></center><br />							
+						</div>
+						<div class="clear"></div>
+						
+					</div>
+					</form>
+				
+				<!-- STEP 5 -->
+				<?php
+				}
+				elseif($step == 5)
+				{
+					@mysql_connect($_POST['char_db_host'].":".$_POST['char_db_port'], $_POST['char_db_username'], $_POST['char_db_password']) 
+						or die('<div class="error">Couldn\'t connect to the character MySQL Database. Please <a href="javascript: history.go(-1)">Go Back</a> and re-enter MySQL Database Information.</div>');
+					@mysql_select_db($_POST['char_db_name']) or die('<div class="error">Couldn\'t select Characters db, most likely the given name is wrong. Please <a href="javascript: history.go(-1)">Go Back</a> and correct it.</div>');
+					
+					@mysql_connect($_POST['w_db_host'].":".$_POST['w_db_port'], $_POST['w_db_username'], $_POST['w_db_password']) 
+						or die('<div class="error">Couldn\'t connect to the world MySQL Database. Please <a href="javascript: history.go(-1)">Go Back</a> and re-enter MySQL Database Information.</div>');
+					@mysql_select_db($_POST['w_db_name']) or die('<div class="error">Couldn\'t select World db, most likely the given name is wrong. Please <a href="javascript: history.go(-1)">Go Back</a> and correct it.</div>');
+					
+					@mysql_connect($_POST['db_host'].":".$_POST['db_port'], $_POST['db_username'], $_POST['db_password']);
+					@mysql_select_db($_POST['db_name']) or die('Unable to select Realm Database!');
+					
+					// Extra sql query with db settings
+					$dbinfo = $_POST['char_db_host'].";".$_POST['char_db_port'].";".$_POST['char_db_username'].";".$_POST['char_db_password'].";".$_POST['char_db_name'].";".$_POST['w_db_host'].";".$_POST['w_db_port'].";".$_POST['w_db_username'].";".$_POST['w_db_password'].";".$_POST['w_db_name'].";";
+					mysql_query("UPDATE `realmlist` SET `dbinfo` = '".$dbinfo."' WHERE `id` = 1 LIMIT 1") or die('<div class="error">'.mysql_error().'</div>');
+					
+					output_message('success', 'Successfully Connected to Character and World DB\'s');
+				?>
+					<form method="POST" action="index.php?step=6" class="form label-inline">
 					<input type="hidden" name="db_host" value="<?php echo $_POST['db_host']; ?>">
 					<input type="hidden" name="db_port" value="<?php echo $_POST['db_port']; ?>">
 					<input type="hidden" name="db_name" value="<?php echo $_POST['db_name']; ?>">
@@ -292,15 +397,15 @@ $Core = new Core();
 					</form>
 			<?php 
 				}
-				elseif($step == 5)
+				elseif($step == 6)
 				{
 					if($_POST['pass'] != $_POST['pass2'])
 					{
-						die('Error!<br /><br />Passwords dont match!. Please <a href="javascript: history.go(-1)">go back</a> and correct it.');
+						die('<div class="error">Passwords dont match!. Please <a href="javascript: history.go(-1)">go back</a> and correct it.</div>');
 					}
 					if (!$_POST['account']) 
 					{
-						die('Error!<br /><br />No account name was given. Please <a href="javascript: history.go(-1)">go back</a> and correct it.');
+						die('<div class="error">No account name was given. Please <a href="javascript: history.go(-1)">go back</a> and correct it.</div>');
 					}
 					//Password hash generator
 					function sha_password($user,$pass)

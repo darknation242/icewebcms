@@ -160,7 +160,7 @@ echo $GLOBALS['redirect'];
 								foreach($tmpl_list as $templ) 
 								{ ?>
 									<div OnMouseOver="this.style.backgroundColor='rgb(100, 100, 100)';" OnMouseOut="this.style.backgroundColor='rgb(29, 28, 27)';" style="cursor: pointer; background-color: rgb(29, 28, 27); color: rgb(244, 196, 0); font-family: arial,comic sans ms,technical; font-size: 12px; font-style: normal; text-align: left; background-image: url(<?php echo $currtmp; ?>/images/bullet-trans-bg.gif); width: 136px; height: 15px; padding-left: 9px; padding-top: 0px; left: 1px; top: 1px;">
-										<a class="menuLink" style="display:block;" href="javascript:setcookie('cur_selected_theme', '<?php echo $tkey;?>'); window.location.reload();"><?php echo ($_COOKIE['cur_selected_theme'] == $tkey?'&gt; '.$templ:$templ);?></a> 
+										<a class="menuLink" style="display:block;" href="javascript:setcookie('cur_selected_theme', '<?php echo $tkey;?>'); window.location.reload();"><?php echo ($Template['number'] == $tkey?'&gt; '.$templ:$templ);?></a> 
 									</div>
 							<?php 	$tkey++;
 								} ?>
@@ -197,9 +197,9 @@ echo $GLOBALS['redirect'];
                                 <?php 
 									if($cfg->get('enable_cache') == 1)
 									{
-										if($Core->isCached($_COOKIE['cur_selected_theme']."_main_nav_links"))
+										if($Core->isCached($Template['number']."_main_nav_links"))
 										{
-											$Contents = $Core->getCache($_COOKIE['cur_selected_theme']."_main_nav_links");
+											$Contents = $Core->getCache($Template['number']."_main_nav_links");
 											echo $Contents;
 										}
 										else
@@ -207,7 +207,7 @@ echo $GLOBALS['redirect'];
 											ob_start();
 												build_main_menu(); // MAIN LINKS HERE!!!
 											$Contents = ob_get_flush();
-											$Core->writeCache($_COOKIE['cur_selected_theme']."_main_nav_links", $Contents);
+											$Core->writeCache($Template['number']."_main_nav_links", $Contents);
 										}
 									}
 									else

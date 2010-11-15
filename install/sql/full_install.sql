@@ -365,5 +365,6 @@ INSERT INTO `mw_account_extend` (`account_id`) SELECT account.id FROM account;
 -- file gets applied again, it gets an error here.
 --
 ALTER TABLE `realmlist` 
-ADD `dbinfo` VARCHAR( 355 ) NOT NULL default 'username;password;3306;127.0.0.1;DBWorld;DBCharacter' COMMENT 'Database info to THIS row',
-ADD `ra_info` VARCHAR( 355 ) NOT NULL default 'type;port;username;password';
+ADD `dbinfo` VARCHAR( 355 ) NOT NULL default '127.0.0.1;3306;username;password;DBCharacter;127.0.0.1;3306;username;password;DBWorld' COMMENT 'Database info to THIS row',
+ADD `ra_info` VARCHAR( 355 ) NOT NULL default 'type;port;username;password',
+ADD `site_enabled` int(3) NOT NULL default '1';

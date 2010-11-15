@@ -5,14 +5,18 @@ if(isset($_GET['id']))
 	$db_info = explode( ';', $rlm['dbinfo'] ) ;
 	$ra_info = explode( ';', $rlm['ra_info'] ) ;
 	
-	//DBinfo column:  username;password;port;host;WorldDBname;CharDBname
+	// DBinfo column: char_host;char_port;char_username;char_password;charDBname;world_host;world_port;world_username;world_pass;worldDBname
 	$rlm_info = array( 
-		'db_host' => $db_info['3'],
-		'db_port' => $db_info['2'], //port
-		'db_username' => $db_info['0'], //world user
-		'db_password' => $db_info['1'], //world password
-		'db_name' => $db_info['4'], //world db name
-		'db_char' => $db_info['5'], //character db name
+		'char_db_host' => $db_info['0'],
+		'char_db_port' => $db_info['1'], //port
+		'char_db_username' => $db_info['2'], //world user
+		'char_db_password' => $db_info['3'], //world password
+		'char_db_name' => $db_info['4'], //world db name
+		'w_db_host' => $db_info['5'], // world host
+		'w_db_port' => $db_info['6'], // world port
+		'w_db_username' => $db_info['7'], // world user
+		'w_db_password' => $db_info['8'], // world password
+		'w_db_name' => $db_info['9'], // world db name
 		'ra_type' => $ra_info['0'],
 		'ra_port' => $ra_info['1'],
 		'ra_user' => $ra_info['2'],
@@ -121,46 +125,80 @@ if(isset($_GET['id']))
 		<table>
 			<thead>
 				<tr>
-					<th><center>Database Settings</center></th>
+					<th><center>Character Database Settings</center></th>
 				</tr>
 			</thead>
 		</table>
 		<br />
 		
 		<div class="field">
-			<label for="dbh">Char / World Host: </label>
-			<input id="dbh" name="db_host" size="20" type="text" class="medium" value="<?php echo $rlm_info['db_host']; ?>" />
-			<p class="field_help">Enter you World / Character database host here.</p>
+			<label for="dbh">Character DB Host: </label>
+			<input id="dbh" name="char_db_host" size="20" type="text" class="medium" value="<?php echo $rlm_info['char_db_host']; ?>" />
+			<p class="field_help">Enter your Character database host here.</p>
 		</div>
 		
 		<div class="field">
-			<label for="dbh">Char / World Port: </label>
-			<input id="dbh" name="db_port" size="20" type="text" class="medium" value="<?php echo $rlm_info['db_port']; ?>" />
-			<p class="field_help">Enter you World / Character database port here.</p>
+			<label for="dbh">Character DB Port: </label>
+			<input id="dbh" name="char_db_port" size="20" type="text" class="medium" value="<?php echo $rlm_info['char_db_port']; ?>" />
+			<p class="field_help">Enter your Character database port here.</p>
 		</div>
 		
 		<div class="field">
-			<label for="dbh">Char / World User: </label>
-			<input id="dbh" name="db_user" size="20" type="text" class="medium" value="<?php echo $rlm_info['db_username']; ?>" />
-			<p class="field_help">Enter you World / Character database Username here.</p>
+			<label for="dbh">Character DB User: </label>
+			<input id="dbh" name="char_db_user" size="20" type="text" class="medium" value="<?php echo $rlm_info['char_db_username']; ?>" />
+			<p class="field_help">Enter your Character database Username here.</p>
 		</div>
 	
 		<div class="field">
-			<label for="dbh">Char / World Pass: </label>
-			<input id="dbh" name="db_pass" size="20" type="password" class="medium" value="<?php echo $rlm_info['db_password']; ?>" />
-			<p class="field_help">Enter you World / Character database Password here.</p>
-		</div>
-		
-		<div class="field">
-			<label for="dbh">World DB Name: </label>
-			<input id="dbh" name="db_name" size="20" type="text" class="medium" value="<?php echo $rlm_info['db_name']; ?>" />
-			<p class="field_help">Enter you World Datbase name here.</p>
+			<label for="dbh">Character DB Pass: </label>
+			<input id="dbh" name="char_db_pass" size="20" type="password" class="medium" value="<?php echo $rlm_info['char_db_password']; ?>" />
+			<p class="field_help">Enter your Character database Password here.</p>
 		</div>
 		
 		<div class="field">
 			<label for="dbh">Character DB Name: </label>
-			<input id="dbh" name="db_char" size="20" type="text" class="medium" value="<?php echo $rlm_info['db_char']; ?>" />
-			<p class="field_help">Enter you Character Datbase name here.</p>
+			<input id="dbh" name="char_db_name" size="20" type="text" class="medium" value="<?php echo $rlm_info['char_db_name']; ?>" />
+			<p class="field_help">Enter your Character Datbase name here.</p>
+		</div>
+		
+		<!-- -->
+		<table>
+			<thead>
+				<tr>
+					<th><center>World Database Settings</center></th>
+				</tr>
+			</thead>
+		</table>
+		<br />
+		
+		<div class="field">
+			<label for="dbh">World DB Host: </label>
+			<input id="dbh" name="w_db_host" size="20" type="text" class="medium" value="<?php echo $rlm_info['w_db_host']; ?>" />
+			<p class="field_help">Enter your World database host here.</p>
+		</div>
+		
+		<div class="field">
+			<label for="dbh">World DB Port: </label>
+			<input id="dbh" name="w_db_port" size="20" type="text" class="medium" value="<?php echo $rlm_info['w_db_port']; ?>" />
+			<p class="field_help">Enter your World database port here.</p>
+		</div>
+		
+		<div class="field">
+			<label for="dbh">World DB User: </label>
+			<input id="dbh" name="w_db_user" size="20" type="text" class="medium" value="<?php echo $rlm_info['w_db_username']; ?>" />
+			<p class="field_help">Enter your World database Username here.</p>
+		</div>
+	
+		<div class="field">
+			<label for="dbh">World DB Pass: </label>
+			<input id="dbh" name="w_db_pass" size="20" type="password" class="medium" value="<?php echo $rlm_info['w_db_password']; ?>" />
+			<p class="field_help">Enter your World database Password here.</p>
+		</div>
+		
+		<div class="field">
+			<label for="dbh">World DB Name: </label>
+			<input id="dbh" name="w_db_name" size="20" type="text" class="medium" value="<?php echo $rlm_info['w_db_name']; ?>" />
+			<p class="field_help">Enter your World Datbase name here.</p>
 		</div>
 		
 		<table>

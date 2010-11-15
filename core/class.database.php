@@ -1,5 +1,5 @@
 <?php
-// Database class written by Steven Wilson for IceWeb
+// Database class written by Steven Wilson
 class Database
 {
 

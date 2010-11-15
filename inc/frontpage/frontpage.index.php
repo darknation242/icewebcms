@@ -1,10 +1,12 @@
 <?php
 //========================//
-if(INCLUDED!==true) {
-	echo "Not Included!";
+if(INCLUDED !== TRUE) 
+{
+	echo "Not Included!"; 
 	exit;
 }
-//=======================//
+$pathway_info[] = array('title' => $lang['activation'], 'link' => '');
+// ==================== //
 
 // Setup the cache
 define('CACHE_FILE', TRUE);
@@ -28,30 +30,25 @@ if($cfg->get('enable_cache') == 1 && $Core->isCached($_COOKIE['cur_selected_them
 	{
 		if($cfg->get('fp_serverinfo') == 1)
 		{
-			$data = $DB->selectRow("SELECT address, port, timezone, icon, name, dbinfo FROM realmlist WHERE id ='".$realmnow_arr['id']."' LIMIT 1");
+			$data = $DB->selectRow("SELECT * FROM realmlist WHERE id ='".$realmnow_arr['id']."' LIMIT 1");
 			$realm_data_explode = explode(';', $data['dbinfo']);
-
-			$mangosALL = array();
-			
-				//DBinfo column:  username;password;port;host;WorldDBname;CharDBname
-				$mangosALL = array(
-					'db_type' => 'mysql',
-					'db_host' => $realm_data_explode['3'],  //ip of db world
-					'db_port' => $realm_data_explode['2'], //port
-					'db_username' => $realm_data_explode['0'], //world user
-					'db_password' => $realm_data_explode['1'], //world password
-					'db_name' => $realm_data_explode['4'],  //world db name
-					'db_char' => $realm_data_explode['5'], //character db name
-					'db_encoding' => 'utf8'
-				);
-			unset($realm_data_explode);
+	
+			//DBinfo column:  char_host;char_port;char_username;char_password;charDBname;world_host;world_port;world_username;world_pass;worldDBname
+			$mangosALL = array(
+				'db_host' => $realm_data_explode['0'],  	// DB Host
+				'db_port' => $realm_data_explode['1'], 		// DB port
+				'db_username' => $realm_data_explode['2'], 	// DB username
+				'db_password' => $realm_data_explode['3'], 	// DB password
+				'db_name' => $realm_data_explode['4'], 		// Character db name
+			);
+			unset($realm_data_explode, $data);
 
 			$CHDB_EXTRA = new Database(
 				$mangosALL['db_host'],
 				$mangosALL['db_port'],
 				$mangosALL['db_username'],
 				$mangosALL['db_password'],
-				$mangosALL['db_char']
+				$mangosALL['db_name']
 			);
 			unset($mangosALL); // Free up memory.
 

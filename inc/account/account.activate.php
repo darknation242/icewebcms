@@ -1,7 +1,11 @@
 <?php
-if(INCLUDED!==true)exit;
-// ==================== //
-$pathway_info[] = array('title'=>$lang['activation'],'link'=>'');
+//========================//
+if(INCLUDED !== TRUE) 
+{
+	echo "Not Included!"; 
+	exit;
+}
+$pathway_info[] = array('title' => $lang['activation'], 'link' => '');
 // ==================== //
 
 // Tell the cache system not to cache this page

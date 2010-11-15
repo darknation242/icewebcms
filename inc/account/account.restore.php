@@ -1,11 +1,18 @@
 <?php
-if(INCLUDED!==true)exit;
-// ==================== //
-$pathway_info[] = array('title'=>$lang['retrieve_pass'],'link'=>'');
+//========================//
+if(INCLUDED !== TRUE) 
+{
+	echo "Not Included!"; 
+	exit;
+}
+$pathway_info[] = array('title' => 'Retrieve Password', 'link' => '');
 // ==================== //
 
+// Tell the cache system not to cache this page
+define('CACHE_FILE', FALSE);
+
 // Load secret Questions
-$sc_q = $DB->select("SELECT * FROM secret_questions");
+$sc_q = $Account->getSecretQuestions();
 	
 // If user has requested his password be reset
 if($_POST['retr_login'] && $_POST['retr_email'] && $_POST['secretq1'] && $_POST['secretq2'] && $_POST['secreta1'] && $_POST['secreta2']) 
@@ -51,7 +58,7 @@ if($_POST['retr_login'] && $_POST['retr_email'] && $_POST['secretq1'] && $_POST[
 	  
 	if ($return == FALSE)
 	{
-		output_message('error','<b>'.$lang['fail_restore_pass'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=restore">');
+		output_message('error','<b>'.$lang['restore_pass_fail'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=restore">');
 	}
 	elseif ($return == TRUE) 
 	{
@@ -66,11 +73,11 @@ if($_POST['retr_login'] && $_POST['retr_email'] && $_POST['secretq1'] && $_POST[
 			$c_pas = $Account->sha_password($username_name,$pas);
 			$DB->query("UPDATE `account` SET sha_pass_hash='".$c_pas."' WHERE id='".$username."'");
 			$DB->query("UPDATE `account` SET sessionkey=NULL WHERE id='".$username."'");
-			output_message('success','<b>'.$lang['restore_pass_ok'].'<br /> New password: '.$pas.'</b>');
+			output_message('success','<b>'.$lang['restore_pass_success'].'<br /> New password: '.$pas.'</b>');
 		}
 		else
 		{
-			output_message('error','<b>'.$lang['fail_restore_pass'].'</b><meta http-equiv=refresh content="3;url=index.php?n=account&sub=restore">');
+			output_message('error','<b>'.$lang['restore_pass_fail'].'</b><meta http-equiv=refresh content="3;url=index.php?n=account&sub=restore">');
 		}
 	}
 }

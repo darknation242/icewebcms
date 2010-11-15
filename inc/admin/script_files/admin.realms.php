@@ -16,7 +16,7 @@ function updateRealm()
 		`port`= '".$_POST['realm_port']."',
 		`icon`= '".$_POST['icon']."',
 		`timezone`= '".$_POST['timezone']."',
-		`dbinfo`= '".$_POST['db_user'].";".$_POST['db_pass'].";".$_POST['db_port'].";".$_POST['db_host'].";".$_POST['db_name'].";".$_POST['db_char']."',
+		`dbinfo`= '".$_POST['char_db_host'].";".$_POST['char_db_port'].";".$_POST['char_db_user'].";".$_POST['char_db_pass'].";".$_POST['char_db_name'].";".$_POST['w_db_host'].";".$_POST['w_db_port'].";".$_POST['w_db_user'].";".$_POST['w_db_pass'].";".$_POST['w_db_name']."',
 		`ra_info`= '".$_POST['ra_type'].";".$_POST['ra_port'].";".$_POST['ra_user'].";".$_POST['ra_pass']."',
 		`site_enabled`= '".$_POST['site_enabled']."'
 	   WHERE `id`=".$_GET['id']."

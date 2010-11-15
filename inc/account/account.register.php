@@ -1,5 +1,11 @@
 <?php
-if(INCLUDED!==true)exit;
+//========================//
+if(INCLUDED !== TRUE) 
+{
+	echo "Not Included!"; 
+	exit;
+}
+$pathway_info[] = array('title' => $lang['register'], 'link' => '');
 // ==================== //
 
 // Tell the cache system not to cache this page

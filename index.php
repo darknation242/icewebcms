@@ -31,7 +31,7 @@ ini_set('error_log','core/logs/error_log.txt');
 ini_set('display_errors',TRUE);
 
 // Define INCLUDED so that we can check other pages if they are included by this file
-define( 'INCLUDED', true ) ;
+define('INCLUDED', true);
 
 // Start a variable that shows how fast page loaded.
 $time_start = microtime(1);
@@ -125,43 +125,46 @@ $DB = new Database(
 	);
 	
 // Make an array from `dbinfo` column for the selected realm..
-$mangos_info = $DB->selectRow("SELECT * FROM realmlist WHERE id='".$GLOBALS['cur_selected_realm']."'");
-$dbinfo_mangos = explode(';', $mangos_info['dbinfo']);
+$DB_info = $DB->selectRow("SELECT * FROM realmlist WHERE id='".$GLOBALS['cur_selected_realm']."'");
+$dbinfo = explode(';', $DB_info['dbinfo']);
 
-//DBinfo column:  username;password;port;host;WorldDBname;CharDBname
-$mangos = array(
-	'db_host' => $dbinfo_mangos['3'],
-	'db_port' => $dbinfo_mangos['2'], //port
-	'db_username' => $dbinfo_mangos['0'], //world user
-	'db_password' => $dbinfo_mangos['1'], //world password
-	'db_name' => $dbinfo_mangos['4'], //world db name
-	'db_char' => $dbinfo_mangos['5'], //character db name
-	'db_encoding' => 'utf8', // don't change
-	) ;
+// DBinfo column: char_host;char_port;char_username;char_password;charDBname;world_host;world_port;world_username;world_pass;worldDBname
+$Realm_DB_Info = array(
+	'char_db_host' => $dbinfo['0'], // char host
+	'char_db_port' => $dbinfo['1'], // char port
+	'char_db_username' => $dbinfo['2'], // char user
+	'char_db_password' => $dbinfo['3'], // char password
+	'char_db_name' => $dbinfo['4'], //char db name
+	'w_db_host' => $dbinfo['5'], // world host
+	'w_db_port' => $dbinfo['6'], // world port
+	'w_db_username' => $dbinfo['7'], // world user
+	'w_db_password' => $dbinfo['8'], // world password
+	'w_db_name' => $dbinfo['9'], // world db name
+	);
 
 // Free up memory.
-unset($dbinfo_mangos, $mangos_info); 
+unset($dbinfo, $DB_info); 
 
 // Establish the Character DB connection
 $CDB = new Database(
-	$mangos['db_host'],
-	$mangos['db_port'],
-	$mangos['db_username'],
-	$mangos['db_password'],
-	$mangos['db_char']
+	$Realm_DB_Info['char_db_host'],
+	$Realm_DB_Info['char_db_port'],
+	$Realm_DB_Info['char_db_username'],
+	$Realm_DB_Info['char_db_password'],
+	$Realm_DB_Info['char_db_name']
 	);
 
 // Establish the World DB connection	
 $WDB = new Database(
-	$mangos['db_host'],
-	$mangos['db_port'],
-	$mangos['db_username'],
-	$mangos['db_password'],
-	$mangos['db_name']
+	$Realm_DB_Info['w_db_host'],
+	$Realm_DB_Info['w_db_port'],
+	$Realm_DB_Info['w_db_username'],
+	$Realm_DB_Info['w_db_password'],
+	$Realm_DB_Info['w_db_name']
 	);
 	
 // Free up memory
-unset($mangos);
+unset($Realm_DB_Info);
 $realms = $DB->select("SELECT * FROM realmlist ORDER BY `id` ASC");
 
 // === Load auth system === //
@@ -177,12 +180,6 @@ $currtmp = $Template['path'];
 $master_tmp = $Template['script'];
 unset($tmpl);
 
-// first time page loaders cant load the cookie just set
-// therefor we need to clearify so theres no errors
-if(!isset($_COOKIE['cur_selected_theme']))
-{
-	$_COOKIE['cur_selected_theme'] = $Template['number'];
-}
 
 // === Start of page loading === //
 
@@ -270,9 +267,9 @@ else
 		if($cfg->get('enable_cache') && $CacheFile == TRUE)
 		{
 			// If file is cached
-			if($Core->isCached($_COOKIE['cur_selected_theme']."_".$ext.".".$sub))
+			if($Core->isCached($Template['number']."_".$ext.".".$sub))
 			{
-				$Contents = $Core->getCache($_COOKIE['cur_selected_theme']."_".$ext.".".$sub);
+				$Contents = $Core->getCache($Template['number']."_".$ext.".".$sub);
 				echo $Contents;
 			}
 			// If not cached, then get contents of the page and cache them.
@@ -281,7 +278,7 @@ else
 				ob_start();
 					include($template_file);
 				$Contents = ob_get_flush();
-				$Core->writeCache($_COOKIE['cur_selected_theme']."_".$ext.".".$sub, $Contents);
+				$Core->writeCache($Template['number']."_".$ext.".".$sub, $Contents);
 			}
 			unset($Contents);
 		}
