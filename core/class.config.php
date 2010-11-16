@@ -11,6 +11,8 @@ class Config
 	{
 		$this->Load();
 	}
+	
+	// Loads the config file, and defines the variables
 	function Load() 
 	{
 		if ( file_exists($this->configFile ) ) 
@@ -31,6 +33,8 @@ class Config
 			return false;
 		}
 	}
+	
+	// Returns the config variable requested
 	function get( $key ) 
 	{
 		if (isset($this->data[ $key ])) 
@@ -38,15 +42,21 @@ class Config
 			return $this->data[ $key ];
 		}
 	}
+	
+	
 	function getDbInfo( $key ) 
 	{
 		include($this->path_protectedconf);
 		return $db[ $key ];
 	}
+	
+	// Sets a variable
 	function set( $key, $val ) 
 	{
 		$this->data[ $key ] = $val;
 	}
+	
+	// Saves all set config variables, and makes a backup of the current config file
 	function Save() 
 	{
 		$cfg  = "<?php\n";

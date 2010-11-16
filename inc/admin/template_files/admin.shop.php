@@ -233,48 +233,7 @@ else
 					// If there is going to be more then 1 page, then show page nav at the bottom
 					if($totalrows > $limit)
 					{
-						// Display Page Links (Not written by me! :p )
-						if($page != 1) 
-						{ 
-							$pageprev = $page-1;
-							echo("<a href=\"index.php?p=admin&sub=users&page=".$pageprev."\">&laquo; Previous</a>&nbsp;&nbsp;");  
-						}
-						else
-						{
-							echo "<span class='disabled'>&laquo; Previous</span>&nbsp;&nbsp;";
-						}
-						$numofpages = $totalrows / $limit; 
-						for($j = 1; $j <= $numofpages; $j++)
-						{
-							if($j == $page)
-							{
-								echo "<a  class='current'  href=\"index.php?p=admin&sub=users&page=".$j."\">".$j."</a>&nbsp;&nbsp;";
-							}
-							else
-							{
-								echo "<a href=\"index.php?p=admin&sub=users&page=".$j."\">$j</a>&nbsp;&nbsp;"; 
-							}
-						}
-						if(($totalrows % $limit) != 0)
-						{
-							if($j == $page)
-							{
-								echo "<a  class='current'  href=\"index.php?p=admin&sub=users&page=".$j."\">".$j."</a>&nbsp;&nbsp;";
-							}
-							else
-							{
-								echo "<a href=\"index.php?p=admin&sub=users&page=".$j."\">$j</a>&nbsp;&nbsp;";
-							}
-						}	
-						if(($totalrows - ($limit * $page)) > 0)
-						{
-							$pagenext   = $page + 1;
-							echo "<a href=\"index.php?p=admin&sub=users&page=".$pagenext."\">Next &raquo;</a>&nbsp;&nbsp;";
-						}
-						else
-						{
-							echo "<span class='disabled'>Next &raquo;</span>"; 
-						} 
+						admin_paginate($totalrows, $limit, $page, 'index.php?p=admin&sub=shop');
 					}
 				?>
 				</div>

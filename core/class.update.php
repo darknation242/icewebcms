@@ -100,7 +100,7 @@ class Update
 			}
 			elseif(strstr($line,"[update_make_dir]") !== false)
 			{
-				@mkdir(trim(substr($line,strpos($line,"=")+1)), 0777);
+				@mkdir(trim(substr($line,strpos($line,"=")+1)), 0775);
 			}
 			elseif(strstr($line,"[update_file_list]") !== false)
 			{

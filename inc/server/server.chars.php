@@ -7,6 +7,9 @@ if(INCLUDED !== TRUE) {
 $pathway_info[] = array('title'=>$lang['Characters'],'link'=>'');
 //========================//
 
+// Tell the cache not to cache the file because theres more then 1 page
+define("CACHE_FILE", FALSE);
+
 if(isset($_GET['page']))
 {
 	$p = $_GET['page'];

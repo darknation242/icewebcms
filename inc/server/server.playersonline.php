@@ -7,6 +7,9 @@ if(INCLUDED !== TRUE) {
 $pathway_info[] = array('title'=>$lang['online_players'],'link'=>'');
 // ==================== //
 
+// Tell the cache not to cache the file because we want live feeds
+define("CACHE_FILE", FALSE);
+
 include('core/SDL/class.zone.php');
 include('core/SDL/class.character.php');
 $Zone = new Zone;
