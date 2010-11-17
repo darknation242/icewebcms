@@ -1,6 +1,6 @@
 <div class="content">	
 	<div class="content-header">
-		<h4><a href="index.php?p=admin">Main Menu</a> / Send Email</h4>
+		<h4><a href="?p=admin">Main Menu</a> / Send Email</h4>
 	</div> <!-- .content-header -->				
 	<div class="main-content">	
 	<?php 
@@ -9,7 +9,7 @@
 			send_email($_POST['reciever'],'wilson212',$_POST['subject'],$_POST['message']);
 		}
 	?>			
-		<form method="POST" action="index.php?p=admin&sub=email" class="form label-inline">
+		<form method="POST" action="?p=admin&sub=email" class="form label-inline">
 		<input type="hidden" name="send_email">
 		
 			<table>

@@ -39,11 +39,28 @@ $totalrows = count($getcnt);
 //===== Start of functions =====/
 
 // Change password admin style :p
-function adminChangePass($id, $newp) 
+// Change Pass. Buffer function for the SDL
+function changePass()
 {
-	global $DB;
-	$newpd = trim($newp);
-    
+	global $lang, $Account;
+	$newpass = trim($_POST['password']);
+	if(strlen($newpass)>3)
+	{
+		if($Account->setPassword($_GET['id'], $newpass) == TRUE)
+		{
+			output_message('success','<b>Password set successfully! Please wait while your redirected...</b>
+			<meta http-equiv=refresh content="3;url=index.php?p=admin&sub=users&id='.$_GET['id'].'">');
+		}
+		else
+		{
+			output_message('error', '<b>Change Password Failed!');
+		}
+	}
+	else
+	{
+		output_message('error','<b>'.$lang['change_pass_short'].'</b>
+		<meta http-equiv=refresh content="3;url=index.php?p=admin&sub=users&id='.$_GET['id'].'">');
+	}
 }
 
 // Unban user
@@ -108,7 +125,7 @@ function showBanForm($banid)
 	echo "
 		<div class=\"content\">	
 			<div class=\"content-header\">
-				<h4><a href=\"index.php?p=admin\">Main Menu</a> / <a href=\"index.php?p=admin&sub=users\">Manage Users</a> / ".$unme." / Ban</h4>
+				<h4><a href=\"?p=admin\">Main Menu</a> / <a href=\"?p=admin&sub=users\">Manage Users</a> / ".$unme." / Ban</h4>
 			</div> <!-- .content-header -->				
 			<div class=\"main-content\">
 	";
@@ -117,7 +134,7 @@ function showBanForm($banid)
 		banUser($_POST['ban_user'],$_POST['ban_reason']);
 	}
 	echo "
-		<form method=\"POST\" action=\"index.php?p=admin&sub=users&id=".$banid."&action=ban\" name=\"adminform\" class=\"form label-inline\">
+		<form method=\"POST\" action=\"?p=admin&sub=users&id=".$banid."&action=ban\" name=\"adminform\" class=\"form label-inline\">
 			<input type='hidden' name='ban_user'  value='".$banid."' />
 			<table>
 				<thead>

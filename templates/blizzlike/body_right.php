@@ -36,7 +36,7 @@
 			<li>
 				<div>
 					<center>
-						<a href="index.php?p=community&sub=vote"><img src="<?php echo $currtmp; ?>/images/vote.png" width="264" height="247" /></a>
+						<a href="<?php echo mw_url('community', 'vote'); ?>"><img src="<?php echo $currtmp; ?>/images/vote.png" width="264" height="247" /></a>
 						<?php echo $lang['fp_vote_desc'];?>
 					</center>
 				</div>
@@ -72,8 +72,8 @@ if ($cfg->get('module_fp_ssotd') == 1)
 		<a href="images/screenshots/<?php echo $screen_otd; ?>" target="_blank"><img src="modules/ssotd/show_picture.php?filename=<?php echo $screen_otd; ?>&amp;gallery=screen&amp;width=282" width="282" alt="" style="border: 1px solid #333333"/></a>
 		<select onchange="window.location = options[this.selectedIndex].value" style="width: 284px;">
 			<option value=""><?php echo $lang['screenshot_galleries']; ?> -&gt;</option>
-			<option value="index.php?p=media&sub=screen"><?php echo $lang['screenshot_gallery']; ?></option>
-			<option value="index.php?p=media&sub=wallp"><?php echo $lang['wallpaper_gallery']; ?></option>
+			<option value="<?php echo mw_url('media', 'screen'); ?>"><?php echo $lang['screenshot_gallery']; ?></option>
+			<option value="<?php echo mw_url('media', 'wallp'); ?>"><?php echo $lang['wallpaper_gallery']; ?></option>
 		</select>
 <?php
 	}
@@ -97,8 +97,8 @@ if ($cfg->get('fp_newbie_guide') == 1)
 				<?php echo $lang['newcomers2']; ?>
 			</p>
 			<ul>
-				<li>&nbsp; <a href="index.php?p=server&sub=howtoplay"><?php echo $lang['newcomers']; ?></a></li>
-				<li>&nbsp; <a href="index.php?p=server&sub=faq"><?php echo $lang['faq']; ?></a></li>
+				<li>&nbsp; <a href="<?php echo mw_url('server', 'howtoplay'); ?>"><?php echo $lang['newcomers']; ?></a></li>
+				<li>&nbsp; <a href="<?php echo mw_url('server', 'faq'); ?>"><?php echo $lang['faq']; ?></a></li>
 			</ul>
 		</div>
 	</div>
@@ -119,7 +119,7 @@ if(isset($usersonhomepage) || isset($hits))
 		{
 		?>
 			<li>
-				<a href="index.php?p=whoisonline">&nbsp;<?php echo $usersonhomepage;?>&nbsp;</a>
+				<a href="<?php echo mw_url('whoisonline'); ?>">&nbsp;<?php echo $usersonhomepage;?>&nbsp;</a>
 				<?php 
 					echo ($usersonhomepage == 1) ? $lang['user_online'] : $lang['users_online']; 
 				?>           

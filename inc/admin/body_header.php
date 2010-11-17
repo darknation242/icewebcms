@@ -88,11 +88,11 @@
                     $db_act_ver = $DB->selectCell("SELECT `dbver` FROM `mw_db_version`");
 					if($db_act_ver < $Core->exp_dbversion) 
 					{ 
-						echo "<font color='red'>".$db_act_ver." (<a href=\"index.php?p=admin&sub=updates\" /><small>Needs Updated</small></a>)</font>";
+						echo "<font color='red'>".$db_act_ver." (<a href='". mw_url('admin', 'updates') ."' /><small>Needs Updated</small></a>)</font>";
 					}
 					elseif($db_act_ver > $Core->exp_dbversion) 
 					{ 
-						echo "<font color='red'>".$db_act_ver." (<a href=\"index.php?p=admin&sub=updates\" /><small>Database outdates the core!</small></a>)</font>";
+						echo "<font color='red'>".$db_act_ver." (<a href='". mw_url('admin', 'updates') ."' /><small>Database outdates the core!</small></a>)</font>";
 					}
 					else
 					{ 
@@ -106,7 +106,7 @@
 	<div id="nav" class="clearfix">		
 		<ul>
 			<li>
-				<center><a href="index.php?p=admin">Admin Home</a> | <a href="index.php">Site Index</a></center>
+				<center><a href="?p=admin">Admin Home</a> | <a href="<?php echo mw_url('home'); ?>">Site Index</a></center>
 			</li>
 		</ul>		
 	</div> <!-- #nav -->

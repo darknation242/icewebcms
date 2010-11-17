@@ -7,7 +7,7 @@ if(INCLUDED!==true) {
 
 if(isset($_POST['reset']))
 {
-	redirect('index.php?p=admin&sub=cache&action=reset',1);
+	redirect('?p=admin&sub=cache&action=reset',1);
 }
 
 function clearCache()
@@ -15,7 +15,7 @@ function clearCache()
 	global $Core;
 	$Core->clearCache();
 	output_message('success', 'Cache cleared successfully! Please wait while your redirected... 
-		<meta http-equiv=refresh content="3;url=index.php?p=admin&sub=cache">');
+		<meta http-equiv=refresh content="3;url=?p=admin&sub=cache">');
 }
 
 function saveConfig() 
@@ -33,6 +33,6 @@ function saveConfig()
 	}
 	$cfg->Save();
 	output_message('success','Finished! Cache Settings Successfully Updated. Please wait while your redirected... 
-		<meta http-equiv=refresh content="3;url=index.php?p=admin&sub=cache">');
+		<meta http-equiv=refresh content="3;url=?p=admin&sub=cache">');
 }
 ?>

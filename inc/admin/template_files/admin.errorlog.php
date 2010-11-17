@@ -1,9 +1,9 @@
 <div class="content">	
 	<div class="content-header">
-		<h4><a href="index.php?p=admin">Main Menu</a> / Error logs</h4>
+		<h4><a href="?p=admin">Main Menu</a> / Error logs</h4>
 	</div> <!-- .content-header -->				
 	<div class="main-content">
-	<center><a href="index.php?p=admin&sub=errorlog&action=clean"><font color='red'><b>Clear Log</b></a></font></center>
+	<center><a href="?p=admin&sub=errorlog&action=clean"><font color='red'><b>Clear Log</b></a></font></center>
 	<?php
 		if(isset($_GET['action']))
 		{

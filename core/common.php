@@ -362,26 +362,25 @@ function my_previewreverse($text)
     return $text;
 }
 
-/**
- * Composes a mangosweb url which can be used in templates for example.
- *
- * Using this function instead of handcrafted index.php?n=..&sub=.. allows
- * for easier transparent url rewriting. It also implementes encoding the
- * entities in the url so you can echo the result of this result directly
- * in your html code without causing it fail W3C validation.
- *
- * @param $page string The page to be targeted by this url
- * @param $subpage string The subpage to be targeted by this url
- * @param $params array An optional array containing additional arguments to be passed when requesting the url (default empty)
- * @param $encodentities boolean Encode the entities (like replacing & by &amp;) so it can be used in html templates directly? (defaults to true)
- * @result string The url containing all the given parameters
- * @todo Make a config option for url rewriting and implement an if switch
- *       here to make urls like /account/manage instead of 
- *       index.php?n=account&sub=manage possible.
- */
-function mw_url($page, $subpage, $params=null, $encodeentities=true) 
+// Makes a MangosWeb URL
+function mw_url($page, $subpage = NULL, $params = NULL, $encodeentities = TRUE) 
 {
-    $url = "index.php?p=$page&sub=$subpage";
+	global $cfg;
+	if($subpage != NULL)
+	{
+		$url = "?p=$page&sub=$subpage";
+	}
+	else
+	{
+		if($page == 'home' || $page == 'main')
+		{
+			$url = $cfg->get('site_base_href');
+		}
+		else
+		{
+			$url = "?p=$page";
+		}
+	}
     if (is_array($params)) 
 	{
         foreach($params as $key=>$value) 

@@ -5,7 +5,7 @@ if(isset($_GET['id']))
 	<!-- EDITING LINK -->
 	<div class="content">	
 		<div class="content-header">
-			<h4><a href="index.php?p=admin">Main Menu</a> / <a href="index.php?p=admin&sub=donate">Donate Admin</a> / Edit</h4>
+			<h4><a href="?p=admin">Main Menu</a> / <a href="?p=admin&sub=donate">Donate Admin</a> / Edit</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">
 			<?php
@@ -24,7 +24,7 @@ if(isset($_GET['id']))
 					}
 				}
 			?>
-			<form method="POST" action="index.php?p=admin&sub=donate&id=<?php echo $_GET['id']; ?>" class="form label-inline">
+			<form method="POST" action="?p=admin&sub=donate&id=<?php echo $_GET['id']; ?>" class="form label-inline">
 			<input type="hidden" name="action" value="edit">
 			<?php
 				$edit_info = $DB->selectRow("SELECT * FROM `mw_donate_packages` WHERE `id`='".$_GET['id']."'");
@@ -67,7 +67,7 @@ elseif(isset($_GET['add']))
 <!-- ADDING LINK -->
 	<div class="content">	
 		<div class="content-header">
-			<h4><a href="index.php?p=admin">Main Menu</a> / <a href="index.php?p=admin&sub=donate">Donate Admin</a> / ADD</h4>
+			<h4><a href="?p=admin">Main Menu</a> / <a href="?p=admin&sub=donate">Donate Admin</a> / ADD</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">		
 			<?php
@@ -79,7 +79,7 @@ elseif(isset($_GET['add']))
 					}
 				}
 			?>		
-			<form method="POST" action="index.php?p=admin&sub=donate&add=true" class="form label-inline">
+			<form method="POST" action="?p=admin&sub=donate&add=true" class="form label-inline">
 			<input type="hidden" name="action" value="add">
 			
 			<div class="field">
@@ -114,10 +114,10 @@ else
 ?>
 	<div class="content">	
 		<div class="content-header">
-			<h4><a href="index.php?p=admin">Main Menu</a> / Donate Admin</h4>
+			<h4><a href="?p=admin">Main Menu</a> / Donate Admin</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">
-			<form method="POST" action="index.php?p=admin&sub=donate&add=true" class="form label-inline">
+			<form method="POST" action="?p=admin&sub=donate&add=true" class="form label-inline">
 				<h5><center>List of Donation Packages</center></h5><br />
 				<table>
 					<thead>
@@ -138,7 +138,7 @@ else
 									<td width='45%' align='center'>".$pack['desc']."</td>
 									<td width='15%' align='center'>".$pack['cost']."</td>
 									<td width='15%' align='center'>".$pack['points']."</td>
-									<td width='15%' align='center'><a href='index.php?p=admin&sub=donate&id=".$pack['id']."'>Edit / Del</a></td>
+									<td width='15%' align='center'><a href='?p=admin&sub=donate&id=".$pack['id']."'>Edit / Del</a></td>
 								</tr>
 							";
 						}

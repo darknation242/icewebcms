@@ -27,11 +27,11 @@ if(isset($_GET['id']))
 <!-- EDITING A REALM -->
 <div class="content">	
 	<div class="content-header">
-		<h4><a href="index.php?p=admin">Main Menu</a> / <a href="index.php?p=admin&sub=realms">Manage Realms</a> / Edit</h4>
+		<h4><a href="?p=admin">Main Menu</a> / <a href="?p=admin&sub=realms">Manage Realms</a> / Edit</h4>
 	</div> <!-- .content-header -->	
 	<div class="main-content">
 	
-	<form method="POST" action="index.php?p=admin&sub=realms&id=<?php echo $_GET['id']; ?>" name="adminform" class="form label-inline">
+	<form method="POST" action="?p=admin&sub=realms&id=<?php echo $_GET['id']; ?>" name="adminform" class="form label-inline">
 	<input type="hidden" name="edit_realm">
 		<?php
 			if(isset($_POST['edit_realm'])) 
@@ -259,7 +259,7 @@ else
 <!-- VIEWING REALMLIST -->
 <div class="content">	
 	<div class="content-header">
-		<h4><a href="index.php?p=admin">Main Menu</a> / Manage Realms</h4>
+		<h4><a href="?p=admin">Main Menu</a> / Manage Realms</h4>
 	</div> <!-- .content-header -->	
 	<div class="main-content">
 		<table>
@@ -274,7 +274,7 @@ else
 			<?php foreach($getrealms as $row) { ?>
 			<tr>
 				<td align="center"><?php echo $row['id']; ?></td>
-				<td align="center"><a href="index.php?p=admin&sub=realms&id=<?php echo $row['id']; ?>"><?php echo $row['name']; ?></a></td>
+				<td align="center"><a href="?p=admin&sub=realms&id=<?php echo $row['id']; ?>"><?php echo $row['name']; ?></a></td>
 				<td align="center"><?php echo $row['address']; ?></td>
 				<td align="center"><?php echo $row['port']; ?></td>
 				<td align="center"><?php echo $realm_type_def[$row['icon']]; ?></td>

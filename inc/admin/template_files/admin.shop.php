@@ -5,7 +5,7 @@ if(isset($_GET['id']))
 	<!-- EDITING ITEM -->
 	<div class="content">	
 		<div class="content-header">
-			<h4><a href="index.php?p=admin">Main Menu</a> / <a href="index.php?p=admin&sub=shop">Shop Items</a> / Edit</h4>
+			<h4><a href="?p=admin">Main Menu</a> / <a href="?p=admin&sub=shop">Shop Items</a> / Edit</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">
 			<?php
@@ -24,7 +24,7 @@ if(isset($_GET['id']))
 					}
 				}
 			?>
-			<form method="POST" action="index.php?p=admin&sub=shop&id=<?php echo $_GET['id']; ?>" class="form label-inline">
+			<form method="POST" action="?p=admin&sub=shop&id=<?php echo $_GET['id']; ?>" class="form label-inline">
 			<input type="hidden" name="action" value="edit">
 			<?php
 				$edit_info = $DB->selectRow("SELECT * FROM `mw_shop_items` WHERE `id`='".$_GET['id']."'");
@@ -93,7 +93,7 @@ elseif(isset($_GET['additem']))
 <!-- ADDING LINK -->
 	<div class="content">	
 		<div class="content-header">
-			<h4><a href="index.php?p=admin">Main Menu</a> / <a href="index.php?p=admin&sub=shop">Shop Items</a> / ADD</h4>
+			<h4><a href="?p=admin">Main Menu</a> / <a href="?p=admin&sub=shop">Shop Items</a> / ADD</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">	
 		<?php
@@ -105,7 +105,7 @@ elseif(isset($_GET['additem']))
 					}
 				}
 			?>
-			<form method="POST" action="index.php?p=admin&sub=shop&additem=true" class="form label-inline">
+			<form method="POST" action="?p=admin&sub=shop&additem=true" class="form label-inline">
 			<input type="hidden" name="action" value="add">
 			
 			<div class="field">
@@ -166,10 +166,10 @@ else
 ?>
 	<div class="content">	
 		<div class="content-header">
-			<h4><a href="index.php?p=admin">Main Menu</a> / Shop Items</h4>
+			<h4><a href="?p=admin">Main Menu</a> / Shop Items</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">
-			<form method="POST" action="index.php?p=admin&sub=shop&additem=true" class="form label-inline">
+			<form method="POST" action="?p=admin&sub=shop&additem=true" class="form label-inline">
 				<h5><center>List of Shop Items</center></h5><br />
 				<table>
 					<thead>
@@ -220,7 +220,7 @@ else
 										echo $row['realms']; 
 									}
 							echo"
-									<td width='15%' align='center'><a href='index.php?p=admin&sub=shop&id=".$row['id']."'>Edit / Del</a></td>
+									<td width='15%' align='center'><a href='?p=admin&sub=shop&id=".$row['id']."'>Edit / Del</a></td>
 									</td>
 								</tr>
 							";
@@ -233,7 +233,7 @@ else
 					// If there is going to be more then 1 page, then show page nav at the bottom
 					if($totalrows > $limit)
 					{
-						admin_paginate($totalrows, $limit, $page, 'index.php?p=admin&sub=shop');
+						admin_paginate($totalrows, $limit, $page, '?p=admin&sub=shop');
 					}
 				?>
 				</div>

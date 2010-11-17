@@ -1,7 +1,7 @@
 
 <div class="content">	
 	<div class="content-header">
-		<h4><a href="index.php?p=admin">Main Menu</a> / Updates</h4>
+		<h4><a href="?p=admin">Main Menu</a> / Updates</h4>
 	</div> <!-- .content-header -->				
 	<div class="main-content">
 		<table width="100%">

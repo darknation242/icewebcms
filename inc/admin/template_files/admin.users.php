@@ -39,7 +39,7 @@ if(isset($_GET['id']))
 ?>
 		<div class="content">	
 			<div class="content-header">
-				<h4><a href="index.php?p=admin">Main Menu</a> / <a href="index.php?p=admin&sub=users">Manage Users</a> / <?php echo $profile['username']; ?></h4>
+				<h4><a href="?p=admin">Main Menu</a> / <a href="?p=admin&sub=users">Manage Users</a> / <?php echo $profile['username']; ?></h4>
 			</div> <!-- .content-header -->				
 			<div class="main-content">
 			
@@ -52,7 +52,7 @@ if(isset($_GET['id']))
 						}
 						elseif($_POST['action'] == 'changePass')
 						{
-							// EDIT
+							changePass();
 						}
 						elseif($_POST['action'] == 'editWeb')
 						{
@@ -96,16 +96,16 @@ if(isset($_GET['id']))
 				<table>
 					<tr>
 						<td align="center" style="padding: 5px 5px 5px 5px;">
-						<a href="index.php?p=admin&sub=users&id=<?php echo $_GET['id']; ?>&action=delete" onclick="return confirm('Are you sure? This is Un-reversable!');">
+						<a href="?p=admin&sub=users&id=<?php echo $_GET['id']; ?>&action=delete" onclick="return confirm('Are you sure? This is Un-reversable!');">
 							<b><font color="red">Delete Account</font></b></a> ||
 						<?php
 							if($bann == 1) 
 							{
-								echo "<a href=\"index.php?p=admin&sub=users&id=".$_GET['id']."&action=unban\"><b><font color=\"red\">Unban</font></b></a>";
+								echo "<a href=\"?p=admin&sub=users&id=".$_GET['id']."&action=unban\"><b><font color=\"red\">Unban</font></b></a>";
 							}
 							elseif($bann == 0) 
 							{ 
-								echo "<a href=\"index.php?p=admin&sub=users&id=".$_GET['id']."&action=ban\"><b><font color=\"red\">Ban Account</font></b></a>";
+								echo "<a href=\"?p=admin&sub=users&id=".$_GET['id']."&action=ban\"><b><font color=\"red\">Ban Account</font></b></a>";
 							}
 						?>
 						</td>
@@ -119,7 +119,7 @@ if(isset($_GET['id']))
 						<th><center><b>Edit Profile</center></b></th>
 					</thead>
 				</table>
-				<form method="POST" action="index.php?p=admin&sub=users&id=<?php echo $_GET['id']; ?>" class="form label-inline">
+				<form method="POST" action="?p=admin&sub=users&id=<?php echo $_GET['id']; ?>" class="form label-inline">
 					<input type="hidden" name="action" value="editProfile">
 					
 					<div class="field">
@@ -133,7 +133,7 @@ if(isset($_GET['id']))
 					</div>
 					
 					<div class="field">
-						<label for="Loocekd">Locked: </label>
+						<label for="Locked">Locked: </label>
 						<select name="locked" class='xsmall'>
 							<?php
 								if($profile['locked'] == 1)
@@ -181,7 +181,7 @@ if(isset($_GET['id']))
 						<th><center><b>Change Password</center></b></th>
 					</thead>
 				</table>
-				<form method="POST" action="index.php?p=admin&sub=users&id=<?php echo $_GET['id']; ?>" class="form label-inline">
+				<form method="POST" action="?p=admin&sub=users&id=<?php echo $_GET['id']; ?>" class="form label-inline">
 					<input type="hidden" name="action" value="changePass">
 				
 					<div class="field">
@@ -202,7 +202,7 @@ if(isset($_GET['id']))
 						<th><center><b>Edit Website Account Details</center></b></th>
 					</thead>
 				</table>
-				<form method="POST" action="index.php?p=admin&sub=users&id=<?php echo $_GET['id']; ?>" class="form label-inline">
+				<form method="POST" action="?p=admin&sub=users&id=<?php echo $_GET['id']; ?>" class="form label-inline">
 					<input type="hidden" name="action" value="changeWeb">
 				
 					<div class="field">
@@ -280,7 +280,7 @@ else
 <div id="main">			
 	<div class="content">	
 		<div class="content-header">
-			<h4><a href="index.php?p=admin">Main Menu</a> / Manage Users</h4>
+			<h4><a href="?p=admin">Main Menu</a> / Manage Users</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">	
 		<center><h2>User List</h2></center>
@@ -289,39 +289,39 @@ else
 				<td colspan="4" align="center">
 					<b>Sort by letter:</b>&nbsp;&nbsp;
 					<small>
-					<a href="index.php?p=admin&sub=users">All</a> | 
-					<a href="index.php?p=admin&sub=users&char=1">#</a> 
-					<a href="index.php?p=admin&sub=users&char=a">A</a> 
-					<a href="index.php?p=admin&sub=users&char=b">B</a> 
-					<a href="index.php?p=admin&sub=users&char=c">C</a> 
-					<a href="index.php?p=admin&sub=users&char=d">D</a> 
-					<a href="index.php?p=admin&sub=users&char=e">E</a> 
-					<a href="index.php?p=admin&sub=users&char=f">F</a> 
-					<a href="index.php?p=admin&sub=users&char=g">G</a> 
-					<a href="index.php?p=admin&sub=users&char=h">H</a> 
-					<a href="index.php?p=admin&sub=users&char=i">I</a> 
-					<a href="index.php?p=admin&sub=users&char=j">J</a> 
-					<a href="index.php?p=admin&sub=users&char=k">K</a> 
-					<a href="index.php?p=admin&sub=users&char=l">L</a> 
-					<a href="index.php?p=admin&sub=users&char=m">M</a> 
-					<a href="index.php?p=admin&sub=users&char=n">N</a> 
-					<a href="index.php?p=admin&sub=users&char=o">O</a> 
-					<a href="index.php?p=admin&sub=users&char=p">P</a> 
-					<a href="index.php?p=admin&sub=users&char=q">Q</a> 
-					<a href="index.php?p=admin&sub=users&char=r">R</a> 
-					<a href="index.php?p=admin&sub=users&char=s">S</a> 
-					<a href="index.php?p=admin&sub=users&char=t">T</a> 
-					<a href="index.php?p=admin&sub=users&char=u">U</a> 
-					<a href="index.php?p=admin&sub=users&char=v">V</a> 
-					<a href="index.php?p=admin&sub=users&char=w">W</a> 
-					<a href="index.php?p=admin&sub=users&char=x">X</a> 
-					<a href="index.php?p=admin&sub=users&char=y">Y</a> 
-					<a href="index.php?p=admin&sub=users&char=z">Z</a>              
+					<a href="?p=admin&sub=users">All</a> | 
+					<a href="?p=admin&sub=users&char=1">#</a> 
+					<a href="?p=admin&sub=users&char=a">A</a> 
+					<a href="?p=admin&sub=users&char=b">B</a> 
+					<a href="?p=admin&sub=users&char=c">C</a> 
+					<a href="?p=admin&sub=users&char=d">D</a> 
+					<a href="?p=admin&sub=users&char=e">E</a> 
+					<a href="?p=admin&sub=users&char=f">F</a> 
+					<a href="?p=admin&sub=users&char=g">G</a> 
+					<a href="?p=admin&sub=users&char=h">H</a> 
+					<a href="?p=admin&sub=users&char=i">I</a> 
+					<a href="?p=admin&sub=users&char=j">J</a> 
+					<a href="?p=admin&sub=users&char=k">K</a> 
+					<a href="?p=admin&sub=users&char=l">L</a> 
+					<a href="?p=admin&sub=users&char=m">M</a> 
+					<a href="?p=admin&sub=users&char=n">N</a> 
+					<a href="?p=admin&sub=users&char=o">O</a> 
+					<a href="?p=admin&sub=users&char=p">P</a> 
+					<a href="?p=admin&sub=users&char=q">Q</a> 
+					<a href="?p=admin&sub=users&char=r">R</a> 
+					<a href="?p=admin&sub=users&char=s">S</a> 
+					<a href="?p=admin&sub=users&char=t">T</a> 
+					<a href="?p=admin&sub=users&char=u">U</a> 
+					<a href="?p=admin&sub=users&char=v">V</a> 
+					<a href="?p=admin&sub=users&char=w">W</a> 
+					<a href="?p=admin&sub=users&char=x">X</a> 
+					<a href="?p=admin&sub=users&char=y">Y</a> 
+					<a href="?p=admin&sub=users&char=z">Z</a>              
 					</small>           
 				</td>
 			</tr>
 		</table>
-		<form method="POST" action="index.php?p=admin&sub=users" name="adminform" class="form label-inline">
+		<form method="POST" action="?p=admin&sub=users" name="adminform" class="form label-inline">
 			<table width="95%">
 				<thead>
 					<tr>
@@ -335,7 +335,7 @@ else
 				foreach($getusers as $row) { 
 				?>
 				<tr class="content">
-					<td align="center"><a href="index.php?p=admin&sub=users&id=<?php echo $row['id']; ?>"><?php echo $row['username']; ?></a></td>
+					<td align="center"><a href="?p=admin&sub=users&id=<?php echo $row['id']; ?>"><?php echo $row['username']; ?></a></td>
 					<td align="center"><?php echo $row['email']; ?></td>
 					<td align="center"><?php echo $row['joindate']; ?></td>
 					<td align="center"><?php echo $row['locked']; ?></td>
@@ -346,7 +346,7 @@ else
 				// If there is going to be more then 1 page, then show page nav at the bottom
 				if($totalrows > $limit)
 				{
-					admin_paginate($totalrows, $limit, $page, 'index.php?p=admin&sub=users');
+					admin_paginate($totalrows, $limit, $page, '?p=admin&sub=users');
 				}
 			?>
 			</div>

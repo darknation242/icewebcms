@@ -2,7 +2,7 @@
 <div id="main">			
 	<div class="content">	
 		<div class="content-header">
-			<h4><a href="index.php?p=admin">Main Menu</a> / Site Config</h4>
+			<h4><a href="?p=admin">Main Menu</a> / Site Config</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">					
 		<?php 
@@ -31,7 +31,7 @@
 					</center>
 				</p>
 			</div>
-			<form method="POST" action="index.php?p=admin&sub=siteconfig" name="adminform" class="form label-inline">
+			<form method="POST" action="?p=admin&sub=siteconfig" name="adminform" class="form label-inline">
 			<input type="hidden" name="task" value="saveconfig">
 	
 			<!-- BASIC SITE CONFIG -->
@@ -214,7 +214,7 @@
 					<option value="0" <?php echo $e_arsq2; ?>>Disabled</option>
 				</select>																											
 				<p class="field_help">Requires users to input secret questions / answers when registering account.<br /> 
-					Questions are set in <a href="index.php?p=admin&sub=squestions">here</a>
+					Questions are set in <a href="?p=admin&sub=squestions">here</a>
 				</p>
 			</div>
 			

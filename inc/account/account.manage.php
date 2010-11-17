@@ -14,7 +14,7 @@ define('CACHE_FILE', FALSE);
 // check if the user is logged in. if not, redirect
 if($user['id'] <= 0)
 {
-    redirect('index.php?p=account&sub=login',1);
+    redirect('?p=account&sub=login',1);
 }
 
 // First we need to load the users profile
@@ -41,17 +41,17 @@ function changeemail()
 			// Now we set the email by using the SDL
 			if($Account->setEmail($user['id'], $newemail) == TRUE)
 			{
-				output_message('success','<b>'.$lang['change_email_success'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
+				output_message('success','<b>'.$lang['change_email_success'].'</b><meta http-equiv=refresh content="3;url=?p=account&sub=manage">');
 			}
 		}
 		else
 		{
-			output_message('validation','<b>'.$lang['register_email_used'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
+			output_message('validation','<b>'.$lang['register_email_used'].'</b><meta http-equiv=refresh content="3;url=?p=account&sub=manage">');
 		}
 	}
 	else
 	{
-		output_message('validation','<b>'.$lang['invalid_email'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
+		output_message('validation','<b>'.$lang['invalid_email'].'</b><meta http-equiv=refresh content="3;url=?p=account&sub=manage">');
 	}
 }
 
@@ -64,7 +64,7 @@ function changepass()
 	{
 		if($Account->setPassword($user['id'], $newpass) == TRUE)
 		{
-			output_message('success','<b>'.$lang['change_pass_success'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
+			output_message('success','<b>'.$lang['change_pass_success'].'</b><meta http-equiv=refresh content="3;url=?p=account&sub=manage">');
 		}
 		else
 		{
@@ -73,7 +73,7 @@ function changepass()
 	}
 	else
 	{
-		output_message('alert','<b>'.$lang['change_pass_short'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
+		output_message('error','<b>'.$lang['change_pass_short'].'</b><meta http-equiv=refresh content="4;url=?p=account&sub=manage">');
 	}
 }
 
@@ -122,11 +122,11 @@ function deleteAvatar()
 	$go = $Account->deleteAvatar($user['id'], $_POST['avatarfile']);
 	if($go == TRUE)
 	{
-		output_message('success', 'Avatar Deleted!<meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
+		output_message('success', 'Avatar Deleted!<meta http-equiv=refresh content="4;url=?p=account&sub=manage">');
 	}
 	else
 	{
-		output_message('error', 'Unable to delete avatar. Please contact an admin.<meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
+		output_message('error', 'Unable to delete avatar. Please contact an admin.<meta http-equiv=refresh content="4;url=?p=account&sub=manage">');
 	}
 }
 
@@ -137,19 +137,19 @@ function changeSQ()
 	$change = $Account->setSecretQuestions($user['id'], $_POST['secretq1'], $_POST['secreta1'], $_POST['secretq2'], $_POST['secreta2']);
 	if($change == 1)
 	{
-		output_message('success','<b>'.$lang['changed_secretq'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
+		output_message('success','<b>'.$lang['changed_secretq'].'</b><meta http-equiv=refresh content="4;url=?p=account&sub=manage">');
 	}
 	elseif($change == 2)
 	{
-		output_message('error','<b>'.$lang['secretq_error_same'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
+		output_message('error','<b>'.$lang['secretq_error_same'].'</b><meta http-equiv=refresh content="3;url=?p=account&sub=manage">');
 	}
 	elseif($change == 3)
 	{
-		output_message('error','<b>'.$lang['secretq_error_short'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
+		output_message('error','<b>'.$lang['secretq_error_short'].'</b><meta http-equiv=refresh content="3;url=?p=account&sub=manage">');
 	}
 	else
 	{
-		output_message('error','<b>'.$lang['secretq_error_symbols'].'</b><meta http-equiv=refresh content="3;url=index.php?p=account&sub=manage">');
+		output_message('error','<b>'.$lang['secretq_error_symbols'].'</b><meta http-equiv=refresh content="3;url=?p=account&sub=manage">');
 	}
 }
 
@@ -160,7 +160,7 @@ function resetSQ()
 	if($Account->resetSecretQuestions($user['id']) == TRUE)
 	{
 		output_message('success','<b>'.$lang['reset_secretq_success'].' Please wait while you are redirected...
-			</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
+			</b><meta http-equiv=refresh content="4;url=?p=account&sub=manage">');
 	}
 }
 
@@ -172,21 +172,21 @@ function changeExp()
 	{
 		if($Account->setExpansion($user['id'], 2) == TRUE)
 		{
-			output_message('success','<b>'.$lang['expansion_set'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
+			output_message('success','<b>'.$lang['expansion_set'].'</b><meta http-equiv=refresh content="4;url=?p=account&sub=manage">');
 		}
 	}
 	elseif($_POST['switch_wow_type']=='tbc')
 	{
 		if($Account->setExpansion($user['id'], 1) == TRUE)
 		{
-			output_message('success','<b>'.$lang['expansion_set'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
+			output_message('success','<b>'.$lang['expansion_set'].'</b><meta http-equiv=refresh content="4;url=?p=account&sub=manage">');
 		}
 	}
 	elseif($_POST['switch_wow_type']=='classic')
 	{
 		if($Account->setExpansion($user['id'], 0) == TRUE)
 		{
-			output_message('success','<b>'.$lang['expansion_set'].'</b><meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
+			output_message('success','<b>'.$lang['expansion_set'].'</b><meta http-equiv=refresh content="4;url=?p=account&sub=manage">');
 		}
 	}
 }
@@ -205,6 +205,6 @@ function changeDetails()
 		`location` = '".$_POST['profile']['location']."',
 		`signature` = '".$_POST['profile']['signature']."'
 	WHERE `account_id` = '".$user['id']."'");
-	output_message('success', $lang['account_update_success'].'<meta http-equiv=refresh content="4;url=index.php?p=account&sub=manage">');
+	output_message('success', $lang['account_update_success'].'<meta http-equiv=refresh content="4;url=?p=account&sub=manage">');
 }
 ?>

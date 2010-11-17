@@ -5,7 +5,7 @@ if(isset($_GET['linkid']))
 	<!-- EDITING LINK -->
 	<div class="content">	
 		<div class="content-header">
-			<h4><a href="index.php?p=admin">Main Menu</a> / <a href="index.php?p=admin&sub=fplinks">Frontpage Links</a> / Edit</h4>
+			<h4><a href="?p=admin">Main Menu</a> / <a href="?p=admin&sub=fplinks">Frontpage Links</a> / Edit</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">
 			<?php
@@ -24,7 +24,7 @@ if(isset($_GET['linkid']))
 					}
 				}
 			?>
-			<form method="POST" action="index.php?p=admin&sub=fplinks&linkid=<?php echo $_GET['linkid']; ?>" class="form label-inline">
+			<form method="POST" action="?p=admin&sub=fplinks&linkid=<?php echo $_GET['linkid']; ?>" class="form label-inline">
 			<input type="hidden" name="action" value="edit">
 			<?php
 				$edit_info = $DB->selectRow("SELECT * FROM `mw_menu_items` WHERE `id`='".$_GET['linkid']."'");
@@ -39,7 +39,7 @@ if(isset($_GET['linkid']))
 				<label for="Link H">Link To: </label>
 				<input id="Link H" name="link" size="20" type="text" class="medium" value="<?php echo $edit_info['link']; ?>" />
 				<p class="field_help">The Http:// address of where the link points too. If withing MangosWeb, <br />link can be put like this 
-										"index.php?= { PAGE } & sub= { SUB-PAGE }" etc etc</p>
+										"?p= { PAGE } & sub= { SUB-PAGE }" etc etc</p>
 			</div>
 			
 			<div class="field">
@@ -101,10 +101,10 @@ elseif(isset($_GET['addlink']))
 <!-- ADDING LINK -->
 	<div class="content">	
 		<div class="content-header">
-			<h4><a href="index.php?p=admin">Main Menu</a> / <a href="index.php?p=admin&sub=fplinks">Frontpage Links</a> / ADD</h4>
+			<h4><a href="?p=admin">Main Menu</a> / <a href="?p=admin&sub=fplinks">Frontpage Links</a> / ADD</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">
-			<form method="POST" action="index.php?p=admin&sub=fplinks" class="form label-inline">
+			<form method="POST" action="?p=admin&sub=fplinks" class="form label-inline">
 			<input type="hidden" name="action" value="addlink">
 			<div class="field">
 				<label for="Link Title">Link Title: </label>
@@ -116,7 +116,7 @@ elseif(isset($_GET['addlink']))
 				<label for="Link H">Link To: </label>
 				<input id="Link H" name="link" size="20" type="text" class="medium" />
 				<p class="field_help">The Http:// address of where the link points too. If withing MangosWeb, <br />link can be put like this 
-										"index.php?= { PAGE } & sub= { SUB-PAGE }" etc etc</p>
+										"?p= { PAGE } & sub= { SUB-PAGE }" etc etc</p>
 			</div>
 			
 			<div class="field">
@@ -167,7 +167,7 @@ else
 ?>
 	<div class="content">	
 		<div class="content-header">
-			<h4><a href="index.php?p=admin">Main Menu</a> / Frontpage Links</h4>
+			<h4><a href="?p=admin">Main Menu</a> / Frontpage Links</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">
 			<?php
@@ -183,8 +183,8 @@ else
 					}
 				}
 			?>
-			<h4><center><b><u><a href="index.php?p=admin&sub=fplinks&addlink=true"> Add Link </a></u></b></center></h4>
-			<form method="POST" action="index.php?p=admin&sub=fplinks" class="form label-inline">
+			<h4><center><b><u><a href="?p=admin&sub=fplinks&addlink=true"> Add Link </a></u></b></center></h4>
+			<form method="POST" action="?p=admin&sub=fplinks" class="form label-inline">
 			<input type="hidden" name="action" value="update">
 			<?php
 				foreach($mainnav_links as $menuname)
@@ -206,7 +206,7 @@ else
 							echo "<tr>
 									<div class='field'>
 									<td>
-										<a href='index.php?p=admin&sub=fplinks&linkid=".$link['id']."'>".$link['link_title']."</a>
+										<a href='?p=admin&sub=fplinks&linkid=".$link['id']."'>".$link['link_title']."</a>
 									</td>
 									<td>";
 										if($link['account_level'] == 1)

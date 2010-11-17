@@ -12,10 +12,10 @@
 				}
 	?>
 		<div class="content-header">
-			<h4><a href="index.php?p=admin">Main Menu</a> / <a href="index.php?p=admin&sub=news">News</a> / Add News</h4>
+			<h4><a href="?p=admin">Main Menu</a> / <a href="?p=admin&sub=news">News</a> / Add News</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">
-			<form method="POST" action="index.php?p=admin&sub=news&action=add" class="form label-inline">
+			<form method="POST" action="?p=admin&sub=news&action=add" class="form label-inline">
 			<input type="hidden" name="task" value="addnews">
 			
 				<table>
@@ -62,10 +62,10 @@
 			}
 ?>
 		<div class="content-header">
-			<h4><a href="index.php?p=admin">Main Menu</a> / <a href="index.php?p=admin&sub=news">News</a> / Edit News</h4>
+			<h4><a href="?p=admin">Main Menu</a> / <a href="?p=admin&sub=news">News</a> / Edit News</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">
-			<form method="POST" action="index.php?p=admin&sub=news&action=edit&id=<?php echo $_GET['id']; ?>" class="form label-inline">
+			<form method="POST" action="?p=admin&sub=news&action=edit&id=<?php echo $_GET['id']; ?>" class="form label-inline">
 			<input type="hidden" name="task" value="editnews">
 			<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">			
 				<table>
@@ -114,10 +114,10 @@ else
 {
 ?>
 		<div class="content-header">
-			<h4><a href="index.php?p=admin">Main Menu</a> / News</h4>
+			<h4><a href="?p=admin">Main Menu</a> / News</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">
-			<form method="POST" action="index.php?p=admin&sub=news&action=add" class="form label-inline">
+			<form method="POST" action="?p=admin&sub=news&action=add" class="form label-inline">
 				<h2><center>News List</center></h2>
 				<table>
 					<tbody>
@@ -136,7 +136,7 @@ else
 								$date_n = date("Y-m-d, g:i a", $row['post_time']);
 						?>
 						<tr>
-							<td align="center"><a href="index.php?p=admin&sub=news&action=edit&id=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a></td>
+							<td align="center"><a href="?p=admin&sub=news&action=edit&id=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a></td>
 							<td align="center"><?php echo $row['posted_by']; ?></td>
 							<td align="center"><?php echo $date_n; ?></td>
 						</tr>

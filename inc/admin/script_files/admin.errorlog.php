@@ -35,7 +35,7 @@ function clearLogFile()
 	{
 		fclose($handle);
 		output_message('success', 'Error log successfully cleared! Please wait while we rediret you... 
-			<meta http-equiv=refresh content="3;url=index.php?p=admin&sub=errorlog">');
+			<meta http-equiv=refresh content="3;url=?p=admin&sub=errorlog">');
 	}
 	else
 	{

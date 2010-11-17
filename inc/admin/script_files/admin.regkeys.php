@@ -21,7 +21,7 @@ function createKeys()
         }
     }
     output_message('success', $_POST['num'].' Keys added to the database! Please wait to be re-directed...
-		<meta http-equiv=refresh content="3;url=index.php?p=admin&sub=regkeys">');
+		<meta http-equiv=refresh content="3;url=?p=admin&sub=regkeys">');
 }
 
 function deleteKey()
@@ -37,7 +37,7 @@ function deleteKey()
         $DB->query("DELETE FROM mw_regkeys WHERE `key`='".$_POST['keyname']."'");
     }
     output_message('success', 'Key Deleted! Please wait to be re-directed...
-		<meta http-equiv=refresh content="3;url=index.php?p=admin&sub=regkeys">');
+		<meta http-equiv=refresh content="3;url=?p=admin&sub=regkeys">');
 }
 
 function setUsed()

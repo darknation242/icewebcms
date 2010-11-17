@@ -1,6 +1,6 @@
 <div class="content">	
 	<div class="content-header">
-		<h4><a href="index.php?p=admin">Main Menu</a> / Register Keys</h4>
+		<h4><a href="?p=admin">Main Menu</a> / Register Keys</h4>
 	</div> <!-- .content-header -->	
 	<div class="main-content">
 		<table style="border-bottom: 1px solid #E5E2E2;">
@@ -42,8 +42,8 @@
 		?>
 		
 		<p>
-			<a href="index.php?p=admin&sub=regkeys&action=deleteall" onclick="return confirm('Are you sure?');"><b>[ <font color="red">Delete all keys</font> ]</b></a><br/>
-			<form method="post" action="index.php?p=admin&sub=regkeys&action=create" class="form label-inline">
+			<a href="?p=admin&sub=regkeys&action=deleteall" onclick="return confirm('Are you sure?');"><b>[ <font color="red">Delete all keys</font> ]</b></a><br/>
+			<form method="post" action="?p=admin&sub=regkeys&action=create" class="form label-inline">
 				Enter number of keys desired (1-300): <input type="text" name="num" size="4"> 
 				&nbsp; &nbsp; <button><span>Create</span></button>
 			</form>
@@ -56,12 +56,12 @@
 					{
 						if($key['used'] == 0)
 						{
-							echo'<li><a href="index.php?p=admin&sub=regkeys&action=delete&keyid='.$key['id'].'" title="Delete">[Delete]</a>
-								&nbsp; '.$key['id'].') <a href="index.php?p=admin&sub=regkeys&action=setused&keyid='.$key['id'].'" title="Mark as used">'.$key['key'].'</a></li>'."\n";
+							echo'<li><a href="?p=admin&sub=regkeys&action=delete&keyid='.$key['id'].'" title="Delete">[Delete]</a>
+								&nbsp; '.$key['id'].') <a href="?p=admin&sub=regkeys&action=setused&keyid='.$key['id'].'" title="Mark as used">'.$key['key'].'</a></li>'."\n";
 						}
 						else 
 						{
-							echo'<li><a href="index.php?p=admin&sub=regkeys&action=delete&keyid='.$key['id'].'" title="Delete">[Delete]</a>
+							echo'<li><a href="?p=admin&sub=regkeys&action=delete&keyid='.$key['id'].'" title="Delete">[Delete]</a>
 							&nbsp; <s>'.$key['id'].') '.$key['key'].'</s></li>'."\n";
 						}
 					} 

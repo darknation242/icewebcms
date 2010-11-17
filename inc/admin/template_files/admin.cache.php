@@ -1,6 +1,6 @@
 <div class="content">	
 	<div class="content-header">
-		<h4><a href="index.php?p=admin">Main Menu</a> / Cache Settings</h4>
+		<h4><a href="?p=admin">Main Menu</a> / Cache Settings</h4>
 	</div> <!-- .content-header -->	
 	<div class="main-content">
 		<?php
@@ -16,7 +16,7 @@
 				saveConfig();
 			}
 		?>
-		<form method="POST" action="index.php?p=admin&sub=cache" name="adminform" class="form label-inline">
+		<form method="POST" action="?p=admin&sub=cache" name="adminform" class="form label-inline">
 		<input type="hidden" name="task" value="update">
 			<table>
 				<thead>

@@ -259,7 +259,7 @@ class Account
                 }
 				
 				// Send email
-                $act_link = (string)$cfg->get('site_base_href').'index.php?p=account&sub=activate&id='.$u_id.'&key='.$tmp_act_key;
+                $act_link = (string)$cfg->get('site_base_href').'?p=account&sub=activate&id='.$u_id.'&key='.$tmp_act_key;
                 $email_text  = '== Account activation =='."\n\n";
                 $email_text .= 'Username: '.$params['username']."\n";
                 $email_text .= 'Password: '.$password."\n";

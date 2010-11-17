@@ -5,7 +5,7 @@ if(isset($_GET['id']))
 	<!-- EDITING LINK -->
 	<div class="content">	
 		<div class="content-header">
-			<h4><a href="index.php?p=admin">Main Menu</a> / <a href="index.php?p=admin&sub=vote">Vote Links</a> / Edit</h4>
+			<h4><a href="?p=admin">Main Menu</a> / <a href="?p=admin&sub=vote">Vote Links</a> / Edit</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">
 			<?php
@@ -24,7 +24,7 @@ if(isset($_GET['id']))
 					}
 				}
 			?>
-			<form method="POST" action="index.php?p=admin&sub=vote&id=<?php echo $_GET['id']; ?>" class="form label-inline">
+			<form method="POST" action="?p=admin&sub=vote&id=<?php echo $_GET['id']; ?>" class="form label-inline">
 			<input type="hidden" name="action" value="edit">
 			<?php
 				$edit_info = $DB->selectRow("SELECT * FROM `mw_vote_sites` WHERE `id`='".$_GET['id']."'");
@@ -72,10 +72,10 @@ elseif(isset($_GET['addlink']))
 <!-- ADDING LINK -->
 	<div class="content">	
 		<div class="content-header">
-			<h4><a href="index.php?p=admin">Main Menu</a> / <a href="index.php?p=admin&sub=vote">Vote Links</a> / ADD</h4>
+			<h4><a href="?p=admin">Main Menu</a> / <a href="?p=admin&sub=vote">Vote Links</a> / ADD</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">
-			<form method="POST" action="index.php?p=admin&sub=vote" class="form label-inline">
+			<form method="POST" action="?p=admin&sub=vote" class="form label-inline">
 			<input type="hidden" name="action" value="addSite">
 			<div class="field">
 				<label for="Link Title">Hostname: </label>
@@ -115,7 +115,7 @@ else
 ?>
 	<div class="content">	
 		<div class="content-header">
-			<h4><a href="index.php?p=admin">Main Menu</a> / Vote Links</h4>
+			<h4><a href="?p=admin">Main Menu</a> / Vote Links</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">
 			<?php
@@ -127,7 +127,7 @@ else
 					}
 				}
 			?>
-			<form method="POST" action="index.php?p=admin&sub=vote&addlink=true" class="form label-inline">
+			<form method="POST" action="?p=admin&sub=vote&addlink=true" class="form label-inline">
 			<input type="hidden" name="action" value="update">
 				<h5><center>List of Vote Sites</center></h5><br />
 				<table>
@@ -144,7 +144,7 @@ else
 						{
 							echo "
 								<tr>
-									<td width='25%' align='center'><a href='index.php?p=admin&sub=vote&id=".$site['id']."'>".$site['hostname']."</a></td>
+									<td width='25%' align='center'><a href='?p=admin&sub=vote&id=".$site['id']."'>".$site['hostname']."</a></td>
 									<td width='35%' align='center'>".$site['image_url']."</td>
 									<td width='25%' align='center'><a href='".$site['votelink']."'>".$site['votelink']."</a></td>
 									<td width='15%' align='center'>".$site['points']."</td>

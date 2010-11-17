@@ -7,7 +7,7 @@
 
 class Core
 {
-	var $version = '3.0.0';
+	var $version = '3.0.0a';
 	var $version_date = '2010-10-29, 2:19 pm';
 	var $exp_dbversion = '1.0';
 
