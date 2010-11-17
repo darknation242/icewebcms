@@ -183,7 +183,7 @@ class Update
 		}
 		else
 		{
-			$return = $err;
+			$return = FALSE;
 		}
 		return $return;
 	}
@@ -219,25 +219,30 @@ class Update
 					fwrite($file,$updated_file_contents);
 					fclose($file);
 				}
+				
+				// next 2 lines can be used for a future progress bar.
 				$len_till_now += $this->charlen_file[$i];
 				$perc = $len_till_now * 100 / $this->get_total_charlen();
+				
 				echo $filename." <font color='green'>Updated Successfully!</font><br />";
 				ob_flush();
+				flush();
 				$i++;
 			}
 			
-			// These next few lines are for the server to get statistics. The update server will log your servers IP
+			// These next few lines are for the server to get statistics. The update server will log your servers
 			// Address so we can get a good count on how many users are using mangosweb, and how many are updating
-			$open_add = $this->server_address ."index.php?server=".$_SERVER['SERVER_ADDR']."&update=".$this->update_version;
+			$open_add = $this->server_address ."index.php?server=".$_SERVER['HTTP_HOST']."&update=".$this->update_version;
 			$calc = @fopen($open_add, 'r');
 			if($calc)
 			{
 				@fclose($calc);
 			}
+			return TRUE;
 		} 
 		else 
 		{
-			$err = "<font color='red'>Some file(s) are not writable.</font>";
+			$err .= "<font color='red'>An error occured while updating. Some files where not writable by the server!</font>";
 			foreach ($this->writable_files as $id => $value) 
 			{
 				if($value == "no") 
@@ -246,16 +251,8 @@ class Update
 				}
 			}
 			$err .= "<font color='red'>No file(s) were updated.<br></font>";
+			return $err;
 		}
-		if($err == '')
-		{
-			$return = TRUE;
-		}
-		else
-		{
-			$return = $err;
-		}
-		return $return;
 	}
 }
 ?>

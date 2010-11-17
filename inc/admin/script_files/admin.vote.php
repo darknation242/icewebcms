@@ -30,16 +30,28 @@ function deleteSite()
 function addSite()
 {
 	global $DB;
+	$getcount = $DB->count("SELECT COUNT(*) FROM `mw_vote_sites`");
+	if($getcount == 0)
+	{
+		$key = 1;
+	}
+	else
+	{
+		$max = $DB->selectCell("SELECT MAX(`site_key`) FROM `mw_vote_sites`");
+		$key = $max * 2;
+	}
 	$DB->query("INSERT INTO mw_vote_sites(
 		`hostname`,
 		`votelink`,
 		`image_url`,
-		`points`)
+		`points`,
+		`site_key`)
 	  VALUES(
 		'".$_POST['link_host']."', 
 		'".$_POST['link']."', 
 		'".$_POST['link_image']."', 
-		'".$_POST['link_points']."'
+		'".$_POST['link_points']."',
+		'".$key."'
 		)
 	");
 	output_message('success', 'Votesite successfully added to Database!');

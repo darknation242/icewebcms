@@ -44,55 +44,44 @@ function runUpdate()
 		$Update->get_next_update();
 		echo "<br /><b><u>1. Building file list: </u></b><br />"; 
 		ob_flush();
+		flush();
 		
 		// Echo the update list of files
 		echo $Update->print_updated_files_list(); 
 		ob_flush();
+		flush();
 
 		echo "<br /><b><u>2. Checking for write permissions: </u></b><br />"; 
 		ob_flush();
+		flush();
 		
 		// Check if all files are writable by the server, and list
 		// the results from each file
 		if($Update->check_if_are_writable() == TRUE) 
-		{
-			foreach ($Update->writable_files as $file => $value) 
-			{
-				if($value = 'yes')
-				{
-					$e_val = "<font color='green'><i>Writable</i></font>";
-				}
-				else
-				{
-					$e_val = "<font color='red'><i>Not Writable!</i></font>";
-				}
-				echo $file." = ".$e_val."<br />"; 
-				ob_flush();
-			}
-			echo "<br /><font color='green'><b>All files are writable!</b></font><br>"; 
+		{	
+			echo "<font color='green'><b>All files are writable!</b></font><br>"; 
 			ob_flush();
+			flush();
 		} 
 		else 
 		{
+			echo "<font color='red'>Some files are not writable! Listing un-writable files...</font><br />";
 			foreach ($Update->writable_files as $file => $value) 
 			{
-				if($value = 'yes')
-				{
-					$e_val = "<font color='green'><i>Writable</i></font>";
-				}
-				else
+				if($value == 'no')
 				{
 					$e_val = "<font color='red'><i>Not Writable!</i></font>";
 				}
 				echo $file." = ".$e_val."<br />"; 
 				ob_flush();
-			}
-			echo "<font color='red'>Some files are not writable.</font><br />"; 
-			ob_flush();
+				flush();
+			} 
+			die();
 		}
 
 		echo "<br /><b><u>3. Starting to update files... </u></b><br />Updating...<br />"; 
 		ob_flush();
+		flush();
 		
 		// Update the files
 		if($Update->update_files() == TRUE) 
@@ -100,18 +89,21 @@ function runUpdate()
 			echo "<br /><br /><center><font color='green'><b>All the files where succesfuly updated.</b></font></center><br />";
 			echo "<center>Click <a href='?p=admin&sub=updates'>here</a> to return to the update screen, and check for more updates.</center>";
 			ob_flush();
+			flush();
 		} 
 		else 
 		{
 			echo "<br /><font coloe='red'><b>Some errors ocured while updating the files. Please inform Wilson212 @ http://keyswow.com/forum/ 
 			... Along with a picture of your screen </b></font><br />"; 
 			ob_flush();
+			flush();
 		}
 	} 
 	else 
 	{
 		echo "<br>No update neccesary. <br>"; 
 		ob_flush();
+		flush();
 	}
 }
 ?>

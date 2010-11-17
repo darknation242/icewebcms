@@ -36,7 +36,7 @@
 			<li>
 				<div>
 					<center>
-						<a href="<?php echo mw_url('community', 'vote'); ?>"><img src="<?php echo $currtmp; ?>/images/vote.png" width="264" height="247" /></a>
+						<a href="<?php echo mw_url('vote'); ?>"><img src="<?php echo $currtmp; ?>/images/vote.png" width="264" height="247" /></a>
 						<?php echo $lang['fp_vote_desc'];?>
 					</center>
 				</div>

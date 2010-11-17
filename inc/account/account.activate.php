@@ -16,7 +16,7 @@ if(isset($_POST['key']) && isset($_POST['user']))
 	$sub_id = $DB->selectCell("SELECT `id` FROM `account` WHERE `username` LIKE '".$_POST['user']."'");
 	if($sub_id != FALSE)
 	{
-		redirect("index.php?p=account&sub=activate&id=".$sub_id."&key=".$_POST['key']."", 1);
+		redirect("?p=account&sub=activate&id=".$sub_id."&key=".$_POST['key']."", 1);
 	}
 	else
 	{
