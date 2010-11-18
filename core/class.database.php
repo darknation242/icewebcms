@@ -10,6 +10,7 @@ class Database
     );
     private $mysql;
 
+	// Creates the connection to the mysql database, selects the posted DB
     public function __construct($db_host, $db_port, $db_user, $db_pass, $db_name)
     {
         $this->mysql = @mysql_connect($db_host.":".$db_port, $db_user, $db_pass, true) or die("Cant connect to ".$db_name." Database!");
@@ -17,11 +18,13 @@ class Database
 		return TRUE;
     }
 
+	// Closes the mysql DB connection
     public function __destruct()
     {
         @mysql_close($this->mysql) or die(mysql_error());
     }
 
+	// Query function is best used for INSERT and UPDATE functions
     public function query($query)
     {
         $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
@@ -29,6 +32,7 @@ class Database
 		return TRUE;
     }
 
+	// Select function is great for getting huge arrays of multiple rows and tables
     public function select($query)
     {
         $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
@@ -52,6 +56,8 @@ class Database
 		return $result;
     }
 	
+	// selectRow is perfect for getting 1 row of data. Technically can be used for multiple rows,
+	// though select function is better for more then 1 row
 	public function selectRow($query)
     {
         $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
@@ -67,6 +73,7 @@ class Database
 		}
     }
 	
+	// selectCell returns 1 cell of data, Not recomended unless you want data from a specific cell in a table
 	public function selectCell($query)
     {
         $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
@@ -82,6 +89,8 @@ class Database
 		}
     }
 	
+	// count is a perfect function for counting the num of rows, or results in a table
+	// returns the direct count, for ex: 5
 	public function count($query)
     {
         $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");

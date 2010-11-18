@@ -14,13 +14,15 @@ function checkUpdates()
 	global $Update, $Core;
 	if($Update->check_for_updates() == TRUE)
 	{
-		echo "<center>Updates found! New verision: <font color='green'><b>".$Update->get_next_update()."</b></font></center>";
-		echo "<center><br /><u>Update Info:</u><br /></center>";
-		echo "<center>". $Update->print_update_info() ."</center>";
-		echo "<center><br /><u>Update File list:</u><br /></center>";
-		echo "<center>". $Update->print_updated_files_list() ."</center>";
-		echo "<br />To find out more about this update, click <a href='http://keyswow.com/forum/'>here</a>. Updates can sometimes take up to 30 seconds depending
-					on server load. Also note that these updates are <u>incremental</u> and you should re-check for updates after this update.";
+		echo "<center><b>Updates found! New verision: <font color='green'>".$Update->get_next_update()."</b></font></center>";
+		echo "<br /><u><b>Update Info:</b></u><br />";
+		echo $Update->print_update_info()."<br />";
+		echo "<br /><u><b>Update File list:</b></u><br />";
+		echo $Update->print_updated_files_list();
+		echo "	<br />
+				<br />
+				To find out more about this update, click <a href='http://keyswow.com/forum/'>here</a>. Updates can sometimes take up to 30 seconds depending
+				on server load. Also note that these updates are <u>incremental</u> and you should re-check for updates after this update.";
 		echo "<form method='POST' action='?p=admin&sub=updates' class='form label-inline'>";
 		echo "<input type='hidden' name='action' value='update'>";
 		echo "<br /><br />
@@ -87,7 +89,12 @@ function runUpdate()
 		if($Update->update_files() == TRUE) 
 		{
 			echo "<br /><br /><center><font color='green'><b>All the files where succesfuly updated.</b></font></center><br />";
-			echo "<center>Click <a href='?p=admin&sub=updates'>here</a> to return to the update screen, and check for more updates.</center>";
+			echo "<form method='POST' action='?p=admin&sub=updates' class='form label-inline'>";
+			echo "
+				<div class='buttonrow-border'>								
+					<center><button><span>Return</span></button></center>			
+				</div>
+			";
 			ob_flush();
 			flush();
 		} 

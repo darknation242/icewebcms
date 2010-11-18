@@ -9,25 +9,27 @@ $get_faq = $DB->select("SELECT * FROM `mw_faq`");
 
 function editFaq()
 {
-	global $DB;
+	global $DB, $Core;
 	$DB->query("UPDATE `mw_faq` SET
 		`question`='".$_POST['question']."',
 		`answer`='".$_POST['answer']."'
 	  WHERE `id`='".$_GET['id']."'
 	");
+	$Core->clearCache();
 	output_message('success', 'Faq successfully updated!');
 }
 
 function deleteFaq()
 {
-	global $DB;
+	global $DB, $Core;
 	$DB->query("DELETE FROM `mw_faq` WHERE `id`='".$_GET['id']."'");
+	$Core->clearCache();
 	output_message('success', 'Deleted Faq');
 }
 
 function addFaq()
 {
-	global $DB;
+	global $DB, $Core;
 	$DB->query("INSERT INTO mw_faq(
 		`question`,
 		`answer`)
@@ -36,6 +38,7 @@ function addFaq()
 		'".$_POST['answer']."'
 		)
 	");
+	$Core->clearCache();
 	output_message('success', 'Faq successfully added to Database!');
 }
 ?>

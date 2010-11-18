@@ -144,7 +144,7 @@ if($vote_sites != FALSE)
 						<center>".$value['points']."</center>
 					</td>
 					<td class=\"serverStatus1\" align=\"center\">
-						<center><input type=\"submit\" name=\"submit\" target=\"_blank\" value=\"".$lang["choose"]."\"".$disabled." /></center>
+						<center><input type=\"submit\" name=\"submit\" target=\"_blank\" value=\"".$lang['vote']."\"".$disabled." /></center>
 					</td>
 				</tr>
 				</form>";

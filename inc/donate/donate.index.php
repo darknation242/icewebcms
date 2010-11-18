@@ -1,52 +1,43 @@
 <?php
-if(INCLUDED!==true)exit;
-// ==================== //
-$pathway_info[] = array('title'=>$lang['donate'],'link'=>'index.php?n=community&sub=donate');
-// ==================== //
-
-
-if($user['id']<=0){
-    redirect('index.php?n=account&sub=login',1);
-}
-else
+//========================//
+if(INCLUDED !== TRUE) 
 {
-if(!$_GET['action'])
+	echo "Not Included!"; 
+	exit;
+}
+$pathway_info[] = array('title' => $lang['donate'], 'link' => '');
+// ==================== //
+
+// We define not to cache the page
+define("CACHE_FILE", FALSE);
+
+// Lets check to see the user is logged in
+if($user['id'] <= 0)
 {
-        $profile = $auth->getprofile($user['id']);
-        $profile['signature'] = str_replace('<br />','',$profile['signature']);
-}
-}
-function parse_gold($number) {
-
-	$gold = array();
-	$gold['gold'] = intval($number/10000);
-	$gold['silver'] = intval(($number % 10000)/100);
-	$gold['copper'] = (($number % 10000) % 100);
-
-	return $gold;
-}
-function print_gold($gold_array) {
-	global $currtmp;
-	if($gold_array['gold'] > 0) {
-		echo $gold_array['gold'];
-		echo "<img src='".$currtmp."/images/ah_system/gold.GIF'>";
-	}
-	if($gold_array['silver'] > 0) {
-		echo $gold_array['silver'];
-		echo "<img src='".$currtmp."/images/ah_system/silver.GIF'>";
-	}
-	if($gold_array['copper'] > 0) {
-		echo $gold_array['copper'];
-		echo "<img src='".$currtmp."/images/ah_system/copper.GIF'>";
-	}
+    redirect('?p=account&sub=login',1);
 }
 
-function final_print_gold($var) {
-	if($var == '---') {
-		echo $var;
+// Include the paypal class
+include('core/lib/class.paypal.php');
+$Paypal = new Paypal;
+
+// Get an array of all donate packages
+$donate_packages = $DB->select("SELECT * FROM `mw_donate_packages`");
+
+function confirmPayment()
+{
+	global $DB, $user, $lang;
+	$pay = $DB->selectRow("SELECT * FROM `mw_donate_transactions` WHERE `account`='".$user['id']."' AND `item_given`='0' LIMIT 1");
+	if($pay == FALSE)
+	{
+		output_message('validation', $lang['donate_no_trans']);
+		echo '<br /><br /><center><b><u>Redirecting...</u></b></center> <meta http-equiv=refresh content="8;url=?p=donate">';
 	}
-	else {
-		print_gold(parse_gold($var));
+	else
+	{
+		// Nedd to do checks to make sure the payment is good
+		$DB->query("UPDATE `mw_donate_transactions` SET `item_given`='1' WHERE `account`='".$user['id']."' AND `id`='".$pay['id']."' LIMIT 1");
+		output_message('success', $lang['donate_points_given']);
 	}
 }
 ?>

@@ -8,6 +8,7 @@ if(INCLUDED !== TRUE)
 $pathway_info[] = array('title' => $lang['vote_system'], 'link' => '');
 // ==================== //
 
+// We define not to cache the page, because of the buttons disabling after the user votes.
 define("CACHE_FILE", FALSE);
 
 // Here we chack to see if user is logged in, if not, then redirect to account login screen
@@ -108,6 +109,7 @@ function vote($site)
 					`points_earned`=(`points_earned` + ".$tab_sites['points'].")  
 				   WHERE `account_id` = ".$user['id']." LIMIT 1"
 				);
+				output_message('info', 'Redirecting to vote site...');
 				echo "<script type=\"text/javascript\">setTimeout(window.open('".$tab_sites['votelink']."', '_self'),0);</script>";
 			}
 			else

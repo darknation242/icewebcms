@@ -46,6 +46,7 @@ $email_use_secure = 1;
 $email_smtp_secure = 'ssl';
 $email_smtp_user = 'wilson.steven10@gmail.com';
 $email_smtp_pass = '';
+$paypal_email = 'wilson.steven10@yahoo.com';
 $enable_cache = 1;
 $cache_expire_time = 1800;
 $site_notice_enable = 1;

@@ -18,17 +18,18 @@ $mainnav_links = array(
 
 function updateOrder()
 {
-	global $DB;
+	global $DB, $Core;
 	foreach($_POST as $key => $value)
 	{
 		$DB->query("UPDATE `mw_menu_items` SET `order`='$value' WHERE `id`='$key'");
 	}
+	$Core->clearCache();
 	output_message('success', 'Link Order updated successfully!');
 }
 
 function editLink()
 {
-	global $DB;
+	global $DB, $Core;
 	$DB->query("UPDATE `mw_menu_items` SET
 		`menu_id`='".$_POST['menu_id']."',
 		`link_title`='".$_POST['link_title']."',
@@ -37,19 +38,21 @@ function editLink()
 		`account_level`='".$_POST['account_level']."'
 	  WHERE `id`='".$_GET['linkid']."'
 	");
+	$Core->clearCache();
 	output_message('success', 'Link successfully updated!');
 }
 
 function deleteLink()
 {
-	global $DB;
+	global $DB, $Core;
 	$DB->query("DELETE FROM `mw_menu_items` WHERE `id`='".$_GET['linkid']."'");
+	$Core->clearCache();
 	output_message('success', 'Deleted Menu Item');
 }
 
 function addLink()
 {
-	global $DB;
+	global $DB, $Core;
 	$DB->query("INSERT INTO mw_menu_items(
 		`menu_id`,
 		`link_title`,
@@ -63,6 +66,7 @@ function addLink()
 		'".$_POST['guest_only']."', 
 		'".$_POST['account_level']."')
 	");
+	$Core->clearCache();
 	output_message('success', 'Link successfully added to Database!');
 }
 ?>
