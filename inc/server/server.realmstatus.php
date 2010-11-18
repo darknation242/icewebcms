@@ -1,12 +1,10 @@
 <?php
 //========================//
-if(INCLUDED!==true) {
-	echo "Not Included!"; exit;
+if(INCLUDED !== true) {
+	echo "Not Included!"; 
+	exit;
 }
-//=======================//
-
-// ==================== //
-$pathway_info[] = array('title'=>$lang['realmstatus'],'link'=>'');
+$pathway_info[] = array('title' => $lang['realmstatus'], 'link' => '');
 // ==================== //
 
 // Define we want this page to be cached
@@ -17,37 +15,45 @@ $items = $DB->select("SELECT * FROM `realmlist` ORDER BY `name`");
 $i = 0;
 foreach($items as $i => $result)
 {
-    /*Extra: Add because realms is not going to be affected by anything*/
-    $dbinfo_mangos = explode(';', $result['dbinfo']);  // username;password;port;host;DBName
- 
-	//DBinfo column:  username;password;port;host;WorldDBname;CharDBname
-	$mangosALL = array(
-		'db_host'     => $dbinfo_mangos['3'], //ip of db world
-		'db_port'     => $dbinfo_mangos['2'], //port
-		'db_username' => $dbinfo_mangos['0'], //world user
-		'db_password' => $dbinfo_mangos['1'], //world password
-		'db_name'     => $dbinfo_mangos['4'], //world db name
-		'db_char'     => $dbinfo_mangos['5'], //character db name
-		'db_encoding' => 'utf8',              // don't change
-	);
+	$dbinfo = explode(';', $result['dbinfo']);
 
+	// DBinfo column: char_host;char_port;char_username;char_password;charDBname;world_host;world_port;world_username;world_pass;worldDBname
+	$Realm_DB_Info = array(
+		'char_db_host' => $dbinfo['0'], // char host
+		'char_db_port' => $dbinfo['1'], // char port
+		'char_db_username' => $dbinfo['2'], // char user
+		'char_db_password' => $dbinfo['3'], // char password
+		'char_db_name' => $dbinfo['4'], //char db name
+		'w_db_host' => $dbinfo['5'], // world host
+		'w_db_port' => $dbinfo['6'], // world port
+		'w_db_username' => $dbinfo['7'], // world user
+		'w_db_password' => $dbinfo['8'], // world password
+		'w_db_name' => $dbinfo['9'], // world db name
+		);
 
-    // Important! This assigns a connection to the spesific connection we have.. NOT remove this!
-    $WDB_EXTRA = new Database(
-		$mangosALL['db_host'], 
-		$mangosALL['db_port'], 
-		$mangosALL['db_username'], 
-		$mangosALL['db_password'],
-		$mangosALL['db_name']
-	);
+	// Free up memory.
+	unset($dbinfo, $DB_info); 
+
+	// Establish the Character DB connection
+	$CDB_EXTRA = new Database(
+		$Realm_DB_Info['char_db_host'],
+		$Realm_DB_Info['char_db_port'],
+		$Realm_DB_Info['char_db_username'],
+		$Realm_DB_Info['char_db_password'],
+		$Realm_DB_Info['char_db_name']
+		);
+
+	// Establish the World DB connection	
+	$WDB_EXTRA = new Database(
+		$Realm_DB_Info['w_db_host'],
+		$Realm_DB_Info['w_db_port'],
+		$Realm_DB_Info['w_db_username'],
+		$Realm_DB_Info['w_db_password'],
+		$Realm_DB_Info['w_db_name']
+		);
 	
-	 $CDB_EXTRA = new Database(
-		$mangosALL['db_host'], 
-		$mangosALL['db_port'], 
-		$mangosALL['db_username'], 
-		$mangosALL['db_password'],
-		$mangosALL['db_char']
-	);
+	// Free up memory
+	unset($Realm_DB_Info);
    
 
     $population=0;

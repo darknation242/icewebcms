@@ -35,8 +35,8 @@ CREATE TABLE `mw_account_extend` (
   `web_points` int(3) NOT NULL DEFAULT '0',
   `points_earned` int(11) NOT NULL DEFAULT '0',
   `points_spent` int(11) NOT NULL DEFAULT '0',
-  `date_points` varchar(100) DEFAULT NULL,
-  `points_today` int(11) DEFAULT NULL,
+  `date_points` varchar(100) NOT NULL DEFAULT '0',
+  `points_today` int(11) NOT NULL DEFAULT '0',
   `total_donations` varchar(5) NOT NULL DEFAULT '0.00',
   `total_votes` smallint(5) NOT NULL DEFAULT '0',
   `gender` int(3) NOT NULL DEFAULT '0',
@@ -208,8 +208,8 @@ CREATE TABLE `mw_menu_items` (
 -- ----------------------------
 INSERT INTO `mw_menu_items` VALUES ('1', 'Archived News', 'index.php', '1', '1', '0', '1');
 INSERT INTO `mw_menu_items` VALUES ('1', 'RSS', 'rss.php', '2', '1', '0', '2');
-INSERT INTO `mw_menu_items` VALUES ('2', 'Register', 'index.php?p=account&sub=register', '1', '1', '1', '3');
-INSERT INTO `mw_menu_items` VALUES ('2', 'Admin Panel', 'index.php?p=admin', '1', '3', '0', '4');
+INSERT INTO `mw_menu_items` VALUES ('2', 'Register', '?p=account&sub=register', '1', '1', '1', '3');
+INSERT INTO `mw_menu_items` VALUES ('2', 'Admin Panel', '?p=admin', '1', '3', '0', '4');
 
 -- ----------------------------
 -- Table structure for `mw_news`
@@ -332,6 +332,7 @@ CREATE TABLE `mw_vote_sites` (
   `votelink` varchar(255) NOT NULL,
   `image_url` varchar(255) DEFAULT NULL,
   `points` int(11) DEFAULT NULL,
+  `site_key` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
