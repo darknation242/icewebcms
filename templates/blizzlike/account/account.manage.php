@@ -1,20 +1,18 @@
-<?php 
-if($user['id'] > 0 && isset($profile))
-{ ?>
-	<style type="text/css">
-		.attribute { font-family: "Arial", "Helvetica", "Sans-Serif"; color: #000000; font-weight: bold; font-size: 12;}
-		#icon { position: absolute;	top: -145px; left: 47px; z-index: 99; _top: -145px}
-		#text { position: relative;	top: 52px;	left: 10px;	z-index: 99; }
-		#wrapper { position: relative; z-index: 99; }
-		#wrapper99 { position: relative; z-index: 98; }
-			.title	{
-				font-family: palatino, georgia, times new roman, serif;
-				font-size: 13pt;
-				color: #640909;
-			}
-	</style>
-	<!-- START OF PAGE BANNER -->
-	<table cellspacing = "0" cellpadding = "0" border = "0" width = "100%">
+<style type="text/css">
+	.attribute { font-family: "Arial", "Helvetica", "Sans-Serif"; color: #000000; font-weight: bold; font-size: 12;}
+	#icon { position: absolute;	top: -145px; left: 47px; z-index: 99; _top: -145px}
+	#text { position: relative;	top: 52px;	left: 10px;	z-index: 99; }
+	#wrapper { position: relative; z-index: 99; }
+	#wrapper99 { position: relative; z-index: 98; }
+	.title	{
+		font-family: palatino, georgia, times new roman, serif;
+		font-size: 13pt;
+		color: #640909;
+	}
+</style>
+
+<!-- START OF PAGE BANNER -->
+<table cellspacing = "0" cellpadding = "0" border = "0" width = "100%">
 	<tr>
 		<td width = "100%" align = "center">
 			<table width = "100%" cellspacing = "0" cellpadding = "0" border="0" background="<?php echo $currtmp; ?>/images/account/tbc-background.jpg">
@@ -24,9 +22,6 @@ if($user['id'] > 0 && isset($profile))
 				</td>
 				<td >
 					<div id = "wrapper"><div id = "text"><img src="<?php echo $currtmp; ?>/images/account/title_acc_man.gif"></div></div>
-				</td>
-				<td valign = "top"><a href = "index.php?p=account&sub=manage">
-					<img src ="<?php echo $currtmp; ?>/images/pixel.gif" width="90" height = "161" border="0" ></a>
 				</td>
 				<td>
 					<img src="<?php echo $currtmp; ?>/images/pixel.gif" border="0" height="161" width="90">
@@ -54,62 +49,35 @@ if($user['id'] > 0 && isset($profile))
 			</table>
 		</td>
 	</tr>
-	</table>
-	<!-- END PAGE BANNER -->
+</table>
+<!-- END PAGE BANNER -->
 
-	<?php 
-		builddiv_start();
-		// Here we want to see if the user has posted anything, and if so, then assign the functions to them to get em done //
-		
-		if(isset($_GET['action']))
-		{
-			if($_GET['action'] == 'changeemail')
-			{
-				changeemail();
-			}
-		
-			// CHANGE PASS
-			elseif($_GET['action'] == 'changepass')
-			{
-				changepass();
-			}
-			
-			// CHANGE BASICS
-			elseif($_GET['action'] == 'change')
-			{
-				if(!$profile['avatar'])
-				{
-					uploadAvatar();
-				}
-				if(isset($_POST['deleteavatar']))
-				{
-					if($_POST['deleteavatar'] == 1 && preg_match("/\d+\.\w+/i",$_POST['avatarfile']))
-					{
-						deleteAvatar();
-					}
-				}
-				changeDetails();
-			}
-			
-			// CHANGE SECRET Q's
-			elseif($_GET['action'] == 'changesecretq')
-			{
-				changeSQ();
-			}
-			
-			// RESET SECRET Q's
-			elseif($_GET['action']=='resetsecretq')
-			{
-				resetSQ();
-			}
-			
-			// CHANGE EXP.
-			elseif($_GET['action'] == 'change_gameplay')
-			{
-				changeExp();
-			}
-		}
-	?>
+<?php 
+builddiv_start();
+// Here we want to see if the user has posted anything, and if so, then assign the functions to them to get em done //
+if(isset($_GET['action']))
+{		
+	// CHANGE BASICS
+	if($_GET['action'] == 'change')
+	{
+		changeDetails();
+	}
+	
+	// CHANGE SECRET Q's
+	elseif($_GET['action'] == 'changesecretq')
+	{
+		changeSQ();
+	}
+	
+	// RESET SECRET Q's
+	elseif($_GET['action']=='resetsecretq')
+	{
+		resetSQ();
+	}
+}
+else
+{
+?>
 	<center>
 	<!--Shadow Top-->
 	<table cellspacing = "0" cellpadding = "0" border = "0">
@@ -138,484 +106,283 @@ if($user['id'] > 0 && isset($profile))
 						<td>
 							<h3 class="title"><font color="white"><?php echo $lang['change_your_info'];?></font></h3>
 							<p><center>
-							<form name="mainform" method="post" action="index.php?p=account&sub=manage&action=change" enctype="multipart/form-data" onsubmit="return validateforms(this)">
+							<form name="mainform" method="post" action="?p=account&sub=manage&action=change" enctype="multipart/form-data" onsubmit="return validateforms(this)">
 							<table width = "510" cellspacing = "0" cellpadding = "0" border = "0">
-							<tr>
-								<td>
-									<span><?php echo add_pictureletter("$lang[account_manange_intro]"); ?></span>
-								</td>
-							</tr>
+								<tr>
+									<td>
+										<span><?php echo add_pictureletter("$lang[account_manange_intro]"); ?></span>
+									</td>
+								</tr>
 							</table>
 							</center>
 							<br />
 							<?php write_subheader($lang['general_info']); ?>
-							<table width = "520" style = "border-width: 1px; border-style: dotted; border-color: #928058;"><tr><td><table style = "border-width: 1px; border-style: solid; border-color: black; background-image: url('<?php echo $currtmp; ?>/images/light3.jpg');">
-							<tr>
-								<td>
-									<table border='0' cellspacing='0' cellpadding='4'>
-									<tr>
-										<td align=right valign = "top">
-											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['username'];?><br /></b></span></font>
-										</td>
-										<td align=left>
-											<table border='0' cellspacing='0' cellpadding='0'>
-											<tr>
-												<td>
-													<input type='text' size='40' disabled="disabled" style="background-color:#FFFFFF" value='&nbsp;&nbsp;<?php echo $profile['username'];?>' readonly>
-												</td>
-												<td valign = "top"></td>
-											</tr>
-											</table>
-										</td>
-									</tr>
-									<!-- Hide Email -->
-									<tr>
-										<td width=200 align=right>
-											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['hideemail'];?>&#058;<br /></b></span></font>
-										</td>
-										<td>
-											<table border='0' cellspacing='0' cellpadding='0'>
-											<tr>
-												<td>
-													<select name="profile[hide_email]" style="margin:1px;">
-														<option value="0"<?php if($profile['hide_email']==0)echo' selected';?>><?php echo $lang['no'];?> </option>
-														<option value="1"<?php if($profile['hide_email']==1)echo' selected';?>><?php echo $lang['yes'];?> </option>
-													</select>
-												</td>
-												<td valign = "top"></td>
-											</tr>
-											</table>
-										</td>
-									</tr>
-									<!-- Hide Profile -->
-									<tr>
-										<td align=right>
-											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['hideprofile'];?>&#058;<br /></b></span></font>
-										</td>
-										<td align=left>
-											<table border='0' cellspacing='0' cellpadding='0'>
-											<tr>
-												<td>
-													<select name="profile[hide_profile]" style="margin:1px;">
-														<option value="0"<?php if($profile['hide_profile']==0)echo' selected';?>><?php echo $lang['no'];?> </option>
-														<option value="1"<?php if($profile['hide_profile']==1)echo' selected';?>><?php echo $lang['yes'];?> </option>
-													</select>
-												</td>
-												<td valign = "top"></td>
-											</tr>
-											</table>
-										</td>
-									</tr>
-									<!-- Gender -->
-									<tr>
-										<td align=right>
-											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['gender'];?>&#058;<br /></b></span></font>
-										</td>
-										<td align=left>
-											<table border='0' cellspacing='0' cellpadding='0'>
-											<tr>
-												<td>
-													<select name="profile[gender]">
-														<option value="0"<?php if($profile['gender']==0)echo' selected';?>><?php echo $lang['not_selected'];?> </option>
-														<option value="1"<?php if($profile['gender']==1)echo' selected';?>>Male</option>
-														<option value="2"<?php if($profile['gender']==2)echo' selected';?>>Female</option>
-													</select>
-												</td>
-												<td valign = "top"></td>
-											</tr>
-											</table>
-										</td>
-									</tr>
-									<!-- Home Page -->
-									<tr>
-										<td align=right>
-											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['homepage'];?>&#058;<br />
-										</td>
-										<td align=left>
-											<table border='0' cellspacing='0' cellpadding='0'>
-											<tr>
-												<td>
-													<input name="profile[homepage]" type="text" size="36" style="margin:1px;" value="<?php echo$profile['homepage'];?>" />
-												</td>
-											</tr>
-											</table>
-										</td>
-										<br />
-										</td>
-									</tr>
-									<!-- MSN -->
-									<tr>
-										<td align=right>
-											<font face="arial,helvetica" size=-1><span><b>MSN:</b></span></font>
-										</td>
-										<td align=left>
-											<table border='0' cellspacing='0' cellpadding='0'>
-											<tr>
-												<td>
-													<input name="profile[msn]" type="text" size="36" style="margin:1px;" value="<?php echo $profile['msn'];?>" /><span></span></td><td valign = "top">
-												</td>
-											</tr>
-											</table>
-										</td>
-										</td>
-									</tr>
-									<!-- FROM -->
-									<tr>
-										<td align=right>
-											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['location'];?>
-											<br />
-											</b></span></font>
-										</td>
-										<td align=left>
-										<table border='0' cellspacing='0' cellpadding='0'>
+							<table width = "520" style = "border-width: 1px; border-style: dotted; border-color: #928058;">
+								<tr>
+									<td>
+										<table width='510' style="border-width: 1px; border-style: solid; border-color: black; background-image: url('<?php echo $currtmp; ?>/images/light3.jpg');">
 										<tr>
 											<td>
-												<input name="profile[location]" type="text" size="36" style="margin:1px;" value="<?php echo$profile['location'];?>" />
-											</td>
-											<td valign = "top"></td>
-										</tr>
-										</table>
-										</td>
-									</tr>
-									<!-- AVATAR -->
-									<?php 
-									if($profile['avatar']) 
-									{ ?>
-										<tr>
-											<td align=right>
-												<font face="arial,helvetica" size=-1><span><b><?php echo $lang['avatar'];?>
-												<br />
-												</b></span></font>
-											</td>
-											<td align=left>
-												<table border='0' cellspacing='0' cellpadding='0'>
+												<table border='0' cellspacing='0' cellpadding='4'>
 												<tr>
-													<td>
-														<img src="images/avatars/<?php echo $profile['avatar'];?>" style="margin:1px;"> <br/>
-														<input type="hidden" name="avatarfile" value="<?php echo $profile['avatar'];?>">
-														<b><?php echo $lang['delete_avatar'];?></b>
-														<input type="checkbox" size="36" name="deleteavatar" style="margin:1px;" value="1">
+													<td align='right' valign = "top" width='40%'>
+														<font face="arial,helvetica" size=-1><span><b><?php echo $lang['username'];?><br /></b></span></font>
 													</td>
-													<td valign = "top"></td>
+													<td align='left'>
+														<table border='0' cellspacing='0' cellpadding='0'>
+														<tr>
+															<td>
+																<input type='text' size='30' disabled="disabled" style="background-color:#FFFFFF" value='&nbsp;&nbsp;<?php echo $profile['username'];?>' readonly>
+															</td>
+															<td valign = "top"></td>
+														</tr>
+														</table>
+													</td>
 												</tr>
+												
+											<?php
+												if((int)$cfg->get('allow_user_emailchange')) 
+												{ ?>
+													<tr>
+														<td align='right' valign = "top">
+															<font face="arial,helvetica" size='-1'><span><b><?php echo $lang['email'];?></b></span></font>
+														</td>
+														<td align='left'><table border='0' cellspacing='0' cellpadding='0'>
+															<tr>
+																<td>
+																	<input type='text' name='email' size='30' value='<?php echo $profile['email'];?>'>
+																</td>
+																<td valign="top"></td>
+															</tr>
+														</table>
+														</td>
+													</tr>
+												<?php 
+												}
+												else
+												{ ?>
+													<tr>
+														<td align='right' valign="top"><font face="arial,helvetica" size='-1'>
+															<span><b><?php echo $lang['email'];?></b></span></font>
+														</td>
+														<td align='left'><table border='0' cellspacing='0' cellpadding='0'>
+															<tr>
+																<td>
+																	<input type="text" size="30" value="&nbsp;&nbsp;<?php echo $profile['email'];?>" readonly>
+																	<span></span>
+																</td>
+																<td valign = "top"></td>
+															</tr>
+															</table>
+														</td>
+													</tr>
+											<?php 
+												} ?>
+												
+												<?php 
+												if((int)$cfg->get('allow_user_passchange')) 
+												{ ?>
+													<tr>
+														<td align='right' valign = "top">
+															<font face="arial,helvetica" size='-1'><span><b><?php echo $lang['newpass']; ?></b></span></font>
+														</td>
+														<td align='left'>
+															<table border='0' cellspacing='0' cellpadding='0'>
+																<tr>
+																	<td>
+																		<input type="password" size="30" name="new_pass">
+																	</td>
+																	<td valign = "top"></td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+											<?php
+												}
+											?>	
+											
+												<!-- EXPANSION -->
+												<tr>
+													<td align='right' valign = "top">
+														<font face="arial,helvetica" size='-1'><span><b><?php echo $lang['expansion']; ?></b></span></font>
+													</td>
+													<td align='left'>
+														<table border='0' cellspacing='0' cellpadding='0'>
+															<tr>
+																<td>
+																	<select name="exp">
+																	<?php
+																		if($profile['expansion'] == 2)
+																		{
+																			echo "<option value='2' selected='selected'>WotLK</option><option value='1'>TBC</option><option value='0'>Classic</option>";
+																		}
+																		elseif($profile['expansion'] == 1)
+																		{
+																			echo "<option value='2'>WotLK</option><option value='1' selected='selected'>TBC</option><option value='0'>Classic</option>";
+																		}
+																		else
+																		{
+																			echo "<option value='2'>WotLK</option><option value='1'>TBC</option><option value='0' selected='selected'>Classic</option>";
+																		}
+																	?>
+																</select>
+																</td>
+																<td valign = "top"></td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												</table>
+												<br />
+												<!-- END "change your info" TABLE -->
+												<div align="center">
+													<input type="image" src="<?php echo $currtmp; ?>/images/buttons/button-cancel.gif" size="16" class="button" style="font-size:12px;" value="<?php echo $lang['reset'];?>">
+													<input type="image" src="<?php echo $currtmp; ?>/images/buttons/button-update.gif" class="button" style="font-size:12px;" value="<?php echo $lang['change'];?>">
+												</div>
+											</td>
+										</tr>
+									</td>
+								</tr>
+							</table>
+							</form>
+							
+							<br />
+							<br />
+							<?php write_subheader($lang['Other_Info']); ?>
+							<table width = "520" style = "border-width: 1px; border-style: dotted; border-color: #928058;">
+								<tr>
+									<td>
+										<table width='510' style="border-width: 1px; border-style: solid; border-color: black; background-image: url('<?php echo $currtmp; ?>/images/light3.jpg');">
+										<tr>
+											<td>
+												<table border='0' cellspacing='0' cellpadding='4'>
+												
+												<!--Secret QUESTION-->
+												<tr>
+													<td align='center' colspan='2'>
+														<table border='0' cellspacing='0' cellpadding='0' style='text-align: center;'>
+															<tr>
+																<td>
+																	<?php
+																	if ($profile['secret_q1'] == '')
+																	{
+																		echo '<span style="color: red">'.$lang['secretq_not_set'].'</span>';
+																	}
+																	else
+																	{
+																		echo '<span style="color: green">'.$lang['secretq_set'].'</span>';
+																	} ?>
+																</td>
+																<td valign = "top"></td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												<form method="post" action="?p=account&sub=manage&action=changesecretq">
+												<tr>
+													<td align='right'>
+														<font face="arial,helvetica" size='-1'><span><b><?php echo $lang['secretq'];?> 1
+														<img src="<?php echo $currtmp; ?>/images/icons/warning.gif" width="15" height="15"
+														onmouseover="ddrivetip('<?php echo $lang['secretq_info']; ?>: <ul><li><?php echo $lang['secretq_info_mincharacters']; ?>.</li><li><?php echo $lang['secretq_info_nosymbols']; ?>.</li><li><?php echo $lang['secretq_info_bothfields']; ?>.</li></ul>','#ffffff')";
+														onmouseout="hideddrivetip()">
+														<br />
+														</b></span></font>
+													</td>
+													<td align='left'>
+														<table border='0' cellspacing='0' cellpadding='0'>
+															<tr>
+																<td>
+																	<select name="secretq1">
+																		<option <?php if($profile['secret_q1'] == '')echo "selected"; ?> value="0">None</option>
+																		  <?php
+																		  foreach ($secret_q as $question)
+																		  {
+																		  ?>
+																			<option value="<?php echo htmlspecialchars($question['question']); ?>" <?php if ($profile['secret_q1'] == htmlspecialchars($question['question'])){ echo "selected"; } ?>><?php echo $question['question']; ?></option>
+																		  <?php
+																		  }
+																		  ?>
+																	</select>
+																	<input type="name" name="secreta1" style="margin:1px;">
+																</td>
+																<td valign = "top"></td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+
+												<tr>
+													<td align="right" width='30%'>
+														<font face="arial,helvetica" size=-1><span><b><?php echo $lang['secretq'];?> 2
+														<img src="<?php echo $currtmp; ?>/images/icons/warning.gif" width="15" height="15"
+														onmouseover="ddrivetip('<?php echo $lang['secretq_info']; ?>: <ul><li><?php echo $lang['secretq_info_mincharacters']; ?>.</li><li><?php echo $lang['secretq_info_nosymbols']; ?>.</li><li><?php echo $lang['secretq_info_bothfields']; ?>.</li></ul>','#ffffff')";
+														onmouseout="hideddrivetip()">
+														<br />
+														</b></span></font>
+													</td>
+													<td align="left" colspan='2'>
+														<table border='0' cellspacing='0' cellpadding='0'>
+															<tr>
+																<td>
+																	<select name="secretq2">
+																		<option <?php if($profile['secret_q2'] == '')echo "selected"; ?> value="0">None</option>
+																		<?php
+																		foreach ($secret_q as $question)
+																		{
+																		?>
+																			<option value="<?php echo htmlspecialchars($question['question']); ?>" <?php if ($profile['secret_q2'] == htmlspecialchars($question['question'])){ echo "selected"; } ?>><?php echo $question['question']; ?></option>
+																		<?php
+																		}
+																		?>
+																	</select>
+																	<input type="name" name="secreta2" style="margin:1px;">
+																</td>
+																<td valign = "top"></td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+
+												<tr>
+													<td align="center" colspan='2'>
+														<table border='0' cellspacing='0' cellpadding='0'>
+															<tr>
+																<td>
+																	<input type="submit" value="Change Secret questions" class="button">
+												</form>
+																</td>
+																<td valign = "top">
+																<form method="post" action="?p=account&sub=manage&action=resetsecretq" style="{MARGIN-LEFT: 0pt; MARGIN-RIGHT: 0pt; MARGIN-TOP: 0pt; MARGIN-BOTTOM: 0pt;}">
+																<input type="hidden" name="reset_secretq" value="reset_secretq">
+																<input type="submit" value="Reset Secret questions" name="reset_secretq">
+																</form>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>											
+												<!--Secret QUESTION END-->
+												
 												</table>
 											</td>
 										</tr>
-									<?php 
-									}
-									else
-									{ ?>
-										<tr>
-											<td align=right>
-												<font face="arial,helvetica" size=-1><span><b><?php echo $lang['avatar'];?>
-												<img src="<?php echo $currtmp; ?>/images/icons/warning.gif" width="15" height="15"
-												onmouseover="ddrivetip('<?php echo $lang['max_avatar_size'];?>: <?php echo (int)$cfg->get('max_avatar_file_size');?> bytes, <?php echo $lang['max_avatar_res'];?> <?php echo (string)$cfg->get('max_avatar_size');?> px.<br/>','#ffffff')";
-												onmouseout="hideddrivetip()">
-												<br />
-												</b></span></font>
-											</td>
-											<td align=left>
-											<table border='0' cellspacing='0' cellpadding='0'>
-											<tr>
-												<td>
-													<input type="file" size="36" name="avatar" style="margin:1px;">
-												</td>
-												<td valign = "top"></td>
-											</tr>
-											</table>
-											</td>
-										</tr>
-									<?php 
-									} ?>
-									<!-- Signature -->
-									<tr>
-										<td align='right'>
-											<font face="arial,helvetica" size=-1><span><b><?php echo $lang['signature'];?>
-											<img src="<?php echo $currtmp; ?>/images/icons/info.gif" width="16" height="16"
-											onmouseover="ddrivetip('You may use normal BBcode tags in signature.','#ffffff')";
-											onmouseout="hideddrivetip()">
-											<br />
-											</b></span></font>
-										</td>
-										<td align='left'>
-											<table border='0' cellspacing='0' cellpadding='0'>
-											<tr>
-												<td>
-													<textarea name="profile[signature]" maxlength="255" rows="3" cols="40"><?php echo my_previewreverse($profile['signature']);?></textarea>
-												</td><td valign = "top"></td>
-											</tr>
-											</table>
-										</td>
-									</tr>
-									<tr>
-										<td align='left' colspan="2">
-											<font color="#FF0000">*</font><input type="checkbox" name="legal" value="yes">&nbsp;
-											<font face="arial,helvetica" size='-1' ><span><b>
-											<span><small><font color="black"><?php echo $lang['agreeement_detailschange']; ?></font></small></span><br/>
-											</b></span></font>
-										</td>
-										<td valign = "top"></td>
-									</tr>
-									</table>
-									<!-- END "change your info" TABLE -->
-								<div align="center">
-									<input type="image" src="<?php echo $currtmp; ?>/images/buttons/button-cancel.gif" size="16" class="button" style="font-size:12px;" value="<?php echo $lang['reset'];?>">
-									<input type="image" src="<?php echo $currtmp; ?>/images/buttons/button-update.gif" class="button" style="font-size:12px;" value="<?php echo $lang['change'];?>">
-								</div>
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-	</table>
-	</form>
-	
-	<br /><br />
-	<!-- Start Of TABLE 2 -->
-	<table width = "510" cellspacing = "0" cellpadding = "0" border = "0">
-		<tr>
-			<td>
-				<span><?php echo add_pictureletter($lang['password_email_settings']); ?></span>
-			</td>
-		</tr>
-	</table>
-	</center>
-	<br />
-	<?php write_subheader($lang['Other_Info']); ?>
-	<table width = "520" style = "border-width: 1px; border-style: dotted; border-color: #928058;">
-		<tr>
-			<td>
-				<table style = "width:100%; border-width: 1px; border-style: solid; border-color: black; background-image: url('<?php echo $currtmp; ?>/images/light3.jpg');">
-					<tr>
-						<td>
-							<table border='0' cellspacing='0' cellpadding='4'>
-							<?php 
-							if((int)$cfg->get('allow_user_passchange')) 
-							{ ?>
-								<tr>
-									<form method="post" action="index.php?p=account&sub=manage&action=changepass">
-									<td align=right valign = "top">
-										<font face="arial,helvetica" size=-1><span><b><?php echo $lang['newpass']; ?></b></span></font>
-									</td>
-									<td align=left>
-										<table border=0 cellspacing=0 cellpadding=0>
-											<tr>
-												<td>
-													<input type="password" size="22" name="new_pass"><input type="submit" value="Change password" class="button" style="font-size:11px;">
-													<span></span>
-												</td>
-												<td valign = "top"></td>
-											</tr>
 										</table>
 									</td>
-									</td>
-									</form>
 								</tr>
-							<?php
-							}
-							if((int)$cfg->get('allow_user_emailchange')) 
-							{ ?>
-								<tr>
-									<form method="post" action="index.php?p=account&sub=manage&action=changeemail">
-									<td align=right valign = "top">
-										<font face="arial,helvetica" size=-1><span><b><?php echo $lang['newemail'];?></b></span></font>
-									</td>
-									<td align=left><table border=0 cellspacing=0 cellpadding=0>
-										<tr>
-											<td>
-												<input type='text' name='new_email' size='36' value='&nbsp;&nbsp;<?php echo $profile['email'];?>'>
-												<input type="submit" value="<?php echo $lang['change_email'] ?>" class="button" style="font-size:11px;"><span></span>
-											</td>
-											<td valign = "top"></td>
-										</tr>
-									</table>
-									</td>
-									</td>
-									</form>
-								</tr>
-							<?php 
-							}
-							else
-							{ ?>
-								<tr>
-									<td align=right valign = "top"><font face="arial,helvetica" size=-1><span><b><?php echo $lang['email'];?></b></span></font>
-									</td>
-									<td align=left><table border=0 cellspacing=0 cellpadding=0>
-										<tr>
-											<td>
-												<input type="text" size="36" value="&nbsp;&nbsp;<?php echo $profile['email'];?>" readonly>
-												<span></span>
-											</td>
-											<td valign = "top"></td>
-										</tr>
-										</table>
-									</td>
-									</td>
-								</tr>
-						<?php 
-							} ?>
-
-						<!--Secret QUESTION-->
-							<tr>
-								<td align=right>
-									<font face="arial,helvetica" size=-1><span><b><br /></b></span></font>
-								</td>
-								<td align=left>
-									<table border='0' cellspacing='0' cellpadding='0'>
-										<tr>
-											<td>
-												<?php
-												if ($profile['secret_q1'] == '')
-												{
-													echo '<span style="color: red">'.$lang['secretq_not_set'].'</span>';
-												}
-												else
-												{
-													echo '<span style="color: green">'.$lang['secretq_set'].'</span>';
-												} ?>
-											</td>
-											<td valign = "top"></td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-							<form method="post" action="index.php?p=account&sub=manage&action=changesecretq">
-							<tr>
-								<td align=right>
-									<font face="arial,helvetica" size=-1><span><b><?php echo $lang['secretq'];?> 1
-									<img src="<?php echo $currtmp; ?>/images/icons/warning.gif" width="15" height="15"
-									onmouseover="ddrivetip('<?php echo $lang['secretq_info']; ?>: <ul><li><?php echo $lang['secretq_info_mincharacters']; ?>.</li><li><?php echo $lang['secretq_info_nosymbols']; ?>.</li><li><?php echo $lang['secretq_info_bothfields']; ?>.</li></ul>','#ffffff')";
-									onmouseout="hideddrivetip()">
-									<br />
-									</b></span></font>
-								</td>
-								<td align=left>
-									<table border='0' cellspacing='0' cellpadding='0'>
-										<tr>
-											<td>
-												<select name="secretq1">
-													<option <?php if($profile['secret_q1'] == '')echo "selected"; ?> value="0">None</option>
-													  <?php
-													  foreach ($secret_q as $question)
-													  {
-													  ?>
-														<option value="<?php echo htmlspecialchars($question['question']); ?>" <?php if ($profile['secret_q1'] == htmlspecialchars($question['question'])){ echo "selected"; } ?>><?php echo $question['question']; ?></option>
-													  <?php
-													  }
-													  ?>
-												</select>
-												<input type="name" name="secreta1" style="margin:1px;">
-											</td>
-											<td valign = "top"></td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-
-							<tr>
-								<td align="right">
-									<font face="arial,helvetica" size=-1><span><b><?php echo $lang['secretq'];?> 2
-									<img src="<?php echo $currtmp; ?>/images/icons/warning.gif" width="15" height="15"
-									onmouseover="ddrivetip('<?php echo $lang['secretq_info']; ?>: <ul><li><?php echo $lang['secretq_info_mincharacters']; ?>.</li><li><?php echo $lang['secretq_info_nosymbols']; ?>.</li><li><?php echo $lang['secretq_info_bothfields']; ?>.</li></ul>','#ffffff')";
-									onmouseout="hideddrivetip()">
-									<br />
-									</b></span></font>
-								</td>
-								<td align="left">
-									<table border='0' cellspacing='0' cellpadding='0'>
-										<tr>
-											<td>
-												<select name="secretq2">
-													<option <?php if($profile['secret_q2'] == '')echo "selected"; ?> value="0">None</option>
-													<?php
-													foreach ($secret_q as $question)
-													{
-													?>
-														<option value="<?php echo htmlspecialchars($question['question']); ?>" <?php if ($profile['secret_q2'] == htmlspecialchars($question['question'])){ echo "selected"; } ?>><?php echo $question['question']; ?></option>
-													<?php
-													}
-													?>
-												</select>
-												<input type="name" name="secreta2" style="margin:1px;">
-											</td>
-											<td valign = "top"></td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-
-							<tr>
-								<td align="right">
-									<font face="arial,helvetica" size=-1><span><b>
-									<br />
-									</b></span></font>
-								</td>
-								<td align="center">
-									<table border='0' cellspacing='0' cellpadding='0'>
-										<tr>
-											<td>
-												<input type="submit" value="Change Secret questions" class="button"></form>
-											</td>
-											<td valign = "top">
-											<form method="post" action="index.php?p=account&sub=manage&action=resetsecretq" style="{MARGIN-LEFT: 0pt; MARGIN-RIGHT: 0pt; MARGIN-TOP: 0pt; MARGIN-BOTTOM: 0pt;}">
-											<input type="hidden" name="reset_secretq" value="reset_secretq">
-											<input type="submit" value="Reset Secret questions" name="reset_secretq">
-											</form>
-											</td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-							<!--Secret QUESTION END-->
-							
-							<!-- Gameplay option start -->
-							<tr>
-								<td>
-									<form method="POST" action="index.php?p=account&sub=manage&action=change_gameplay">
-									<input type="hidden" name="switch_wow_type" value="wotlk" />
-									<input type='image' class="button"  src='<?php echo $currtmp; ?>/images/buttons/wotlk.gif' />
-								</td>
-								<td>
-									<b><font size="2"><?php echo $lang['make_acct_wotlk'];?></font></b>
-									</form>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<form method="POST" action="index.php?p=account&sub=manage&action=change_gameplay">
-									<input type="hidden" name="switch_wow_type" value="tbc" />
-									<input type='image' class="button"  src='<?php echo $currtmp; ?>/images/buttons/tbc.gif' />
-								</td>
-								<td>
-									<b><font size="2"><?php echo $lang['make_acct_tbc'];?></font></b>
-									</form>
-								</td>
-							</tr>
-							<tr>
-								<form method="POST" action="index.php?p=account&sub=manage&action=change_gameplay">
-								<td>
-									<input type="hidden" name="switch_wow_type" value="classic" />
-									<input type='image' class="button" src='<?php echo $currtmp; ?>/images/buttons/nontbc.gif' />
-									</td>
-									<td>
-										<b><font size="2"><?php echo $lang['make_acct_classic'];?></font></b>
-									</td>
-								</form>
-							</tr>
-							<!-- Gameplay option STOP -->
 							</table>
+							
+							
 						</td>
 					</tr>
 				</table>
+				<br />
+				<br />	
 			</td>
 		</tr>
 	</table>
+	<!-- END -->
 	</center>
-	<!-- ??? -->
-	</td></tr></table>
-	<!-- END ??? -->
-	</center>
-	
+
 	<!--Shadow Bottom-->
 		</td>
 		<td valign = "top" background = "<?php echo $currtmp; ?>/images/shadow-right.gif">
@@ -648,6 +415,7 @@ if($user['id'] > 0 && isset($profile))
 	<!--Shadow Bottom-->
 
 	</center>
-	<?php 
-	builddiv_end();
-} ?>
+<?php 
+}
+builddiv_end();
+?>

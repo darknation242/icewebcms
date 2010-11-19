@@ -120,14 +120,10 @@ echo $GLOBALS['redirect'];
 									$accountid = $user['id'];
 									if($user['id'] > 0)
 									{
-										$userpm_num = $DB->count("SELECT COUNT(*) FROM `mw_pms` WHERE `owner_id`='".$user['id']."' AND `showed`=0");
 									?>
 										<input type="hidden" name="action" value="logout"/>
-										<?php 
-											echo empty($user['character_name']) ? $user['username'] : $user['character_name'];
-										?>
-											| <a href="<?php echo mw_url('account', 'pms'); ?>"<?php echo($userpm_num>0?' style="color:red;"':'');?>>
-											<?php echo $userpm_num;?> <?php echo $lang['new_messages'];?></a>
+										<?php echo $user['username']." | "; ?>
+										<a href="<?php echo mw_url('account', 'info'); ?>"> <?php echo $user['web_points']; ?> <?php echo $lang['web_points'];?></a>
 										<a href="<?php echo mw_url('account', 'manage'); ?>"><img src="<?php echo $currtmp; ?>/images/buttons/button-profile.gif" alt="Profile"/></a> 
 										<input type="image" src="<?php echo $currtmp; ?>/images/buttons/button-logout.gif" value="Logout"/>
 								<?php 

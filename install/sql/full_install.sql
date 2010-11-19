@@ -30,8 +30,6 @@ CREATE TABLE `mw_account_extend` (
   `secret_a1` text,
   `secret_q2` text,
   `secret_a2` text,
-  `hide_email` smallint(3) NOT NULL DEFAULT '0',
-  `hide_profile` smallint(3) NOT NULL DEFAULT '0',
   `web_points` int(3) NOT NULL DEFAULT '0',
   `points_earned` int(11) NOT NULL DEFAULT '0',
   `points_spent` int(11) NOT NULL DEFAULT '0',
@@ -39,11 +37,6 @@ CREATE TABLE `mw_account_extend` (
   `points_today` int(11) NOT NULL DEFAULT '0',
   `total_donations` varchar(5) NOT NULL DEFAULT '0.00',
   `total_votes` smallint(5) NOT NULL DEFAULT '0',
-  `gender` int(3) NOT NULL DEFAULT '0',
-  `homepage` varchar(255) DEFAULT NULL,
-  `msn` varchar(255) DEFAULT NULL,
-  `location` varchar(255) DEFAULT NULL,
-  `signature` text,
   PRIMARY KEY (`account_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 

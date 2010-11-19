@@ -535,6 +535,14 @@ class Account
 		}
     }
 	
+	// Loads characters list for a specific account
+	function getCharacterList($id)
+	{
+		global $CDB;
+		$list = $CDB->select("SELECT * FROM `characters` WHERE `account`='".$id."'");
+		return $list;
+	}
+	
 	// Loads secret questions from the Database and returns them in an array.
 	function getSecretQuestions()
 	{
