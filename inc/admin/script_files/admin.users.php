@@ -49,7 +49,7 @@ function changePass()
 		if($Account->setPassword($_GET['id'], $newpass) == TRUE)
 		{
 			output_message('success','<b>Password set successfully! Please wait while your redirected...</b>
-			<meta http-equiv=refresh content="3;url=index.php?p=admin&sub=users&id='.$_GET['id'].'">');
+			<meta http-equiv=refresh content="3;url=?p=admin&sub=users&id='.$_GET['id'].'">');
 		}
 		else
 		{
@@ -59,15 +59,80 @@ function changePass()
 	else
 	{
 		output_message('error','<b>'.$lang['change_pass_short'].'</b>
-		<meta http-equiv=refresh content="3;url=index.php?p=admin&sub=users&id='.$_GET['id'].'">');
+		<meta http-equiv=refresh content="3;url=?p=admin&sub=users&id='.$_GET['id'].'">');
+	}
+}
+
+function changeDetails()
+{
+	global $lang, $Account;
+	$success = 0;
+	
+	if($Account->setEmail($_GET['id'], $_POST['email']) == TRUE)
+	{
+		$success++;
+	}
+	else
+	{
+		output_message('error', 'Unable to set email!');
+	}
+	
+	if($Account->setLock($_GET['id'], $_POST['locked']) == TRUE)
+	{
+		$success++;
+	}
+	else
+	{
+		output_message('error', 'Unable to set the account lock!');
+	}
+	
+	if($Account->setExpansion($_GET['id'], $_POST['expansion']) == TRUE)
+	{
+		$success++;
+	}
+	else
+	{
+		output_message('error', 'Unable to set the expansion!');
+	}
+	
+	if($success == 3)
+	{
+		output_message('success', 'Users details updated successfully! Redirecting... 
+			<meta http-equiv=refresh content="3;url=?p=admin&sub=users&id='.$_GET['id'].'">');
+		return TRUE;
+	}
+}
+
+function editUser()
+{
+	global $DB, $user;
+	if($user['account_level'] <= $_POST['account_level'] && $user['account_level'] != '4')
+	{
+		output_message('error', 'You do not have permission to make this change. You cannot raise someone else\'s account level equal or higher then your own.');
+	}
+	else
+	{
+		$DB->query("UPDATE `mw_account_extend` SET 
+			`account_level`='".$_POST['account_level']."',
+			`theme`='".$_POST['theme']."',
+			`web_points`='".$_POST['web_points']."',
+			`total_donations`='".$_POST['total_donations']."'
+		  WHERE `account_id`='".$_GET['id']."'
+		");
+		output_message('success','User Updated Successfully! Please wait while your redirected...
+			<meta http-equiv=refresh content="3;url=?p=admin&sub=users&id='.$_GET['id'].'">');
 	}
 }
 
 // Unban user
 function unBan($unbanid) 
 {
-	global $DB;
-	
+	global $DB, $Account;
+	if($Account->unbanAccount($unbanid) == TRUE)
+	{
+		output_message('success','Success. Account #'.$unbanid.' Successfully Un-Banned!
+			Please wait while your redirected... <meta http-equiv=refresh content="3;url=?p=admin&sub=users&id='.$_GET['id'].'"');
+	}	
 }
 
 // Delete user's account
@@ -76,44 +141,17 @@ function deleteUser($did)
 }
 
 // Ban user
-function banUser($bannid,$banreason) 
+function banUser($bannid, $banreason) 
 {
-	global $DB, $user;
+	global $DB, $user, $Account;
 	if(!$banreason) 
 	{
 		$banreason = "Not Specified";
 	}
-	$DB->query("INSERT INTO `account_banned`(
-		`id`, 
-		`bandate`, 
-		`unbandate`, 
-		`bannedby`, 
-		`banreason`, 
-		`active`) 
-	   VALUES(
-		'".$bannid."', 
-		'". UNIX_TIMESTAMP() ."', 
-		'". UNIX_TIMESTAMP()-10 ."',
-		'".$user['username']."',
-		'".$banreason."',
-		1)
-	");
-    $getipadd = $DB->selectCell("SELECT `last_ip` FROM `account` WHERE id='".$bannid."'");
-    $DB->query("INSERT INTO `ip_banned`(
-		`ip`, 
-		`bandate`, 
-		`unbandate`, 
-		`bannedby`, 
-		`banreason`) 
-	   VALUES(
-		'".$getipadd."', 
-		'". UNIX_TIMESTAMP() ."', 
-		'". UNIX_TIMESTAMP()-10 ."',
-		'".$user['username']."', 
-		'".$banreason."')
-	");
-	$DB->query("UPDATE account_extend SET `account_level`=5 WHERE account_id='".$bannid."'");
-	output_message('success','Success. Account #'.$bannid.' Successfully banned. Reason: '.$banreason.'');
+	if($Account->banAccount($bannid, $banreason, $user['username']) == TRUE)
+	{
+		output_message('success','Success. Account #'.$bannid.' Successfully banned. Reason: '.$banreason.'');
+	}
 }
 
 

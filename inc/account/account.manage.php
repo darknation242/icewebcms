@@ -38,11 +38,7 @@ function changeEmail()
 		$email = $DB->selectCell("SELECT `email` FROM `account` WHERE `id`='".$user['id']."'");
 		if($newemail != $email)
 		{
-			if($Account->isAvailableEmail($newemail))
-			{
-				continue;
-			}
-			else
+			if($Account->isAvailableEmail($newemail) == FALSE)
 			{
 				output_message('validation','<b>'.$lang['register_email_used'].'</b><meta http-equiv=refresh content="3;url=?p=account&sub=manage">');
 				return FALSE;
@@ -149,8 +145,13 @@ function changeDetails()
 		$success++;
 	}
 	
-	$DB->query("UPDATE `account` SET `expansion` = ".$_POST['exp']." WHERE `id` = '".$user['id']."'");
-	if($success == 2)
+	$setexp = $Account->setExpansion($user['id'], $_POST['exp']);
+	if($setexp == TRUE)
+	{
+		$success++;
+	}
+	
+	if($success == 3)
 	{
 		output_message('success', $lang['account_update_success'].'<meta http-equiv=refresh content="4;url=?p=account&sub=manage">');
 	}

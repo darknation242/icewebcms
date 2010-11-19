@@ -3,7 +3,7 @@
 	if($user['account_level'] == 5) 
 	{
 		echo "You Are Banned";
-		exit;
+		die();
 	}
 	if($user['account_level'] <= 2) 
 	{

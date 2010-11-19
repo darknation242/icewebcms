@@ -52,14 +52,12 @@ class Account
                 WHERE id ='".$cookie['user_id']."'");
             if($this->isBannedAccount($res['id']) == TRUE)
 			{
-				output_message('error','Your account is currently banned');
                 $this->setgroup();
                 $this->logout();
                 return false;
             }
             if($res['activation_code'] != NULL)
 			{
-				output_message('warning','Your account is not active');
                 $this->setgroup();
                 return false;
             }
@@ -439,13 +437,13 @@ class Account
 	{
 		global $DB;
 		$check = $DB->count("SELECT COUNT(*) FROM `account_banned` WHERE `id`='".$account_id."' AND `active`=1");
-		if ($check < 1)
+		if ($check > 0)
 		{
-			return FALSE;
+			return TRUE;
 		}
 		else
 		{
-			return TRUE;
+			return FALSE;
 		}
 	}
 	
@@ -453,13 +451,29 @@ class Account
 	{
 		global $DB;
 		$check = $DB->count("SELECT COUNT(*) FROM `ip_banned` WHERE `ip`='".$_SERVER['REMOTE_ADDR']."'");
-		if ($check < 1)
+		if ($check > 0)
 		{
-			return FALSE;
+			return TRUE;
 		}
 		else
 		{
+			return FALSE;
+		}
+	}
+	
+	// For mangos and trinity. Used to determine if the account is locked or not
+	// Returns TRUE of the account is locked, else FALSE
+	function isLockedAccount($id)
+	{
+		global $DB;
+		$check = $DB->selectCell("SELECT `locked` FROM `account` WHERE `id`='".$id."'");
+		if($check == 1)
+		{
 			return TRUE;
+		}
+		else
+		{
+			return FALSE;
 		}
 	}
 	
@@ -493,6 +507,52 @@ class Account
         $this->DB->query("DELETE FROM `mw_regkeys` WHERE `key`='".$key."'");
 		return TRUE;
     }
+	
+	function banAccount($bannid, $banreason, $bannedby)
+	{
+		$timez = time();
+		$unban = $timez - 10;
+		$this->DB->query("INSERT INTO `account_banned`(
+			`id`, 
+			`bandate`, 
+			`unbandate`, 
+			`bannedby`, 
+			`banreason`, 
+			`active`) 
+		   VALUES(
+			'".$bannid."', 
+			'".$timez."', 
+			'". $unban ."',
+			'".$bannedby."',
+			'".$banreason."',
+			'1')
+		");
+		$getip = $this->DB->selectCell("SELECT `last_ip` FROM `account` WHERE `id`='".$bannid."'");
+		$this->DB->query("INSERT INTO `ip_banned`(
+			`ip`, 
+			`bandate`, 
+			`unbandate`, 
+			`bannedby`, 
+			`banreason`) 
+		   VALUES(
+			'". $getip ."', 
+			'". $timez ."', 
+			'". $unban ."',
+			'". $bannedby ."', 
+			'". $banreason. "')
+		");
+		$this->DB->query("UPDATE `mw_account_extend` SET `account_level`=5 WHERE account_id='".$bannid."'");
+		return TRUE;
+	}
+	
+	function unbanAccount($id)
+	{
+		$this->DB->query("UPDATE account_banned SET active='0' WHERE `id`='".$id."'");
+		$ipd = $this->DB->selectCell("SELECT `last_ip` FROM `account` WHERE `id`='".$id."'");
+		$this->DB->query("DELETE FROM ip_banned WHERE ip='".$ipd."'");
+        $this->DB->query("UPDATE `mw_account_extend` SET `account_level`='2' WHERE `account_id`='".$id."'");
+		return TRUE;
+	}
 	
 	// Gets all the users info from the database including username, email
 	// account level, id, and all sorts. post an account id here
@@ -548,6 +608,13 @@ class Account
 	{
 		$getsc = $this->DB->select("SELECT * FROM `mw_secret_questions`");
 		return $getsc;
+	}
+	
+	// For mangos and trinity. Set locked to the $lock value
+	function setLock($id, $lock)
+	{
+		$this->DB->query("UPDATE `account` SET `locked`='".$lock."' WHERE `id`='".$id."'");
+		return TRUE;
 	}
 	
 	// Sets an accounts email. Post an account id and new email address.
@@ -628,18 +695,6 @@ class Account
 		return TRUE;
 	}
 	
-	function deleteAvatar($id, $file)
-	{
-		if(@unlink('images/avatars/'.$file))
-		{
-			$this->DB->query("UPDATE mw_account_extend SET avatar=NULL WHERE account_id=".$id." LIMIT 1");
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
 	
 	// === ONLINE FUNCTIONS === //
     function onlinelist_update()  // Updates list & delete old

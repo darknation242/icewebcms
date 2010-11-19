@@ -46,17 +46,24 @@ if(isset($_GET['id']))
 				<?php
 					if(isset($_POST['action']))
 					{
-						if($_POST['action'] == 'editProfile')
+						if($user['account_level'] <= $profile['account_level'] && $user['account_level'] != '4')
 						{
-							// EDIT
+							output_message('error', 'You cannot edit this infomation. Not enough Privilages!');
 						}
-						elseif($_POST['action'] == 'changePass')
+						else
 						{
-							changePass();
-						}
-						elseif($_POST['action'] == 'editWeb')
-						{
-							// EDIT
+							if($_POST['action'] == 'editProfile')
+							{
+								changeDetails();
+							}
+							elseif($_POST['action'] == 'changePass')
+							{
+								changePass();
+							}
+							elseif($_POST['action'] == 'editWeb')
+							{
+								editUser();
+							}
 						}
 					}
 				?>
@@ -203,7 +210,7 @@ if(isset($_GET['id']))
 					</thead>
 				</table>
 				<form method="POST" action="?p=admin&sub=users&id=<?php echo $_GET['id']; ?>" class="form label-inline">
-					<input type="hidden" name="action" value="changeWeb">
+					<input type="hidden" name="action" value="editWeb">
 				
 					<div class="field">
 						<label for="Account_level">Account Level: </label>
@@ -256,6 +263,16 @@ if(isset($_GET['id']))
 								}
 							?>
 						</select>
+					</div>
+					
+					<div class="field">
+						<label for="Web Points">Web Points: </label>
+						<input id="Web Points" name="web_points" size="2" type="text" class="xsmall" value="<?php echo $profile['web_points']; ?>"/>
+					</div>
+					
+					<div class="field">
+						<label for="Web Points">Total Donations: </label>
+						<input id="Web Points" name="total_donations" size="2" type="text" class="xsmall" value="<?php echo $profile['total_donations']; ?>"/>
 					</div>
 					
 					<div class="buttonrow-border">								
