@@ -28,6 +28,7 @@
 						<a href="#fp">Frontpage Settings</a> |
 						<br />
 						| <a href="#email">Email Settings</a> |
+						| <a href="#paypal">Paypal Settings</a> |
 					</center>
 				</p>
 			</div>
@@ -47,13 +48,13 @@
 			<div class="field">
 				<label for="Site Title">Site Title: </label>
 				<input id="Site Title" name="cfg__site_title" size="20" type="text" class="medium" value="<?php echo $cfg->get('site_title'); ?>" />
-				<p class="field_help">Enter you site title here.</p>
+				<p class="field_help">Enter your site title here.</p>
 			</div>
 			
 			<div class="field">
 				<label for="Site Email">Site Email: </label>
 				<input id="Site Email" name="cfg__site_email" size="20" type="text" class="medium" value="<?php echo $cfg->get('site_email'); ?>" />
-				<p class="field_help">Enter you site email here.</p>
+				<p class="field_help">Enter your site email here.</p>
 			</div>
 			
 			<div class="field">
@@ -557,6 +558,23 @@
 				<label for="Site email_smtp_pass">MTA - SMTP Pass: </label>
 				<input id="Site email_smtp_pass" name="cfg__email_smtp_pass" size="10" type="password" class="medium" value="<?php echo $cfg->get('email_smtp_pass'); ?>" />
 				<p class="field_help">MTA Email type only - SMTP Password.</p>
+			</div>
+			<br />
+			
+			<!-- Paypal Settings -->
+			<table>
+				<thead>
+					<tr>
+						<th><center><a name="paypal"></a>Paypal Settings</center></th>
+					</tr>
+				</thead>
+			</table>
+			<br />
+			
+			<div class="field">
+				<label for="Site Paypal Email">Site Paypal Email: </label>
+				<input id="Site Paypal Email" name="cfg__paypal_email" size="20" type="text" class="medium" value="<?php echo $cfg->get('paypal_email'); ?>" />
+				<p class="field_help">Enter your Paypal email here.</p>
 			</div>
 			
 			<div class="buttonrow-border">								

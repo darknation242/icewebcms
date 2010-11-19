@@ -53,7 +53,7 @@
   <script>
 	var global_nav_lang = '<?php echo ""; ?>';
 	var site_name = '<?php echo (string)$cfg->get('site_title'); ?>';
-	var site_link = '<?php echo (string)$cfg->get('site_base_href'); echo "index.php" ?>';
+	var site_link = '<?php echo (string)$cfg->get('site_base_href'); ?>';
 	var forum_link = '<?php echo $cfg->get('site_forums'); ?>';
 	var armory_link = '<?php echo $cfg->get('site_armory'); ?>';
   </script>
@@ -131,12 +131,17 @@ echo $GLOBALS['redirect'];
 										<a href="<?php echo mw_url('account', 'manage'); ?>"><img src="<?php echo $currtmp; ?>/images/buttons/button-profile.gif" alt="Profile"/></a> 
 										<input type="image" src="<?php echo $currtmp; ?>/images/buttons/button-logout.gif" value="Logout"/>
 								<?php 
-									}else{ ?>
+									}
+									else
+									{ 
+								?>
 										Login: <input name="login" size="14" type="text"/>
 										Password: <input name="pass" size="14" type="password"/>
 										<input type="hidden" name="action" value="login">
 										<input type="image" src="<?php echo $currtmp; ?>/images/buttons/button-login.gif" value="Login"/>
-								<?php } ?>
+								<?php 
+									} 
+								?>
 									</form>
 								</div>
 								<div class="loginboxright"></div>
@@ -197,9 +202,9 @@ echo $GLOBALS['redirect'];
                                 <?php 
 									if($cfg->get('enable_cache') == 1)
 									{
-										if($Core->isCached($Template['number']."_main_nav_links"))
+										if($Core->isCached($Template['number']."_".$user['account_level']."_main_nav_links"))
 										{
-											$Contents = $Core->getCache($Template['number']."_main_nav_links");
+											$Contents = $Core->getCache($Template['number']."_".$user['account_level']."_main_nav_links");
 											echo $Contents;
 										}
 										else
@@ -207,7 +212,7 @@ echo $GLOBALS['redirect'];
 											ob_start();
 												build_main_menu(); // MAIN LINKS HERE!!!
 											$Contents = ob_get_flush();
-											$Core->writeCache($Template['number']."_main_nav_links", $Contents);
+											$Core->writeCache($Template['number']."_".$user['account_level']."_main_nav_links", $Contents);
 										}
 									}
 									else
@@ -270,4 +275,3 @@ echo $GLOBALS['redirect'];
 																} ?>
                                                             <?php echo $GLOBALS['messages']; ?>
                                                             <!-- Component body BEGIN -->
-                                                            

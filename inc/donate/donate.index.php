@@ -35,9 +35,27 @@ function confirmPayment()
 	}
 	else
 	{
-		// Nedd to do checks to make sure the payment is good
-		$DB->query("UPDATE `mw_donate_transactions` SET `item_given`='1' WHERE `account`='".$user['id']."' AND `id`='".$pay['id']."' LIMIT 1");
-		output_message('success', $lang['donate_points_given']);
+		if($pay['payment_status'] == 'Completed')
+		{
+			$item = $DB->selectRow("SELECT * FROM `mw_donate_packages` WHERE `id`='".$pay['item_number']."'");
+			if($item['cost'] > $pay['amount'])
+			{
+				output_message('error', $lang['donate_not_face_value']);
+			}
+			else
+			{
+				$DB->query("UPDATE `mw_donate_transactions` SET `item_given`='1' WHERE `account`='".$user['id']."' AND `id`='".$pay['id']."' LIMIT 1");
+				$DB->query("UPDATE `mw_account_extend` SET 
+					`web_points` = (`web_points` + ".$item['points']."),
+					`points_earned` = (`points_earned` + ".$item['points'].")
+				  WHERE `account_id`='".$user['id']."'");
+				output_message('success', $lang['donate_points_given']);
+			}
+		}
+		else
+		{
+			output_message('warning', $lang['donate_status_not_complete']);
+		}
 	}
 }
 ?>

@@ -63,7 +63,7 @@ if($check == TRUE)
 		'".$_POST['txn_id']."',
 		'".$accountid."',
 		'".$_POST['item_number']."',
-		'".$_POST['buyer_email']."',
+		'".$_POST['payer_email']."',
 		'".$_POST['payment_type']."',
 		'".$_POST['payment_status']."',
 		'".$pending_reason."',

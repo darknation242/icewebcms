@@ -5,6 +5,12 @@ if(INCLUDED!==true) {
 }
 //=======================//
 
+if($user['account_level'] != 4)
+{
+	echo "You Do not have the right privilages to view this page!";
+	exit;
+}
+
 $getrealms = $DB->select("SELECT * FROM `realmlist`");
 
 function updateRealm()

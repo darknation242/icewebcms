@@ -156,14 +156,14 @@ class Character
 		global $CDB;
         $guid = mysql_real_escape_string($guid);
         $ally = array("1", "3", "4", "7", "11");
-        $row = $CDB->selectRow("SELECT `faction` FROM `characters` WHERE `guid` = '$guid' LIMIT 1");
+        $row = $this->getRace($guid);
 		if($row == FALSE)
 		{
 			return FALSE;
 		}
 		else
 		{
-			if(in_array($row['faction'], $ally))
+			if(in_array($row, $ally))
 			{
 				return 1;
 			} 

@@ -2,7 +2,7 @@
 class Paypal 
 {
 
-	var $isTest = false;
+	var $isTest = FALSE;
 	
 	// Adds variables to the form
 	function addVar($var,$value)
@@ -31,7 +31,7 @@ class Paypal
 		$this->button .= "\n";
 	}
 	
-	// Prints the form with all the hidden posts
+	// Prints the form with all the hidden posts, and displays the button
 	function showForm()
 	{
 		$url = $this->getAddress();
@@ -51,6 +51,7 @@ class Paypal
 		$this->logFile = $logFile;
 	}
 	
+	// Writes into the log file, a message
 	private function writeLog($msg)
 	{
 		$outmsg = date('Y-m-d H:i:s')." : ".$msg."<br />\n";
@@ -75,7 +76,7 @@ class Paypal
 		$header .= "POST /cgi-bin/webscr HTTP/1.0\r\n";
 		$header .= "Content-Type: application/x-www-form-urlencoded\r\n";
 		$header .= "Content-Length: " . strlen($req) . "\r\n\r\n";
-		$fp = fsockopen ('ssl://'.$url, 443, $errno, $errstr, 30);
+		$fp = fsockopen('ssl://'.$url, 443, $errno, $errstr, 30);
 		
 		// $fp = fsockopen ($url, 80, $errno, $errstr, 30);
 	
@@ -86,21 +87,41 @@ class Paypal
 		else 
 		{
 			fputs($fp, $header . $req);
+			
+			// Common mistake by people is ending the loop on the first run
+			// around, which only gives the header line. There for we are going
+			// to wait until the loop is ended before returning anything.
+			$loop = FALSE; # Start by saying the loop is false on a verified return
 			while(!feof($fp)) 
 			{
-				$res = fgets ($fp, 1024);
-				if(strcmp($res, "VERIFIED") == 0) 
+				$res = fgets($fp, 1024);
+				if(strcmp($res, "VERIFIED") == 0) # If line result length matches VERIFIED
 				{				
-					return TRUE;
+					$loop = TRUE; # Define the loop contained VERIFIED
 				} 
-				else 
+			}
+			if($loop == TRUE)
+			{
+				return TRUE;
+			}
+			else 
+			{
+				if($this->logFile != NULL) # If user defined a log file
 				{
-					if($this->logFile != NULL)
+					$err = array();
+					$err[] = '--- Start Transaction ---';
+					foreach($_POST as $var)
 					{
-						$this->writeLog($_POST);
+						$err[] = $var;
 					}
-					return FALSE;
+					$err[] = '--- End Transaction ---';
+					$err[] = '';
+					foreach($err as $logerror)
+					{
+						$this->writeLog($logerror); # Log for error checking
+					}
 				}
+				return FALSE;
 			}
 			fclose ($fp);
 		}
