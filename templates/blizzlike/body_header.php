@@ -123,7 +123,7 @@ echo $GLOBALS['redirect'];
 									?>
 										<input type="hidden" name="action" value="logout"/>
 										<?php echo $user['username']." | "; ?>
-										<a href="<?php echo mw_url('account', 'info'); ?>"> <?php echo $user['web_points']; ?> <?php echo $lang['web_points'];?></a>
+										<a href="<?php echo mw_url('account'); ?>"> <?php echo $user['web_points']; ?> <?php echo $lang['web_points'];?></a>
 										<a href="<?php echo mw_url('account', 'manage'); ?>"><img src="<?php echo $currtmp; ?>/images/buttons/button-profile.gif" alt="Profile"/></a> 
 										<input type="image" src="<?php echo $currtmp; ?>/images/buttons/button-logout.gif" value="Logout"/>
 								<?php 
