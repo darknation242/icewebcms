@@ -25,13 +25,13 @@
 // Set error reporting to everything for now
 ini_set('error_reporting', E_ERROR ^ E_NOTICE ^ E_WARNING);
 error_reporting(E_ERROR ^ E_NOTICE ^ E_WARNING);
-ini_set('log_errors',TRUE);
-ini_set('html_errors',FALSE);
-ini_set('error_log','core/logs/error_log.txt');
-ini_set('display_errors',TRUE);
+ini_set('log_errors', TRUE);
+ini_set('html_errors', FALSE);
+ini_set('error_log', 'core/logs/error_log.txt');
+ini_set('display_errors', TRUE);
 
 // Define INCLUDED so that we can check other pages if they are included by this file
-define('INCLUDED', true);
+define('INCLUDED', TRUE);
 
 // Start a variable that shows how fast page loaded.
 $time_start = microtime(1);
@@ -44,9 +44,9 @@ include('core/core.php');
 $Core = new Core;
 
 //Site notice cookie
-if($cfg->get('site_notice_enable') == 1 && ! isset($_COOKIE['agreement_accepted']))
+if($cfg->get('site_notice_enable') == 1 && !isset($_COOKIE['agreement_accepted']))
 {
-	include( 'modules/notice/notice.php' );
+	include('modules/notice/notice.php');
 	exit();
 }
 
@@ -57,20 +57,13 @@ if($cfg->getDbInfo('db_username') == 'default')
 }
 
 // Fill in the config with the proper directory info if the directory info is wrong
-$getsitehref = ''.dirname( $_SERVER["SCRIPT_NAME"] ).'/';
-if($getsitehref == "//") 
-{ 
-	$tmp_sitehref = "/"; 
-}
-else
-{ 
-	$tmp_sitehref = $getsitehref; 
-}
-$getbasehref = 'http://'.$_SERVER["HTTP_HOST"].''.$tmp_sitehref.'';
-if($cfg->get('site_base_href') !== $getbasehref)
+define('SITE_DIR', dirname( $_SERVER['PHP_SELF'] ).'/');
+define('SITE_HREF', str_replace('//', '/', SITE_DIR));
+define('SITE_BASE_HREF', 'http://'.$_SERVER["HTTP_HOST"]. SITE_HREF);
+if($cfg->get('site_base_href') !== SITE_BASE_HREF)
 {
-	$cfg->set('site_base_href',''.$getbasehref.'');
-	$cfg->set('site_href',''.$tmp_sitehref.'');
+	$cfg->set('site_base_href', SITE_BASE_HREF);
+	$cfg->set('site_href', SITE_HREF);
 	$cfg->Save();
 }
 
