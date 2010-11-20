@@ -47,7 +47,8 @@ function confirmPayment()
 				$DB->query("UPDATE `mw_donate_transactions` SET `item_given`='1' WHERE `account`='".$user['id']."' AND `id`='".$pay['id']."' LIMIT 1");
 				$DB->query("UPDATE `mw_account_extend` SET 
 					`web_points` = (`web_points` + ".$item['points']."),
-					`points_earned` = (`points_earned` + ".$item['points'].")
+					`points_earned` = (`points_earned` + ".$item['points']."),
+					`total_donations` = (`total_donations` + ".$pay['amount'].")
 				  WHERE `account_id`='".$user['id']."'");
 				output_message('success', $lang['donate_points_given']);
 			}

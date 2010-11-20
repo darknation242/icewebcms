@@ -16,7 +16,7 @@ else
 			}
 			else
 			{
-				output_message('success', $lang['register_success'].'<meta http-equiv=refresh content="5;url=index.php?p=account&sub=login">');
+				output_message('success', $lang['register_success'].'<meta http-equiv=refresh content="5;url=?p=account&sub=login">');
 			}
 		}
 	}
@@ -51,7 +51,7 @@ else
 	}
 	</style>
 				<div style="padding-left:8px; padding-right: 14px">
-					<form method="post" action="index.php?p=account&amp;sub=register" name="regform" id="regform">
+					<form method="post" action="?p=account&amp;sub=register" name="regform" id="regform">
 						<input type="hidden" name="r_key" value="<?php echo $_POST['r_key'];?>"/>
 						<input type="hidden" name="step" value="3"/>
 						
@@ -166,7 +166,7 @@ else
 		{
 			build_CommBox_Header();
 	?>
-			<form method="post" action="index.php?p=account&amp;sub=register">
+			<form method="post" action="?p=account&amp;sub=register">
 				<input type="hidden" name="step" value="2"/>
 				<input type="hidden" name="r_key" value="0"/>
 				<div style="margin:4px;padding:6px 9px 6px 9px;text-align:left;">
@@ -195,7 +195,7 @@ else
 			{
 				build_CommBox_Header();
 	?>
-				<form method="post" action="index.php?p=account&amp;sub=register">
+				<form method="post" action="?p=account&amp;sub=register">
 					<input type="hidden" name="step" value="2"/>
 					<input type="hidden" name="r_key" value="<?php echo $_POST['r_key'];?>"/>
 					<div style="margin:4px;padding:6px 9px 6px 9px;text-align:left;">
@@ -217,7 +217,7 @@ else
 		{
 			build_CommBox_Header();
 	?>
-			<form method="post" action="index.php?p=account&amp;sub=register">
+			<form method="post" action="\?p=account&amp;sub=register">
 				<input type="hidden" name="step" value="1"/>
 				<div style="margin:4px;padding:6px 9px 6px 9px;text-align:left;">
 					<b><?php echo $lang['register_key'];?>:</b> 
