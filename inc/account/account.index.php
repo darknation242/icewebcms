@@ -15,7 +15,7 @@ if($user['id'] <= 0)
     redirect('?p=account&sub=login',1);
 }
 
-if($cfg->get('emulator') == 'arcemu')
+if($Config->get('emulator') == 'arcemu')
 {
 	$regiseter_ip = '?';
 	$joindate = '?';

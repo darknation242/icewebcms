@@ -27,7 +27,7 @@
 
 <!-- VoteLinks  -->
 
-<?php if($cfg->get('fp_vote_banner') == 1) 
+<?php if($Config->get('fp_vote_banner') == 1) 
 { ?>
 
 	<div id="box3">
@@ -36,7 +36,7 @@
 			<li>
 				<div>
 					<center>
-						<a href="<?php echo mw_url('vote'); ?>"><img src="<?php echo $currtmp; ?>/images/vote.png" width="264" height="247" /></a>
+						<a href="<?php echo mw_url('vote'); ?>"><img src="<?php echo $Template['path']; ?>/images/vote.png" width="264" height="247" /></a>
 						<?php echo $lang['fp_vote_desc'];?>
 					</center>
 				</div>
@@ -51,7 +51,7 @@
 
 <!-- Screenshot of the Momment -->
 <?php
-if ($cfg->get('module_fp_ssotd') == 1) 
+if ($Config->get('module_fp_ssotd') == 1) 
 {
 	$date_ssotd = $DB->selectCell("SELECT `date` FROM `mw_gallery_ssotd` LIMIT 1");
 	$today_ssotd = date("y.m.d");
@@ -88,7 +88,7 @@ if ($cfg->get('module_fp_ssotd') == 1)
 
 <!-- Newcomers section -->
 <?php 
-if ($cfg->get('fp_newbie_guide') == 1)
+if ($Config->get('fp_newbie_guide') == 1)
 { ?>
 	<div id="rightbox">
 		<div class="newcommer">
@@ -168,14 +168,14 @@ if(isset($servers))
 									if ($server['realm_status'])
 									{ 
 								?>
-										<img src="<?php echo $currtmp; ?>/images/icons/uparrow2.gif" height="15" alt="Online" /> 
+										<img src="<?php echo $Template['path']; ?>/images/icons/uparrow2.gif" height="15" alt="Online" /> 
 										<b style="color: rgb(35, 67, 3);">Online</b>
 								<?php 
 									}
 									else
 									{
 								?>
-										<img src="<?php echo $currtmp; ?>/images/icons/downarrow2.gif" height="15" alt="Offline" /> 
+										<img src="<?php echo $Template['path']; ?>/images/icons/downarrow2.gif" height="15" alt="Offline" /> 
 										<b style="color: rgb(102, 13, 2);">Offline</b>
 								<?php 
 									}?>

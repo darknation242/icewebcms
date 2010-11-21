@@ -94,7 +94,7 @@ if($vote_sites != FALSE)
 			<td class="rankingHeader" align="center" nowrap="nowrap"><?php echo $lang['voting_sites'];?>&nbsp;</td>
 			<td class="rankingHeader" align="center" nowrap="nowrap"><?php echo $lang['voted'];?>&nbsp;</td>
 			<?php 
-				if($cfg->get('module_vote_onlinecheck') == 1)
+				if($Config->get('module_vote_onlinecheck') == 1)
 				{
 					echo "<td class=\"rankingHeader\" align=\"center\" nowrap=\"nowrap\">".$lang['status']."</td>";
 				}
@@ -124,7 +124,7 @@ if($vote_sites != FALSE)
 							echo "<center><b style=\"color: rgb(35, 67, 3);\">".$lang["no"]."</b></center>";
 						}
 			echo "	</td>";
-					if($cfg->get('module_vote_onlinecheck') == 1)
+					if($Config->get('module_vote_onlinecheck') == 1)
 					{
 						echo "<td class=\"serverStatus1\" align=\"center\">";
 						$fp = @fsockopen($value['hostname'], 80, $errno, $errstr, 3);

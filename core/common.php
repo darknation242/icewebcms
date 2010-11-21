@@ -143,12 +143,12 @@ function print_gold($gvar)
 // Send Mail
 function send_email($goingto,$toname,$sbj,$messg) 
 {
-	global $cfg;
+	global $Config;
 	define('DISPLAY_XPM4_ERRORS', true); // display XPM4 errors
-	$core_em = $cfg->get('site_email');
+	$core_em = $Config->get('site_email');
 		
 	// If email type "0" (SMTP)
-	if($cfg->get('email_type') == 0) 
+	if($Config->get('email_type') == 0) 
 	{ 
 		require_once 'core/mail/SMTP.php'; // path to 'SMTP.php' file from XPM4 package
 
@@ -170,7 +170,7 @@ function send_email($goingto,$toname,$sbj,$messg)
 		else output_message('error', print_r($_RESULT));
 		SMTP::Disconnect($c); // disconnect
 	}
-	elseif($cfg->get('email_type') == 1) 	// If email type "1" (MIME)
+	elseif($Config->get('email_type') == 1) 	// If email type "1" (MIME)
 	{
 		require_once 'core/mail/MIME.php'; // path to 'MIME.php' file from XPM4 package
 
@@ -181,7 +181,7 @@ function send_email($goingto,$toname,$sbj,$messg)
 		// print result
 		echo $send ? output_message('success', 'Mail Sent!') : output_message('error', 'Error!');
 	}
-	elseif($cfg->get('email_type') == 2)	// If email type "2" (MTA Relay)
+	elseif($Config->get('email_type') == 2)	// If email type "2" (MTA Relay)
 	{
 		require_once 'core/mail/MAIL.php'; // path to 'MAIL.php' file from XPM4 package
 
@@ -192,14 +192,14 @@ function send_email($goingto,$toname,$sbj,$messg)
 		$m->Html($messg); // set html message
 
 		// connect to MTA server 'smtp.hostname.net' port '25' with authentication: 'username'/'password'
-		if($cfg->get('email_use_secure') == 1) 
+		if($Config->get('email_use_secure') == 1) 
 		{
-			$c = $m->Connect($cfg->get('email_smtp_host'), $cfg->get('email_smtp_port'), $cfg->get('email_smtp_user'), $cfg->get('email_smtp_pass'), $cfg->get('email_smtp_secure')) 
+			$c = $m->Connect($Config->get('email_smtp_host'), $Config->get('email_smtp_port'), $Config->get('email_smtp_user'), $Config->get('email_smtp_pass'), $Config->get('email_smtp_secure')) 
 				or die(print_r($m->Result));
 		}
 		else
 		{
-			$c = $m->Connect($cfg->get('email_smtp_host'), $cfg->get('email_smtp_port'), $cfg->get('email_smtp_user'), $cfg->get('email_smtp_pass')) 
+			$c = $m->Connect($Config->get('email_smtp_host'), $Config->get('email_smtp_port'), $Config->get('email_smtp_user'), $Config->get('email_smtp_pass')) 
 				or die(print_r($m->Result));
 		}
 
@@ -365,7 +365,7 @@ function my_previewreverse($text)
 // Makes a MangosWeb URL
 function mw_url($page, $subpage = NULL, $params = NULL, $encodeentities = TRUE) 
 {
-	global $cfg;
+	global $Config;
 	if($subpage != NULL)
 	{
 		$url = "?p=$page&sub=$subpage";
@@ -374,7 +374,7 @@ function mw_url($page, $subpage = NULL, $params = NULL, $encodeentities = TRUE)
 	{
 		if($page == 'home' || $page == 'main')
 		{
-			$url = $cfg->get('site_base_href');
+			$url = $Config->get('site_base_href');
 		}
 		else
 		{

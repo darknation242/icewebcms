@@ -18,10 +18,21 @@ class Core
 	
 	function Initialize()
 	{
-		global $cfg;
-		$this->Cache_Refresh_Time = (int)$cfg->get('cache_expire_time');
+		global $Config;
+		$this->Cache_Refresh_Time = (int)$Config->get('cache_expire_time');
 		$this->copyright = 'Powered by MangosWeb Enahnced version ' . $this->version . ' &copy; 2009-2010, <a href="http://keyswow.com">KeysWow Dev Team</a>.
 			All Rights Reserved.';
+
+		// Fill in the config with the proper directory info if the directory info is wrong
+		define('SITE_DIR', dirname( $_SERVER['PHP_SELF'] ).'/');
+		define('SITE_HREF', str_replace('//', '/', SITE_DIR));
+		define('SITE_BASE_HREF', 'http://'.$_SERVER["HTTP_HOST"]. SITE_HREF);
+		if($Config->get('site_base_href') !== SITE_BASE_HREF)
+		{
+			$Config->set('site_base_href', SITE_BASE_HREF);
+			$Config->set('site_href', SITE_HREF);
+			$Config->Save();
+		}
 		return TRUE;
 	}
 	

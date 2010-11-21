@@ -7,7 +7,7 @@
         font-size: x-small;
         font-weight: normal;
         background-color: #E7CFA3;
-        background-image: url('<?php echo $currtmp; ?>/images/light.jpg');
+        background-image: url('<?php echo $Template['path']; ?>/images/light.jpg');
         border-style: solid; border-color: #000000; border-width: 0px; border-bottom-width:1px; border-top-width:1px;
         line-height:140%;
   }
@@ -56,7 +56,7 @@
 </style>
 
 <!-- START OF DONATION BANNER -->
-<table cellspacing="0" cellpadding="0" border="0" width = "100%" background = "<?php echo $currtmp; ?>/images/donation/bg.jpg">
+<table cellspacing="0" cellpadding="0" border="0" width = "100%" background = "<?php echo $Template['path']; ?>/images/donation/bg.jpg">
 <tr>
 	<td width = "80%" align = "center">
 		<table width = "100%" cellspacing="0" cellpadding="0" border="0">
@@ -64,12 +64,12 @@
 				<td>
 					<div id = "wrapper">
 						<div id = "char">
-							<img src="<?php echo $currtmp; ?>/images/donation/body.gif" width="83" height="177" alt="">
+							<img src="<?php echo $Template['path']; ?>/images/donation/body.gif" width="83" height="177" alt="">
 						</div>
 					</div>
 				</td>
 				<td valign = "top">
-					<img src="<?php echo $currtmp; ?>/images/donation/left.jpg" width="343" height="179" alt="">
+					<img src="<?php echo $Template['path']; ?>/images/donation/left.jpg" width="343" height="179" alt="">
 				</td>
 				<!-------Box Start--->
 				<td align="right" style="padding-right: 15px; padding-bottom: 15px">
@@ -77,29 +77,29 @@
 					<table cellspacing="0" cellpadding="0" border="0"  border="1">
 						<tr>
 							<td width = "3">
-								<img src = "<?php echo $currtmp; ?>/images/donation/plainbox-top-left.gif" width = "3" height = "3" border = "0">
+								<img src = "<?php echo $Template['path']; ?>/images/donation/plainbox-top-left.gif" width = "3" height = "3" border = "0">
 							</td>
-							<td background = "<?php echo $currtmp; ?>/images/donation/plainbox-top.gif"></td>
+							<td background = "<?php echo $Template['path']; ?>/images/donation/plainbox-top.gif"></td>
 							<td width = "3">
-								<img src = "<?php echo $currtmp; ?>/images/plainbox/plainbox-top-right.gif" width = "3" height = "3" border = "0">
+								<img src = "<?php echo $Template['path']; ?>/images/plainbox/plainbox-top-right.gif" width = "3" height = "3" border = "0">
 							</td>
 						</tr>
 						<tr>
-							<td background = "<?php echo $currtmp; ?>/images/donation/plainbox-left.gif"></td>
-							<td style = "background-image: url('<?php echo $currtmp; ?>/images/parchment/plain/light3.jpg');" NOWRAP>
+							<td background = "<?php echo $Template['path']; ?>/images/donation/plainbox-left.gif"></td>
+							<td style = "background-image: url('<?php echo $Template['path']; ?>/images/parchment/plain/light3.jpg');" NOWRAP>
 							<!--PlainBox Top End-->
 							
 							<!--PlainBox Bottom-->
 							</td>
-							<td background = "<?php echo $currtmp; ?>/images/donation/plainbox-right.gif"></td>
+							<td background = "<?php echo $Template['path']; ?>/images/donation/plainbox-right.gif"></td>
 						</tr>
 						<tr>
 							<td>
-								<img src = "<?php echo $currtmp; ?>/images/donation/plainbox-bot-left.gif" width = "3"height = "3" border = "0">
+								<img src = "<?php echo $Template['path']; ?>/images/donation/plainbox-bot-left.gif" width = "3"height = "3" border = "0">
 							</td>
-							<td background = "<?php echo $currtmp; ?>/images/donation/plainbox-bot.gif"></td>
+							<td background = "<?php echo $Template['path']; ?>/images/donation/plainbox-bot.gif"></td>
 							<td>
-								<img src = "<?php echo $currtmp; ?>/images/donation/plainbox-bot-right.gif" width = "3" height = "3" border = "0">
+								<img src = "<?php echo $Template['path']; ?>/images/donation/plainbox-bot-right.gif" width = "3" height = "3" border = "0">
 							</td>
 						</tr>
 					</table>
@@ -152,9 +152,9 @@ else
 								<b>".$package['points']." ".$lang['web_points']."</b>
 							</td>
 							<td class='serverStatus1' style='text-align: center;'><font size='-1'>";
-								$Paypal->addVar('business', $cfg->get('paypal_email'));	// Payment Email
-								$Paypal->addVar('notify_url', $cfg->get('site_base_href').'ipn.php');
-								$Paypal->addVar('return', $cfg->get('site_base_href').'?p=donate');
+								$Paypal->addVar('business', $Config->get('paypal_email'));	// Payment Email
+								$Paypal->addVar('notify_url', $Config->get('site_base_href').'ipn.php');
+								$Paypal->addVar('return', $Config->get('site_base_href').'?p=donate');
 								$Paypal->addVar('cmd', '_donations');
 								$Paypal->addVar('amount', $package['cost']);
 								$Paypal->addVar('item_name', $package['points'].' '.$lang['web_points'].' --- Account: '.$user['username'].'(#'.$user['id'].')');

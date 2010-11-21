@@ -11,7 +11,7 @@ builddiv_start(0, $lang['account']);
 			<table width = "550" style = "border-width: 1px; border-style: dotted; border-color: #928058;">
 				<tr>
 					<td>
-						<table width='545' style="border-width: 1px; border-style: solid; border-color: black; background-image: url('<?php echo $currtmp; ?>/images/light3.jpg');">
+						<table width='545' style="border-width: 1px; border-style: solid; border-color: black; background-image: url('<?php echo $Template['path']; ?>/images/light3.jpg');">
 						<tr>
 							<td>
 								<table border='0' cellspacing='0' cellpadding='4' width='540'>
@@ -70,28 +70,28 @@ builddiv_start(0, $lang['account']);
 			<table width = "550" align='center' style = "border-width: 1px; border-style: dotted; border-color: #928058;">
 				<tr>
 					<td>
-						<table width='545' style="border-width: 1px; border-style: solid; border-color: black; background-image: url('<?php echo $currtmp; ?>/images/light3.jpg');">
+						<table width='545' style="border-width: 1px; border-style: solid; border-color: black; background-image: url('<?php echo $Template['path']; ?>/images/light3.jpg');">
 						<tr>
 							<td>
 
 								<table width='540' align='center'>
 									<tr>
-										<td width='36'><img src='<?php echo $currtmp; ?>/images/account/icon-5.png' /></td>
+										<td width='36'><img src='<?php echo $Template['path']; ?>/images/account/icon-5.png' /></td>
 										<td><a href='?p=account&sub=manage'><?php echo $lang['account_manage']; ?></a></td>
 										
-										<td width='36'><img src='<?php echo $currtmp; ?>/images/account/icon-1.png' /></td>
+										<td width='36'><img src='<?php echo $Template['path']; ?>/images/account/icon-1.png' /></td>
 										<td><a href='?p=account&sub=customize'><?php echo $lang['char_recustomize']; ?></a></td>
 									</tr>
 									<tr>
-										<td width='36'><img src='<?php echo $currtmp; ?>/images/account/icon-6.png' /></td>
+										<td width='36'><img src='<?php echo $Template['path']; ?>/images/account/icon-6.png' /></td>
 										<td><a href='?p=account&sub=mytransactions'>My Donate Transactions</a></td>
-										<td width='36'><img src='<?php echo $currtmp; ?>/images/account/icon-2.png' /></td>
+										<td width='36'><img src='<?php echo $Template['path']; ?>/images/account/icon-2.png' /></td>
 										<td><a href='?p=account&sub=racechange'><?php echo $lang['char_racechange']; ?></a></td>
 									</tr>
 									<tr>
-										<td width='36'><img src='<?php echo $currtmp; ?>/images/account/icon-3.png' /></td>
+										<td width='36'><img src='<?php echo $Template['path']; ?>/images/account/icon-3.png' /></td>
 										<td><a href='?p=account&sub=rename'><?php echo $lang['char_rename']; ?></a></td>
-										<td width='36'><img src='<?php echo $currtmp; ?>/images/account/icon-4.png' /></td>
+										<td width='36'><img src='<?php echo $Template['path']; ?>/images/account/icon-4.png' /></td>
 										<td><a href='?p=account&sub=factionchange'><?php echo $lang['char_faction_change']; ?></a></td>
 									</tr>
 								</table>

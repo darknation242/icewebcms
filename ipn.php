@@ -4,14 +4,14 @@ include('core/class.config.php');
 include('core/class.database.php');
 include('core/lib/class.paypal.php');
 
-$cfg = new Config;
+$Config = new Config;
 $Paypal = new Paypal;
 $DB = new Database(
-	$cfg->getDbInfo('db_host'), 
-	$cfg->getDbInfo('db_port'), 
-	$cfg->getDbInfo('db_username'), 
-	$cfg->getDbInfo('db_password'), 
-	$cfg->getDbInfo('db_name')
+	$Config->getDbInfo('db_host'), 
+	$Config->getDbInfo('db_port'), 
+	$Config->getDbInfo('db_username'), 
+	$Config->getDbInfo('db_password'), 
+	$Config->getDbInfo('db_name')
 );
 
 // Lets check to see if we are valid or not

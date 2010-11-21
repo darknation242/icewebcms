@@ -16,7 +16,7 @@
 													if(empty($_GET['p']) || $_GET['p'] == "frontpage")
 													{
 														echo "<td valign=\"top\">";
-														if($cfg->get('enable_cache') == 1)
+														if($Config->get('enable_cache') == 1)
 														{	
 															if($Core->isCached($Template['number']."_bodyright"))
 															{
@@ -26,14 +26,14 @@
 															else
 															{
 																ob_start();
-																	include($master_tmp.'/body_right.php');
+																	include($Template['script_path'].'/body_right.php');
 																$Contents = ob_get_flush();
 																$Core->writeCache($Template['number']."_bodyright", $Contents);
 															}											
 														}
 														else
 														{
-															include($master_tmp.'/body_right.php');
+															include($Template['script_path'].'/body_right.php');
 														}
 														echo "</td>";
 													} 
@@ -47,7 +47,7 @@
                                         <center>
                                           <div id="copyright">
 										  <div id="blizzlogo-bot">
-                                              <img alt="Blizzard.com" border="0" src="<?php echo $currtmp;?>/images/bot-blizzlogo.gif"/></div>
+                                              <img alt="Blizzard.com" border="0" src="<?php echo $Template['path'];?>/images/bot-blizzlogo.gif"/></div>
                                             <span class="textlinks">
                                             <small>
                                               <?php echo $lang['pagegenerated'];?> <?php echo round($exec_time,4);?> sec.
@@ -81,7 +81,7 @@
                               </div>
                             </div>
                             <div style="position: relative; z-index: 10;">
-                              <img style="position: absolute; top: -445px; left: -243px;" alt="statue" src="./<?php echo $currtmp; ?>/images/statue.png"/></div>
+                              <img style="position: absolute; top: -445px; left: -243px;" alt="statue" src="./<?php echo $Template['path']; ?>/images/statue.png"/></div>
                           </div>
                         </div>
                       </td>

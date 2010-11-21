@@ -11,7 +11,7 @@
 	if($Online_Check == FALSE)
 	{
 		echo '<div class="error">Realm <b>'.$realm_info['name'].'</b> is offline 
-			<img src="'.$currtmp.'/images/icons/downarrow2.gif" border="0" align="top"></div><br />';
+			<img src="'.$Template['path'].'/images/icons/downarrow2.gif" border="0" align="top"></div><br />';
 	}
 	write_metalborder_header(); 
 ?>

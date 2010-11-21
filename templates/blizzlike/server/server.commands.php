@@ -43,7 +43,7 @@ foreach($alltopics as $postanum => $topic)
 					<div class="news-top">
 						<ul>
 							<li class="item-icon">
-								<img border="0" alt="new-post" src="<?php echo $currtmp; ?>/images/news-contests.gif">
+								<img border="0" alt="new-post" src="<?php echo $Template['path']; ?>/images/news-contests.gif">
 							</li>
 							<li class="news-entry">
 								<h1>
@@ -51,7 +51,7 @@ foreach($alltopics as $postanum => $topic)
 								</h1>
 							</li>
 							<li class="news-toggle">
-								<a href="javascript:toggleEntry('<?php echo $postnum;?>','<?php echo $hl;?>')"><img alt="" src="<?php echo $currtmp; ?>/images/pixel001.gif"></a>
+								<a href="javascript:toggleEntry('<?php echo $postnum;?>','<?php echo $hl;?>')"><img alt="" src="<?php echo $Template['path']; ?>/images/pixel001.gif"></a>
 							</li>
 						</ul>
 					</div>

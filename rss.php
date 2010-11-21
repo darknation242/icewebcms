@@ -4,13 +4,13 @@ define('DATE_RFC822_FIXED', 'D, d M Y H:i:s O');
 
 include('core/class.config.php');
 include('core/class.database.php');
-$cfg= new Config;
+$Config= new Config;
 $DB = new Database(
-	$cfg->getDbInfo('db_host'), 
-	$cfg->getDbInfo('db_port'), 
-	$cfg->getDbInfo('db_username'), 
-	$cfg->getDbInfo('db_password'), 
-	$cfg->getDbInfo('db_name')
+	$Config->getDbInfo('db_host'), 
+	$Config->getDbInfo('db_port'), 
+	$Config->getDbInfo('db_username'), 
+	$Config->getDbInfo('db_password'), 
+	$Config->getDbInfo('db_name')
 	);
 
 // Get the last time someone added a post (used to determine wheter we should write a new xml or not)
@@ -30,7 +30,7 @@ if($write_new_file)
 	$write_file[] = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
 	$write_file[] = "<rss version=\"2.0\">";
 	$write_file[] = "    <channel>";
-	$write_file[] = "        <title>".$cfg->get('site_title')." RSS News Feed</title>";
+	$write_file[] = "        <title>".$Config->get('site_title')." RSS News Feed</title>";
 	$write_file[] = "        <link>http://".(str_replace('rss.php','index.php',($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])))."</link>";
 	$write_file[] = "        <lastBuildDate>".date(DATE_RFC822_FIXED)."</lastBuildDate>";
 	$write_file[] = "        <language>en-us</language>";

@@ -21,23 +21,23 @@ if($user['id'] < 1)
 	<table cellspacing = "0" cellpadding = "0" border = "0" >
 		<tr>
 			<td>
-				<img src = "<?php echo $currtmp; ?>/images/shadow-top-left.gif" width = "5" height = "4">
+				<img src = "<?php echo $Template['path']; ?>/images/shadow-top-left.gif" width = "5" height = "4">
 			</td>
-			<td background = "<?php echo $currtmp; ?>/images/shadow-top.gif">
-				<img src = "<?php echo $currtmp; ?>/images/shadow-top-left-left.gif" width = "12" height = "4">
+			<td background = "<?php echo $Template['path']; ?>/images/shadow-top.gif">
+				<img src = "<?php echo $Template['path']; ?>/images/shadow-top-left-left.gif" width = "12" height = "4">
 			</td>
-			<td align = "right" background = "<?php echo $currtmp; ?>/images/shadow-top.gif">
-				<img src = "<?php echo $currtmp; ?>/images/shadow-top-right-right.gif" width = "12" height = "4">
+			<td align = "right" background = "<?php echo $Template['path']; ?>/images/shadow-top.gif">
+				<img src = "<?php echo $Template['path']; ?>/images/shadow-top-right-right.gif" width = "12" height = "4">
 			</td>
 			<td>
-				<img src = "<?php echo $currtmp; ?>/images/shadow-top-right.gif" width = "9" height = "4">
+				<img src = "<?php echo $Template['path']; ?>/images/shadow-top-right.gif" width = "9" height = "4">
 			</td>
 		</tr>
 		<tr>
-			<td valign = "top" background = "<?php echo $currtmp; ?>/images/shadow-left.gif">
-				<img src = "<?php echo $currtmp; ?>/images/shadow-left-top.gif" width = "5" height = "12">
+			<td valign = "top" background = "<?php echo $Template['path']; ?>/images/shadow-left.gif">
+				<img src = "<?php echo $Template['path']; ?>/images/shadow-left-top.gif" width = "5" height = "12">
 			</td>
-			<td colspan = "2" rowspan = "2" style="background-image:url('<?php echo $currtmp; ?>/images/header-left2.jpg'); background-repeat: no-repeat;">
+			<td colspan = "2" rowspan = "2" style="background-image:url('<?php echo $Template['path']; ?>/images/header-left2.jpg'); background-repeat: no-repeat;">
 			<!--Shadow Top-->
 				<table cellspacing = "0" cellpadding = "4" border = "0">
 					<tr>
@@ -47,7 +47,7 @@ if($user['id'] < 1)
 								<table width = "510" cellspacing = "0" cellpadding = "0" border = "0">
 									<tr>
 										<td>
-											<img align="right" src="<?php echo $currtmp; ?>/images/confusedorc.jpg">
+											<img align="right" src="<?php echo $Template['path']; ?>/images/confusedorc.jpg">
 											<?php  echo add_pictureletter($lang['intro_account_restore']);?>
 										</td>
 									</tr>
@@ -58,7 +58,7 @@ if($user['id'] < 1)
 											<table width = "520" style = "border-width: 1px; border-style: dotted; border-color: #928058;">
 											<tr>
 												<td>
-													<table width = "100%" style = "border-width: 1px; border-style: solid; border-color: black; background-image: url('<?php echo $currtmp; ?>/images/light3.jpg');">
+													<table width = "100%" style = "border-width: 1px; border-style: solid; border-color: black; background-image: url('<?php echo $Template['path']; ?>/images/light3.jpg');">
 													<tr>
 														<td align = "center">
 															<table border='0' cellspacing='0' cellpadding='4'>
@@ -106,7 +106,7 @@ if($user['id'] < 1)
 											</table>
 											<center>
 											<br />
-											<input type="image" src="<?php echo $currtmp; ?>/images/buttons/continue-button.gif" size="16" class="button" style="font-size:12px;" value="<?php echo $lang['doretrieve_pass'] ?>">
+											<input type="image" src="<?php echo $Template['path']; ?>/images/buttons/continue-button.gif" size="16" class="button" style="font-size:12px;" value="<?php echo $lang['doretrieve_pass'] ?>">
 											</center>
 											</form>
 										</td>
@@ -121,30 +121,30 @@ if($user['id'] < 1)
 	</table>
 	<!--Shadow Bottom-->
 	</td>
-	<td valign = "top" background = "<?php echo $currtmp; ?>/images/shadow-right.gif">
-		<img src = "<?php echo $currtmp; ?>/images/shadow-right-top.gif" width = "9" height = "12">
+	<td valign = "top" background = "<?php echo $Template['path']; ?>/images/shadow-right.gif">
+		<img src = "<?php echo $Template['path']; ?>/images/shadow-right-top.gif" width = "9" height = "12">
 	</td>
 	</tr>
 		<tr>
-			<td valign = "bottom" background = "<?php echo $currtmp; ?>/images/shadow-left.gif">
-				<img src = "<?php echo $currtmp; ?>/images/shadow-left-bot.gif" width = "5" height = "12">
+			<td valign = "bottom" background = "<?php echo $Template['path']; ?>/images/shadow-left.gif">
+				<img src = "<?php echo $Template['path']; ?>/images/shadow-left-bot.gif" width = "5" height = "12">
 			</td>
-			<td valign = "bottom" background = "<?php echo $currtmp; ?>/images/shadow-right.gif">
-				<img src = "<?php echo $currtmp; ?>/images/shadow-right-bot.gif" width = "9" height = "12">
+			<td valign = "bottom" background = "<?php echo $Template['path']; ?>/images/shadow-right.gif">
+				<img src = "<?php echo $Template['path']; ?>/images/shadow-right-bot.gif" width = "9" height = "12">
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<img src = "<?php echo $currtmp; ?>/images/shadow-bot-left.gif" width = "5" height = "10">
+				<img src = "<?php echo $Template['path']; ?>/images/shadow-bot-left.gif" width = "5" height = "10">
 			</td>
-			<td background = "<?php echo $currtmp; ?>/images/shadow-bot.gif">
-				<img src = "<?php echo $currtmp; ?>/images/shadow-bot-left-left.gif" width = "12" height = "10">
+			<td background = "<?php echo $Template['path']; ?>/images/shadow-bot.gif">
+				<img src = "<?php echo $Template['path']; ?>/images/shadow-bot-left-left.gif" width = "12" height = "10">
 			</td>
-			<td align = "right" background = "<?php echo $currtmp; ?>/images/shadow-bot.gif">
-				<img src = "<?php echo $currtmp; ?>/images/shadow-bot-right-right.gif" width = "12" height = "10">
+			<td align = "right" background = "<?php echo $Template['path']; ?>/images/shadow-bot.gif">
+				<img src = "<?php echo $Template['path']; ?>/images/shadow-bot-right-right.gif" width = "12" height = "10">
 			</td>
 			<td>
-				<img src = "<?php echo $currtmp; ?>/images/shadow-bot-right.gif" width = "9" height = "10">
+				<img src = "<?php echo $Template['path']; ?>/images/shadow-bot-right.gif" width = "9" height = "10">
 			</td>
 		</tr>
 	</table>

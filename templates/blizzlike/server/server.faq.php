@@ -9,7 +9,7 @@
         font-size: x-small;
         font-weight: normal;
         background-color: #E7CFA3;
-        background-image: url('<?php echo $currtmp; ?>/images/light.jpg');
+        background-image: url('<?php echo $Template['path']; ?>/images/light.jpg');
         border-style: solid; border-color: #000000; border-width: 0px; border-bottom-width:1px; border-top-width:0px;
         line-height:140%;
   }
@@ -24,7 +24,7 @@
         color: #640909;
     }
 </style>
-<center><img src="<?php echo $currtmp ?>/images/confusedorc.jpg" width="153" height="200" /></center><br />
+<center><img src="<?php echo $Template['path'] ?>/images/confusedorc.jpg" width="153" height="200" /></center><br />
 <?php echo $lang['faq_desc']; ?><br /><br />
 <table align="center" width="100%">
 	<tr>

@@ -7,7 +7,7 @@
 			if(empty($_GET['key']))
 			{
 		?>		
-			<form action="index.php?p=account&sub=activate" method="post">
+			<form action="?p=account&sub=activate" method="post">
 				<div style="background:none; margin:4px; padding:6px 9px 6px 9px; text-align: center; width:80%;">
 					<b>Activation Key:</b> <input type="text" size="45" maxlength='50' class="addbutton2" style="font-size:11px;" name="key">					
 				</div>

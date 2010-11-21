@@ -158,7 +158,7 @@ function banUser($bannid, $banreason)
 // Show ban form is used to input a Ban reason, before acutally banning
 function showBanForm($banid) 
 {
-	global $DB, $cfg;
+	global $DB;
 	$unme = $DB->selectCell("SELECT username FROM account WHERE id='".$banid."'");
 	echo "
 		<div class=\"content\">	

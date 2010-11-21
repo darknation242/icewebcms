@@ -1,14 +1,27 @@
 <?php
+/* 	MangosWeb Template class, Written by Wilson212. The point
+	of this template class is to load the template.xml  of the 
+	users current selected template, and return that information
+	to the index file. This template class also sets the cookies
+	and reads the cookies to determine if the user has already 
+	chosen a template or not in the pas.
+*/
+
+
 class Template
 {	
 	public $xml;
 	
+	function __construct()
+	{
+		$this->Init();
+	}
+	
 	// This function sets up what template is going to be used, based on what the user has picked as his/her template
-	// We dont use __construct because it cant be used as an array, so there for we use Init()
 	public function Init()
 	{
-		global $user, $cfg, $DB;
-		$template_list = explode(",", $cfg->get('templates'));
+		global $user, $Config, $DB;
+		$template_list = explode(",", $Config->get('templates'));
 		if ( $user['id'] == -1 ) // If user is a guest and not logged in 
 		{
 			if(isset($_GET['theme']))
@@ -30,7 +43,7 @@ class Template
 				$this->slave_tmpl = "templates/".$tmple;
 				$this->path = "templates/".$tmple."/template.xml";
 				$this->template_number = 0;
-				return $this->return_template_info();
+				return TRUE;
 			}
 			elseif(isset($_COOKIE['cur_selected_theme'])) // If a cookie is set
 			{
@@ -61,7 +74,7 @@ class Template
 			}
 			$this->slave_tmpl = "templates/".$tmple;
 			$this->path = "templates/".$tmple."/template.xml";
-			return $this->return_template_info();
+			return TRUE;
 		}
 		else // If user is logged in
 		{
@@ -85,7 +98,7 @@ class Template
 				
 				$this->slave_tmpl = "templates/".$tmple;
 				$this->path = "templates/".$tmple."/template.xml";
-				return $this->return_template_info();
+				return TRUE;
 			}
 			elseif(isset($_COOKIE['cur_selected_theme'])) // If there is a cookie set with the theme
 			{
@@ -118,19 +131,19 @@ class Template
 			}
 			$this->slave_tmpl = "templates/".$tmple;
 			$this->path = "templates/".$tmple."/template.xml";
-			return $this->return_template_info();
+			return TRUE;
 		}
 	}
 	
 	// Once the template is decided, we must load the xml that contains the template information, and return it back to the
-	// main function
-	public function return_template_info()
+	// index page
+	public function loadTemplateXML()
 	{
 		$this->xml = simplexml_load_file($this->path);
 		$this->master_template = "templates/".$this->xml->masterTemplate;
 		$ret = array(
 			'path' => $this->slave_tmpl, 
-			'script' => $this->master_template,
+			'script_path' => $this->master_template,
 			'name' => $this->xml->name,
 			'number' => $this->template_number,
 			'author' => $this->xml->author,

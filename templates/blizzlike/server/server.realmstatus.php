@@ -1,4 +1,4 @@
-<img src="<?php echo $currtmp; ?>/images/realmstatus_header-left.jpg" border="0" width="50%" height="135" /><img src="<?php echo $currtmp; ?>/images/realmstatus_background.jpg" border="0" width="50%" height="135" />
+<img src="<?php echo $Template['path']; ?>/images/realmstatus_header-left.jpg" border="0" width="50%" height="135" /><img src="<?php echo $Template['path']; ?>/images/realmstatus_background.jpg" border="0" width="50%" height="135" />
 <br />
 <?php builddiv_start(0) ?>
 <style type = "text/css">
@@ -9,10 +9,10 @@
 
 <div style="padding:10px 20px 10px 20px;">
 <?php
-	$up = '<img src="'.$currtmp.'/images/icons/uparrow2.gif" style="vertical-align: bottom;" height="19" width="18" alt=""/> <b style="color: rgb(35, 67, 3);">' . $lang['up'] . '</b>';
-	$down = '<img src="'.$currtmp.'/images/icons/downarrow2.gif" style="vertical-align: bottom;" height="19" width="18" alt=""/> <b style="color: rgb(102, 13, 2);">' . $lang['down'] . '</b>';
+	$up = '<img src="'.$Template['path'].'/images/icons/uparrow2.gif" style="vertical-align: bottom;" height="19" width="18" alt=""/> <b style="color: rgb(35, 67, 3);">' . $lang['up'] . '</b>';
+	$down = '<img src="'.$Template['path'].'/images/icons/downarrow2.gif" style="vertical-align: bottom;" height="19" width="18" alt=""/> <b style="color: rgb(102, 13, 2);">' . $lang['down'] . '</b>';
 
-	$realmstatusforum = '<a href="'.$cfg->get('site_forums').'">' . $lang['realm_status_forum'] . '</a>';
+	$realmstatusforum = '<a href="'.$Config->get('site_forums').'">' . $lang['realm_status_forum'] . '</a>';
 	$desc = $lang['realm_status_desc'];
 	$desc = str_replace('[up]', $up, $desc);
 	$desc = str_replace('[down]', $down, $desc);
@@ -35,8 +35,8 @@
             <td class="rankingHeader" align="center" nowrap="nowrap" width="120"><?php echo $lang['Population'];?></td>
         </tr>
         <tr>
-            <td colspan="6" style="background: url('<?php echo $currtmp; ?>/images/shadow.gif');">
-                <img src="<?php echo $currtmp; ?>/images/pixel.gif" height="1" width="1" alt=""/>
+            <td colspan="6" style="background: url('<?php echo $Template['path']; ?>/images/shadow.gif');">
+                <img src="<?php echo $Template['path']; ?>/images/pixel.gif" height="1" width="1" alt=""/>
             </td>
         </tr>
 <?php foreach($items as $item) { ?>

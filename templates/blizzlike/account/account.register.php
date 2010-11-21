@@ -1,5 +1,5 @@
 <?php
-if ((int)$cfg->get('allow_registration') == 0)
+if ((int)$Config->get('allow_registration') == 0)
 {
       output_message('error','Registration: Locked');
 }
@@ -10,7 +10,7 @@ else
 		$finalize = finalize();
 		if($finalize == TRUE)
 		{
-			if((int)$cfg->get('require_act_activation'))
+			if((int)$Config->get('require_act_activation'))
 			{
 				output_message('success', $lang['activation_email_sent']);
 			}
@@ -72,7 +72,7 @@ else
 						<p id="t_email" style="display:none;" class="wm"></p>
 
 					<?php 
-						if ((int)$cfg->get('reg_secret_questions') == 0)
+						if ((int)$Config->get('reg_secret_questions') == 0)
 						{ ?>
 
 							<label for="secretq1"><?php echo $lang['secretq']; ?> 1:</label>
@@ -101,7 +101,7 @@ else
 						} ?>
 
 					<?php 
-						if ($cfg->get('reg_secret_questions') == 1)
+						if ($Config->get('reg_secret_questions') == 1)
 						{ ?>
 							<label for="secretq1"><?php echo $lang['secretq']; ?> 1:</label>
 							Q: <select id="secretq1" name="secretq1">
@@ -135,7 +135,7 @@ else
 						</select><br /><br />
 
 					<?php
-						if ((int)$cfg->get('reg_act_imgvar') == 1)
+						if ((int)$Config->get('reg_act_imgvar') == 1)
 						{        
 							// Initialize random image:
 							$captcha = new Captcha;
@@ -156,13 +156,13 @@ else
 			
 						<br />
 						<center>
-							<input type='image' class="button" src='<?php echo $currtmp; ?>/images/buttons/createaccount-button2.gif' />
+							<input type='image' class="button" src='<?php echo $Template['path']; ?>/images/buttons/createaccount-button2.gif' />
 						</center>
 					</form>
 				</div>
 	<?php	build_CommBox_Footer();
 		}
-		elseif(empty($_POST['step']) && $cfg->get('reg_invite') == 0 && $allow_reg === true)
+		elseif(empty($_POST['step']) && $Config->get('reg_invite') == 0 && $allow_reg === true)
 		{
 			build_CommBox_Header();
 	?>
@@ -176,14 +176,14 @@ else
 					<?php include("lang/server_rules/".$GLOBALS['user_cur_lang'].".html"); ?>
 				</div>
 				<div style="margin:4px;padding:6px 9px 0px 9px;text-align:center;">
-					<input type='image' class="button" src="<?php echo $currtmp; ?>/images/buttons/disagree-button.gif" name="disagree" value="1" />
-					<input type='image' class="button" src='<?php echo $currtmp; ?>/images/buttons/agree-button.gif' />
+					<input type='image' class="button" src="<?php echo $Template['path']; ?>/images/buttons/disagree-button.gif" name="disagree" value="1" />
+					<input type='image' class="button" src='<?php echo $Template['path']; ?>/images/buttons/agree-button.gif' />
 				</div>
 			</form>
 	<?php
 			build_CommBox_Footer();
 		}
-		elseif(isset($_POST['step']) && $_POST['step'] == 1 && $cfg->get('reg_invite') == 1)
+		elseif(isset($_POST['step']) && $_POST['step'] == 1 && $Config->get('reg_invite') == 1)
 		{
 			if($Account->isValidRegkey($_POST['r_key']) !== TRUE)
 			{
@@ -205,15 +205,15 @@ else
 						<?php include("lang/server_rules/".$GLOBALS['user_cur_lang'].".html"); ?>
 					</div>
 					<div style="margin:4px;padding:6px 9px 0px 9px;text-align:center;">
-						<input type='image' class="button" src="<?php echo $currtmp; ?>/images/buttons/disagree-button.gif" name="disagree" value="1" />
-						<input type='image' class="button" src='<?php echo $currtmp; ?>/images/buttons/agree-button.gif' />
+						<input type='image' class="button" src="<?php echo $Template['path']; ?>/images/buttons/disagree-button.gif" name="disagree" value="1" />
+						<input type='image' class="button" src='<?php echo $Template['path']; ?>/images/buttons/agree-button.gif' />
 					</div>
 				</form>
 				
 	<?php		build_CommBox_Footer();
 			}
 		}
-		elseif(empty($_POST['step']) && $cfg->get('reg_invite') == 1 && $allow_reg === true)
+		elseif(empty($_POST['step']) && $Config->get('reg_invite') == 1 && $allow_reg === true)
 		{
 			build_CommBox_Header();
 	?>

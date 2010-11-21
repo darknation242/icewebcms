@@ -249,7 +249,7 @@ if(isset($_GET['id']))
 						<label for="Exp">Theme: </label>
 						<select name="theme" class='medium'>
 							<?php
-								$alltmpl = explode(",", $cfg->get('templates'));
+								$alltmpl = explode(",", $Config->get('templates'));
 								$key = 0;
 								foreach($alltmpl as $tmpls) 
 								{

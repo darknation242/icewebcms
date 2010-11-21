@@ -15,11 +15,11 @@ class Account
 	// Initialize with checking for user cookies, and getting their IP
     function __construct()
     {
-        global $cfg, $DB;
+        global $Config, $DB;
         $this->DB = $DB;
         $this->check();
         $this->user['ip'] = $_SERVER['REMOTE_ADDR'];
-		if($cfg->get('module_onlinelist') == 1)
+		if($Config->get('module_onlinelist') == 1)
 		{
 			if($this->user['id'] < 1)
 			{
@@ -37,10 +37,10 @@ class Account
 	 // Checks if user is logged in already
     function check()
     {
-        global $cfg;
-        if(isset($_COOKIE[((string)$cfg->get('site_cookie'))]))
+        global $Config;
+        if(isset($_COOKIE[((string)$Config->get('site_cookie'))]))
 		{
-            list($cookie['user_id'], $cookie['account_key']) = @unserialize(stripslashes($_COOKIE[((string)$cfg->get('site_cookie'))]));
+            list($cookie['user_id'], $cookie['account_key']) = @unserialize(stripslashes($_COOKIE[((string)$Config->get('site_cookie'))]));
             if($cookie['user_id'] < 1)
 			{
 				return false;
@@ -83,7 +83,7 @@ class Account
 	// Main login script
     function login($params)
     {
-        global $cfg;
+        global $Config;
         $success = 1;
         if (empty($params)) 
 		{
@@ -134,13 +134,13 @@ class Account
 				$generated_key = $this->generate_key();
 				$this->addOrUpdateAccountKeys($res['id'],$generated_key);
 				$uservars_hash = serialize(array($res['id'], $generated_key));
-				$cookie_expire_time = intval($cfg->get('account_key_retain_length'));
+				$cookie_expire_time = intval($Config->get('account_key_retain_length'));
 				if(!$cookie_expire_time) 
 				{
 					$cookie_expire_time = (60*60*24*365);   //default is 1 year
 				}
-				(string)$cookie_name = $cfg->get('site_cookie');
-				(string)$cookie_href = $cfg->get('site_href');
+				(string)$cookie_name = $Config->get('site_cookie');
+				(string)$cookie_href = $Config->get('site_href');
 				(int)$cookie_delay = (time()+$cookie_expire_time);
 				setcookie($cookie_name, $uservars_hash, $cookie_delay, $cookie_href);
 				return TRUE;
@@ -155,15 +155,15 @@ class Account
 
     function logout()
     {
-        global $cfg;
-        setcookie((string)$cfg->get('site_cookie'), '', time()-3600,(string)$cfg->get('site_href'));
+        global $Config;
+        setcookie((string)$Config->get('site_cookie'), '', time()-3600,(string)$Config->get('site_href'));
         $this->removeAccountKeyForUser($this->user['id']);
     }
 	
 	// Main register script
     function register($params, $account_extend = NULL)
     {
-        global $cfg;
+        global $Config;
         $success = 1;
         if(empty($params)) 
 		{
@@ -198,7 +198,7 @@ class Account
         unset($params['password']);
 		
 		// If email activation is set
-        if((int)$cfg->get('require_act_activation') == 1)
+        if((int)$Config->get('require_act_activation') == 1)
 		{
             $tmp_act_key = $this->generate_key();
             $params['locked'] = 1;
@@ -257,13 +257,13 @@ class Account
                 }
 				
 				// Send email
-                $act_link = (string)$cfg->get('site_base_href').'?p=account&sub=activate&id='.$u_id.'&key='.$tmp_act_key;
+                $act_link = (string)$Config->get('site_base_href').'?p=account&sub=activate&id='.$u_id.'&key='.$tmp_act_key;
                 $email_text  = '== Account activation =='."\n\n";
                 $email_text .= 'Username: '.$params['username']."\n";
                 $email_text .= 'Password: '.$password."\n";
                 $email_text .= 'This is your activation key: '.$tmp_act_key."\n";
                 $email_text .= 'CLICK HERE : '.$act_link."\n";
-                send_email($params['email'],$params['username'],'== '.(string)$cfg->get('site_title').' account activation ==',$email_text);
+                send_email($params['email'],$params['username'],'== '.(string)$Config->get('site_title').' account activation ==',$email_text);
                 return TRUE;
             }
 			
@@ -558,7 +558,7 @@ class Account
 	// account level, id, and all sorts. post an account id here
 	function getProfile($acct_id=FALSE)
 	{
-		global $cfg;
+		global $Config;
 		$res = $this->DB->selectRow("
 			SELECT * FROM account
 			LEFT JOIN mw_account_extend ON account.id = mw_account_extend.account_id
@@ -809,9 +809,9 @@ class Account
 	function clearOldAccountKeys() 
 	{
 		global $DB;
-		global $cfg;
+		global $Config;
 
-		$cookie_expire_time = (int)$cfg->get('account_key_retain_length');
+		$cookie_expire_time = (int)$Config->get('account_key_retain_length');
 		if(!$cookie_expire_time) 
 		{
 			$cookie_expire_time = (60*60*24*365);   //default is 1 year

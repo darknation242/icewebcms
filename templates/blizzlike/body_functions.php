@@ -1,8 +1,8 @@
 <?php
 $templategenderimage = array(
-    0 => $currtmp.'/images/pixel.gif',
-    1 => $currtmp.'/images/icons/male.gif',
-    2 => $currtmp.'/images/icons/female.gif'
+    0 => $Template['path'].'/images/pixel.gif',
+    1 => $Template['path'].'/images/icons/male.gif',
+    2 => $Template['path'].'/images/icons/female.gif'
 );
 
 function population_view($n) 
@@ -124,45 +124,45 @@ function build_main_menu()
 
 function write_subheader($subheader)
 {
-	global $currtmp;
+	global $Template;
     echo '
 	<table border="0" cellpadding="0" cellspacing="0" width="100%">
 		<tbody>
 			<tr>
-				<td width="24"><img src="'.$currtmp.'/images/subheader/subheader-left-sword.gif" height="20" width="24" alt=""/></td>
+				<td width="24"><img src="'.$Template['path'].'/images/subheader/subheader-left-sword.gif" height="20" width="24" alt=""/></td>
 				<td bgcolor="#05374a" width="100%"><b style="color:white;">'.$subheader.':</b></td>
-				<td width="10"><img src="'.$currtmp.'/images/subheader/subheader-right.gif" height="20" width="10" alt=""/></td>
+				<td width="10"><img src="'.$Template['path'].'/images/subheader/subheader-right.gif" height="20" width="10" alt=""/></td>
 			</tr>
 		</tbody>
 	</table>';
 }
 function write_metalborder_header()
 {
-	global $currtmp;
+	global $Template;
     echo '
 	<table border="0" cellpadding="0" cellspacing="0" width="100%">
 		<tbody>
 			<tr>
-				<td width="12"><img src="'.$currtmp.'/images/metalborder-top-left.gif" height="12" width="12" alt=""/></td>
-				<td style="background:url(\''.$currtmp.'/images/metalborder-top.gif\');"></td>
-				<td width="12"><img src="'.$currtmp.'/images/metalborder-top-right.gif" height="12" width="12" alt=""/></td>
+				<td width="12"><img src="'.$Template['path'].'/images/metalborder-top-left.gif" height="12" width="12" alt=""/></td>
+				<td style="background:url(\''.$Template['path'].'/images/metalborder-top.gif\');"></td>
+				<td width="12"><img src="'.$Template['path'].'/images/metalborder-top-right.gif" height="12" width="12" alt=""/></td>
 			</tr>
 			<tr>
-				<td style="background:url(\''.$currtmp.'/images/metalborder-left.gif\');"></td>
+				<td style="background:url(\''.$Template['path'].'/images/metalborder-left.gif\');"></td>
 				<td>
 ';
 }
 
 function write_metalborder_footer()
 {
-	global $currtmp;
+	global $Template;
 	echo '      </td>
-				<td style="background:url(\''.$currtmp.'/images/metalborder-right.gif\');"></td>
+				<td style="background:url(\''.$Template['path'].'/images/metalborder-right.gif\');"></td>
 			</tr>
 			<tr>
-				<td><img src="'.$currtmp.'/images/metalborder-bot-left.gif" height="11" width="12" alt=""/></td>
-				<td style="background:url(\''.$currtmp.'/images/metalborder-bot.gif\');"></td>
-				<td><img src="'.$currtmp.'/images/metalborder-bot-right.gif" height="11" width="12" alt=""/></td>
+				<td><img src="'.$Template['path'].'/images/metalborder-bot-left.gif" height="11" width="12" alt=""/></td>
+				<td style="background:url(\''.$Template['path'].'/images/metalborder-bot.gif\');"></td>
+				<td><img src="'.$Template['path'].'/images/metalborder-bot-right.gif" height="11" width="12" alt=""/></td>
 			</tr>
 		</tbody>
 	</table>
@@ -171,7 +171,7 @@ function write_metalborder_footer()
 
 function build_CommBox_Header()
 {
-	global $currtmp;
+	global $Template;
 	echo "<br />
 	<table align='center' width='60%' style='font-size:0.8em;'>
 	<tr>
@@ -182,7 +182,7 @@ function build_CommBox_Header()
 					<span class='phatlootbox-visual comm'></span>
 					</div>
 					<div class='phatlootbox-wrapper'>
-						<div style='background: url(".$currtmp."/images/phatlootbox-top-parchment.jpg) repeat-y top right; height: 7px; width: 456px; margin-left: 6px; font-size: 1px;'></div>
+						<div style='background: url(".$Template['path']."/images/phatlootbox-top-parchment.jpg) repeat-y top right; height: 7px; width: 456px; margin-left: 6px; font-size: 1px;'></div>
 						<div class='community-cnt'>
 	";
 }
@@ -201,10 +201,10 @@ function build_CommBox_Footer()
 	";
 }
 
-function write_form_tool(){
-    global $MW;
-	global $currtmp;
-    $template_href = $currtmp . "/";
+function write_form_tool()
+{
+	global $Template;
+    $template_href = $Template['path'] . "/";
 ?>
         <div id="form_tool">
             <ul id="bbcode_tool">
@@ -318,24 +318,24 @@ build_pathway();
 
 function builddiv_start($type = 0, $title = "No title set") 
 {
-	global $currtmp;
+	global $Template;
 	if ($type == 1) 
 	{
-		echo '<div style="width: 659px; height: 29px; background: url(\''.$currtmp.'/images/content-parting.jpg\') no-repeat;"><div style="padding: 2px 0px 0px 23px;"><font style="font-family: \'Times New Roman\', Times, serif; color: #640909;"><h2>'.$title.'</h2></font></div></div>';
-		echo '<div style="background: url(\''.$currtmp.'/images/light.jpg\') repeat; border-width: 1px; border-color: #000000; border-bottom-style: solid; margin: 0px 0px 5px 0px">';
+		echo '<div style="width: 659px; height: 29px; background: url(\''.$Template['path'].'/images/content-parting.jpg\') no-repeat;"><div style="padding: 2px 0px 0px 23px;"><font style="font-family: \'Times New Roman\', Times, serif; color: #640909;"><h2>'.$title.'</h2></font></div></div>';
+		echo '<div style="background: url(\''.$Template['path'].'/images/light.jpg\') repeat; border-width: 1px; border-color: #000000; border-bottom-style: solid; margin: 0px 0px 5px 0px">';
 		echo '<div class="contentdiv">';
 	}
 	else 
 	{
 		if ($title != "No title set") 
 		{
-			echo '<div style="width: 659px; height: 29px; background: url(\''.$currtmp.'/images/content-parting2.jpg\') no-repeat;"><div style="padding: 2px 0px 0px 23px;"><font style="font-family: \'Times New Roman\', Times, serif; color: #640909;"><h2>'.$title.'</h2></font></div></div>';
-			echo '<div style="background: url(\''.$currtmp.'/images/light.jpg\') repeat; border-width: 1px; border-color: #000000; border-bottom-style: solid; margin: 0px 0px 5px 0px">';
+			echo '<div style="width: 659px; height: 29px; background: url(\''.$Template['path'].'/images/content-parting2.jpg\') no-repeat;"><div style="padding: 2px 0px 0px 23px;"><font style="font-family: \'Times New Roman\', Times, serif; color: #640909;"><h2>'.$title.'</h2></font></div></div>';
+			echo '<div style="background: url(\''.$Template['path'].'/images/light.jpg\') repeat; border-width: 1px; border-color: #000000; border-bottom-style: solid; margin: 0px 0px 5px 0px">';
 			echo '<div class="contentdiv">';
 		}
 		else 
 		{
-			echo '<div style="background: url(\''.$currtmp.'/images/light.jpg\') repeat; border-width: 1px; border-color: #000000; border-top-style: solid; border-bottom-style: solid; margin: 4px 0px 5px 0px">';
+			echo '<div style="background: url(\''.$Template['path'].'/images/light.jpg\') repeat; border-width: 1px; border-color: #000000; border-top-style: solid; border-bottom-style: solid; margin: 4px 0px 5px 0px">';
 			echo '<div class="contentdiv">';
 		}
 	}

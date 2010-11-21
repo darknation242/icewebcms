@@ -86,7 +86,7 @@ class RA
     */
     public function sendcommand($type, $shost, $remote, $command)
     {
-		global $cfg;
+		global $Config;
 		if($type == 0)
 		{
 			$this->connect($shost, $remote[1]);
@@ -101,7 +101,7 @@ class RA
 			}
 			fwrite($this->handle, $command."\n");
 			usleep(200);
-			if($cfg->get('emulator') == "trinity")
+			if($Config->get('emulator') == "trinity")
 			{
 				fgets($this->handle,9);
 			}
@@ -130,8 +130,8 @@ class RA
 	
 	private function soap_handle($shost, $remote)
 	{
-		global $cfg, $DB;
-		if($cfg->get('emulator') == 'mangos')
+		global $Config, $DB;
+		if($Config->get('emulator') == 'mangos')
 		{
 			$client = new SoapClient(NULL,
 			array(
@@ -142,7 +142,7 @@ class RA
 			"password" => $remote[3]
 			));
 		}
-		elseif($cfg->get('emulator') == 'trinity')
+		elseif($Config->get('emulator') == 'trinity')
 		{
 			$client = new SoapClient(NULL,
 			array(
@@ -158,7 +158,7 @@ class RA
 	
 	function command($command)
 	{
-		global $user, $cfg, $DB;
+		global $user, $Config, $DB;
 		$get_remote = $DB->selectRow("SELECT * FROM realmlist WHERE id='$user[cur_selected_realm]'");
 		$remote = explode(';', $get_remote['ra_info']);
 		$shost = $get_remote['address'];

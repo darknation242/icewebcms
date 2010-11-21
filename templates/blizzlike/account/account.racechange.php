@@ -1,1 +1,1 @@
-<img src='<?php echo $currtmp; ?>/images/banner-rc.jpg' border="0" width="659" /><?php builddiv_start();builddiv_end(); ?>
+<img src='<?php echo $Template['path']; ?>/images/banner-rc.jpg' border="0" width="659" /><?php builddiv_start();builddiv_end(); ?>

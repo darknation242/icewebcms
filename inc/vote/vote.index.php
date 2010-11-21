@@ -66,7 +66,7 @@ function sec_to_dhms($sec, $show_days = false)
 
 function vote($site)
 {
-	global $cfg, $DB, $user;
+	global $Config, $DB, $user;
 	$tab_sites = $DB->selectRow("SELECT * FROM mw_vote_sites WHERE `id`='$site'");
 	
 	// First we check to see the users hasnt clicked vote twice
@@ -81,7 +81,7 @@ function vote($site)
 	{
 		if($tab_sites != FALSE)
 		{
-			if($cfg->get('module_vote_onlinecheck') == 1)
+			if($Config->get('module_vote_onlinecheck') == 1)
 			{
 				$fp = @fsockopen($tab_sites['hostname'], 80, $errno, $errstr, 3);
 			}
@@ -91,7 +91,7 @@ function vote($site)
 			}
 			if($fp)
 			{
-				if($cfg->get('module_vote_onlinecheck') == 1)
+				if($Config->get('module_vote_onlinecheck') == 1)
 				{
 					fclose($fp);
 				}

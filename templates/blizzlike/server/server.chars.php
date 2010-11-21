@@ -34,11 +34,11 @@
 				<td class="serverStatus<?php echo $item['res_color'] ?>"><b style="color: rgb(35, 67, 3);"><center><?php echo $item['name']; ?></center></b></td>
 				<td class="serverStatus<?php echo $item['res_color'] ?>" align="center"><small style="color: rgb(102, 13, 2);">
 					<img onmouseover="ddrivetip('<?php echo $Character->charInfo['race'][$item['race']]; ?>','#ffffff')" onmouseout="hideddrivetip()"
-					src="<?php echo $currtmp ?>/images/icons/race/<?php echo $item['race'];?>-<?php echo $item['gender'];?>.gif" height="18" width="18" alt=""/></small>
+					src="<?php echo $Template['path'] ?>/images/icons/race/<?php echo $item['race'];?>-<?php echo $item['gender'];?>.gif" height="18" width="18" alt=""/></small>
 				</td>
 				<td class="serverStatus<?php echo $item['res_color'] ?>" align="center"><small style="color: (35, 67, 3);">
 					<img onmouseover="ddrivetip('<?php echo $Character->charInfo['class'][$item['class']]; ?>','#ffffff')" onmouseout="hideddrivetip()"
-					src="<?php echo $currtmp ?>/images/icons/class/<?php echo $item['class'];?>.gif" height="18" width="18" alt=""/></small>
+					src="<?php echo $Template['path'] ?>/images/icons/class/<?php echo $item['class'];?>.gif" height="18" width="18" alt=""/></small>
 				</td>
 				<td class="serverStatus<?php echo $item['res_color'] ?>" align="center"><b style="color: rgb(102, 13, 2);"><?php echo $item['level']; ?></b></td>
 				<td class="serverStatus<?php echo $item['res_color'] ?>" align="center"><b style="color: rgb(35, 67, 3);"><?php echo $item['pos']; ?></b></td>

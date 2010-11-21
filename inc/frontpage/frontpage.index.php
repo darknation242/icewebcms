@@ -14,21 +14,21 @@ define('CACHE_FILE', TRUE);
 $postnum = 0;
 $hl = '';
 
-if ($cfg->get('fp_hitcounter') == 1)
+if ($Config->get('fp_hitcounter') == 1)
 {
-    $count_my_page = "templates/".$master_tmp."/hitcounter.txt";
+    $count_my_page = $Template['script_path']."/hitcounter.txt";
     $hits = (int)file_get_contents($count_my_page);
     $hits++;
     file_put_contents($count_my_page, $hits);
 }
-if($cfg->get('enable_cache') == 1 && $Core->isCached($_COOKIE['cur_selected_theme']."_frontpage.index") != TRUE)
+if($Config->get('enable_cache') == 1 && $Core->isCached($_COOKIE['cur_selected_theme']."_frontpage.index") != TRUE)
 {
 	$alltopics = $DB->select("SELECT * FROM mw_news ORDER BY `id` DESC");
 	$servers = array();
 	$multirealms = $DB->select("SELECT * FROM `realmlist` ORDER BY `id` ASC");
 	foreach ($multirealms as $realmnow_arr)
 	{
-		if($cfg->get('fp_serverinfo') == 1)
+		if($Config->get('fp_serverinfo') == 1)
 		{
 			$data = $DB->selectRow("SELECT * FROM realmlist WHERE id ='".$realmnow_arr['id']."' LIMIT 1");
 			$realm_data_explode = explode(';', $data['dbinfo']);
@@ -54,48 +54,48 @@ if($cfg->get('enable_cache') == 1 && $Core->isCached($_COOKIE['cur_selected_them
 
 			$server = array();
 			$server['name'] = $data['name'];
-			if((int)$cfg->get('fp_realmstatus') == 1)
+			if((int)$Config->get('fp_realmstatus') == 1)
 			{
 				$checkaddress = $data['address'];
 				$server['realm_status'] = (check_port_status($checkaddress, $data['port'], 0.5) === true) ? true : false;
 			}
 			$changerealmtoparam = array("changerealm_to" => $realmnow_arr['id']);
-			if($cfg->get('fp_playersonline') == 1)
+			if($Config->get('fp_playersonline') == 1)
 			{
 				$server['playersonline'] = $CHDB_EXTRA->count("SELECT count(*) FROM `characters` WHERE online=1");
 				$server['onlineurl'] = mw_url('server', 'playersonline', $changerealmtoparam);
 			}
-			if($cfg->get('fp_serverip') == 1)
+			if($Config->get('fp_serverip') == 1)
 			{
 				$server['server_ip'] = $data['address'];
 			}
-			if($cfg->get('fp_servertype') == 1)
+			if($Config->get('fp_servertype') == 1)
 			{
 				$server['type'] = $realm_type_def[$data['icon']];
 			}
-			if($cfg->get('fp_serverlang') == 1)
+			if($Config->get('fp_serverlang') == 1)
 			{
 				$server['language'] = $realm_timezone_def[$data['timezone']];
 			}
-			if($cfg->get('fp_serverpop') == 1)
+			if($Config->get('fp_serverpop') == 1)
 			{
 				$server['population'] = $CHDB_EXTRA->count("SELECT count(*) FROM `characters` WHERE online=1");
 			}
-			if($cfg->get('fp_serveract') == 1)
+			if($Config->get('fp_serveract') == 1)
 			{
 				$server['accounts'] = $DB->count("SELECT count(*) FROM `account`");
 			}
-			if($cfg->get('fp_serveractive_act') == 1)
+			if($Config->get('fp_serveractive_act') == 1)
 			{
 				$server['active_accounts'] = $DB->count("SELECT count(*) FROM `account` WHERE `last_login` > ". date("Y-m-d", strtotime("-2 week")));
 			}
-			if($cfg->get('fp_serverchars') == 1)
+			if($Config->get('fp_serverchars') == 1)
 			{
 				$server['characters'] = $CHDB_EXTRA->count("SELECT count(*) FROM `characters`");
 			}
 			unset($CHDB_EXTRA, $data); // Free up memory.
 
-			$server['moreinfo'] = $cfg->get('fp_server_moreinfo') && 0; // 0 is suppossed to signify that PATH TO SERVER CONFIG IS NOT NULL
+			$server['moreinfo'] = $Config->get('fp_server_moreinfo') && 0; // 0 is suppossed to signify that PATH TO SERVER CONFIG IS NOT NULL
 			$servers[] = $server;
 		}
 	}

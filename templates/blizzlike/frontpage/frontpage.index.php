@@ -1,6 +1,6 @@
 <div style="margin-left: -29px;">
 	<style media="screen" title="currentStyle" type="text/css">
-		@import url("<?php echo $currtmp; ?>/css/additional_fp.css");
+		@import url("<?php echo $Template['path']; ?>/css/additional_fp.css");
 	</style>
 	<div id="module-container">
 		<!--[if gte IE 8]>
@@ -13,7 +13,7 @@
 		<div style="width:470px;"></div>
 		<![endif]-->
 		<?php 
-		$banner = (int)$cfg->get('flash_display_type');
+		$banner = (int)$Config->get('flash_display_type');
 		if ($banner == 1)
 		{ ?>
 			<div id="flashcontainer">
@@ -34,7 +34,7 @@
 		{ ?>
 			<div id="flashcontainer">
 				<br /><br /><br /><br />
-				<center><img src="<?php echo $currtmp; ?>/images/banner.jpg" alt="" width="470"/></center>
+				<center><img src="<?php echo $Template['path']; ?>/images/banner.jpg" alt="" width="470"/></center>
 			</div>
 			<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 		<?php 
@@ -68,7 +68,7 @@
 								<div class="news-top">
 									<ul>
 										<li class="item-icon">
-											<img border="0" alt="new-post" src="<?php echo $currtmp; ?>/images/news-contests.gif"/>
+											<img border="0" alt="new-post" src="<?php echo $Template['path']; ?>/images/news-contests.gif"/>
 										</li>
 										<li class="news-entry">
 											<h1>
@@ -83,7 +83,7 @@
 										</li>
 										<li class="news-toggle">
 											<a href="javascript:toggleEntry('<?php echo $topic['id'];?>','<?php echo$hl;?>')">
-												<img src="<?php echo $currtmp; ?>/images/pixel001.gif" alt=""/>
+												<img src="<?php echo $Template['path']; ?>/images/pixel001.gif" alt=""/>
 											</a>
 										</li>
 									</ul>
@@ -114,7 +114,7 @@
 				var position = <?php echo $postnum;?>;
 				var localId = postId<?php echo $postnum;?>;
 				var cookieState = getcookie("news"+localId);
-				var defaultOpen = "<?php echo $cfg->get('module_news_open');?>";
+				var defaultOpen = "<?php echo $Config->get('module_news_open');?>";
 				if ((cookieState == 1) || (position==1 && cookieState!='0') || (defaultOpen == 1 && cookieState!='0')) {
 				} else {
 					document.getElementById("news"+localId).className = "news-collapse"+"<?php echo $hl;?>";       
@@ -128,7 +128,7 @@
 	</div>
 	<div class="news-archive-link" <?php if ($banner==1) echo 'style="position: relative;"';?>>
 		<div class="news-archive-button">
-			<a href="<?php echo $cfg->get('site_forums'); ?>"><span><?php echo $lang['view_news_archives'];?></span></a>
+			<a href="<?php echo $Config->get('site_forums'); ?>"><span><?php echo $lang['view_news_archives'];?></span></a>
 		</div>
 	</div>
 	<div>
@@ -140,19 +140,19 @@
 					<span class="phatlootbox-visual comm"></span>
 			</div>
 			<div class="phatlootbox-wrapper">
-				<div style="background: url(<?php echo $currtmp; ?>/images/phatlootbox-top-parchment.jpg) repeat-y top right; height: 7px; width: 456px; margin-left: 6px; font-size: 1px;"></div>
+				<div style="background: url(<?php echo $Template['path']; ?>/images/phatlootbox-top-parchment.jpg) repeat-y top right; height: 7px; width: 456px; margin-left: 6px; font-size: 1px;"></div>
 				<div class="community-cnt"><font size="-1"><?php echo $lang['community_header1'];?></font>
 					<br /><br />
 					<font size="-1">
 					<center>
 						<a href="http://thottbot.com/">
-							<img src="<?php echo $currtmp; ?>/images/thottbot.png" width="100" height="75" longdesc="http://thottbot.com/" />
+							<img src="<?php echo $Template['path']; ?>/images/thottbot.png" width="100" height="75" longdesc="http://thottbot.com/" />
 						</a>
 						<a href="http://www.wowhead.com/">
-							<img src="<?php echo $currtmp; ?>/images/wowhead.png" width="120" height="78" />
+							<img src="<?php echo $Template['path']; ?>/images/wowhead.png" width="120" height="78" />
 						</a>
 						<a href="http://www.wowwiki.com/Portal:Main">
-							<img src="<?php echo $currtmp; ?>/images/wowwiki.png" width="152" height="35" /></a><a href="http://www.wowhead.com/">
+							<img src="<?php echo $Template['path']; ?>/images/wowwiki.png" width="152" height="35" /></a><a href="http://www.wowhead.com/">
 						</a>
 					</center>
 					<br /><?php echo $lang['community_header2'];?>
@@ -165,25 +165,25 @@
 	<div class="phatlootbox-top2" align="right">
 		<div align="right">
 			<div align="center" style="position:relative; top:-16px; left:-100px">
-				<img src="<?php echo $currtmp; ?>/images/chains-long.gif" />
+				<img src="<?php echo $Template['path']; ?>/images/chains-long.gif" />
 			</div>
 			<div align="center" style="position:relative; top:-32px; left:100px">
-				<img src="<?php echo $currtmp; ?>/images/chains-long.gif" />
+				<img src="<?php echo $Template['path']; ?>/images/chains-long.gif" />
 			</div>
 			<div style="position:relative; top:-38px; left:0px">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="postContainerPlain"	>
 					<tr>
 						<td width="50%">
 							<div align="center" style="position:relative; top:1px; left:0px;">
-								<a href="<?php echo $cfg->get('site_forums'); ?>">
-									<img src="<?php echo $currtmp; ?>/images/box-support.gif" width="226" height="93" />
+								<a href="<?php echo $Config->get('site_forums'); ?>">
+									<img src="<?php echo $Template['path']; ?>/images/box-support.gif" width="226" height="93" />
 								</a>
 							</div>
 						</td>
 						<td width="50%">
 							<div align="center">
-								<a href="<?php echo $cfg->get('site_forums'); ?>">
-									<img src="<?php echo $currtmp; ?>/images/box-jobs.gif" width="226" height="93" />
+								<a href="<?php echo $Config->get('site_forums'); ?>">
+									<img src="<?php echo $Template['path']; ?>/images/box-jobs.gif" width="226" height="93" />
 								</a>
 							</div>
 						</td>

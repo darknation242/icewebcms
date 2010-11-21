@@ -23,31 +23,31 @@
 			
 			<div class="field">
 				<label for="dbh">Database Host: </label>
-				<input id="dbh" name="db_host" size="20" type="text" class="medium" value="<?php echo $cfg->getDbInfo('db_host'); ?>" />
+				<input id="dbh" name="db_host" size="20" type="text" class="medium" value="<?php echo $Config->getDbInfo('db_host'); ?>" />
 				<p class="field_help">Enter your database host address here.</p>
 			</div>
 			
 			<div class="field">
 				<label for="dbh">Database Port: </label>
-				<input id="dbh" name="db_port" size="20" type="text" class="medium" value="<?php echo $cfg->getDbInfo('db_port'); ?>" />
+				<input id="dbh" name="db_port" size="20" type="text" class="medium" value="<?php echo $Config->getDbInfo('db_port'); ?>" />
 				<p class="field_help">Enter your database port numberr here. (default 3306)</p>
 			</div>
 			
 			<div class="field">
 				<label for="dbh">Database User: </label>
-				<input id="dbh" name="db_username" size="20" type="text" class="medium" value="<?php echo $cfg->getDbInfo('db_username'); ?>" />
+				<input id="dbh" name="db_username" size="20" type="text" class="medium" value="<?php echo $Config->getDbInfo('db_username'); ?>" />
 				<p class="field_help">Enter your database username here.</p>
 			</div>
 			
 			<div class="field">
 				<label for="dbh">Database Pass: </label>
-				<input id="dbh" name="db_password" size="20" type="text" class="medium" value="<?php echo $cfg->getDbInfo('db_password'); ?>" />
+				<input id="dbh" name="db_password" size="20" type="text" class="medium" value="<?php echo $Config->getDbInfo('db_password'); ?>" />
 				<p class="field_help">Enter your database password here.</p>
 			</div>
 			
 			<div class="field">
 				<label for="dbh">Database Name: </label>
-				<input id="dbh" name="db_name" size="20" type="text" class="medium" value="<?php echo $cfg->getDbInfo('db_name'); ?>" />
+				<input id="dbh" name="db_name" size="20" type="text" class="medium" value="<?php echo $Config->getDbInfo('db_name'); ?>" />
 				<p class="field_help">Enter your realm database name here.</p>
 			</div>
 			

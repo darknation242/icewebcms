@@ -31,7 +31,7 @@
 				<label for="Site Enable Cache">Cache System: </label>
 				<select id="type" class="small" name="cfg__enable_cache">
 					<?php 
-						if($cfg->get('enable_cache') == 1)
+						if($Config->get('enable_cache') == 1)
 						{ $e_cc = 'selected="selected"'; $e_cc2 = ''; }else{ $e_cc2 = 'selected="selected"'; $e_cc = ''; }
 					?>
 					<option value="1" <?php echo $e_cc; ?>>Enabled</option>
@@ -42,7 +42,7 @@
 			
 			<div class="field">
 				<label for="Site cache_expire_time">Cache Expire Time: </label>
-				<input id="Site cache_expire_time" name="cfg__cache_expire_time" size="10" type="text" class="xsmall" value="<?php echo $cfg->get('cache_expire_time'); ?>" />
+				<input id="Site cache_expire_time" name="cfg__cache_expire_time" size="10" type="text" class="xsmall" value="<?php echo $Config->get('cache_expire_time'); ?>" />
 				<p class="field_help">Time in seconds before each page needs to be re-cached. Default: 30 Min. (1800)</p>
 			</div>
 			

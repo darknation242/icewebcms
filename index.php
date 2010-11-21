@@ -39,32 +39,21 @@ $_SERVER['REQUEST_TIME'] = time();
 
 // Load the Core and config class
 include('core/class.config.php');
-$cfg = new Config;
+$Config = new Config;
 include('core/core.php');
 $Core = new Core;
 
 //Site notice cookie
-if($cfg->get('site_notice_enable') == 1 && !isset($_COOKIE['agreement_accepted']))
+if($Config->get('site_notice_enable') == 1 && !isset($_COOKIE['agreement_accepted']))
 {
 	include('modules/notice/notice.php');
 	exit();
 }
 
 // Check if the site is installed by checking config defaults
-if($cfg->getDbInfo('db_username') == 'default')
+if($Config->getDbInfo('db_username') == 'default')
 {
 	header('location: install/');
-}
-
-// Fill in the config with the proper directory info if the directory info is wrong
-define('SITE_DIR', dirname( $_SERVER['PHP_SELF'] ).'/');
-define('SITE_HREF', str_replace('//', '/', SITE_DIR));
-define('SITE_BASE_HREF', 'http://'.$_SERVER["HTTP_HOST"]. SITE_HREF);
-if($cfg->get('site_base_href') !== SITE_BASE_HREF)
-{
-	$cfg->set('site_base_href', SITE_BASE_HREF);
-	$cfg->set('site_href', SITE_HREF);
-	$cfg->Save();
 }
 
 // Site functions & classes ...
@@ -82,14 +71,14 @@ $GLOBALS['cur_selected_realm'] = '';
 
 
 // === Load the languages and set users language === //
-$languages = explode(",", $cfg->get('available_lang'));
+$languages = explode(",", $Config->get('available_lang'));
 if(isset($_COOKIE['Language'])) 
 {
 	$GLOBALS['user_cur_lang'] = (string)$_COOKIE['Language'];
 }
 else
 {
-	$GLOBALS['user_cur_lang'] = (string)$cfg->get('default_lang');
+	$GLOBALS['user_cur_lang'] = (string)$Config->get('default_lang');
 	setcookie("Language", $GLOBALS['user_cur_lang'], time() + (3600 * 24 * 365));
 }
 include( 'lang/' . $GLOBALS["user_cur_lang"] . '.php' );
@@ -102,19 +91,19 @@ if(isset($_COOKIE['cur_selected_realm']))
 }
 else
 {
-	$GLOBALS['cur_selected_realm'] = (int)$cfg->get('default_realm_id');
-	setcookie("cur_selected_realm", (int)$cfg->get('default_realm_id'), time() + (3600 * 24 * 365));
+	$GLOBALS['cur_selected_realm'] = (int)$Config->get('default_realm_id');
+	setcookie("cur_selected_realm", (int)$Config->get('default_realm_id'), time() + (3600 * 24 * 365));
 }
 
 
 // === Setup the connections to other DB's - Holds DB connector classes === //
 require ('core/class.database.php');
 $DB = new Database(
-	$cfg->getDbInfo('db_host'), 
-	$cfg->getDbInfo('db_port'), 
-	$cfg->getDbInfo('db_username'), 
-	$cfg->getDbInfo('db_password'), 
-	$cfg->getDbInfo('db_name')
+	$Config->getDbInfo('db_host'), 
+	$Config->getDbInfo('db_port'), 
+	$Config->getDbInfo('db_username'), 
+	$Config->getDbInfo('db_password'), 
+	$Config->getDbInfo('db_name')
 	);
 	
 // Make an array from `dbinfo` column for the selected realm..
@@ -167,11 +156,8 @@ $user['cur_selected_realm'] = $GLOBALS['cur_selected_realm'];
 
 
 // === Sets up the template system. === //
-$tmpl = new Template;
-$Template = $tmpl->Init();
-$currtmp = $Template['path'];
-$master_tmp = $Template['script'];
-unset($tmpl);
+$Template = new Template;
+$Template = $Template->loadTemplateXML();
 
 
 // === Start of page loading === //
@@ -194,7 +180,7 @@ if(!isset($_GET['p']) && isset($_GET['module']))
 // If page is not a module, then lets load our template pages.
 else
 {
-	$ext = (isset($_GET['p']) ? $_GET['p'] : (string)$cfg->get('default_component'));
+	$ext = (isset($_GET['p']) ? $_GET['p'] : (string)$Config->get('default_component'));
 	if (strpos($ext, '/') !== FALSE) 
 	{
 		list($ext, $sub) = explode('/', $ext);
@@ -204,7 +190,7 @@ else
 		$sub = (isset($_GET['sub']) ? $_GET['sub'] : 'index');
 	}
 	$script_file = 'inc/' . $ext . '/' . $ext . '.' . $sub . '.php';
-	$template_file = '' . $master_tmp . '/' . $ext . '/' . $ext . '.' . $sub . '.php';
+	$template_file = '' . $Template['script_path'] . '/' . $ext . '/' . $ext . '.' . $sub . '.php';
 
 	// === Start Loading of the Page files === //
 
@@ -236,12 +222,12 @@ else
 		@include($script_file);
 
 		// If a body functions file exists, include it.
-		if(file_exists(''. $master_tmp . '/body_functions.php')) 
+		if(file_exists(''. $Template['script_path'] . '/body_functions.php')) 
 		{
-			include (''. $master_tmp . '/body_functions.php');
+			include (''. $Template['script_path'] . '/body_functions.php');
 		}
 		ob_start();
-			include ('' . $master_tmp . '/body_header.php');
+			include ('' . $Template['script_path'] . '/body_header.php');
 		ob_end_flush();
 		
 		// === Start the loading of the template cache === //
@@ -257,7 +243,7 @@ else
 		}
 		
 		// Check if admin has enabled caching, and CACHE_FILE is enabled
-		if($cfg->get('enable_cache') && $CacheFile == TRUE)
+		if($Config->get('enable_cache') && $CacheFile == TRUE)
 		{
 			// If file is cached
 			if($Core->isCached($Template['number']."_".$ext.".".$sub))
@@ -287,7 +273,7 @@ else
 		// Set our time end, so we can see how fast the page loaded.
 		$time_end = microtime(1);
 		$exec_time = $time_end - $time_start;
-		include ('' . $master_tmp . '/body_footer.php');
+		include ('' . $Template['script_path'] . '/body_footer.php');
 	}
 }
 

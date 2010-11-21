@@ -25,7 +25,7 @@ $regparams = array(
 // ==================== //
 if($user['id'] > 0)
 {
-	redirect('index.php?p=account&sub=manage',1);
+	redirect('?p=account&sub=manage',1);
 }
 
 if(isset($_POST['disagree']))
@@ -44,10 +44,10 @@ $err_array = array();
 $err_array[0] = $lang['register_fail'];
 
 // If users are limited to how many accounts per IP, we find out how many this IP has.
-if($cfg->get('max_act_per_ip') > 0)
+if($Config->get('max_act_per_ip') > 0)
 {
 	$count_ip = $DB->count("SELECT COUNT(*) FROM mw_account_extend WHERE registration_ip='".$_SERVER['REMOTE_ADDR']."'");
-	if($count_ip >= (int)$cfg->get('max_act_per_ip'))
+	if($count_ip >= (int)$Config->get('max_act_per_ip'))
 	{
 		output_message('alert',$lang['register_acct_limit']);
 		$allow_reg = false;
@@ -59,7 +59,7 @@ if($cfg->get('max_act_per_ip') > 0)
 // When finished registering, this is the function
 function finalize()
 {
-	global $DB, $cfg, $allow_reg, $Account, $lang;
+	global $DB, $Config, $allow_reg, $Account, $lang;
 	
 	// Check to see if we still are allowed to register
 	if($allow_reg == TRUE)
@@ -72,7 +72,7 @@ function finalize()
 		// In this step we set "requirements" for what user may input.
 
 		// Ext 1 - Image verification
-		if ($cfg->get('reg_act_imgvar') == 1)
+		if ($Config->get('reg_act_imgvar') == 1)
 		{
 			$image_key =& $_POST['image_key'];
 			$filename = quote_smart($_POST['filename_image']);
@@ -85,7 +85,7 @@ function finalize()
 		}
 
 		// Ext 2 - secret questions
-		if ($cfg->get('reg_secret_questions') == 1)
+		if ($Config->get('reg_secret_questions') == 1)
 		{
 			if ($_POST['secretq1'] && $_POST['secretq2'] && $_POST['secreta1'] && $_POST['secreta2']) 
 			{
@@ -141,7 +141,7 @@ function finalize()
 					'secreta2' => strip_if_magic_quotes($_POST['secreta2']))
 					) == TRUE)
 			{
-				if($cfg->get('reg_invite') == 1)
+				if($Config->get('reg_invite') == 1)
 				{
 					$Account->delete_key($_POST['r_key']);
 				}

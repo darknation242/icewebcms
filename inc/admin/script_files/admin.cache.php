@@ -20,7 +20,7 @@ function clearCache()
 
 function saveConfig() 
 {
-	$cfg = new Config();
+	$Config = new Config();
 		
 	// Store New/Changed config items
 	foreach ($_POST as $item => $val) 
@@ -28,10 +28,10 @@ function saveConfig()
 		$key = explode('__', $item);
 		if ($key[0] == 'cfg') 
 		{
-			$cfg->set($key[1],$val);
+			$Config->set($key[1],$val);
 		}
 	}
-	$cfg->Save();
+	$Config->Save();
 	output_message('success','Finished! Cache Settings Successfully Updated. Please wait while your redirected... 
 		<meta http-equiv=refresh content="3;url=?p=admin&sub=cache">');
 }
