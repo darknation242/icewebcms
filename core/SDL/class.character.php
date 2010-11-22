@@ -189,6 +189,21 @@ class Character
 		}
     }
 	
+	function getName($guid)
+	{
+		global $CDB;
+		$guid = mysql_real_escape_string($guid);
+        $row = $CDB->selectCell("SELECT `name` FROM `characters` WHERE `guid` = '$guid' LIMIT 1");
+		if($row == FALSE)
+		{
+			return FALSE;
+		}
+		else
+		{
+			return $row;
+		}
+	}
+	
 	public function checkGuild($guid)
 	{
 		global $CDB;
@@ -218,7 +233,7 @@ class Character
 		}
     }
 	
-	public function check_if_name_exists($name)
+	public function checkNameExists($name)
 	{
 		global $CDB;
 		$check = $CDB->selectRow("SELECT * FROM `characters` WHERE `name` LIKE '$name'");

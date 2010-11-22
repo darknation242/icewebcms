@@ -600,6 +600,10 @@ class Account
 	{
 		global $CDB;
 		$list = $CDB->select("SELECT * FROM `characters` WHERE `account`='".$id."'");
+		if($list == FALSE)
+		{
+			return FALSE;
+		}
 		return $list;
 	}
 	
