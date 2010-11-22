@@ -1,30 +1,14 @@
 <?php
 /****************************************************************************/
-/*    < MangosWeb is a Web-Fonted for Mangos (mangosproject.org) >          */
-/*    		  Copyright (C) <2007>  <Sasha,TGM,Peec,Nafe>                   */
-/*																			*/
-/*  	< MangosWeb Enhanced is a Web-Fonted for mangos/trinity >  			*/
+/*  					< MangosWeb Enhanced v3 >  							*/
 /*              Copyright (C) <2009 - 2010>  <Wilson212>                    */
+/*						  < http://keyswow.com >							*/
 /*																			*/
-/*                                                                          */
-/*    This program is free software: you can redistribute it and/or modify  */
-/*    it under the terms of the GNU General Public License as published by  */
-/*    the Free Software Foundation, either version 2 of the License, or     */
-/*    (at your option) any later version.                                   */
-/*                                                                          */
-/*    This program is distributed in the hope that it will be useful,       */
-/*    but WITHOUT ANY WARRANTY; without even the implied warranty of        */
-/*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         */
-/*    GNU General Public License for more details.                          */
-/*                                                                          */
-/*    You should have received a copy of the GNU General Public License     */
-/*    along with this program.  If not, see <http://www.gnu.org/licenses/>. */
-/*                                                                          */
+/*			Original MangosWeb (C) 2007, Sasha, Nafe, TGM, Peec				*/
 /****************************************************************************/
 
-// Set error reporting to everything for now
-ini_set('error_reporting', E_ERROR ^ E_NOTICE ^ E_WARNING);
-error_reporting(E_ERROR ^ E_NOTICE ^ E_WARNING);
+// Set error reporting
+error_reporting(E_ALL);
 ini_set('log_errors', TRUE);
 ini_set('html_errors', FALSE);
 ini_set('error_log', 'core/logs/error_log.txt');
@@ -57,7 +41,7 @@ if($Config->getDbInfo('db_username') == 'default')
 }
 
 // Site functions & classes ...
-include('core/common.php'); 					// Holds most of the sites functions
+include('core/common.php'); 				// Holds most of the sites common functions
 include('core/class.template.php');			// Sets up the template system
 include('core/SDL/class.account.php'); 		// contains account related scripts and functions
 
@@ -81,7 +65,8 @@ $DB = new Database(
 $DB_info = $DB->selectRow("SELECT * FROM realmlist WHERE id='".$GLOBALS['cur_selected_realm']."'");
 $dbinfo = explode(';', $DB_info['dbinfo']);
 
-// DBinfo column: char_host;char_port;char_username;char_password;charDBname;world_host;world_port;world_username;world_pass;worldDBname
+// DBinfo column: char_host;char_port;char_username;char_password;charDBname;
+// world_host;world_port;world_username;world_pass;worldDBname
 $Realm_DB_Info = array(
 	'char_db_host' => $dbinfo['0'], // char host
 	'char_db_port' => $dbinfo['1'], // char port

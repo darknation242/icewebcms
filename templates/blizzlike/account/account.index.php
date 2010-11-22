@@ -17,18 +17,7 @@ builddiv_start(0, $lang['account']);
 								<table border='0' cellspacing='0' cellpadding='4' width='540'>
 								<tr>
 									<td align='right' valign = "top" width='25%'><b>Account Status:</b></td>
-									<td align='left' valign = "top" width='25%'>
-										<?php 
-											if($user['locked'] == 1)
-											{
-												echo "<font color='darkred'><b>Locked</b></font>";
-											}
-											else
-											{
-												echo "<font color='green'><b>Active</b></font>";
-											}
-										?>
-									</td>
+									<td align='left' valign = "top" width='25%'><font color='green'><b>Active</b></font></td>
 									<td align='right' valign = "top" width='25%'><b>Vote Count:<b></td>
 									<td align='left' valign = "top" width='25%'><?php echo $user['total_votes']; ?></td>
 								</tr>
@@ -39,14 +28,23 @@ builddiv_start(0, $lang['account']);
 									<td align='left' valign = "top" width='25%'><?php echo $user['web_points']; ?></td>
 								</tr>
 								<tr>
-									<td align='right' valign = "top" width='25%'><b>Registration IP:</b></td>
+									<?php 
+										if($Config->get('emulator') == 'arcemu')
+										{
+											echo "<td align='right' valign = 'top' width='25%'><b>Last IP:</b></td>";
+										}
+										else
+										{
+											echo "<td align='right' valign = 'top' width='25%'><b>Registration IP:</b></td>";
+										}
+									?>
 									<td align='left' valign = "top" width='25%'><?php echo $regiseter_ip; ?></td>
 									<td align='right' valign = "top" width='25%'><b>Earned/Spent:<b></td>
 									<td align='left' valign = "top" width='25%'><?php echo $user['points_earned']." / ".$user['points_spent']; ?></td>
 								</tr>
 								<tr>
 									<td align='right' valign = "top" width='25%'><b>Account Level:</b></td>
-									<td align='left' valign = "top" width='25%'><?php echo $account_level; ?></td>
+									<td align='left' valign = "top" width='25%'><?php echo $user['title']; ?></td>
 									<td align='right' valign = "top" width='25%'><b>Total Donations:<b></td>
 									<td align='left' valign = "top" width='25%'>$<?php echo $user['total_donations']; ?></td>
 								</tr>

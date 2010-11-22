@@ -455,7 +455,6 @@ function output_message($type, $text)
 			<center>
 			<p>
 				Template originally designed by <a href="http://rodcreative.com/">Rod Creative</a>, Modified by Wilson212 for MangosWeb.<br /> 
-				<?php echo $Core->copyright; // DONOT remove!!! ?> 
 			</p>
 			</center>
 		</div>

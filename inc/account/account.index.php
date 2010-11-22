@@ -17,7 +17,7 @@ if($user['id'] <= 0)
 
 if($Config->get('emulator') == 'arcemu')
 {
-	$regiseter_ip = '?';
+	$regiseter_ip = $user['lastip'];
 	$joindate = '?';
 }
 else
@@ -25,6 +25,4 @@ else
 	$regiseter_ip = $user['registration_ip'];
 	$joindate = $user['joindate'];
 }
-
-$account_level = $DB->selectCell("SELECT `title` FROM `mw_account_groups` WHERE `account_level`='".$user['account_level']."'");
 ?>
