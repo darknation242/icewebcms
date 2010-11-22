@@ -28,7 +28,8 @@
 						<a href="#fp">Frontpage Settings</a> |
 						<br />
 						| <a href="#email">Email Settings</a> |
-						| <a href="#paypal">Paypal Settings</a> |
+						<a href="#paypal">Paypal Settings</a> |
+						<a href="#module">In-Built Module Settings</a> |
 					</center>
 				</p>
 			</div>
@@ -116,6 +117,19 @@
 				<label for="Site Templates">Site Templates: </label>
 				<input id="Site Templates" name="cfg__templates" size="30" type="text" class="large" value="<?php echo $Config->get('templates'); ?>" />
 				<p class="field_help">Seperate templates with a "," comma. Case sensative on some servers!</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site site_notice_enable">Site Agreement: </label>
+				<select id="type" class="small" name="cfg__site_notice_enable">
+					<?php 
+						if($Config->get('site_notice_enable') == 1)
+						{ $e_sne = 'selected="selected"'; $e_sne2 = ''; }else{ $e_sne2 = 'selected="selected"'; $e_sne = ''; }
+					?>
+					<option value="1" <?php echo $e_sne; ?>>Enabled</option>
+					<option value="0" <?php echo $e_sne2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Require users to accept the agreement before entering site.</p>
 			</div>
 			<br />
 			
@@ -250,18 +264,6 @@
 				<input id="Site max_act_per_ip" name="cfg__max_act_per_ip" size="10" type="text" class="tiny" value="<?php echo $Config->get('max_act_per_ip'); ?>" />
 				<p class="field_help">Maximum accounts per IP address. "0" is unlimited.</p>
 			</div>
-			
-			<div class="field">
-				<label for="Site max_avatar_file_size">Avatar File Size: </label>
-				<input id="Site max_avatar_file_size" name="cfg__max_avatar_file_size" size="10" type="text" class="small" value="<?php echo $Config->get('max_avatar_file_size'); ?>" />
-				<p class="field_help">Size in bytes. "0" to disable</p>
-			</div>
-			
-			<div class="field">
-				<label for="Site max_avatar_sizee">Avatar Max Dimmensions: </label>
-				<input id="Site max_avatar_size" name="cfg__max_avatar_size" size="10" type="text" class="small" value="<?php echo $Config->get('max_avatar_size'); ?>" />
-				<p class="field_help">Example: "80x80". Dont forget the "x" between the hieght and width!</p>
-			</div>
 			<br />
 			
 			<!-- Frontpage Settings -->
@@ -273,7 +275,10 @@
 				</thead>
 			</table>
 			<br />
-			
+			<?php
+				output_message('info', 'Some frontpage options will not apply to all templates, especially non-blizzlike templates');
+			?>
+			<br />
 			<div class="field">
 				<label for="Site default_component">Default Component: </label>
 				<input id="Site default_component" name="cfg__default_component" size="10" type="text" class="small" value="<?php echo $Config->get('default_component'); ?>" />
@@ -310,6 +315,19 @@
 					<option value="0" <?php echo $e_fpvb2; ?>>Disabled</option>
 				</select>																											
 				<p class="field_help">Displays the vote banner on the frontpage.</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site module_fp_ssotd">Screen Of The Day: </label>
+				<select id="type" class="small" name="cfg__module_fp_ssotd">
+					<?php 
+						if($Config->get('module_fp_ssotd') == 1)
+						{ $e_fpsst = 'selected="selected"'; $e_fpsst2 = ''; }else{ $e_fpsst2 = 'selected="selected"'; $e_fpsst = ''; }
+					?>
+					<option value="1" <?php echo $e_fpsst; ?>>Enabled</option>
+					<option value="0" <?php echo $e_fpsst2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Displays the screenshot of the moment on the frontpage.</p>
 			</div>
 			
 			<div class="field">
@@ -575,6 +593,114 @@
 				<label for="Site Paypal Email">Site Paypal Email: </label>
 				<input id="Site Paypal Email" name="cfg__paypal_email" size="20" type="text" class="medium" value="<?php echo $Config->get('paypal_email'); ?>" />
 				<p class="field_help">Enter your Paypal email here.</p>
+			</div>
+			
+			<br />
+			<!-- In Built Module Settings -->
+			<table>
+				<thead>
+					<tr>
+						<th><center><a name="module"></a>In Built Module Settings</center></th>
+					</tr>
+				</thead>
+			</table>
+			<br />
+			
+			<div class="field">
+				<label for="Site module_vote_system">Vote System: </label>
+				<select id="type" class="small" name="cfg__module_vote_system">
+					<?php 
+						if($Config->get('module_vote_system') == 1)
+						{ $e_mvs = 'selected="selected"'; $e_mvs2 = ''; }else{ $e_mvs2 = 'selected="selected"'; $e_mvs = ''; }
+					?>
+					<option value="1" <?php echo $e_mvs; ?>>Enabled</option>
+					<option value="0" <?php echo $e_mvs2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Enable the vote system?</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site module_vote_onlinecheck">Vote Online Check: </label>
+				<select id="type" class="small" name="cfg__module_vote_onlinecheck">
+					<?php 
+						if($Config->get('module_vote_onlinecheck') == 1)
+						{ $e_mvsc = 'selected="selected"'; $e_mvsc2 = ''; }else{ $e_mvsc2 = 'selected="selected"'; $e_mvsc = ''; }
+					?>
+					<option value="1" <?php echo $e_mvsc; ?>>Enabled</option>
+					<option value="0" <?php echo $e_mvsc2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Enable Site online check? Prevents users from getting points when the site is offline<br />
+				But... can slow the page load time of the Vote page.</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site module_onlinelist">Users Online List: </label>
+				<select id="type" class="small" name="cfg__module_onlinelist">
+					<?php 
+						if($Config->get('module_onlinelist') == 1)
+						{ $e_mol = 'selected="selected"'; $e_mol2 = ''; }else{ $e_mol2 = 'selected="selected"'; $e_mol = ''; }
+					?>
+					<option value="1" <?php echo $e_mol; ?>>Enabled</option>
+					<option value="0" <?php echo $e_mol2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Enable the users online list? (?p=whoisonline)</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site module_charrename">Character Rename: </label>
+				<select id="type" class="small" name="cfg__module_charrename">
+					<?php 
+						if($Config->get('module_charrename') == 1)
+						{ $e_mcr = 'selected="selected"'; $e_mcr2 = ''; }else{ $e_mcr2 = 'selected="selected"'; $e_mcr = ''; }
+					?>
+					<option value="1" <?php echo $e_mcr; ?>>Enabled</option>
+					<option value="0" <?php echo $e_mcr2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Allow users to rename their characters?.</p>
+			</div>
+			
+			<div class="field">
+				<label for="rename points">Char-Rename Cost: </label>
+				<input id="rename points" name="cfg__module_charrename_pts" size="2" type="text" class="xsmall" value="<?php echo $Config->get('module_charrename_pts'); ?>" />
+				<p class="field_help">Cost in Web Points for users to rename their Characters</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site module_charfactionchange">Char Faction Change: </label>
+				<select id="type" class="small" name="cfg__module_charfactionchange">
+					<?php 
+						if($Config->get('module_charfactionchange') == 1)
+						{ $e_mcf = 'selected="selected"'; $e_mcf2 = ''; }else{ $e_mcf2 = 'selected="selected"'; $e_mcf = ''; }
+					?>
+					<option value="1" <?php echo $e_mcf; ?>>Enabled</option>
+					<option value="0" <?php echo $e_mcf; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Allow users to change factions of their characters?.</p>
+			</div>
+			
+			<div class="field">
+				<label for="rename points">Faction Change Cost: </label>
+				<input id="rename points" name="cfg__module_charfactionchange_pts" size="2" type="text" class="xsmall" value="<?php echo $Config->get('module_charfactionchange_pts'); ?>" />
+				<p class="field_help">Cost in Web Points for users to change factions of their characters</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site module_charracechange">Char. Race Change: </label>
+				<select id="type" class="small" name="cfg__module_charracechange">
+					<?php 
+						if($Config->get('module_charracechange') == 1)
+						{ $e_mrc = 'selected="selected"'; $e_mrc2 = ''; }else{ $e_mrc2 = 'selected="selected"'; $e_mrc = ''; }
+					?>
+					<option value="1" <?php echo $e_mrc; ?>>Enabled</option>
+					<option value="0" <?php echo $e_mrc2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Allow users to change the race of their characters?.</p>
+			</div>
+			
+			<div class="field">
+				<label for="rename points">Race Change Cost: </label>
+				<input id="rename points" name="cfg__module_charracechange_pts" size="2" type="text" class="xsmall" value="<?php echo $Config->get('module_charracechange_pts'); ?>" />
+				<p class="field_help">Cost in Web Points for users to change the race of their characters</p>
 			</div>
 			
 			<div class="buttonrow-border">								

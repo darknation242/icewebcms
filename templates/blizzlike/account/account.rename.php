@@ -29,42 +29,52 @@ builddiv_start(0, $lang['char_rename']);
 											output_message('error', $lang['account_has_no_characters']);
 										}
 									}
+									if($Config->get('module_charrename') == 0)
+									{
+										output_message('error', 'Module disabled by admin');
+										echo "<br />";
+									}
+									else
+									{
 								?>
-								<tr>
-									<td colspan='2'><center><?php echo $Page_Desc; ?></center><br /></td>
-								</tr>
-								<tr>
-									<td align='right' valign = "top" width='30%'><b>Character: </b></td>
-									<td align='left' valign = "top" width='70%'>
-										<select name='id'>
-											<?php
-												if($character_list == FALSE)
-												{
-													echo "<option value='0'>No Characters Found!</option>";
-												}
-												else
-												{
-													foreach($character_list as $character)
-													{
-														echo "<option value='".$character['guid']."'>".$character['name']."</option>";
-													}
-												}
-											?>
-										</select>
-									</td>
-								</tr>
-								<tr>
-									<td align='right' valign = "top" width='30%'><b>New Name: </b></td>
-									<td align='left' valign = "top" width='70%'>
-										<input type='text' name='newname' size='36'>
-									</td>
-								</tr>
-								<tr>
-									<td colspan='2' align='center'>
-										<br />
-										<input type="image" src="<?php echo $Template['path']; ?>/images/buttons/continue-button.gif" class="button" style="font-size:12px;" value="<?php echo $lang['change'];?>">
-									</td>
-								</tr>
+										<tr>
+											<td colspan='2'><center><?php echo $Page_Desc; ?></center><br /></td>
+										</tr>
+										<tr>
+											<td align='right' valign = "top" width='30%'><b>Character: </b></td>
+											<td align='left' valign = "top" width='70%'>
+												<select name='id'>
+													<?php
+														if($character_list == FALSE)
+														{
+															echo "<option value='0'>No Characters Found!</option>";
+														}
+														else
+														{
+															foreach($character_list as $character)
+															{
+																echo "<option value='".$character['guid']."'>".$character['name']."</option>";
+															}
+														}
+													?>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td align='right' valign = "top" width='30%'><b>New Name: </b></td>
+											<td align='left' valign = "top" width='70%'>
+												<input type='text' name='newname' size='36'>
+											</td>
+										</tr>
+										<tr>
+											<td colspan='2' align='center'>
+												<br />
+												<input type="image" src="<?php echo $Template['path']; ?>/images/buttons/continue-button.gif" class="button" style="font-size:12px;" value="<?php echo $lang['change'];?>">
+											</td>
+										</tr>
+								<?php 
+									}
+								?>
 								</table>
 								</form>
 							</td>
