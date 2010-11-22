@@ -1,10 +1,11 @@
 <?php
-/* 	MangosWeb Template class, Written by Wilson212. The point
-	of this template class is to load the template.xml  of the 
-	users current selected template, and return that information
+/* 	
+	MangosWeb Template class, Written by Wilson212. The point
+	of this template class is to load the pages of the users 
+	current selected template, and return that information
 	to the index file. This template class also sets the cookies
 	and reads the cookies to determine if the user has already 
-	chosen a template or not in the pas.
+	chosen a template or not in the past.
 */
 
 
@@ -31,8 +32,8 @@ class Template
 				{
 					$currtmp2[] = $template ;
 				}
-				$asd = $_GET['theme'];
-				$tmple = $currtmp2[$asd];
+				$theme = $_GET['theme'];
+				$tmple = $currtmp2[$theme];
 				
 				// If template doesnt exist anymore, then we must load the default one
 				if(!$tmple) 
@@ -139,7 +140,11 @@ class Template
 	// index page
 	public function loadTemplateXML()
 	{
-		$this->xml = simplexml_load_file($this->path);
+		$this->xml = @simplexml_load_file($this->path);
+		if($this->xml == FALSE)
+		{
+			return FALSE;
+		}
 		$this->master_template = "templates/".$this->xml->masterTemplate;
 		$ret = array(
 			'path' => $this->slave_tmpl, 

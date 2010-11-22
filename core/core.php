@@ -36,6 +36,42 @@ class Core
 		return TRUE;
 	}
 	
+	function setGlobals()
+	{
+		global $Config;
+		
+		// Setup the site globals
+		$GLOBALS['users_online'] = array();
+		$GLOBALS['guests_online'] = 0;
+		$GLOBALS['user_cur_lang'] = '';
+		$GLOBALS['messages'] = '';		// For server messages
+		$GLOBALS['redirect'] = '';		// For the redirect function, uses <meta> tags
+		$GLOBALS['cur_selected_realm'] = '';
+		
+		// === Load the languages and set users language === //
+		$languages = explode(",", $Config->get('available_lang'));
+		if(isset($_COOKIE['Language'])) 
+		{
+			$GLOBALS['user_cur_lang'] = (string)$_COOKIE['Language'];
+		}
+		else
+		{
+			$GLOBALS['user_cur_lang'] = (string)$Config->get('default_lang');
+			setcookie("Language", $GLOBALS['user_cur_lang'], time() + (3600 * 24 * 365));
+		}
+		
+		// === Finds out what realm we are viewing. Sets cookie if need be. === //
+		if(isset($_COOKIE['cur_selected_realm'])) 
+		{
+			$GLOBALS['cur_selected_realm'] = (int)$_COOKIE['cur_selected_realm'];
+		}
+		else
+		{
+			$GLOBALS['cur_selected_realm'] = (int)$Config->get('default_realm_id');
+			setcookie("cur_selected_realm", (int)$Config->get('default_realm_id'), time() + (3600 * 24 * 365));
+		}
+	}
+	
 	function load_permissions()
 	{
 		$allow_url_fopen = ini_get('allow_url_fopen');

@@ -285,7 +285,7 @@ function build_pathway()
     $path_c = count($pathway_info);
     $pathway_info[$path_c-1]['link'] = '';
     $pathway_str = '';
-    if(empty($_REQUEST['p']) || !is_array($pathway_info))
+    if(empty($_GET['p']) || !is_array($pathway_info))
 	{
 		$pathway_str .= ' <b><u>Main</u></b>';
 	}

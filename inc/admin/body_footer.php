@@ -3,7 +3,7 @@
 <!-- Start #footer -->
 	<div id="footer">
 		<center>
-		<p>Page generated in <?php echo round($exec_time,4);?> sec.
+		<p>Page generated in <?php echo round(PAGE_LOAD_TIME, 4);?> sec.
 			Query's: (Realm DB: <?php echo $DB->_statistics['count']; ?>,
 			World DB: <?php echo $WDB->_statistics['count']?>,
 			Character DB: <?php echo $CDB->_statistics['count']?>)<br/>

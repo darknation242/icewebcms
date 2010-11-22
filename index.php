@@ -34,7 +34,7 @@ ini_set('display_errors', TRUE);
 define('INCLUDED', TRUE);
 
 // Start a variable that shows how fast page loaded.
-$time_start = microtime(1);
+define('TIME_START', microtime(1));
 $_SERVER['REQUEST_TIME'] = time();
 
 // Load the Core and config class
@@ -61,40 +61,11 @@ include('core/common.php'); 					// Holds most of the sites functions
 include('core/class.template.php');			// Sets up the template system
 include('core/SDL/class.account.php'); 		// contains account related scripts and functions
 
-// Super-Global variables.
-$GLOBALS['users_online'] = array();
-$GLOBALS['guests_online'] = 0;
-$GLOBALS['user_cur_lang'] = '';
-$GLOBALS['messages'] = '';		// For server messages
-$GLOBALS['redirect'] = '';		// For the redirect function, uses <meta> tags
-$GLOBALS['cur_selected_realm'] = '';
+// Set site globals such as realm, language etc etc
+$Core->setGlobals();
 
-
-// === Load the languages and set users language === //
-$languages = explode(",", $Config->get('available_lang'));
-if(isset($_COOKIE['Language'])) 
-{
-	$GLOBALS['user_cur_lang'] = (string)$_COOKIE['Language'];
-}
-else
-{
-	$GLOBALS['user_cur_lang'] = (string)$Config->get('default_lang');
-	setcookie("Language", $GLOBALS['user_cur_lang'], time() + (3600 * 24 * 365));
-}
+// Load language file
 include( 'lang/' . $GLOBALS["user_cur_lang"] . '.php' );
-
-
-// === Finds out what realm we are viewing. Sets cookie if need be. === //
-if(isset($_COOKIE['cur_selected_realm'])) 
-{
-	$GLOBALS['cur_selected_realm'] = (int)$_COOKIE['cur_selected_realm'];
-}
-else
-{
-	$GLOBALS['cur_selected_realm'] = (int)$Config->get('default_realm_id');
-	setcookie("cur_selected_realm", (int)$Config->get('default_realm_id'), time() + (3600 * 24 * 365));
-}
-
 
 // === Setup the connections to other DB's - Holds DB connector classes === //
 require ('core/class.database.php');
@@ -147,7 +118,6 @@ $WDB = new Database(
 	
 // Free up memory
 unset($Realm_DB_Info);
-$realms = $DB->select("SELECT * FROM realmlist ORDER BY `id` ASC");
 
 // === Load auth system === //
 $Account = new Account();
@@ -157,125 +127,136 @@ $user['cur_selected_realm'] = $GLOBALS['cur_selected_realm'];
 
 // === Sets up the template system. === //
 $Template = new Template;
-$Template = $Template->loadTemplateXML();
 
+// Lets get the template information
+$Template = $Template->loadTemplateXML();
+if($Template == FALSE)
+{
+	echo "Fetal Error: Template XML Not Found!";
+	die();
+}
 
 // === Start of page loading === //
 
-// Start off by checking if the requested page is a module or not
-if(!isset($_GET['p']) && isset($_GET['module']))
-{
-	// Scan the directory for installed modules to prevent XSS
-	$Modulelist = scandir("modules/");
-	if(in_array($_GET['module'], $Modulelist))
+	// Start off by checking if the requested page is a module or not
+	if(!isset($_GET['p']) && isset($_GET['module']))
 	{
-		include("modules/".$_GET['module']."/index.php");
+		// Scan the directory for installed modules to prevent XSS
+		$Modulelist = scandir("modules/");
+		if(in_array($_GET['module'], $Modulelist))
+		{
+			include("modules/".$_GET['module']."/index.php");
+		}
+		else
+		{
+			echo "No Module of that name found!";
+		}
 	}
+
+	// If page is not a module, then lets load our template pages.
 	else
 	{
-		echo "No Module of that name found!";
-	}
-}
-
-// If page is not a module, then lets load our template pages.
-else
-{
-	$ext = (isset($_GET['p']) ? $_GET['p'] : (string)$Config->get('default_component'));
-	if (strpos($ext, '/') !== FALSE) 
-	{
-		list($ext, $sub) = explode('/', $ext);
-	}
-	else
-	{
-		$sub = (isset($_GET['sub']) ? $_GET['sub'] : 'index');
-	}
-	$script_file = 'inc/' . $ext . '/' . $ext . '.' . $sub . '.php';
-	$template_file = '' . $Template['script_path'] . '/' . $ext . '/' . $ext . '.' . $sub . '.php';
-
-	// === Start Loading of the Page files === //
-
-	// If the requested page is the admin Panel, then we load the admin template
-	if($ext == 'admin') 
-	{
-		if(file_exists('inc/admin/body_functions.php')) 
-		{
-			include ('inc/admin/body_functions.php');
-		}
-		@include('inc/admin/script_files/admin.' . $sub .'.php');
-		ob_start();
-			include('inc/admin/body_header.php');
-		ob_end_flush();
-		ob_start();
-			include('inc/admin/template_files/admin.' . $sub .'.php');
-		ob_end_flush();
+		// if empty page, then load default component(frontpage)
+		$ext = (isset($_GET['p']) ? $_GET['p'] : (string)$Config->get('default_component'));
 		
-		// Set our time end, so we can see how fast the page loaded.
-		$time_end = microtime(1);
-		$exec_time = $time_end - $time_start;
-		include('inc/admin/body_footer.php');
-	}
+		// If url looks like so: ?p=account/login (This is a avalid url)
+		if(strpos($ext, '/') !== FALSE) 
+		{
+			list($ext, $sub) = explode('/', $ext);
+		}
+		else
+		{
+			// If empty sub page, load page.index.php
+			$sub = (isset($_GET['sub']) ? $_GET['sub'] : 'index');
+		}
+		$script_file = 'inc/' . $ext . '/' . $ext . '.' . $sub . '.php';
+		$template_file = $Template['script_path'] . '/' . $ext . '/' . $ext . '.' . $sub . '.php';
 
-	// Else, if requested page isnt the admin panel, then load the template
-	else
-	{	
-		// Start Loading Of Script Files
-		@include($script_file);
+		// === Start Loading of the Page files === //
 
-		// If a body functions file exists, include it.
-		if(file_exists(''. $Template['script_path'] . '/body_functions.php')) 
+		// If the requested page is the admin Panel, then we load the admin template
+		if($ext == 'admin') 
 		{
-			include (''. $Template['script_path'] . '/body_functions.php');
-		}
-		ob_start();
-			include ('' . $Template['script_path'] . '/body_header.php');
-		ob_end_flush();
-		
-		// === Start the loading of the template cache === //
-		
-		// Lets check to see if the page is flagged to cache or not. defined in scriptfile of each page
-		if(defined('CACHE_FILE'))
-		{
-			$CacheFile = CACHE_FILE;
-		}
-		else # Not defined
-		{
-			$CacheFile = FALSE;
-		}
-		
-		// Check if admin has enabled caching, and CACHE_FILE is enabled
-		if($Config->get('enable_cache') && $CacheFile == TRUE)
-		{
-			// If file is cached
-			if($Core->isCached($Template['number']."_".$ext.".".$sub))
+			if(file_exists('inc/admin/body_functions.php')) 
 			{
-				$Contents = $Core->getCache($Template['number']."_".$ext.".".$sub);
-				echo $Contents;
+				include('inc/admin/body_functions.php');
 			}
-			// If not cached, then get contents of the page and cache them.
+			@include('inc/admin/script_files/admin.' . $sub .'.php');
+			ob_start();
+				include('inc/admin/body_header.php');
+			ob_end_flush();
+			ob_start();
+				include('inc/admin/template_files/admin.' . $sub .'.php');
+			ob_end_flush();
+			
+			// Set our time end, so we can see how fast the page loaded.
+			define('TIME_END', microtime(1));
+			define('PAGE_LOAD_TIME', TIME_END - TIME_START);
+			include('inc/admin/body_footer.php');
+		}
+
+		// Else, if requested page isnt the admin panel, then load the template
+		else
+		{	
+			// Start Loading Of Script Files
+			@include($script_file);
+
+			// If a body functions file exists, include it.
+			if(file_exists($Template['script_path'] . '/body_functions.php')) 
+			{
+				include ($Template['script_path'] . '/body_functions.php');
+			}
+			ob_start();
+				include ($Template['script_path'] . '/body_header.php');
+			ob_end_flush();
+			
+			// === Start the loading of the template cache === //
+			
+			// Lets check to see if the page is flagged to cache or not. defined in scriptfile of each page
+			if(defined('CACHE_FILE'))
+			{
+				$CacheFile = CACHE_FILE;
+			}
+			else # Not defined
+			{
+				$CacheFile = FALSE;
+			}
+			
+			// Check if admin has enabled caching, and CACHE_FILE is enabled
+			if($Config->get('enable_cache') && $CacheFile == TRUE)
+			{
+				// If file is cached
+				if($Core->isCached($Template['number']."_".$ext.".".$sub))
+				{
+					$Contents = $Core->getCache($Template['number']."_".$ext.".".$sub);
+					echo $Contents;
+				}
+				// If not cached, then get contents of the page and cache them.
+				else
+				{
+					ob_start();
+						include($template_file);
+					$Contents = ob_get_flush();
+					$Core->writeCache($Template['number']."_".$ext.".".$sub, $Contents);
+				}
+				unset($Contents);
+			}
 			else
 			{
 				ob_start();
 					include($template_file);
-				$Contents = ob_get_flush();
-				$Core->writeCache($Template['number']."_".$ext.".".$sub, $Contents);
+				ob_end_flush();
 			}
-			unset($Contents);
-		}
-		else
-		{
-			ob_start();
-				include($template_file);
-			ob_end_flush();
-		}
-		
-		// === End cache system, Load the footer === //
+			
+			// === End cache system, Load the footer === //
 
-		// Set our time end, so we can see how fast the page loaded.
-		$time_end = microtime(1);
-		$exec_time = $time_end - $time_start;
-		include ('' . $Template['script_path'] . '/body_footer.php');
+			// Set our time end, so we can see how fast the page loaded.
+			define('TIME_END', microtime(1));
+			define('PAGE_LOAD_TIME', TIME_END - TIME_START);
+			include ($Template['script_path'] . '/body_footer.php');
+		}
 	}
-}
+//=== END Of Page Loading ===//
 
 // Close all DB Connections
 $DB->__destruct();

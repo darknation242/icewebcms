@@ -102,8 +102,10 @@
   <script src="<?php echo $Template['path']; ?>/js/tooltip.js" type="text/javascript"></script>
   <!-- TOOLTIP end --> 
 <?php 
-// print something lile that when use redirect('link',0,3); <meta http-equiv=refresh content="'.$wait_sec.';url='.$linkto.'">
+// Echo out redirect scripts here.
 echo $GLOBALS['redirect'];
+$realms = $DB->select("SELECT * FROM realmlist ORDER BY `id` ASC");
+$languages = explode(",", $Config->get('available_lang'));
 ?>
     <div style="background: url(<?php echo $Template['path']; ?>/images/page-bg-top.jpg) repeat-x 0 0; height: 88px; position: relative; width: 100%; "></div>
     <center>
