@@ -22,13 +22,15 @@ function admin_paginate($totalrows, $limit, $page, $link_to)
 	if($page != 1) 
 	{ 
 		$pageprev = $page-1;
+		echo "<a href=\"".$link_to."&page=1\">&laquo; First</a>&nbsp;&nbsp;&nbsp;";  
 		echo "<a href=\"".$link_to."&page=".$pageprev."\">&laquo; Previous</a>&nbsp;&nbsp;";  
 	}
 	else
 	{
+		echo "<span class='disabled'>&laquo; First </span>&nbsp;&nbsp;&nbsp;";
 		echo "<span class='disabled'>&laquo; Previous</span>&nbsp;&nbsp;";
 	}
-	$numofpages = $totalrows / $limit;
+	$numofpages = ceil($totalrows / $limit);
 
 	// === START BUTTON LOADING === //
 		// If the current page is higher then 5
@@ -90,11 +92,13 @@ function admin_paginate($totalrows, $limit, $page, $link_to)
 	if(($totalrows - ($limit * $page)) > 0)
 	{
 		$pagenext   = $page + 1;
-		echo "<a href=\"".$link_to."&page=".$pagenext."\">Next &raquo;</a>&nbsp;&nbsp;";
+		echo "<a href=\"".$link_to."&page=".$pagenext."\">Next &raquo;</a>&nbsp;&nbsp;&nbsp;";
+		echo "<a href=\"".$link_to."&page=".$numofpages."\">Last &raquo;</a>&nbsp;&nbsp;";
 	}
 	else
 	{
-		echo "<span class='disabled'>Next &raquo;</span>"; 
+		echo "<span class='disabled'>Next &raquo;</span>&nbsp;&nbsp;&nbsp;";
+		echo "<span class='disabled'>Last &raquo;</span>"; 
 	} 
 }
 ?>
