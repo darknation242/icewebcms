@@ -7,51 +7,69 @@
 /*			Original MangosWeb (C) 2007, Sasha, Nafe, TGM, Peec				*/
 /****************************************************************************/
 
-// Set error reporting
+/***************************************************************
+ * SET ERROR REPORTING
+ ***************************************************************/
 error_reporting(E_ALL);
 ini_set('log_errors', TRUE);
 ini_set('html_errors', FALSE);
 ini_set('error_log', 'core/logs/error_log.txt');
 ini_set('display_errors', TRUE);
 
-// Define INCLUDED so that we can check other pages if they are included by this file
+/***************************************************************
+ * Define INCLUDED so we can see if pages are included by this one
+ ***************************************************************/
 define('INCLUDED', TRUE);
 
-// Start a variable that shows how fast page loaded.
+/***************************************************************
+ * Define page loading time start
+ ***************************************************************/
 define('TIME_START', microtime(1));
 $_SERVER['REQUEST_TIME'] = time();
 
-// Load the Core and config class
+/***************************************************************
+ * Load the Core and Config Classes
+ ***************************************************************/
 include('core/class.config.php');
 $Config = new Config;
 include('core/core.php');
 $Core = new Core;
 
-//Site notice cookie
+/***************************************************************
+ * Show Site Notice if enabled in config, and user cookie not set
+ ***************************************************************/
 if($Config->get('site_notice_enable') == 1 && !isset($_COOKIE['agreement_accepted']))
 {
 	include('modules/notice/notice.php');
 	exit();
 }
 
-// Check if the site is installed by checking config defaults
+/***************************************************************
+ * See if the site is installed by checking config defualts
+ ***************************************************************/
 if($Config->getDbInfo('db_username') == 'default')
 {
 	header('location: install/');
 }
 
-// Site functions & classes ...
+/***************************************************************
+ * Include the site functions and classes
+ ***************************************************************/
 include('core/common.php'); 				// Holds most of the sites common functions
 include('core/class.template.php');			// Sets up the template system
 include('core/SDL/class.account.php'); 		// contains account related scripts and functions
 
-// Set site globals such as realm, language etc etc
+/***************************************************************
+ * Set the site globals, selected realm, language etc etc
+ ***************************************************************/
 $Core->setGlobals();
 
 // Load language file
-include( 'lang/' . $GLOBALS["user_cur_lang"] . '.php' );
+include('lang/' . $GLOBALS["user_cur_lang"] . '.php');
 
-// === Setup the connections to other DB's - Holds DB connector classes === //
+/***************************************************************
+ * Setup the Database class and Database connections
+ ***************************************************************/
 require ('core/class.database.php');
 $DB = new Database(
 	$Config->getDbInfo('db_host'), 
@@ -104,13 +122,17 @@ $WDB = new Database(
 // Free up memory
 unset($Realm_DB_Info);
 
-// === Load auth system === //
+/***************************************************************
+ * Load the Account / Auth Class
+ ***************************************************************/
 $Account = new Account();
 $user = $Account->user;
 $user['cur_selected_realm'] = $GLOBALS['cur_selected_realm'];
 
 
-// === Sets up the template system. === //
+/***************************************************************
+ * Load the Template class and setup the template system
+ ***************************************************************/
 $Template = new Template;
 
 // Lets get the template information
@@ -121,7 +143,9 @@ if($Template == FALSE)
 	die();
 }
 
-// === Start of page loading === //
+/***************************************************************
+ * Start of page loading
+ ***************************************************************/
 
 	// Start off by checking if the requested page is a module or not
 	if(!isset($_GET['p']) && isset($_GET['module']))
@@ -241,7 +265,9 @@ if($Template == FALSE)
 			include ($Template['script_path'] . '/body_footer.php');
 		}
 	}
-//=== END Of Page Loading ===//
+/***************************************************************
+ * End Page Loading
+ ***************************************************************/
 
 // Close all DB Connections
 $DB->__destruct();

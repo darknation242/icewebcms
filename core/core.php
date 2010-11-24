@@ -52,7 +52,16 @@ class Core
 		$languages = explode(",", $Config->get('available_lang'));
 		if(isset($_COOKIE['Language'])) 
 		{
-			$GLOBALS['user_cur_lang'] = (string)$_COOKIE['Language'];
+			// If the cookie is set, we need to make sure the language file still exists
+			if(file_exists('lang/' . $_COOKIE['Language'] . '.php')
+			{
+				$GLOBALS['user_cur_lang'] = (string)$_COOKIE['Language'];
+			}
+			else
+			{
+				$GLOBALS['user_cur_lang'] = (string)$Config->get('default_lang');
+				setcookie("Language", $GLOBALS['user_cur_lang'], time() + (3600 * 24 * 365));
+			}
 		}
 		else
 		{
@@ -72,6 +81,11 @@ class Core
 		}
 	}
 	
+	/*
+		Loads the server permissions such as allowing fopen
+		to open a url. Als checks to see of the function exists
+		fsockopen.
+	*/
 	function load_permissions()
 	{
 		$allow_url_fopen = ini_get('allow_url_fopen');

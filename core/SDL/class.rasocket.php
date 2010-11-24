@@ -36,9 +36,12 @@ class RA
       Returns 1 if it was successful.
       Returns 2 if it was unable to authenticate.
     */
-    public function auth($user,$pass)
+    public function auth($user, $pass)
     {
-        if(!$this->handle) return 0;
+        if(!$this->handle)
+		{
+			return 0;
+		}
 
         $user = strtoupper($user);
         fwrite($this->handle, "USER ".$user."\n");
@@ -46,8 +49,10 @@ class RA
         fwrite($this->handle, "PASS ".$pass."\n");
         usleep(300);
 
-        if (substr(trim(fgets($this->handle)),0,1) != "+")
-          return 2;
+        if(substr(trim(fgets($this->handle)), 0, 1) != "+")
+		{
+			return 2;
+		}
         else
         {
             $this->auth = TRUE;
@@ -64,15 +69,18 @@ class RA
     public function connect($host, $port = 3443)
     {
         if($this->handle)
-          fclose($this->handle);
-
+		{
+			fclose($this->handle);
+		}
         $this->handle = @fsockopen($host, $port, $errorno, $errorstr, 5);
-
         if(!$this->handle)
-          return false;
-        else {
-            $this->motto = trim(fgets($this->handle));
-            return true;
+		{
+			return FALSE;
+		}
+        else 
+		{
+            $this->consoleReturn = trim(fgets($this->handle));
+            return TRUE;
         }
     }
 	
@@ -80,11 +88,11 @@ class RA
       Inputs a command into an active connection to MaNGOS/Trinity
       Adds the output of the console into ralog.
       Returns 0 if it's not connected
-      Returns 1 if it was successful
+      Returns 1 if it the command was sent successfully
       Returns 2 if it's not authenticated
       @param $command the command to enter on console
     */
-    public function sendcommand($type, $shost, $remote, $command)
+    public function executeCommand($type, $shost, $remote, $command)
     {
 		global $Config;
 		if($type == 0)
@@ -101,34 +109,26 @@ class RA
 			}
 			fwrite($this->handle, $command."\n");
 			usleep(200);
-			if($Config->get('emulator') == "trinity")
-			{
-				fgets($this->handle,9);
-			}
-			else
-			{
-				fgets($this->handle,8);
-			}
-			$this->motto = trim(fgets($this->handle));
+			$this->consoleReturn = trim(fgets($this->handle));
 			return 1;
 		}
 		else
 		{
-			$client = $this->soap_handle($shost, $remote);
+			$client = $this->soapHandle($shost, $remote);
 			try
 			{
 				$result = $client->executeCommand(new SoapParam($command, "command"));
-				$ret = 1;
+				$this->consoleReturn = $result;
 			}
 			catch(Exception $e)
 			{
-				$ret = $e->getMessage();
+				$this->consoleReturn = $e->getMessage();
 			}
-			return $ret;
+			return 1;
 		}
     }
 	
-	private function soap_handle($shost, $remote)
+	private function soapHandle($shost, $remote)
 	{
 		global $Config, $DB;
 		if($Config->get('emulator') == 'mangos')
@@ -156,36 +156,38 @@ class RA
 		return $client;
 	}
 	
-	function command($command)
+	/*
+		Main sending function for the site
+		This function gets the RA info for the realm.
+		and executes the command.
+		send( Command, realm ID )
+		returns 1 if unable to connect
+		return 2 if unauthorized
+		returns console return upon success
+	*/
+	function send($command, $realm)
 	{
 		global $user, $Config, $DB;
-		$get_remote = $DB->selectRow("SELECT * FROM realmlist WHERE id='$user[cur_selected_realm]'");
+		$get_remote = $DB->selectRow("SELECT * FROM `realmlist` WHERE id='".$realm."'");
 		$remote = explode(';', $get_remote['ra_info']);
 		$shost = $get_remote['address'];
-		if($remote[0] == 0)
+		if($remote[0] == 0 || $remote[0] == 1)
 		{
-			// Telnet
-			$result = $this->sendcommand(0, $shost, $remote, $command);
-			if($result == 1)
+			$result = $this->executeCommand($remote[0], $shost, $remote, $command);
+			if($result != 1)
 			{
-				return TRUE;
+				if($result == 0)
+				{
+					return 1;
+				}
+				elseif($result == 2)
+				{
+					return 2;
+				}
 			}
 			else
 			{
-				return FALSE;
-			}
-		}
-		else
-		{
-			// Soap
-			$result = $this->sendcommand(1, $shost, $remote, $command);
-			if($result == 1)
-			{
-				return TRUE;
-			}
-			else
-			{
-				return $result;
+				return $this->consoleReturn;
 			}
 		}
 	}
