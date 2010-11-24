@@ -530,10 +530,76 @@ class Character
 		}
 	}
 	
+	public function setXp($id, $exp)
+	{
+		global $CDB;
+		$lvl = $CDB->selectRow("SELECT `name` FROM characters WHERE `guid`='$id'");
+		if($lvl == FALSE)
+		{
+			return FALSE;
+		}
+		else
+		{
+			$CDB->query("UPDATE `characters` SET `xp`='$exp' WHERE `guid`='$id'");
+			return TRUE;
+		}
+	}
+	
+	// === At Login Functions === //
+	
+	// Rename (flag = 1)
+	public function setRename($id)
+	{
+		global $CDB;
+		$check = $CDB->selectCell("SELECT `at_login` FROM `characters` WHERE `guid`='".$id."'");
+		if($check & 1)
+		{
+			return FALSE;
+		}
+		else
+		{
+			$CDB->query("UPDATE `characters` SET `at_login`=(`at_login` + 1) WHERE `guid`='".$id."'");
+			return TRUE;
+		}
+	}
+	
+	// Reset Talents (flag = 4)
+	public function setResetTalents($id)
+	{
+		global $CDB;
+		$check = $CDB->selectCell("SELECT `at_login` FROM `characters` WHERE `guid`='".$id."'");
+		if($check & 4)
+		{
+			return FALSE;
+		}
+		else
+		{
+			$CDB->query("UPDATE `characters` SET `at_login`=(`at_login` + 4) WHERE `guid`='".$id."'");
+			return TRUE;
+		}
+	}
+	
+	// Re-Customize (flag = 8)
 	public function setCustomize($id)
 	{
 		global $CDB;
-		$CDB->query("UPDATE `characters` SET `at_login`=8 WHERE `guid` ='$id'"); 
+		$check = $CDB->selectCell("SELECT `at_login` FROM `characters` WHERE `guid`='".$id."'");
+		if($check & 8)
+		{
+			return FALSE;
+		}
+		else
+		{
+			$CDB->query("UPDATE `characters` SET `at_login`=(`at_login` + 8) WHERE `guid`='".$id."'");
+			return TRUE;
+		}
+	}
+	
+	public function resetAtLogin($id)
+	{
+		global $CDB;
+		$CDB->query("UPDATE `characters` SET `at_login`=0 WHERE `guid`='".$id."'");
+		return TRUE;
 	}
 }
 ?>

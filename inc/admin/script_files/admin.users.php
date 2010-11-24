@@ -18,11 +18,11 @@ else
 $limitvalue = $page * $limit - ($limit);	// Ex: (2 * 25) - 25 = 25 <- data starts at 25
 
 //===== Filter ==========// 
-if($_GET['char'] && preg_match("/[a-z]/", $_GET['char']))
+if($_GET['sortby'] && preg_match("/[a-z]/", $_GET['sortby']))
 {
-	$filter = "WHERE `username` LIKE '" . $_GET['char'] . "%'";
+	$filter = "WHERE `username` LIKE '" . $_GET['sortby'] . "%'";
 }
-elseif($_GET['char'] == 1)
+elseif($_GET['sortby'] == 1)
 {
 	$filter = "WHERE `username` REGEXP '^[^A-Za-z]'";
 }
@@ -33,8 +33,7 @@ else
 	
 // Get all users
 $getusers = $DB->select("SELECT * FROM account $filter ORDER BY `username` ASC LIMIT $limitvalue, $limit;");
-$getcnt = $DB->select("SELECT username FROM account");
-$totalrows = count($getcnt);
+$totalrows = $DB->count("SELECT COUNT(*) FROM `account` $filter");
 
 //===== Start of functions =====/
 

@@ -52,11 +52,11 @@ $realm_timezone_def = array(
 //======= SITE FUNCTIONS =======//
 
 // Set up out messages like error and success boxes
-function output_message($type,$text,$file='',$line='')
+function output_message($type, $text, $file='', $line='')
 {
     if($file)$text .= "\n<br>in file: $file";
     if($line)$text .= "\n<br>on line: $line";
-    echo "<div class=\"".$type."\">$text</div>";
+    echo "<div class=\"".$type."\">".$text."</div>";
 }
 
 // Custom Error Handler
@@ -64,12 +64,28 @@ function customError($errno, $errstr)
 {
 	echo "<div class=\"error\">";
 	echo "<b>Error:</b> [$errno] $errstr<br />";
-	//echo "Ending Script";
 	echo "</div>";
-	//die();
 }
 
 // ======== Realm Functions ======== //
+
+// Gets the realmlist from realm DB. Enabled is whether the realm
+// has been enabled for view by users in the ACP.
+function getRealmlist($enabled = 1)
+{
+	global $DB;
+	if($enabled == 1)
+	{
+		$realms = $DB->select("SELECT * FROM `realmlist` WHERE `site_enabled`=1 ORDER BY `id` ASC");
+	}
+	else
+	{
+		$realms = $DB->select("SELECT * FROM `realmlist` ORDER BY `id` ASC");
+	}
+	return $realms;
+}
+
+// Gets all Columns on the table for the selected realm
 function get_realm_byid($id)
 {
     global $DB;
@@ -77,6 +93,11 @@ function get_realm_byid($id)
     return $search_q;
 }
 
+/* 
+	Used for checking whether a realm is online of not
+	returns TRUE if realm is Online
+	returns FALSE if realm is Offline
+*/
 function check_port_status($ip, $port, $timeout)
 {
 	if(!isset($timeout))
@@ -112,20 +133,22 @@ function get_print_gold($gold_array)
 	if($gold_array['gold'] > 0) 
 	{
 		echo $gold_array['gold'];
-		echo "<img src='inc/admin/images/icons/gold.GIF' border='0'>";
+		echo "<img src='inc/admin/images/icons/gold.GIF' border='0'>&nbsp;";
 	}
 	if($gold_array['silver'] > 0) 
 	{
 		echo $gold_array['silver'];
-		echo "<img src='inc/admin/images/icons/silver.GIF' border='0'>";
+		echo "<img src='inc/admin/images/icons/silver.GIF' border='0'>&nbsp;";
 	}
 	if($gold_array['copper'] > 0) 
 	{
 		echo $gold_array['copper'];
-		echo "<img src='inc/admin/images/icons/copper.GIF' border='0'>";
+		echo "<img src='inc/admin/images/icons/copper.GIF' border='0'>&nbsp;";
 	}
 }
 
+// Main function for actually "printing" the gold
+// Use this function to get the gold print out
 function print_gold($gvar) 
 {
 	if($gvar == '---') 
@@ -219,6 +242,13 @@ function load_smiles($dir='images/smiles/')
 }
 
 // ======== Misc functions ======= // 
+
+/* 
+	A redirect function.
+	$linkto is the destination
+	$type 0 = <meta>, 1 = header
+	$wait_sec is used only in <meta>
+*/
 function redirect($linkto,$type=0,$wait_sec=0)
 {
     if($linkto)
@@ -259,6 +289,7 @@ function strip_if_magic_quotes($value)
     return $value;
 }
 
+// Replaces the first letter of the text with an image letter
 function add_pictureletter($text)
 {
 	global $currtmp;
@@ -274,9 +305,10 @@ function add_pictureletter($text)
     return $output;
 }
 
+// Used to generate a random password for the password revocery script.
 function random_string($counts)
 {
-    $str = "abcdefghijklmnopqrstuvwxyz";//Count 0-25
+    $str = "abcdefghijklmnopqrstuvwxyz"; //Count 0-25
     $o = 0;
     for($i=0;$i<$counts;$i++)
 	{

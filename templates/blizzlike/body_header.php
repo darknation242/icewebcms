@@ -104,7 +104,7 @@
 <?php 
 // Echo out redirect scripts here.
 echo $GLOBALS['redirect'];
-$realms = $DB->select("SELECT * FROM `realmlist` WHERE `site_enabled`=1 ORDER BY `id` ASC");
+$realms = getRealmlist();
 $languages = explode(",", $Config->get('available_lang'));
 ?>
     <div style="background: url(<?php echo $Template['path']; ?>/images/page-bg-top.jpg) repeat-x 0 0; height: 88px; position: relative; width: 100%; "></div>

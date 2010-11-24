@@ -307,33 +307,33 @@ else
 					<b>Sort by letter:</b>&nbsp;&nbsp;
 					<small>
 					<a href="?p=admin&sub=users">All</a> | 
-					<a href="?p=admin&sub=users&char=1">#</a> 
-					<a href="?p=admin&sub=users&char=a">A</a> 
-					<a href="?p=admin&sub=users&char=b">B</a> 
-					<a href="?p=admin&sub=users&char=c">C</a> 
-					<a href="?p=admin&sub=users&char=d">D</a> 
-					<a href="?p=admin&sub=users&char=e">E</a> 
-					<a href="?p=admin&sub=users&char=f">F</a> 
-					<a href="?p=admin&sub=users&char=g">G</a> 
-					<a href="?p=admin&sub=users&char=h">H</a> 
-					<a href="?p=admin&sub=users&char=i">I</a> 
-					<a href="?p=admin&sub=users&char=j">J</a> 
-					<a href="?p=admin&sub=users&char=k">K</a> 
-					<a href="?p=admin&sub=users&char=l">L</a> 
-					<a href="?p=admin&sub=users&char=m">M</a> 
-					<a href="?p=admin&sub=users&char=n">N</a> 
-					<a href="?p=admin&sub=users&char=o">O</a> 
-					<a href="?p=admin&sub=users&char=p">P</a> 
-					<a href="?p=admin&sub=users&char=q">Q</a> 
-					<a href="?p=admin&sub=users&char=r">R</a> 
-					<a href="?p=admin&sub=users&char=s">S</a> 
-					<a href="?p=admin&sub=users&char=t">T</a> 
-					<a href="?p=admin&sub=users&char=u">U</a> 
-					<a href="?p=admin&sub=users&char=v">V</a> 
-					<a href="?p=admin&sub=users&char=w">W</a> 
-					<a href="?p=admin&sub=users&char=x">X</a> 
-					<a href="?p=admin&sub=users&char=y">Y</a> 
-					<a href="?p=admin&sub=users&char=z">Z</a>              
+					<a href="?p=admin&sub=users&sortby=1">#</a> 
+					<a href="?p=admin&sub=users&sortby=a">A</a> 
+					<a href="?p=admin&sub=users&sortby=b">B</a> 
+					<a href="?p=admin&sub=users&sortby=c">C</a> 
+					<a href="?p=admin&sub=users&sortby=d">D</a> 
+					<a href="?p=admin&sub=users&sortby=e">E</a> 
+					<a href="?p=admin&sub=users&sortby=f">F</a> 
+					<a href="?p=admin&sub=users&sortby=g">G</a> 
+					<a href="?p=admin&sub=users&sortby=h">H</a> 
+					<a href="?p=admin&sub=users&sortby=i">I</a> 
+					<a href="?p=admin&sub=users&sortby=j">J</a> 
+					<a href="?p=admin&sub=users&sortby=k">K</a> 
+					<a href="?p=admin&sub=users&sortby=l">L</a> 
+					<a href="?p=admin&sub=users&sortby=m">M</a> 
+					<a href="?p=admin&sub=users&sortby=n">N</a> 
+					<a href="?p=admin&sub=users&sortby=o">O</a> 
+					<a href="?p=admin&sub=users&sortby=p">P</a> 
+					<a href="?p=admin&sub=users&sortby=q">Q</a> 
+					<a href="?p=admin&sub=users&sortby=r">R</a> 
+					<a href="?p=admin&sub=users&sortby=s">S</a> 
+					<a href="?p=admin&sub=users&sortby=t">T</a> 
+					<a href="?p=admin&sub=users&sortby=u">U</a> 
+					<a href="?p=admin&sub=users&sortby=v">V</a> 
+					<a href="?p=admin&sub=users&sortby=w">W</a> 
+					<a href="?p=admin&sub=users&sortby=x">X</a> 
+					<a href="?p=admin&sub=users&sortby=y">Y</a> 
+					<a href="?p=admin&sub=users&sortby=z">Z</a>              
 					</small>           
 				</td>
 			</tr>
@@ -363,7 +363,14 @@ else
 				// If there is going to be more then 1 page, then show page nav at the bottom
 				if($totalrows > $limit)
 				{
-					admin_paginate($totalrows, $limit, $page, '?p=admin&sub=users');
+					if(isset($_GET['sortby']))
+					{
+						admin_paginate($totalrows, $limit, $page, '?p=admin&sub=users&sortby='.$_GET['sortby']);
+					}
+					else
+					{
+						admin_paginate($totalrows, $limit, $page, '?p=admin&sub=users');
+					}
 				}
 			?>
 			</div>

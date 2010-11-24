@@ -53,7 +53,7 @@ class Core
 		if(isset($_COOKIE['Language'])) 
 		{
 			// If the cookie is set, we need to make sure the language file still exists
-			if(file_exists('lang/' . $_COOKIE['Language'] . '.php')
+			if(file_exists('lang/' . $_COOKIE['Language'] . '.php'))
 			{
 				$GLOBALS['user_cur_lang'] = (string)$_COOKIE['Language'];
 			}

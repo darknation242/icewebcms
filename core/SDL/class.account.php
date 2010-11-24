@@ -570,7 +570,7 @@ class Account
 	// Returns an account username. Post an account ID here.
     function getLogin($acct_id=FALSE)
 	{
-        $res = $this->DB->selectRow("SELECT username FROM account WHERE id='".$acct_id."'");
+        $res = $this->DB->selectCell("SELECT `username` FROM `account` WHERE `id`='".$acct_id."'");
         if($res == FALSE)
 		{
 			return FALSE;  // no such account
