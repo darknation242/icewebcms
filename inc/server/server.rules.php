@@ -1,6 +1,7 @@
 <?php
 if(INCLUDED!==true)exit;
 
-$pathway_info[] = array('title'=>$lang['rules'],'link'=>'index.php?n=server&sub=rules');
+$pathway_info[] = array('title' => $lang['server_rules'], 'link' => '');
+$content = file_get_contents('lang/server_rules/'.$GLOBALS["user_cur_lang"].'.html');
 
 ?>

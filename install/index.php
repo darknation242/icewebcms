@@ -71,13 +71,63 @@ function output_message($type, $text)
 					{
 						$phpver = "<img src='images/check.png' height='18px' width='18px' />";
 					}
+					if(is_writable('../config/config.php') == TRUE)
+					{
+						$config_writable = "<img src='images/check.png' height='18px' width='18px' />";
+					}
+					else
+					{
+						$config_writable = "<img src='images/x.png' height='18px' width='18px' />";
+						$nogood++;
+					}
+					if(is_writable('../config/config-protected.php') == TRUE)
+					{
+						$config_protected_writable = "<img src='images/check.png' height='18px' width='18px' />";
+					}
+					else
+					{
+						$config_protected_writable = "<img src='images/x.png' height='18px' width='18px' />";
+						$nogood++;
+					}
+					if(is_writable('../core/cache') == TRUE)
+					{
+						$core_writable = "<img src='images/check.png' height='18px' width='18px' />";
+					}
+					else
+					{
+						$core_writable = "<img src='images/x.png' height='18px' width='18px' />";
+						$nogood++;
+					}
+					if(ini_get('allow_url_fopen') == '1')
+					{
+						$allow_url_fopen = "<img src='images/check.png' height='18px' width='18px' />";
+					}
+					else
+					{
+						$allow_url_fopen = "<img src='images/x.png' height='18px' width='18px' />";
+						$nogood++;
+					}
+					if(function_exists("fsockopen")) 
+					{
+						$fsock = "<img src='images/check.png' height='18px' width='18px' />";
+					}
+					else
+					{
+						$fsock = "<img src='images/x.png' height='18px' width='18px' />";
+						$nogood++;
+					}
 				?>
 					<!-- STEP 2 -->
 					<form method="POST" action="index.php?step=3" class="form label-inline">
 					<div class="main-content">		
 						<p>
 							If you see any red X's here, then your server will not run MangosWeb v3.<br /><br />
-							PHP Version: <?php echo phpversion()." ".$phpver; ?><br />
+							PHP Version:  <?php echo phpversion()." ".$phpver; ?><br />
+							Config.php Writable by Webserver  <?php echo $config_writable; ?><br />
+							Config-protected.php Writable by Webserver  <?php echo $config_protected_writable; ?><br />
+							Cache ("core/cache/") Writable by Webserver  <?php echo $config_protected_writable; ?><br />
+							Allow URL Open (Fopen)  <?php echo $allow_url_fopen; ?><br />
+							Fsockopen Enabled  <?php echo $fsock; ?><br />
 						</p>
 						<div class="buttonrow-border">
 							<?php

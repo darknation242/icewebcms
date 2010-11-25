@@ -16,7 +16,7 @@ $hl = '';
 
 if ($Config->get('fp_hitcounter') == 1)
 {
-    $count_my_page = $Template['script_path']."/hitcounter.txt";
+    $count_my_page = "inc/frontpage/hitcounter.txt";
     $hits = (int)file_get_contents($count_my_page);
     $hits++;
     file_put_contents($count_my_page, $hits);

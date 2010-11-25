@@ -116,6 +116,27 @@ function check_port_status($ip, $port, $timeout)
     }
 }
 
+ // Returns poulation rating of a server. Ex: Low, Medium, High. 
+ // $n = server population
+function population_view($n) 
+{
+    global $lang;
+    $maxlow = 100;
+    $maxmedium = 500;
+    if($n <= $maxlow)
+	{
+        return '<font color="green">' . $lang['low'] . '</font>';
+    }
+	elseif($n > $maxlow && $n <= $maxmedium)
+	{
+        return '<font color="orange">' . $lang['medium'] . '</font>';
+    }
+	else
+	{
+        return '<font color="red">' . $lang['high'] . '</font>';
+    }
+}
+
 // ======== Print Gold Functions ======== //
 function parse_gold($varnumber) 
 {

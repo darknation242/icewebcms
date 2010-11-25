@@ -21,13 +21,13 @@ class Database
 	// Closes the mysql DB connection
     public function __destruct()
     {
-        @mysql_close($this->mysql) or die(mysql_error());
+        @mysql_close($this->mysql) or die(mysql_error($this->mysql));
     }
 
 	// Query function is best used for INSERT and UPDATE functions
     public function query($query)
     {
-        $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
+        $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error($this->mysql)."");
 		$this->_statistics['count']++;
 		return TRUE;
     }
@@ -35,7 +35,7 @@ class Database
 	// Select function is great for getting huge arrays of multiple rows and tables
     public function select($query)
     {
-        $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
+        $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error($this->mysql)."");
 		$this->_statistics['count']++;
 		$i = 1;
 		if(mysql_num_rows($sql) == 0)
@@ -60,7 +60,7 @@ class Database
 	// though select function is better for more then 1 row
 	public function selectRow($query)
     {
-        $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
+        $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error($this->mysql)."");
 		$this->_statistics['count']++;
 		if(mysql_num_rows($sql) == 0)
 		{
@@ -76,7 +76,7 @@ class Database
 	// selectCell returns 1 cell of data, Not recomended unless you want data from a specific cell in a table
 	public function selectCell($query)
     {
-        $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
+        $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error($this->mysql)."");
 		$this->_statistics['count']++;
 		if(mysql_num_rows($sql) == 0)
 		{
@@ -93,7 +93,7 @@ class Database
 	// returns the direct count, for ex: 5
 	public function count($query)
     {
-        $sql = mysql_query($query,$this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
+        $sql = mysql_query($query, $this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error($this->mysql)."");
 		$this->_statistics['count']++;
 		return mysql_result($sql, 0);
     }
@@ -142,7 +142,7 @@ class Database
 		{
 			if($query)
 			{
-				mysql_query($query, $this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error()."");
+				mysql_query($query, $this->mysql) or die("Couldnt Run Query: ".$query."<br />Error: ".mysql_error($this->mysql)."");
 			}
 		}
 		return TRUE;
