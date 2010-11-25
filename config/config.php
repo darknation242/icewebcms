@@ -60,4 +60,6 @@ $module_charfactionchange = 1;
 $module_charfactionchange_pts = 15;
 $module_charracechange = 1;
 $module_charracechange_pts = 10;
+$module_phpbb3 = 0;
+$module_phpbb3_path = 'forums/';
 ?>

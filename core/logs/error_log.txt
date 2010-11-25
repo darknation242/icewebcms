@@ -1,6 +1,0 @@
-[24-Nov-2010 18:18:11] PHP Notice:  Undefined index: rules in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\server\server.rules.php on line 2
-[24-Nov-2010 18:18:11] PHP Notice:  Undefined index: rules_desc in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\server\server.rules.php on line 3
-[24-Nov-2010 18:18:11] PHP Notice:  Undefined index: rules in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\server\server.rules.php on line 7
-[24-Nov-2010 18:19:31] PHP Notice:  Undefined index: rules_desc in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\server\server.rules.php on line 3
-[24-Nov-2010 18:19:31] PHP Notice:  Undefined index: rules in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\server\server.rules.php on line 7
-[24-Nov-2010 18:21:09] PHP Notice:  Undefined index: rules in C:\xampp\htdocs\MangosWebv3\templates\blizzlike\server\server.rules.php on line 7

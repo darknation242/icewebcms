@@ -21,7 +21,7 @@ class Database
 	// Closes the mysql DB connection
     public function __destruct()
     {
-        @mysql_close($this->mysql) or die(mysql_error($this->mysql));
+        @mysql_close($this->mysql) or die(mysql_error());
     }
 
 	// Query function is best used for INSERT and UPDATE functions
