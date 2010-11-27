@@ -13,8 +13,10 @@ define('CACHE_FILE', FALSE);
 
 // Load secret Questions
 $sc_q = $Account->getSecretQuestions();
-	
+
+//	************************************************************
 // If user has requested his password be reset
+
 if($_POST['retr_login'] && $_POST['retr_email'] && $_POST['secretq1'] && $_POST['secretq2'] && $_POST['secreta1'] && $_POST['secreta2']) 
 {
   

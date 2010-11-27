@@ -3,15 +3,19 @@ class Paypal
 {
 
 	var $isTest = FALSE;
-	
-	// Adds variables to the form
+
+//	************************************************************	
+// Adds variables to the form
+
 	function addVar($var,$value)
 	{
 		$this->vars[$var][0] = $var;
 		$this->vars[$var][1] = $value;
 	}
-	
-	// Sets the button image. 1 = Donate, 2 = Buy now, 3 = custom
+
+//	************************************************************
+// Sets the button image. 1 = Donate, 2 = Buy now, 3 = custom
+
 	function setButtonType($type, $button_image = "")
 	{
 		switch($type)
@@ -30,8 +34,10 @@ class Paypal
 		}
 		$this->button .= "\n";
 	}
-	
-	// Prints the form with all the hidden posts, and displays the button
+
+//	************************************************************	
+// Prints the form with all the hidden posts, and displays the button
+
 	function showForm()
 	{
 		$url = $this->getAddress();
@@ -44,14 +50,18 @@ class Paypal
 		$form .= '</form>';
 		echo $form;
 	}
-	
-	// Setup the log file
+
+//	************************************************************	
+// Setup the log file
+
 	function setLogFile($logFile)
 	{
 		$this->logFile = $logFile;
 	}
-	
-	// Writes into the log file, a message
+
+//	************************************************************	
+// Writes into the log file, a message
+
 	private function writeLog($msg)
 	{
 		$outmsg = date('Y-m-d H:i:s')." : ".$msg."<br />\n";
@@ -60,8 +70,10 @@ class Paypal
 		fwrite($file,$outmsg);
 		fclose($file);
 	}
-	
-	// For the IPN. use to check if payment is valid, and the status
+
+//	************************************************************	
+// For the IPN. use to check if payment is valid, and the status
+
 	function checkPayment($_POST)
 	{
 		$req = 'cmd=_notify-validate';
@@ -127,13 +139,17 @@ class Paypal
 		}
 		return false;
 	}
-	
-	// For use of sandbox
+
+//	************************************************************	
+// For use of sandbox
+
 	function testMode($value)
 	{
 		$this->isTest = $value;
 	}
 	
+//	************************************************************
+// Return the address based on if its 
 
 	function getAddress()
 	{

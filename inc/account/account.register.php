@@ -14,6 +14,8 @@ define('CACHE_FILE', FALSE);
 $pathway_info[] = array('title'=>$lang['register'],'link'=>'');
 include('core/lib/class.captcha.php');
 
+//	************************************************************
+// Define minimum and max lengths for password and login
 
 $regparams = array(
 	'MIN_LOGIN_L' => 3,
@@ -22,12 +24,13 @@ $regparams = array(
 	'MAX_PASS_L'  => 16
 	);
 	
-// ==================== //
+//	************************************************************
 if($user['id'] > 0)
 {
 	redirect('?p=account&sub=manage',1);
 }
 
+// If ther user disagrees with the terms of service, redirect him
 if(isset($_POST['disagree']))
 {
 	redirect('index.php',1);
@@ -43,7 +46,9 @@ $allow_reg = TRUE;
 $err_array = array();
 $err_array[0] = $lang['register_fail'];
 
+//	************************************************************
 // If users are limited to how many accounts per IP, we find out how many this IP has.
+
 if($Config->get('max_act_per_ip') > 0)
 {
 	$count_ip = $DB->count("SELECT COUNT(*) FROM mw_account_extend WHERE registration_ip='".$_SERVER['REMOTE_ADDR']."'");
@@ -55,8 +60,9 @@ if($Config->get('max_act_per_ip') > 0)
 	}
 }
 
-
+//	************************************************************
 // When finished registering, this is the function
+
 function finalize()
 {
 	global $DB, $Config, $allow_reg, $Account, $lang;

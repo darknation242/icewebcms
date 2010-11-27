@@ -345,7 +345,7 @@ function strip_if_magic_quotes($value)
 
 function add_pictureletter($text)
 {
-	global $currtmp;
+	global $Template;
     $letter = substr($text, 0, 1);
     $imageletter = strtr(strtolower($letter),"ŠŒšœŸ¥µÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖØÙÚÛÜİßàáâãäåæçèéêëìíîïğñòóôõöøùúûüıÿ",
                                              "sozsozyyuaaaaaaaceeeeiiiidnoooooouuuuysaaaaaaaceeeeiiiionoooooouuuuyy");
@@ -353,7 +353,7 @@ function add_pictureletter($text)
 	{
         return $text;
 	}
-    $img = '<img src="'.$currtmp.'/images/letters/'.$imageletter.'.gif" alt="'.$letter.'" align="left"/>';
+    $img = '<img src="'.$Template['path'].'/images/letters/'.$imageletter.'.gif" alt="'.$letter.'" align="left"/>';
     $output = $img . substr($text, 1);
     return $output;
 }

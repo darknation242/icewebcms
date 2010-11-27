@@ -30,6 +30,7 @@
 						| <a href="#email">Email Settings</a> |
 						<a href="#paypal">Paypal Settings</a> |
 						<a href="#module">In-Built Module Settings</a> |
+						<a href="#forum">Forum Integration Settings</a> |
 					</center>
 				</p>
 			</div>
@@ -673,7 +674,7 @@
 						{ $e_mcf = 'selected="selected"'; $e_mcf2 = ''; }else{ $e_mcf2 = 'selected="selected"'; $e_mcf = ''; }
 					?>
 					<option value="1" <?php echo $e_mcf; ?>>Enabled</option>
-					<option value="0" <?php echo $e_mcf; ?>>Disabled</option>
+					<option value="0" <?php echo $e_mcf2; ?>>Disabled</option>
 				</select>																											
 				<p class="field_help">Allow users to change factions of their characters?.</p>
 			</div>
@@ -701,6 +702,58 @@
 				<label for="rename points">Race Change Cost: </label>
 				<input id="rename points" name="cfg__module_charracechange_pts" size="2" type="text" class="xsmall" value="<?php echo $Config->get('module_charracechange_pts'); ?>" />
 				<p class="field_help">Cost in Web Points for users to change the race of their characters</p>
+			</div>
+			
+			<br />
+			<!-- In Forum Module Settings -->
+			<table>
+				<thead>
+					<tr>
+						<th><center><a name="forum"></a>Forum Integration Settings</center></th>
+					</tr>
+				</thead>
+			</table>
+			<br />
+			<?php
+				output_message('info', 'Notice: Only 1 forum Integration module can be enabled at a time.');
+			?>
+			<br />
+			<div class="field">
+				<label for="Site module_phpbb3">PhpBB3 Forum: </label>
+				<select id="type" class="small" name="cfg__module_phpbb3">
+					<?php 
+						if($Config->get('module_phpbb3') == 1)
+						{ $e_pbbf = 'selected="selected"'; $e_pbbf2 = ''; }else{ $e_pbbf2 = 'selected="selected"'; $e_pbbf = ''; }
+					?>
+					<option value="1" <?php echo $e_pbbf; ?>>Enabled</option>
+					<option value="0" <?php echo $e_pbbf2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Enable PhpBB3 Forums integration? (when users register it creates an forum account etc etc)</p>
+			</div>
+			
+			<div class="field">
+				<label for="module_phpbb3_path">PhpBB3 Forum Path: </label>
+				<input id="module_phpbb3_path" name="cfg__module_phpbb3_path" size="20" type="text" class="medium" value="<?php echo $Config->get('module_phpbb3_path'); ?>" />
+				<p class="field_help">The absolute <u>path</u> (Not URL!) to your PhpBB3 forums. Must be in same www or htdocs folder!</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site module_vbulletin">vBulletin Forum: </label>
+				<select id="type" class="small" name="cfg__module_vbulletin">
+					<?php 
+						if($Config->get('module_vbulletin') == 1)
+						{ $e_vbf = 'selected="selected"'; $e_vbf2 = ''; }else{ $e_vbf2 = 'selected="selected"'; $e_vbf = ''; }
+					?>
+					<option value="1" <?php echo $e_vbf; ?>>Enabled</option>
+					<option value="0" <?php echo $e_vbf2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Enable vBulletin Forums integration? (when users register it creates an forum account etc etc)</p>
+			</div>
+			
+			<div class="field">
+				<label for="module_vbulletin_path">vB Forum Path: </label>
+				<input id="module_vbulletin_path" name="cfg__module_vbulletin_path" size="20" type="text" class="medium" value="<?php echo $Config->get('module_vbulletin_path'); ?>" />
+				<p class="field_help">The absolute <u>path</u> (Not URL!) to your vB forums. Must be in same www or htdocs folder!</p>
 			</div>
 			
 			<div class="buttonrow-border">								

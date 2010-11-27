@@ -198,6 +198,71 @@ function build_CommBox_Footer()
 	";
 }
 
+function buildShadowTop()
+{
+	global $Template;
+?>
+	<table cellspacing = "0" cellpadding = "0" border = "0" >
+		<tr>
+			<td>
+				<img src = "<?php echo $Template['path']; ?>/images/shadow-top-left.gif" width = "5" height = "4">
+			</td>
+			<td background = "<?php echo $Template['path']; ?>/images/shadow-top.gif">
+				<img src = "<?php echo $Template['path']; ?>/images/shadow-top-left-left.gif" width = "12" height = "4">
+			</td>
+			<td align = "right" background = "<?php echo $Template['path']; ?>/images/shadow-top.gif">
+				<img src = "<?php echo $Template['path']; ?>/images/shadow-top-right-right.gif" width = "12" height = "4">
+			</td>
+			<td>
+				<img src = "<?php echo $Template['path']; ?>/images/shadow-top-right.gif" width = "9" height = "4">
+			</td>
+		</tr>
+		<tr>
+			<td valign = "top" background = "<?php echo $Template['path']; ?>/images/shadow-left.gif">
+				<img src = "<?php echo $Template['path']; ?>/images/shadow-left-top.gif" width = "5" height = "12">
+			</td>
+			<td colspan = "2" rowspan = "2" style="background-image:url('<?php echo $Template['path']; ?>/images/header-left2.jpg'); background-repeat: no-repeat;">
+<?php
+}
+
+function buildShadowBottom()
+{
+	global $Template;
+?>
+			</td>
+		</tr>
+	</table>
+	</td>
+		<td valign = "top" background = "<?php echo $Template['path']; ?>/images/shadow-right.gif">
+			<img src = "<?php echo $Template['path']; ?>/images/shadow-right-top.gif" width = "9" height = "12">
+		</td>
+		</tr>
+			<tr>
+				<td valign = "bottom" background = "<?php echo $Template['path']; ?>/images/shadow-left.gif">
+					<img src = "<?php echo $Template['path']; ?>/images/shadow-left-bot.gif" width = "5" height = "12">
+				</td>
+				<td valign = "bottom" background = "<?php echo $Template['path']; ?>/images/shadow-right.gif">
+					<img src = "<?php echo $Template['path']; ?>/images/shadow-right-bot.gif" width = "9" height = "12">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<img src = "<?php echo $Template['path']; ?>/images/shadow-bot-left.gif" width = "5" height = "10">
+				</td>
+				<td background = "<?php echo $Template['path']; ?>/images/shadow-bot.gif">
+					<img src = "<?php echo $Template['path']; ?>/images/shadow-bot-left-left.gif" width = "12" height = "10">
+				</td>
+				<td align = "right" background = "<?php echo $Template['path']; ?>/images/shadow-bot.gif">
+					<img src = "<?php echo $Template['path']; ?>/images/shadow-bot-right-right.gif" width = "12" height = "10">
+				</td>
+				<td>
+					<img src = "<?php echo $Template['path']; ?>/images/shadow-bot-right.gif" width = "9" height = "10">
+				</td>
+			</tr>
+		</table>
+<?php
+}
+
 // Selects a random screenshot from the screenshot folder
 // Function is not used, rather a mysql random function
 function random_screenshot()

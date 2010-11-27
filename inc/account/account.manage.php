@@ -25,7 +25,9 @@ $secret_q = $Account->getSecretQuestions();
 
 // ==== Functions ==== //
 
+//	************************************************************
 // Change Email, Buffer function for the SDL
+
 function changeEmail()
 {
 	global $lang, $user, $Account, $DB;
@@ -61,16 +63,58 @@ function changeEmail()
 	}
 }
 
+//	************************************************************
 // Change Pass. Buffer function for the SDL
+
 function changePass()
 {
-	global $lang, $user, $Account;
+	global $lang, $user, $Account, $Config;
 	$newpass = trim($_POST['new_pass']);
 	if(strlen($newpass) > 3)
 	{
 		if($Account->setPassword($user['id'], $newpass) == TRUE)
 		{
-			return TRUE;
+		
+			// === Start of Forum Bridges === //
+			
+			// phpbb3
+			if($Config->get('module_phpbb3') == 1)
+			{
+				include('core/lib/class.phpbb.php');
+				$phpbb = new phpbb($Config->get('module_phpbb3_path'), 'php');
+				
+				$phpbb_vars = array('username' => $user['username'], 'password' => $_POST['new_pass']);
+				$phpbb_result = @$phpbb->user_change_password($phpbb_vars);
+				if($phpbb_result == 'SUCCESS')
+				{
+					return TRUE;
+				}
+				else
+				{					
+					output_message('warning', 'Unable to change forum password!');
+					return TRUE;
+				}
+			}
+			
+			// Else, if the phpbb3 module is not used, check to see if the vbulletin module is used
+			elseif($Config->get('module_vbulletin') == 1)
+			{
+				include('core/lib/class.vbulletin-bridge.php');
+				$vb = new vBulletin_Bridge();
+				
+				// Get user info, and change the password
+				$vbuser = fetch_userinfo_from_username($user['username']);
+				$request = $vb->change_password($vbuser['id'], $vbuser['activationid'], $_POST['new_pass']);
+				if($request == FALSE) # FALSE as in "no errors"
+				{
+					return TRUE;
+				}
+				else
+				{
+					output_message('warning', 'Unable to change forum password!');
+					return TRUE;
+				}
+			}
 		}
 		else
 		{
@@ -83,8 +127,9 @@ function changePass()
 	}
 }
 
-
+//	************************************************************
 // Change secret questions, Buffer function for the SDL
+
 function changeSQ()
 {
 	global $user, $lang, $DB, $Account;
@@ -107,7 +152,9 @@ function changeSQ()
 	}
 }
 
+//	************************************************************
 // Reset secret questions
+
 function resetSQ()
 {
 	global $user, $lang, $Account;
@@ -118,7 +165,9 @@ function resetSQ()
 	}
 }
 
+//	************************************************************
 // Main Detail changing function
+
 function changeDetails()
 {
 	global $DB, $lang, $user, $Account;

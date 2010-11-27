@@ -62,4 +62,6 @@ $module_charracechange = 1;
 $module_charracechange_pts = 10;
 $module_phpbb3 = 0;
 $module_phpbb3_path = 'forums/';
+$module_vbulletin = 0;
+$module_vbulletin_path = 'forums/';
 ?>
