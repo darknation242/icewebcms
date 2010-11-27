@@ -11,14 +11,18 @@ class Account
 		'account_level' => 1,
 		'theme' => 0
     );
-	
-	// Initialize with checking for user cookies, and getting their IP
+
+//	************************************************************	
+// Initialize with checking for user cookies, and getting their IP
+
     function __construct()
     {
         global $Config, $DB;
         $this->DB = $DB;
         $this->check();
         $this->user['ip'] = $_SERVER['REMOTE_ADDR'];
+		
+		// If the admin has the onlinelist module enabled
 		if($Config->get('module_onlinelist') == 1)
 		{
 			if($this->user['id'] < 1)
@@ -31,13 +35,19 @@ class Account
 			}
 			$this->onlinelist_update();
 		}
+		
+		// Update the users last visit
         $this->lastvisit_update($this->user);
     }
 
-	 // Checks if user is logged in already
+//	************************************************************	
+// Checks if user is logged in already by reading the cookie
+
     function check()
     {
         global $Config;
+		
+		// Check if a cookie is set
         if(isset($_COOKIE[((string)$Config->get('site_cookie'))]))
 		{
             list($cookie['user_id'], $cookie['account_key']) = @unserialize(stripslashes($_COOKIE[((string)$Config->get('site_cookie'))]));
@@ -45,22 +55,30 @@ class Account
 			{
 				return false;
 			}
+			
+			// Get the user info from the DB
             $res = $this->DB->selectRow("
                 SELECT * FROM account
                 LEFT JOIN mw_account_extend ON account.id = mw_account_extend.account_id
                 LEFT JOIN mw_account_groups ON mw_account_extend.account_level = mw_account_groups.account_level
                 WHERE id ='".$cookie['user_id']."'");
+			
+			// Check to see if account is banned
             if($this->isBannedAccount($res['id']) == TRUE)
 			{
                 $this->setgroup();
                 $this->logout();
                 return false;
             }
+			
+			// Make sure the activation code is NULL in the DB
             if($res['activation_code'] != NULL)
 			{
                 $this->setgroup();
                 return false;
             }
+			
+			// Match the cookie account key with the DB account key
             if($this->matchAccountKey($cookie['user_id'], $cookie['account_key']))
 			{
                 unset($res['sha_pass_hash']);
@@ -73,67 +91,89 @@ class Account
                 return false;
             }
         }
-		else
+		else # Cookie is not set
 		{
             $this->setgroup();
             return false;
         }
     }
 
-	// Main login script
+//	************************************************************
+// Main login script. 
+// $params = array('username' => username, 'sha_pass_hash' => encrypted password
+
     function login($params)
     {
         global $Config;
         $success = 1;
+		
+		// If the params are emtpy, return FALSE
         if (empty($params)) 
 		{
-			return false;
+			return FALSE;
 		}
+		
+		// if the username is empty
         if (empty($params['username']))
 		{
             output_message('validation','You did not provide your username');
             $success = 0;
         }
+		
+		// If the sha_pass_hash is empty
         if (empty($params['sha_pass_hash']))
 		{
             output_message('validation','You did not provide your password');
             $success = 0;
         }
-        $res = $this->DB->selectRow("
-            SELECT id, username, sha_pass_hash, locked FROM account
-            WHERE username='".$params['username']."'");
-		$res2 = $this->DB->selectRow("
-			SELECT * FROM mw_account_extend 
-			WHERE `account_id`='".$res['id']."'");
-        if($res['id'] < 1)
+		
+		// Load the users info from the DB
+        $res = $this->DB->selectRow("SELECT * FROM `account` WHERE `username`='".$params['username']."'");
+			
+		// If the result was false, then username is no good
+        if($res == FALSE)
 		{
 			$success = 0;
 			output_message('alert','Bad username');
 		}
+		else
+		{
+			$res2 = $this->DB->selectRow("SELECT * FROM `mw_account_extend` WHERE `account_id`='".$res['id']."'");
+		}
+		
+		// Check to see if the account is banned
         if($this->isBannedAccount($res['id']) == TRUE)
 		{
             output_message('error','Your account is currently banned');
             $success = 0;
         }
+		
+		// If the activation code is not NULL, the account is not activated
         if($res2['activation_code'] != NULL)
 		{
             output_message('error','Your account is not active. Please check your email to activate your account.');
             $success = 0;
         }
 		
+		// If any of the above checks returnes $success = 0; then login fails
         if($success != 1) 
 		{
 			return FALSE;
 		}
 		else
 		{
-			if( strtoupper($res['sha_pass_hash']) == strtoupper($params['sha_pass_hash']))
+			// Lets check to see if the posted password matches the DB password
+			if(strtoupper($res['sha_pass_hash']) == strtoupper($params['sha_pass_hash']))
 			{
 				$this->user['id'] = $res['id'];
 				$this->user['name'] = $res['username'];
+				
+				// generate an account key, and set the account key in the DB for login cookie checks
 				$generated_key = $this->generate_key();
 				$this->addOrUpdateAccountKeys($res['id'],$generated_key);
 				$uservars_hash = serialize(array($res['id'], $generated_key));
+				
+				// Prepare for cookie setting
 				$cookie_expire_time = intval($Config->get('account_key_retain_length'));
 				if(!$cookie_expire_time) 
 				{
@@ -142,16 +182,22 @@ class Account
 				(string)$cookie_name = $Config->get('site_cookie');
 				(string)$cookie_href = $Config->get('site_href');
 				(int)$cookie_delay = (time()+$cookie_expire_time);
+				
+				// Set cookie and return TRUE
 				setcookie($cookie_name, $uservars_hash, $cookie_delay, $cookie_href);
 				return TRUE;
 			}
-			else
+			else # Passwords didnt match in the DB, return FALSE
 			{
 				output_message('validation','Your password is incorrect');
 				return FALSE;
 			}
 		}
     }
+
+//	************************************************************
+// Main logout function, Sets an expired cookie over the current
+// cookie and removes the DB account key
 
     function logout()
     {
@@ -160,46 +206,64 @@ class Account
         $this->removeAccountKeyForUser($this->user['id']);
     }
 	
-	// Main register script
+//	************************************************************
+// Main register script
+// $params = array('username' => 'username', 'sha_pass_hash' => 'encrypted_pass', 'sha_pass_hash2' => 'encrypted_pass2', 
+// 		'email' => 'email', 'expansion' => 'expansion', 'password' => 'clean password');
+// $account_extend = array('secretq1' => '', 'secreta1' => '', 'secretq2' => '', 'secreta2 => '');
+
     function register($params, $account_extend = NULL)
     {
         global $Config;
         $success = 1;
+		
+		// Check to see if the params is empty, if so return FALSE
         if(empty($params)) 
 		{
-			return false;
+			return FALSE;
 		}
+		
+		// If the param username is empty
         if(empty($params['username']))
 		{
             output_message('validation','You did not provide your username');
             $success = 0;
         }
+		
+		// If the password hash is emtpy, OR the 2 posted passwords dont match
         if(empty($params['sha_pass_hash']) || $params['sha_pass_hash'] != $params['sha_pass_hash2'])
 		{
             output_message('validation','You did not provide your password or confirm pass');
             $success = 0;
         }
+		
+		// Is email is empty
         if(empty($params['email']))
 		{
             output_message('validation','You did not provide your email');
             $success = 0;
         }
+		
+		// check to see if the users IP is banned
 		if($this->isBannedIp($res['id']) == TRUE)
 		{
             output_message('error','Your IP Address is currently banned');
             $success = 0;
         }
+		
+		// If any of the above checks are flase, then reigster failed
         if($success != 1) 
 		{
-			return false;
+			return FALSE;
 		}
         unset($params['sha_pass_hash2']);
         $password = $params['password'];
         unset($params['password']);
 		
-		// If email activation is set
+		// If email activation is set in the config
         if((int)$Config->get('require_act_activation') == 1)
 		{
+			// Setup an activation key, Set locked to 1 so the user cant login, insert into DB
             $tmp_act_key = $this->generate_key();
             $params['locked'] = 1;
 			$acc_id = $this->DB->query("INSERT INTO account(
@@ -233,9 +297,8 @@ class Account
 						'".$_SERVER['REMOTE_ADDR']."',
 						'".$tmp_act_key."')
 					");
-                }
-				// We do want to insert into account extend
-                else 
+                } 
+                else # We do want to insert into account extend
 				{
                     $this->DB->query("INSERT INTO mw_account_extend(
 						`account_id`, 
@@ -256,7 +319,7 @@ class Account
 					");
                 }
 				
-				// Send email
+				// Send the activation email
                 $act_link = (string)$Config->get('site_base_href').'?p=account&sub=activate&id='.$u_id.'&key='.$tmp_act_key;
                 $email_text  = '== Account activation =='."\n\n";
                 $email_text .= 'Username: '.$params['username']."\n";
@@ -331,8 +394,10 @@ class Account
         }
     }
 	
-	// Last update set the current time under the account_extend database to get
-	// an approximate time when the user was last online. Post $user['id'] here.
+//	************************************************************
+// Last update set the current time under the account_extend database to get
+// an approximate time when the user was last online. Post $user['id'] here.
+
 	function lastvisit_update($uservars)
     {
         if($uservars['id'] > 0)
@@ -343,28 +408,38 @@ class Account
             }
         }
     }
+
+//	************************************************************
+// Get the account level of the ID
 	
 	function getgroup($g_id=FALSE)
 	{
         $res = $this->DB->selectRow("SELECT * FROM mw_account_groups WHERE account_level='".$g_id."'");
         return $res;
     }
+
+//	************************************************************
+// Sets the group of the user
 	
 	function setgroup($gid=1) // 1 - guest, 5- banned
     {
         $guest_g = $this->getgroup($gid);
         $this->user = array_merge($this->user,$guest_g);
     }
-	
-	// Converts the username:password into a SHA1 encryption
+
+//	************************************************************	
+// Converts the username:password into a SHA1 encryption
+
 	function sha_password($user, $pass)
 	{
 		$user = strtoupper($user);
 		$pass = strtoupper($pass);
 		return SHA1($user.':'.$pass);
 	}
-	
-	// Check if the username is available. Post user['username'] here.
+
+//	************************************************************	
+// Check if the username is available. Post user['username'] here.
+
     function isAvailableUsername($username)
 	{
         $res = $this->DB->count("SELECT COUNT(*) FROM account WHERE username='".$username."'");
@@ -378,7 +453,9 @@ class Account
 		}
     }
 
-	// Check if the email is available. Post an email address here.
+//	************************************************************
+// Check if the email is available. Post an email address here.
+
     function isAvailableEmail($email)
 	{
         $res = $this->DB->count("SELECT COUNT(*) FROM account WHERE email='".$email."'");
@@ -391,8 +468,10 @@ class Account
 			return FALSE; // email is not available
 		}
     }
-	
-	// Checks if the email is in valid format.
+
+//	************************************************************	
+// Checks if the email is in valid format.
+
     function isValidEmail($email)
 	{
         if(preg_match('#^.{1,}@.{2,}\..{2,}$#', $email)==1)
@@ -404,8 +483,10 @@ class Account
             return FALSE; // email is not valid
         }
     }
-	
-	// Checks if the register key is valid
+
+//	************************************************************	
+// Checks if the register key is valid
+
     function isValidRegkey($key)
 	{
         $res = $this->DB->selectCell("SELECT `id` FROM `mw_regkeys` WHERE `key`='".$key."'");
@@ -418,8 +499,10 @@ class Account
 			return FALSE; // key is not valid
 		}
     }
-	
-	// Checks is the account activation key is valid
+
+//	************************************************************
+// Checks is the account activation key is valid
+
     function isValidActivationKey($key)
 	{
         $res = $this->DB->selectCell("SELECT `account_id` FROM `mw_account_extend` WHERE `activation_code`='".$key."'");
@@ -432,20 +515,26 @@ class Account
 			return FALSE; // key is not valid
 		}
     }
-	
+
+//	************************************************************
+// Checks to see if the account is banned	
+
 	function isBannedAccount($account_id)
 	{
 		global $DB;
 		$check = $DB->count("SELECT COUNT(*) FROM `account_banned` WHERE `id`='".$account_id."' AND `active`=1");
 		if ($check > 0)
 		{
-			return TRUE;
+			return TRUE; // Account is banned
 		}
 		else
 		{
-			return FALSE;
+			return FALSE; // Account is not banned
 		}
 	}
+
+//	************************************************************
+// Checks to see of an IP address is banned
 	
 	function isBannedIp()
 	{
@@ -453,16 +542,18 @@ class Account
 		$check = $DB->count("SELECT COUNT(*) FROM `ip_banned` WHERE `ip`='".$_SERVER['REMOTE_ADDR']."'");
 		if ($check > 0)
 		{
-			return TRUE;
+			return TRUE; // IP is banned
 		}
 		else
 		{
-			return FALSE;
+			return FALSE; // IP is not banned
 		}
 	}
 	
-	// For mangos and trinity. Used to determine if the account is locked or not
-	// Returns TRUE of the account is locked, else FALSE
+//	************************************************************
+// For mangos and trinity. Used to determine if the account is locked or not
+// Returns TRUE of the account is locked, else FALSE
+
 	function isLockedAccount($id)
 	{
 		global $DB;
@@ -476,15 +567,19 @@ class Account
 			return FALSE;
 		}
 	}
-	
-	// Generate a unique key
+
+//	************************************************************	
+// Generate a unique key
+
     function generate_key()
     {
         $str = microtime(1);
         return sha1(base64_encode(pack("H*", md5(utf8_encode($str)))));
     }
 	
-	// Generate multiple keys. Post amount of keys needed
+//	************************************************************
+// Generate multiple keys. Post amount of keys needed
+
     function generate_keys($n)
     {
         set_time_limit(600);
@@ -500,13 +595,18 @@ class Account
         }
         return $keys;
     }
-	
-	// Deletes a register key
+
+//	************************************************************	
+// Deletes a register key
+
     function delete_key($key)
 	{
         $this->DB->query("DELETE FROM `mw_regkeys` WHERE `key`='".$key."'");
 		return TRUE;
     }
+
+//	************************************************************
+// This function bans an account, POST account id, reason, and banned by
 	
 	function banAccount($bannid, $banreason, $bannedby)
 	{
@@ -545,6 +645,9 @@ class Account
 		return TRUE;
 	}
 	
+//	************************************************************
+// Un Bans an account. Just need to post the ID
+
 	function unbanAccount($id)
 	{
 		$this->DB->query("UPDATE account_banned SET active='0' WHERE `id`='".$id."'");
@@ -553,9 +656,11 @@ class Account
         $this->DB->query("UPDATE `mw_account_extend` SET `account_level`='2' WHERE `account_id`='".$id."'");
 		return TRUE;
 	}
-	
-	// Gets all the users info from the database including username, email
-	// account level, id, and all sorts. post an account id here
+
+//	************************************************************	
+// Gets all the users info from the database including username, email
+// account level, id, and all sorts. post an account id here
+
 	function getProfile($acct_id=FALSE)
 	{
 		global $Config;
@@ -567,7 +672,9 @@ class Account
         return $res;
     }
 	
-	// Returns an account username. Post an account ID here.
+//	************************************************************
+// Returns an account username. Post an account ID here.
+
     function getLogin($acct_id=FALSE)
 	{
         $res = $this->DB->selectCell("SELECT `username` FROM `account` WHERE `id`='".$acct_id."'");
@@ -580,8 +687,9 @@ class Account
 			return $res;
 		}
     }
-	
-	// Gets an account id. Post username here
+
+//	************************************************************	
+// Gets an account id. Post username here
     function getAccountId($acct_name=FALSE)
 	{
         $res = $this->DB->selectCell("SELECT id FROM account WHERE username='".$acct_name."'");
@@ -594,8 +702,10 @@ class Account
 			return $res;
 		}
     }
-	
-	// Loads characters list for a specific account
+
+//	************************************************************	
+// Loads characters list for a specific account
+
 	function getCharacterList($id)
 	{
 		global $CDB;
@@ -607,21 +717,27 @@ class Account
 		return $list;
 	}
 	
-	// Loads secret questions from the Database and returns them in an array.
+//	************************************************************
+// Loads secret questions from the Database and returns them in an array.
+
 	function getSecretQuestions()
 	{
 		$getsc = $this->DB->select("SELECT * FROM `mw_secret_questions`");
 		return $getsc;
 	}
 	
-	// For mangos and trinity. Set locked to the $lock value
+//	************************************************************
+// For mangos and trinity. Set locked to the $lock value
+
 	function setLock($id, $lock)
 	{
 		$this->DB->query("UPDATE `account` SET `locked`='".$lock."' WHERE `id`='".$id."'");
 		return TRUE;
 	}
 	
-	// Sets an accounts email. Post an account id and new email address.
+//	************************************************************
+// Sets an accounts email. Post an account id and new email address.
+
 	function setEmail($id, $newemail)
 	{
 		$id = mysql_real_escape_string($id);
@@ -629,9 +745,11 @@ class Account
 		$this->DB->query("UPDATE `account` SET `email`='".$newemail."' WHERE `id`='$id' LIMIT 1");
 		return TRUE;
 	}
-	
-	// Sets the expansion for an account. Post an account id and Expansion number here.
-	// 2 = WotLK, 1 = TBC, 0 = Base
+
+//	************************************************************	
+// Sets the expansion for an account. Post an account id and Expansion number here.
+// 2 = WotLK, 1 = TBC, 0 = Base
+
 	function setExpansion($id, $nexp)
     {
         $id = mysql_real_escape_string($id);
@@ -639,8 +757,10 @@ class Account
         $this->DB->query("UPDATE `account` SET `expansion`='$nexp' WHERE `id`=$id");
         return TRUE;
     }
-	
-	// Sets a password for an account. Post an account id and New password here.
+
+//	************************************************************	
+// Sets a password for an account. Post an account id and New password here.
+
 	function setPassword($id, $newpass)
     {
         $id = mysql_real_escape_string($id);
@@ -657,9 +777,11 @@ class Account
 			return FALSE;
 		}
     }
-	
-	// Sets the secret questions and answers for an account.
-	// Post in order, account id, question 1 ,  answer 1, question 2, answer 2.
+
+//	************************************************************	
+// Sets the secret questions and answers for an account.
+// Post in order, account id, question 1 ,  answer 1, question 2, answer 2.
+
 	function setSecretQuestions($id, $sq1, $sa1, $sq2, $sa2)
 	{
 		$sq1 = strip_if_magic_quotes($sq1);
@@ -692,6 +814,9 @@ class Account
 			return 4; // Answers contained symbols
 		}
 	}
+
+//	************************************************************
+// Resets users secret questions
 	
 	function resetSecretQuestions($id)
 	{
@@ -700,8 +825,13 @@ class Account
 	}
 	
 	
-	// === ONLINE FUNCTIONS === //
-    function onlinelist_update()  // Updates list & delete old
+// === ONLINE FUNCTIONS === //
+
+//	************************************************************
+// Updates the online list based off of whos been online in the last 5 minutes
+// Deletes the old
+
+    function onlinelist_update()
     {
         $GLOBALS['guests_online'] = 0;
         $rows  = $this->DB->select("SELECT * FROM `mw_online`");
@@ -725,7 +855,10 @@ class Account
         }
     }
 
-    function onlinelist_add() // Add or update list with new user
+//	************************************************************
+// Adds the user to the update list
+
+    function onlinelist_add()
     {
         global $user;
 
@@ -757,7 +890,10 @@ class Account
         }
     }
 
-    function onlinelist_addguest() // Add or update list with new guest
+//	************************************************************
+// Adds a guest to the online list
+
+    function onlinelist_addguest()
     {
         global $user;
 
@@ -785,7 +921,11 @@ class Account
     }
 
 	
-	// === ACCOUNT KEY FUNCTIONS === //
+// === ACCOUNT KEY FUNCTIONS === //
+
+//	************************************************************
+// Checks to see if the posted account key matches the DB account key
+
 	function matchAccountKey($id, $key) 
 	{
 		$this->clearOldAccountKeys();
@@ -810,6 +950,9 @@ class Account
 		}
 	}
 
+//	************************************************************
+// Deletes all the old account keys that are expired
+
 	function clearOldAccountKeys() 
 	{
 		global $DB;
@@ -826,6 +969,9 @@ class Account
 		$this->DB->query("DELETE FROM mw_account_keys WHERE assign_time < ".$expire_time."");
 	}
 
+//	************************************************************
+// Adds or updates the account keys in the DB for a user
+
 	function addOrUpdateAccountKeys($id, $key) 
 	{
 		global $DB;
@@ -841,6 +987,9 @@ class Account
 			$this->DB->query("UPDATE `mw_account_keys` SET `key`='$key', `assign_time`='$current_time' WHERE `id`='$id'");
 		}
 	}
+
+//	************************************************************
+// Removes the account key for a user ( basically logout )
 
 	function removeAccountKeyForUser($id) 
 	{

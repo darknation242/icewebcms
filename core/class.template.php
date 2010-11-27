@@ -1,11 +1,9 @@
 <?php
 /* 	
 	MangosWeb Template class, Written by Wilson212. The point
-	of this template class is to load the pages of the users 
-	current selected template, and return that information
-	to the index file. This template class also sets the cookies
-	and reads the cookies to determine if the user has already 
-	chosen a template or not in the past.
+	of this template class is to set the cookies, and read the 
+	cookies to determine if the user has already chosen a 
+	template or not in the past.
 */
 
 
@@ -18,7 +16,9 @@ class Template
 		$this->Init();
 	}
 	
-	// This function sets up what template is going to be used, based on what the user has picked as his/her template
+//	************************************************************
+// This function sets up what template is going to be used, based on what the user has picked as his/her template
+
 	public function Init()
 	{
 		global $user, $Config, $DB;
@@ -135,9 +135,11 @@ class Template
 			return TRUE;
 		}
 	}
-	
-	// Once the template is decided, we must load the xml that contains the template information, and return it back to the
-	// index page
+
+//	************************************************************	
+// Once the template is decided, we must load the xml that contains the template information, and return it back to the
+// index page
+
 	public function loadTemplateXML()
 	{
 		$this->xml = @simplexml_load_file($this->path);

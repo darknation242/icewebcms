@@ -23,7 +23,9 @@ class Update
 		$this->handle = FALSE;
 	}
 	
-	// Standard check to see if the server is online function
+//	************************************************************	
+// Standard check to see if the server is online function
+
 	function connect()
 	{
 		$this->handle = @fsockopen('www.keyswow.com', 80, $errno, $errstr, 3);
@@ -36,9 +38,11 @@ class Update
 			return FALSE;
 		}
 	}
-	
-	// This function should always be used FIRST! checks to  see if server is online, 
-	// and if there's updates
+
+//	************************************************************		
+// This function should always be used FIRST! checks to  see if server is online, 
+// and if there's updates
+
 	function check_for_updates() 
 	{
 		if($this->connect() == TRUE)
@@ -62,8 +66,10 @@ class Update
 			return FALSE;
 		}
 	}
-	
-	// If there is updates, then this function returns the next update version number.
+
+//	************************************************************		
+// If there is updates, then this function returns the next update version number.
+
 	function get_next_update()
 	{
 		$ups = explode(",", $this->updates );
@@ -82,8 +88,10 @@ class Update
 		$this->get_server_variables();
 		return $this->update_version;
 	}
-	
-	// This function get the list of update files, and their sizes
+
+//	************************************************************	
+// This function get the list of update files, and their sizes
+
 	function get_server_variables() 
 	{
 		$variables_file_address = $this->server_address."update_". (string)$this->update_version ."/update_vars.php";
@@ -112,8 +120,10 @@ class Update
 			}
 		}
 	}
-	
-	// Prints updated file list
+
+//	************************************************************	
+// Prints updated file list
+
 	function print_updated_files_list() 
 	{
 		$filelist = "";
@@ -123,6 +133,9 @@ class Update
 		}
 		return $filelist;
 	}
+
+//	************************************************************
+// Prints the Update information info
 	
 	function print_update_info()
 		{
@@ -134,7 +147,9 @@ class Update
 		return $infolist;
 	}
 
-	// This function checks to see if a file is writable
+//	************************************************************	
+// This function checks to see if a file is writable
+
 	private function is__writable($path) 
 	{
 		//Make sure to use a "/" after trailing folders
@@ -160,8 +175,10 @@ class Update
 		}
 	    return TRUE;
 	}
-	
-	// Checks if the files are writable
+
+//	************************************************************		
+// Checks if the all the files in the update are writable
+
 	function check_if_are_writable() 
 	{
 		$err = 0;
@@ -187,8 +204,10 @@ class Update
 		}
 		return $return;
 	}
-	
-	// Gets the total character length of all updated files
+
+//	************************************************************	
+// Gets the total character length of all updated files
+
 	function get_total_charlen() 
 	{
 		$total_len = 0;
@@ -199,8 +218,9 @@ class Update
 		return $total_len;
 	}
 
-	
-	// Main update function
+//	************************************************************		
+// Main update function
+
 	function update_files()
 	{
 		$err = "";

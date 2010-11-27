@@ -12,7 +12,9 @@ class Config
 		$this->Load();
 	}
 	
-	// Loads the config file, and defines the variables
+//	************************************************************
+//	Loads the config files.
+
 	function Load() 
 	{
 		if ( file_exists($this->configFile ) ) 
@@ -34,7 +36,9 @@ class Config
 		}
 	}
 	
-	// Returns the config variable requested
+//	************************************************************
+// Returns the config variable requested
+
 	function get( $key ) 
 	{
 		if (isset($this->data[ $key ])) 
@@ -43,20 +47,26 @@ class Config
 		}
 	}
 	
-	
+//	************************************************************
+// Returns the requested DB key from the DB config file
+
 	function getDbInfo( $key ) 
 	{
 		include($this->path_protectedconf);
 		return $db[ $key ];
 	}
 	
-	// Sets a variable
+//	************************************************************
+// Sets a variable
+
 	function set( $key, $val ) 
 	{
 		$this->data[ $key ] = $val;
 	}
-	
-	// Saves all set config variables, and makes a backup of the current config file
+
+//	************************************************************
+// Saves all set config variables to the config file, and makes a backup of the current config file
+
 	function Save() 
 	{
 		$cfg  = "<?php\n";
@@ -73,8 +83,11 @@ class Config
 		}
 		$cfg .= "?>";
 		
+		// Copy the current config file, and make a new config file for backup.
+		// Put the current config contents in the backup config file
 		@copy( $this->configFile, $this->configFile.'.bak' );
-		if (phpversion() < 5) 
+		
+		if (phpversion() < 5) # If php version is less than 5
 		{
 			$file = @fopen($this->configFile, 'w');
 			if ($file === false) 

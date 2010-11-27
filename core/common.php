@@ -51,6 +51,7 @@ $realm_timezone_def = array(
 
 //======= SITE FUNCTIONS =======//
 
+//	************************************************************	
 // Set up out messages like error and success boxes
 function output_message($type, $text, $file='', $line='')
 {
@@ -59,6 +60,7 @@ function output_message($type, $text, $file='', $line='')
     echo "<div class=\"".$type."\">".$text."</div>";
 }
 
+//	************************************************************	
 // Custom Error Handler
 function customError($errno, $errstr)
 {
@@ -69,8 +71,10 @@ function customError($errno, $errstr)
 
 // ======== Realm Functions ======== //
 
+//	************************************************************	
 // Gets the realmlist from realm DB. Enabled is whether the realm
 // has been enabled for view by users in the ACP.
+
 function getRealmlist($enabled = 1)
 {
 	global $DB;
@@ -85,7 +89,9 @@ function getRealmlist($enabled = 1)
 	return $realms;
 }
 
+//	************************************************************	
 // Gets all Columns on the table for the selected realm
+
 function get_realm_byid($id)
 {
     global $DB;
@@ -93,11 +99,13 @@ function get_realm_byid($id)
     return $search_q;
 }
 
+//	************************************************************	
 /* 
 	Used for checking whether a realm is online of not
 	returns TRUE if realm is Online
 	returns FALSE if realm is Offline
 */
+
 function check_port_status($ip, $port, $timeout)
 {
 	if(!isset($timeout))
@@ -116,8 +124,10 @@ function check_port_status($ip, $port, $timeout)
     }
 }
 
- // Returns poulation rating of a server. Ex: Low, Medium, High. 
- // $n = server population
+//	************************************************************	
+// Returns poulation rating of a server. Ex: Low, Medium, High. 
+// $n = server population
+
 function population_view($n) 
 {
     global $lang;
@@ -138,6 +148,10 @@ function population_view($n)
 }
 
 // ======== Print Gold Functions ======== //
+
+//	************************************************************
+// Gets the fractions to figure how much gold, silver, and copper
+	
 function parse_gold($varnumber) 
 {
 
@@ -148,6 +162,9 @@ function parse_gold($varnumber)
 
 	return $gold;
 }
+
+//	************************************************************	
+// Adds the images to the print gold function
 
 function get_print_gold($gold_array) 
 {
@@ -168,8 +185,10 @@ function get_print_gold($gold_array)
 	}
 }
 
+//	************************************************************	
 // Main function for actually "printing" the gold
 // Use this function to get the gold print out
+
 function print_gold($gvar) 
 {
 	if($gvar == '---') 
@@ -255,6 +274,10 @@ function send_email($goingto,$toname,$sbj,$messg)
 	}
 }
 
+//	************************************************************	
+// Loads all the smilies in the smily directory and returns it
+// in an array
+
 function load_smiles($dir='images/smiles/')
 {
     $allfiles = scandir($dir);
@@ -264,12 +287,14 @@ function load_smiles($dir='images/smiles/')
 
 // ======== Misc functions ======= // 
 
+//	************************************************************	
 /* 
 	A redirect function.
 	$linkto is the destination
 	$type 0 = <meta>, 1 = header
 	$wait_sec is used only in <meta>
 */
+
 function redirect($linkto,$type=0,$wait_sec=0)
 {
     if($linkto)
@@ -284,6 +309,9 @@ function redirect($linkto,$type=0,$wait_sec=0)
         }
     }
 }
+
+//	************************************************************	
+// Checks a string for illegal symbols
 
 function check_for_symbols($string, $space_check = 0)
 {
@@ -300,7 +328,9 @@ function check_for_symbols($string, $space_check = 0)
     return FALSE;
 }
 
-// used in account retrieve
+//	************************************************************	
+// a basic stripslashes function using get if magic quotes
+
 function strip_if_magic_quotes($value)
 {
     if (get_magic_quotes_gpc()) 
@@ -310,7 +340,9 @@ function strip_if_magic_quotes($value)
     return $value;
 }
 
+//	************************************************************	
 // Replaces the first letter of the text with an image letter
+
 function add_pictureletter($text)
 {
 	global $currtmp;
@@ -326,7 +358,9 @@ function add_pictureletter($text)
     return $output;
 }
 
+//	************************************************************	
 // Used to generate a random password for the password revocery script.
+
 function random_string($counts)
 {
     $str = "abcdefghijklmnopqrstuvwxyz"; //Count 0-25
@@ -349,7 +383,9 @@ function random_string($counts)
 
 // ========== BB code -> HTML / HTML -> BBcode functions =========== //
 
+//	************************************************************	
 // my_preview switches from BBcode to HTML
+
 function my_preview($text,$userlevel=0) 
 {
     if($userlevel<1)
@@ -367,7 +403,6 @@ function my_preview($text,$userlevel=0)
     $text = preg_replace("/\\[s\\](.*?)\\[\\/s\\]/s","<s>$1</s>",$text);
     $text = preg_replace("/\\[hr\\]/s","<hr>",$text);
     $text = preg_replace("/\\[code\\](.*?)\\[\\/code\\]/s","<code>$1</code>",$text);
-    //$text = preg_replace("/\[blockquote\](.*?)\[\/blockquote\]/s","<blockquote>$1</blockquote>",$text);
     if (strpos($text, 'blockquote') !== false)
     {
         if(substr_count($text, '[blockquote') == substr_count($text, '[/blockquote]')){
@@ -376,7 +411,6 @@ function my_preview($text,$userlevel=0)
             $text = preg_replace('#\[\/blockquote\]\s*#', '</div></blockquote>', $text);
         }
     }
-    // Blizz quote <small><hr color="#9e9e9e" noshade="noshade" size="1"><small class="white">Q u o t e:</small><br>Text<hr color="#9e9e9e" noshade="noshade" size="1"></small>
     $text = preg_replace("/\\[img\\](.*?)\\[\\/img\\]/s","<img src=\"$1\" align=\"absmiddle\">",$text);
     $text = preg_replace("/\\[attach=(\\d+)\\]/se","check_attach('\\1')",$text);
     $text = preg_replace("/\\[url=(.*?)\\](.*?)\\[\\/url\\]/s","<a href=\"$1\" target=\"_blank\">$2</a>",$text);
@@ -387,7 +421,9 @@ function my_preview($text,$userlevel=0)
     return $text;
 }
 
+//	************************************************************	
 // my_previewreverse switches from HTML to BBcode
+
 function my_previewreverse($text)
 {
     $text = str_replace('<br />','',$text);
@@ -397,7 +433,6 @@ function my_previewreverse($text)
     $text = preg_replace("/<s>(.*?)<\\/s>/s","[s]$1[/s]",$text);
     $text = preg_replace("/<hr>/s","[hr]",$text);
     $text = preg_replace("/<code>(.*?)<\\/code>/s","[code]$1[/code]",$text);
-    //$text = preg_replace("/<blockquote>(.*?)<\/blockquote>/s","[blockquote]$1[/blockquote]",$text);
     if (strpos($text, 'blockquote') !== false)
     {
         if(substr_count($text, '<blockquote>') == substr_count($text, '</blockquote>'))
@@ -415,7 +450,9 @@ function my_previewreverse($text)
     return $text;
 }
 
+//	************************************************************	
 // Makes a MangosWeb URL
+
 function mw_url($page, $subpage = NULL, $params = NULL, $encodeentities = TRUE) 
 {
 	global $Config;
@@ -444,6 +481,8 @@ function mw_url($page, $subpage = NULL, $params = NULL, $encodeentities = TRUE)
     return $encodeentities ? htmlentities($url) : $url;
 }
 
+//	************************************************************
+// A basic paginate code.
 
 function paginate($num_pages, $cur_page, $link_to)
 {

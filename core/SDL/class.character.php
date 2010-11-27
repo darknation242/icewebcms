@@ -6,6 +6,9 @@ class Character
 	{
 		$this->constructCharInfo();
 	}
+
+//	************************************************************
+// Constructs character info fields
 	
 	function constructCharInfo()
 	{
@@ -43,6 +46,10 @@ class Character
 		);
 	}
 	
+	
+//	************************************************************
+// Adjusts the the level for character id, $mod is the adjustment
+
 	public function adjustLevel($id, $mod)
 	{
 		global $CDB;
@@ -58,6 +65,9 @@ class Character
 			return TRUE;
 		}
 	}
+
+//	************************************************************
+// Adjusts the money of character id, $mod is the adjustment
 	
 	public function adjustMoney($id, $mod)
 	{
@@ -74,6 +84,9 @@ class Character
 			return TRUE;
 		}
 	}
+
+//	************************************************************
+// Gets the account ID tied to the a characters guid
 	
 	public function getAccountId($guid)
     {
@@ -90,6 +103,9 @@ class Character
 		}
     }
 	
+//	************************************************************
+// Gets the level for character id
+
 	public function getLevel($guid) 
 	{
 		global $CDB;
@@ -104,7 +120,10 @@ class Character
 			return $row['level'];
 		}
     }
-	
+
+//	************************************************************
+// Gets the class for character id
+
 	public function getClass($guid) 
 	{
 		global $CDB;
@@ -120,6 +139,9 @@ class Character
 		}
     }
 	
+//	************************************************************
+// Gets the race for character id
+
 	public function getRace($guid) 
 	{
 		global $CDB;
@@ -134,6 +156,9 @@ class Character
 			return $row['race'];
 		}
     }
+
+//	************************************************************
+// Gets the gender for character id
 	
 	public function getGender($guid) 
 	{
@@ -149,8 +174,10 @@ class Character
 			return $row['gender'];
 		}
     }
-	
-	// Returns 1 = Ally, 0 = horde
+
+//	************************************************************
+// Gets the faction for character id. Returns 1 = Ally, 0 = horde
+
 	public function getFaction($guid)
     {
 		global $CDB;
@@ -173,6 +200,9 @@ class Character
 			}
 		}
     }
+
+//	************************************************************
+// Gets the ammount of gold for character id
 	
 	public function getMoney($guid) 
 	{
@@ -189,6 +219,9 @@ class Character
 		}
     }
 	
+//	************************************************************
+// Gets the name of the character id
+
 	function getName($guid)
 	{
 		global $CDB;
@@ -203,7 +236,10 @@ class Character
 			return $row;
 		}
 	}
-	
+
+//	************************************************************
+// Checks if the character is in a guild or not
+
 	public function checkGuild($guid)
 	{
 		global $CDB;
@@ -217,8 +253,11 @@ class Character
 			return TRUE;
 		}
 	}
-	
-	 public function isOnline($guid)
+
+//	************************************************************
+// Checks to see if the character is online. returns TRUE if character is online
+
+	public function isOnline($guid)
     {
 		global $CDB;
 		$guid = mysql_real_escape_string($guid);
@@ -232,7 +271,10 @@ class Character
 			return FALSE;
 		}
     }
-	
+
+//	************************************************************
+// Checks if the character name exists or not
+
 	public function checkNameExists($name)
 	{
 		global $CDB;
@@ -247,9 +289,11 @@ class Character
 		}
 	}
 	
-	// === RACE / FACTION CHANGER SCRIPTS (borrowed form dp92 :) )=== //
+// === RACE / FACTION CHANGER SCRIPTS (borrowed form dp92 :) )=== //
 	
-	// This function returns a TRUE if the givien race and class are a allowed mix.
+//	************************************************************
+// This function returns a TRUE if the givien race and class are an allowed mix.
+
 	public function goodRaceClassMix($race, $class)
 	{
 		switch ($race) 
@@ -317,8 +361,10 @@ class Character
         }
          return FALSE;
 	}
-	
-	// Gets the characters home reputation, ex: Human = Stormwind
+
+//	************************************************************
+// Gets the characters home reputation, ex: Human = Stormwind
+
 	public function getHomeRep($race)
 	{
 		switch ($race) 
@@ -355,8 +401,10 @@ class Character
 				 break;
         }
 	}
-	
-	// Deletes users mounts. Mainly used when changing faction.
+
+//	************************************************************	
+// Deletes users mounts. Mainly used when changing faction.
+
 	public function delMounts($guid, $race)
 	{
 		global $CDB;
@@ -415,8 +463,10 @@ class Character
         }
 		return TRUE;
 	}
-	
-	// Gives the race his racial mounts
+
+//	************************************************************	
+// Gives the race his racial mounts
+
 	function addMounts($guid,$race) 
 	{
 		global $CDB;
@@ -477,9 +527,12 @@ class Character
 		return TRUE;
 	}
 	
-	// === END RACE / FACTION CHANGER SCRIPTS === //
+// === END RACE / FACTION CHANGER SCRIPTS === //
 	
-	// ==== SET FUNCTIONS ==== //
+// ==== SET FUNCTIONS ==== //
+
+//	************************************************************
+// Sets the new name for character ID
 	
 	public function setName($guid, $newname)
 	{
@@ -490,6 +543,9 @@ class Character
 		$send = $CDB->query("UPDATE `characters` SET `name`='$newname' WHERE `guid`='$guid'");
 		return TRUE;
 	}
+
+//	************************************************************
+// Sets the account ID for character ID
 	
 	public function setAccountId($guid, $accountId)
     {
@@ -499,6 +555,9 @@ class Character
         $CDB->query("UPDATE `characters` SET `account` = '$acct' WHERE `guid` = '$guid' LIMIT 1");
         return true;
     }
+
+//	************************************************************
+// Sets the ammount of gold for character ID
 	
 	public function setMoney($id, $newmoney)
 	{
@@ -514,7 +573,9 @@ class Character
 			return TRUE;
 		}
 	}
-	
+
+//	************************************************************
+// Sets the level for character ID	
 	public function setLevel($id, $newlvl)
 	{
 		global $CDB;
@@ -529,7 +590,10 @@ class Character
 			return TRUE;
 		}
 	}
-	
+
+//	************************************************************
+// Sets the amount of expieriance for character ID	
+
 	public function setXp($id, $exp)
 	{
 		global $CDB;
@@ -545,9 +609,11 @@ class Character
 		}
 	}
 	
-	// === At Login Functions === //
-	
-	// Rename (flag = 1)
+
+// === At Login Functions === //
+
+//	************************************************************
+// Rename (flag = 1)
 	public function setRename($id)
 	{
 		global $CDB;
@@ -563,7 +629,8 @@ class Character
 		}
 	}
 	
-	// Reset Talents (flag = 4)
+//	************************************************************
+// Resets talents (flag = 4)
 	public function setResetTalents($id)
 	{
 		global $CDB;
@@ -579,7 +646,8 @@ class Character
 		}
 	}
 	
-	// Re-Customize (flag = 8)
+//	************************************************************
+// Re-Customize (flag = 8)
 	public function setCustomize($id)
 	{
 		global $CDB;
@@ -595,6 +663,9 @@ class Character
 		}
 	}
 	
+//	************************************************************
+// Resets all `at_login`'s to 0
+
 	public function resetAtLogin($id)
 	{
 		global $CDB;

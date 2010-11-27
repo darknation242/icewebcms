@@ -36,6 +36,10 @@ class Core
 		return TRUE;
 	}
 	
+//	************************************************************	
+// Set the site globals and determine what language and realm
+// the user has selected. If no cookie set, then set one
+
 	function setGlobals()
 	{
 		global $Config;
@@ -80,12 +84,14 @@ class Core
 			setcookie("cur_selected_realm", (int)$Config->get('default_realm_id'), time() + (3600 * 24 * 365));
 		}
 	}
-	
-	/*
-		Loads the server permissions such as allowing fopen
-		to open a url. Als checks to see of the function exists
-		fsockopen.
-	*/
+
+//	************************************************************	
+/*
+	Loads the server permissions such as allowing fopen
+	to open a url. Als checks to see of the function exists
+	fsockopen.
+*/
+
 	function load_permissions()
 	{
 		$allow_url_fopen = ini_get('allow_url_fopen');
@@ -102,7 +108,10 @@ class Core
 	}
 	
 	
-	// === CACHING FUNCTIONS === //
+// === CACHING FUNCTIONS === //
+
+//	************************************************************	
+// Checks is the file ID is cached, and is current on time.
 
 	function isCached($id)
 	{
@@ -127,6 +136,10 @@ class Core
 		}		
 	}
 
+//	************************************************************	
+// Loads the html code from the cached file, and returns it in
+// a string
+
 	function getCache($id)
 	{
 		// Check if file exists incase isCache wasnt checked first. Else return false
@@ -140,13 +153,18 @@ class Core
 		}		
 	}
 
+//	************************************************************
+// Writes to a cache file ($id)
+
 	function writeCache($id, $content)
 	{
 		// Write the cache file
 		file_put_contents('core/cache/'.$id.'.cache', $content);
 	}
-	
-	// Clean out all cache files. For individual delete, use deleteCache 
+
+//	************************************************************		
+// Clean out all cache files. For individual delete, use deleteCache 
+
 	function clearCache()
 	{
 		// get a list of all files and directories
@@ -161,13 +179,18 @@ class Core
 		}
 		return TRUE;
 	}
+
+//	************************************************************	
+// Deletes a cache file with the name of $id
 	
 	function deleteCache($id)
 	{
 		unlink('core/cache/'.$id); #Remove file
 	}
 	
-	// Return the next cache update time on a file.
+//	************************************************************	
+// Return the next cache update time on a file.
+
 	function getNextUpdate($filename)
 	{
 		return (fileatime($filename) + $this->Cache_Refresh_Time) - time();
