@@ -15,17 +15,21 @@ class Core
 	{
 		$this->Initialize();
 	}
-	
+
+//	************************************************************	
+// Main initialize function. Sets the path in the config for the site
+
 	function Initialize()
 	{
 		global $Config;
 		$this->Cache_Refresh_Time = (int)$Config->get('cache_expire_time');
-		$this->copyright = 'Powered by MangosWeb Enahnced version ' . $this->version . ' &copy; 2009-2010, <a href="http://keyswow.com">KeysWow Dev Team</a>.
+		$this->copyright = 'Powered by MangosWeb Enhanced version ' . $this->version . ' &copy; 2009-2010, <a href="http://keyswow.com">KeysWow Dev Team</a>.
 			All Rights Reserved.';
 
 		// Fill in the config with the proper directory info if the directory info is wrong
 		define('SITE_DIR', dirname( $_SERVER['PHP_SELF'] ).'/');
-		define('SITE_HREF', str_replace('//', '/', SITE_DIR));
+		define('PRE_SITE_HREF', str_replace('//', '/', SITE_DIR));
+		define('SITE_HREF', stripslashes(PRE_SITE_HREF));
 		define('SITE_BASE_HREF', 'http://'.$_SERVER["HTTP_HOST"]. SITE_HREF);
 		if($Config->get('site_base_href') !== SITE_BASE_HREF)
 		{

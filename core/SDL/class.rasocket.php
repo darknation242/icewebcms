@@ -8,7 +8,11 @@ class RA
     private $errorstr, $errorno;
     private $auth;
     public $com;
+	
+	var $logFile = 'core/logs/ra.log';
+	var $consoleReturn = array();
 
+//	************************************************************
     /**
       Class constructer.
     */
@@ -17,6 +21,7 @@ class RA
         $this->handle = FALSE;
     }
 
+//	************************************************************
     /**
       Class destructor. Closes the connection.
       Called with unset($parent).
@@ -30,6 +35,7 @@ class RA
         }
     }
 
+//	************************************************************
     /**
       Once connected to the server, this allows you to login
       Returns 0 if it isn't connected yet.
@@ -51,6 +57,8 @@ class RA
 
         if(substr(trim(fgets($this->handle)), 0, 1) != "+")
 		{
+			$this->authReturn = trim(fgets($this->handle));
+			$this->writeLog($this->authReturn);
 			return 2;
 		}
         else
@@ -60,6 +68,7 @@ class RA
         }
     }
 
+//	************************************************************
     /**
       Attempts to connect to console. Returns false if it was unable to connect.
       Returns true if it is successfully connected.
@@ -72,18 +81,30 @@ class RA
 		{
 			fclose($this->handle);
 		}
-        $this->handle = @fsockopen($host, $port, $errorno, $errorstr, 5);
+        $this->handle = @fsockopen($host, $port, $errno, $errstr, 3);
         if(!$this->handle)
 		{
 			return FALSE;
 		}
         else 
 		{
-            $this->consoleReturn = trim(fgets($this->handle));
             return TRUE;
         }
     }
 	
+//	************************************************************	
+// Writes into the log file, a message
+
+	private function writeLog($msg)
+	{
+		$outmsg = date('Y-m-d H:i:s')." : ".$msg."<br />\n";
+		
+		$file = fopen($this->logFile,'a');
+		fwrite($file, $outmsg);
+		fclose($file);
+	}
+
+//	************************************************************	
 	 /**
       Inputs a command into an active connection to MaNGOS/Trinity
       Adds the output of the console into ralog.
@@ -97,8 +118,7 @@ class RA
 		global $Config;
 		if($type == 0)
 		{
-			$this->connect($shost, $remote[1]);
-			if(!$this->handle)
+			if(!$this->connect($shost, $remote[1]))
 			{
 				return 0;
 			}
@@ -107,9 +127,22 @@ class RA
 			{
 				return 2;
 			}
-			fwrite($this->handle, $command."\n");
-			usleep(200);
-			$this->consoleReturn = trim(fgets($this->handle));
+			
+			if(is_array($command))
+			{
+				foreach($command as $cmd)
+				{
+					fwrite($this->handle, $cmd."\n");
+					usleep(500);
+					$this->consoleReturn[] = trim(fgets($this->handle));
+				}
+			}
+			else
+			{
+				fwrite($this->handle, $command."\n");
+				usleep(200);
+				$this->consoleReturn[] = trim(fgets($this->handle));
+			}
 			return 1;
 		}
 		else
@@ -118,16 +151,18 @@ class RA
 			try
 			{
 				$result = $client->executeCommand(new SoapParam($command, "command"));
-				$this->consoleReturn = $result;
+				$this->consoleReturn[] = $result;
 			}
 			catch(Exception $e)
 			{
-				$this->consoleReturn = $e->getMessage();
+				$this->consoleReturn[] = $e->getMessage();
 			}
 			return 1;
 		}
     }
-	
+
+//	************************************************************
+// Setups the Soap Handle	
 	private function soapHandle($shost, $remote)
 	{
 		global $Config, $DB;
@@ -155,7 +190,8 @@ class RA
 		}
 		return $client;
 	}
-	
+
+//	************************************************************	
 	/*
 		Main sending function for the site
 		This function gets the RA info for the realm.

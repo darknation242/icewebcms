@@ -16,7 +16,7 @@ if($shop_items != FALSE)
 	{
 		write_metalborder_header();
 		echo "
-			<form action='?p=shop' method='POST'>
+			<form action='". mw_url('shop', 'checkout') ."' method='POST'>
 			<input type='hidden' name='action' value='step2'>
 			<input type='hidden' name='id' value='".$package['id']."'>
 			<table cellpadding='3' cellspacing='0' width='100%'>

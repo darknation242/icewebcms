@@ -134,7 +134,7 @@ class Account
         if($res == FALSE)
 		{
 			$success = 0;
-			output_message('alert','Bad username');
+			output_message('error','Bad username');
 		}
 		else
 		{
@@ -181,7 +181,7 @@ class Account
 				}
 				(string)$cookie_name = $Config->get('site_cookie');
 				(string)$cookie_href = $Config->get('site_href');
-				(int)$cookie_delay = (time()+$cookie_expire_time);
+				(int)$cookie_delay = (time() + $cookie_expire_time);
 				
 				// Set cookie and return TRUE
 				setcookie($cookie_name, $uservars_hash, $cookie_delay, $cookie_href);
