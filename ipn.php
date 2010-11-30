@@ -14,8 +14,12 @@ $DB = new Database(
 	$Config->getDbInfo('db_name')
 );
 
+// Set test mode features (TRUE or FALSE)
+$Paypal->testMode(TRUE);
+
 // Lets check to see if we are valid or not
 $Paypal->setLogFile('core/logs/ipn_log.txt');
+
 $check = $Paypal->checkPayment($_POST);
 if($check == TRUE)
 {
