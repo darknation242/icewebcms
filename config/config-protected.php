@@ -4,7 +4,7 @@ $db = array(
 'db_port'         => '3306',
 'db_username'     => 'root',
 'db_password'     => 'ascent',
-'db_name'         => 'new_realmd',
+'db_name'         => 'mangos_realmd',
 'db_encoding'     => 'utf8',
 );
 ?>

@@ -458,7 +458,7 @@ function output_message($type, $text)
 						die('<div class="error">No account name was given. Please <a href="javascript: history.go(-1)">go back</a> and correct it.</div>');
 					}
 					//Password hash generator
-					function sha_password($user,$pass)
+					function sha_password($user, $pass)
 					{
 						$user = strtoupper($user);
 						$pass = strtoupper($pass);
@@ -479,8 +479,8 @@ function output_message($type, $text)
 					else 
 					{
 						// No such account, creating one, in this case pwd is needed, so checking whether it's provided...
-						$password = sha_password($_POST['account'], $_POST['passw']);
-						mysql_query("INSERT INTO `account` (`username`, `sha_pass_hash`) VALUES ('".$_POST['account']."', '$password' );");
+						$password = sha_password($_POST['account'], $_POST['pass']);
+						mysql_query("INSERT INTO `account` (`username`, `sha_pass_hash`) VALUES ('".$_POST['account']."', '".$password."' );");
 						$accountid = mysql_query("SELECT `id` FROM `account` WHERE `username` LIKE '".$_POST['account']."'");
 						$acct = mysql_fetch_assoc($accountid);
 						mysql_query("INSERT INTO `mw_account_extend` (`account_id`, `account_level`) VALUES ('".$acct['id']."', '4')");

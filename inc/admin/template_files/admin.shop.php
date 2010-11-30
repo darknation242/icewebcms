@@ -189,14 +189,21 @@ else
 								<tr>
 									<td width='10%' align='center'>".$row['id']."</td>
 									<td width='40% align='center'><center>";
-									$item_name = $WDB->selectCell("SELECT `name` FROM `item_template` WHERE entry='".$row['item_number']."'");
-									if($item_name == FALSE) 
-									{ 
-										echo "<font color='red'> INVALID ITEM ID!</font>"; 
+									if($row['item_number'] != 0)
+									{
+										$item_name = $WDB->selectCell("SELECT `name` FROM `item_template` WHERE entry='".$row['item_number']."'");
+										if($item_name == FALSE) 
+										{ 
+											echo "<font color='red'> INVALID ITEM ID!</font>"; 
+										}
+										else
+										{ 
+											echo "<a href='http://www.wowhead.com/?item=".$row['item_number']."' target='_blank'>".$item_name."</a>"; 
+										}
 									}
 									else
-									{ 
-										echo "<a href='http://www.wowhead.com/?item=".$row['item_number']."' target='_blank'>".$item_name."</a>"; 
+									{
+										echo "No Item";
 									}
 									if($row['itemset'] != 0) 
 									{ 

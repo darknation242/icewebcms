@@ -17,10 +17,20 @@ builddiv_start(1, 'Shop Checkout');
 							<table width='545' style="border-width: 1px; border-style: solid; border-color: black; background-image: url('<?php echo $Template['path']; ?>/images/light3.jpg');">
 							<tr>
 								<td>
-									<table border='0' cellspacing='0' cellpadding='4' width='540'>
+									<?php
+										// We put this here so that when the flush kicks in, it displays this message
+										// If we put this just before the flush, it doesnt flush for some reason
+										if($_POST['action'] == 'finalize')
+										{
+											echo "<br /><center><b><u>Sending Items, Please wait...</u></b></center><br />";
+										}
+									?>
+									<table border='0' cellspacing='0' cellpadding='4' width='540' align='center'>
 									<?php
 										if($_POST['action'] == 'finalize')
 										{
+											ob_flush();
+											flush();
 											completeOrder();
 											echo "<br />";
 										}

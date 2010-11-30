@@ -38,33 +38,28 @@ class RA
 //	************************************************************
     /**
       Once connected to the server, this allows you to login
-      Returns 0 if it isn't connected yet.
-      Returns 1 if it was successful.
-      Returns 2 if it was unable to authenticate.
+      Returns TRUE if it was successful.
+      Returns FALSE if it was unable to authenticate.
     */
     public function auth($user, $pass)
     {
-        if(!$this->handle)
-		{
-			return 0;
-		}
-
         $user = strtoupper($user);
-        fwrite($this->handle, "USER ".$user."\n");
-        usleep(50);
-        fwrite($this->handle, "PASS ".$pass."\n");
-        usleep(300);
+        fwrite($this->handle, $user."\n");
+        usleep(100);
+        fwrite($this->handle, $pass."\n");
+        usleep(200);
 
-        if(substr(trim(fgets($this->handle)), 0, 1) != "+")
+        if(strpos(trim(fgets($this->handle)), "+"))
 		{
 			$this->authReturn = trim(fgets($this->handle));
-			$this->writeLog($this->authReturn);
-			return 2;
+			$this->writeLog('Telnet - AUTH Error: '.$this->authReturn);
+			return FALSE;
 		}
         else
         {
+			fgets($this->handle); // Use fgets to clear out the messages recieved from console
             $this->auth = TRUE;
-            return 1;
+            return TRUE;
         }
     }
 
@@ -122,8 +117,8 @@ class RA
 			{
 				return 0;
 			}
-			$this->auth($remote[2], $remote[3]);
-			if(!$this->auth)
+			
+			if(!$this->auth($remote[2], $remote[3]))
 			{
 				return 2;
 			}
@@ -133,29 +128,49 @@ class RA
 				foreach($command as $cmd)
 				{
 					fwrite($this->handle, $cmd."\n");
-					usleep(500);
-					$this->consoleReturn[] = trim(fgets($this->handle));
+					sleep(1);
+					$this->consoleReturn[] = fgets($this->handle, 1024);
 				}
 			}
 			else
 			{
 				fwrite($this->handle, $command."\n");
-				usleep(200);
-				$this->consoleReturn[] = trim(fgets($this->handle));
+				sleep(1);
+				$this->consoleReturn[] = fgets($this->handle, 1024);
 			}
 			return 1;
 		}
 		else
 		{
 			$client = $this->soapHandle($shost, $remote);
-			try
+			
+			if(is_array($command))
 			{
-				$result = $client->executeCommand(new SoapParam($command, "command"));
-				$this->consoleReturn[] = $result;
+				foreach($command as $cmd)
+				{
+					try
+					{					
+						$result = $client->executeCommand(new SoapParam($cmd, "command"));
+						$this->consoleReturn[] = $result;
+					}
+					catch(Exception $e)
+					{
+						$this->consoleReturn[] = $e->getMessage();
+						$this->writeLog('Soap - Send Mail Problem: '.$e->getMessage());
+					}
+				}
 			}
-			catch(Exception $e)
+			else
 			{
-				$this->consoleReturn[] = $e->getMessage();
+				try
+				{				
+					$result = $client->executeCommand(new SoapParam($command, "command"));
+					$this->consoleReturn[] = $result;
+				}
+				catch(Exception $e)
+				{
+					$this->consoleReturn[] = $e->getMessage();
+				}
 			}
 			return 1;
 		}

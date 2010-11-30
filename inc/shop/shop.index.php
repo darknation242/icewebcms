@@ -16,9 +16,5 @@ if($user['id'] <= 0)
     redirect('?p=account&sub=login',1);
 }
 
-// Include the paypal class
-include('core/SDL/class.rasocket.php');
-$RA = new RA;
-
 $shop_items = $DB->select("SELECT * FROM `mw_shop_items` WHERE `realms`=".$GLOBALS['cur_selected_realm']." OR `realms`='0'");
 ?>

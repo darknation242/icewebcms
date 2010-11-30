@@ -137,6 +137,7 @@ $lang = array(
 	'shop_mail_message' => 'Thank you for your purchase. Here are your items you have purchased via Web Points',
 	'shop_mail_subject' => 'From the shop system',
 	'shop_review' => 'Review your order',
+	'shop_send_error' => 'Please contact an administrator as there is an error connecting or authenticating with the server. You will NOT be charged Web Points at this time',
 	'signature' => 'Signature',
 	'status' => 'Status',
 	'Type' => 'Type',

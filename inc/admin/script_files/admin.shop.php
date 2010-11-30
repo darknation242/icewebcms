@@ -22,6 +22,8 @@ $getitems = $DB->select("SELECT * FROM mw_shop_items ORDER BY `id` ASC LIMIT $li
 $getcnt = $DB->select("SELECT item_number FROM mw_shop_items");
 $totalrows = count($getcnt);
 
+// Get alist of all the realms
+$realms = getRealmlist();
 foreach($realms as $aaa) 
 {
 	$realmzlist .= "<option value='".$aaa['id']."'>".$aaa['name']."</option>";
