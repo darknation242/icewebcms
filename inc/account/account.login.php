@@ -8,9 +8,25 @@ if(INCLUDED !== TRUE)
 $pathway_info[] = array('title' => $lang['login'], 'link' => '');
 // ==================== //
 
+/*
+	When posting to this page, It MUST be in this format:
+	name='action' value='value'
+	
+	Values:
+	'login' = logs the user in
+		POST Values:
+		login = username;
+		pass = password;
+	'logout' = logs the user out
+	'profile' = redirects user to account screen
+*/
+
+
 // Tell the cache system not to cache this page
 define('CACHE_FILE', FALSE);
 
+
+// Lets check to see if the user has posted something
 if(isset($_POST['action']))
 {
 	// If posted action was login
@@ -81,10 +97,18 @@ if(isset($_POST['action']))
 			redirect($_SERVER['HTTP_REFERER'],1);
 		}
 	}
+	
+	// Else if the action is logout
 	elseif($_POST['action'] == 'logout')
 	{
 		$Account->logout();
 		redirect($_SERVER['HTTP_REFERER'],1);
+	}
+	
+	// Otherwise redirect to profile
+	elseif($_POST['action'] == 'profile')
+	{
+		redirect('?p=account',1);
 	}
 }
 ?>

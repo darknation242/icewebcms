@@ -123,11 +123,10 @@ $languages = explode(",", $Config->get('available_lang'));
 									if($user['id'] > 0)
 									{
 									?>
-										<input type="hidden" name="action" value="logout"/>
 										<?php echo $user['username']." | "; ?>
 										<a href="<?php echo mw_url('account'); ?>"> <?php echo $user['web_points']; ?> <?php echo $lang['web_points'];?></a>
-										<a href="<?php echo mw_url('account'); ?>"><img src="<?php echo $Template['path']; ?>/images/buttons/button-profile.gif" alt="Profile"/></a> 
-										<input type="image" src="<?php echo $Template['path']; ?>/images/buttons/button-logout.gif" value="Logout"/>
+										<input type="image" src="<?php echo $Template['path']; ?>/images/buttons/button-profile.gif" name="action" value="profile"/>
+										<input type="image" src="<?php echo $Template['path']; ?>/images/buttons/button-logout.gif" name="action" value="logout"/>
 								<?php 
 									}
 									else

@@ -10,7 +10,9 @@ class Update
 	var $current_version;
 	var $server_version;
 	var $update_version;
-	var $updated_files_list;
+	var $updated_files_list = array();
+	var $update_delete = array();
+	var $update_make_dir = array();
 	var $writable_files;
 	var $charlen_file;
 	var $updates;
@@ -28,7 +30,7 @@ class Update
 
 	function connect()
 	{
-		$this->handle = @fsockopen('www.keyswow.com', 80, $errno, $errstr, 3);
+		$this->handle = @fsockopen('www.keyswow.com', 80, $errno, $errstr, 5);
 		if($this->handle)
 		{
 			return TRUE;
@@ -45,7 +47,8 @@ class Update
 
 	function check_for_updates() 
 	{
-		if($this->connect() == TRUE)
+		$connection = $this->connect();
+		if($connection == TRUE)
 		{
 			$this->updates = file_get_contents("". $this->server_address ."updates.txt");
 			$ups = explode(",", $this->updates );
@@ -61,8 +64,8 @@ class Update
 		}
 		else
 		{
-			echo "<center><font color='red'>Cant Connect to update server. Please check <a href='http://code.google.com/p/mwenhanced/'>here</a> 
-					for any news pretaining to this error</font>";
+			echo "<center><div class='warning'>Cant Connect to update server. The server may be too busy, Try and refresh your page. If the problem persists,
+			Please check <a href='http://code.google.com/p/mwenhanced/'>here</a> for any news pretaining to this error</div>";
 			return FALSE;
 		}
 	}
@@ -90,7 +93,8 @@ class Update
 	}
 
 //	************************************************************	
-// This function get the list of update files, and their sizes
+// This function get the list of all update variables such as
+// make dir, remove file, update file etc etc.
 
 	function get_server_variables() 
 	{
@@ -108,7 +112,11 @@ class Update
 			}
 			elseif(strstr($line,"[update_make_dir]") !== false)
 			{
-				@mkdir(trim(substr($line,strpos($line,"=")+1)), 0775);
+				$this->update_make_dir[] = trim(substr($line,strpos($line,"=")+1));
+			}
+			elseif(strstr($line,"[update_delete]") !== false)
+			{
+				$this->update_delete[] = trim(substr($line,strpos($line,"=")+1));
 			}
 			elseif(strstr($line,"[update_file_list]") !== false)
 			{
@@ -130,6 +138,26 @@ class Update
 		foreach ($this->updated_files_list as $filename) 
 		{
 			$filelist .= $filename."<br />";
+		}
+		return $filelist;
+	}
+	
+//	************************************************************	
+// Prints Delete File list
+
+	function print_delete_files_list() 
+	{
+		$filelist = "";
+		if(count($this->update_delete) > 0)
+		{
+			foreach($this->update_delete as $filename) 
+			{
+				$filelist .= $filename."<br />";
+			}
+		}
+		else
+		{
+			echo "None";
 		}
 		return $filelist;
 	}
@@ -207,6 +235,7 @@ class Update
 
 //	************************************************************	
 // Gets the total character length of all updated files
+// Can be used for like a progress bar
 
 	function get_total_charlen() 
 	{
@@ -217,6 +246,48 @@ class Update
 		}
 		return $total_len;
 	}
+	
+//	************************************************************	
+// Makes all the directories from the update list
+
+	function makeDirs() 
+	{
+		$mkerr = 0;
+		$count = count($this->update_make_dir);
+		if($count > 0)
+		{
+			foreach($this->update_make_dir as $mkdir) 
+			{
+				// First check to see if the directory already exists
+				$check = @opendir($mkdir);
+				if($check)
+				{
+					@closedir($check);
+				}
+				else
+				{
+					// We need to make the directory
+					$make = @mkdir($mkdir, 0775);
+					if(!$make)
+					{
+						$mkerr++;
+					}
+				}
+			}
+			if($mkerr == 0)
+			{
+				return TRUE;
+			}
+			else
+			{
+				return FALSE;
+			}
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
 
 //	************************************************************		
 // Main update function
@@ -224,11 +295,31 @@ class Update
 	function update_files()
 	{
 		$err = "";
+
+		// Delete files			
+		if(count($this->update_delete) > 0)
+		{
+			foreach($this->update_delete as $unlinkf)
+			{
+				$unlink = @unlink($unlinkf);
+				if(!$unlink)
+				{
+					echo $filename." <font color='red'>Problem Removing File!</font><br />";
+				}
+				else
+				{
+					echo $filename." <font color='green'>Removed Successfully!</font><br />";
+				}
+			}
+		}
+			
 		if($this->check_if_are_writable() == TRUE) 
 		{
 			$i=0;
 			$len_till_now = 0;
-			foreach ($this->updated_files_list as $filename) 
+			
+			// Update Files
+			foreach($this->updated_files_list as $filename) 
 			{
 				$updated_file_url = $this->server_address."/update_".$this->update_version."/".str_replace(".php",".upd",$filename);
 				$updated_file_contents = file_get_contents($updated_file_url);

@@ -112,7 +112,7 @@ function check_port_status($ip, $port, $timeout)
 	{
 		$timeout = 1;
 	}
-	$fp1 = fsockopen($ip, $port, $ERROR_NO, $ERROR_STR, $timeout);
+	$fp1 = @fsockopen($ip, $port, $ERROR_NO, $ERROR_STR, $timeout);
     if($fp1)
 	{
         fclose($fp1);

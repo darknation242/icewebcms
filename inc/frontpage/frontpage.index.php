@@ -41,7 +41,7 @@ if($Config->get('enable_cache') == 1 && $Core->isCached($_COOKIE['cur_selected_t
 				'db_password' => $realm_data_explode['3'], 	// DB password
 				'db_name' => $realm_data_explode['4'], 		// Character db name
 			);
-			unset($realm_data_explode, $data);
+			unset($realm_data_explode);
 
 			$CHDB_EXTRA = new Database(
 				$mangosALL['db_host'],

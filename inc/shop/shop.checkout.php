@@ -36,7 +36,15 @@ function completeOrder()
 {
 	global $RA, $user, $DB, $WDB, $package, $lang;
 	
-	// First check to see if the user has enough points
+	// Lets check to see if the realm is online before starting
+	$realm = get_realm_byid($GLOBALS['cur_selected_realm']);
+	if(!check_port_status($realm['address'], $realm['port'], 3))
+	{
+		output_message('error', $lang['shop_realm_offline']);
+		return FALSE;
+	}
+	
+	// Second check to see if the user has enough points
 	if($package['wp_cost'] > $user['web_points'])
 	{
 		output_message('validation', $lang['not_enough_points']);
@@ -113,7 +121,7 @@ function completeOrder()
 		}
 		else
 		{
-			output_message('validation', 'Some Items NOT sent successfully! Please contact an admin.');
+			output_message('validation', $lang['shop_error']);
 		}
 	}
 }

@@ -17,8 +17,10 @@ function checkUpdates()
 		echo "<center><b>Updates found! New verision: <font color='green'>".$Update->get_next_update()."</b></font></center>";
 		echo "<br /><u><b>Update Info:</b></u><br />";
 		echo $Update->print_update_info()."<br />";
-		echo "<br /><u><b>Update File list:</b></u><br />";
+		echo "<br /><u><b>Update / Add File list:</b></u><br />";
 		echo $Update->print_updated_files_list();
+		echo "<br /><u><b>File Remove list:</b></u><br />";
+		echo $Update->print_delete_files_list();
 		echo "	<br />
 				<br />
 				To find out more about this update, click <a href='http://keyswow.com/forum/'>here</a>. Updates can sometimes take up to 30 seconds depending
@@ -41,6 +43,7 @@ function checkUpdates()
 function runUpdate()
 {
 	global $Update;
+
 	if($Update->check_for_updates() == TRUE) 
 	{
 		$Update->get_next_update();
@@ -48,12 +51,26 @@ function runUpdate()
 		ob_flush();
 		flush();
 		
+		// If making new file directories fails, then end right now
+		// Directories must be made before attempting to add / edit files!
+		if($Update->makeDirs() != TRUE)
+		{
+			output_message('error', 'Could not create the required directories for update files!');
+			return FALSE;
+		}
+		
 		// Echo the update list of files
+		echo "<br /><font color='blue'><b>Added / Updated Files:</b></font><br />";
 		echo $Update->print_updated_files_list(); 
 		ob_flush();
 		flush();
 
-		echo "<br /><b><u>2. Checking for write permissions: </u></b><br />"; 
+		echo "<br /><font color='blue'><b>Remove Files:</b></font><br />";
+		echo $Update->print_delete_files_list(); 
+		ob_flush();
+		flush();
+		
+		echo "<br /><br /><b><u>2. Checking for write permissions: </u></b><br />"; 
 		ob_flush();
 		flush();
 		
@@ -64,6 +81,32 @@ function runUpdate()
 			echo "<font color='green'><b>All files are writable!</b></font><br>"; 
 			ob_flush();
 			flush();
+			
+			echo "<br /><b><u>3. Starting to update files... </u></b><br />Updating...<br />"; 
+			ob_flush();
+			flush();
+			
+			// Update the files
+			$gogogo = $Update->update_files();
+			if($gogogo == TRUE) 
+			{
+				echo "<br /><br /><center><font color='green'><b>All the files where succesfuly updated.</b></font></center><br />";
+				echo "<form method='POST' action='?p=admin&sub=updates' class='form label-inline'>";
+				echo "
+					<div class='buttonrow-border'>								
+						<center><button><span>Return</span></button></center>			
+					</div>
+				";
+				ob_flush();
+				flush();
+			} 
+			else 
+			{
+				echo "<br /><font coloe='red'><b>Some errors ocured while updating the files. Please inform Wilson212 @ http://keyswow.com/forum/ 
+				... Along with a picture of your screen </b></font><br />"; 
+				ob_flush();
+				flush();
+			}
 		} 
 		else 
 		{
@@ -78,32 +121,6 @@ function runUpdate()
 				ob_flush();
 				flush();
 			} 
-			die();
-		}
-
-		echo "<br /><b><u>3. Starting to update files... </u></b><br />Updating...<br />"; 
-		ob_flush();
-		flush();
-		
-		// Update the files
-		if($Update->update_files() == TRUE) 
-		{
-			echo "<br /><br /><center><font color='green'><b>All the files where succesfuly updated.</b></font></center><br />";
-			echo "<form method='POST' action='?p=admin&sub=updates' class='form label-inline'>";
-			echo "
-				<div class='buttonrow-border'>								
-					<center><button><span>Return</span></button></center>			
-				</div>
-			";
-			ob_flush();
-			flush();
-		} 
-		else 
-		{
-			echo "<br /><font coloe='red'><b>Some errors ocured while updating the files. Please inform Wilson212 @ http://keyswow.com/forum/ 
-			... Along with a picture of your screen </b></font><br />"; 
-			ob_flush();
-			flush();
 		}
 	} 
 	else 

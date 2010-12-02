@@ -6,7 +6,6 @@ $site_href = '/MangosWebv3/';
 $site_base_href = 'http://127.0.0.1/MangosWebv3/';
 $site_armory = 'http://wowarmory.com';
 $site_forums = 'http://keyswow.com/forum/';
-$site_copyright = 'WoW Cyanite is Copyright 2010';
 $emulator = 'mangos';
 $default_realm_id = 1;
 $templates = 'Cataclysm_1,WotLK';
