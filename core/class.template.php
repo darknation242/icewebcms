@@ -142,16 +142,37 @@ class Template
 
 	public function loadTemplateXML()
 	{
+		// First we load the template XML File
+		// Return FALSE if cant open, or doesnt exist
 		$this->xml = @simplexml_load_file($this->path);
 		if($this->xml == FALSE)
 		{
 			return FALSE;
 		}
-		$this->master_template = "templates/".$this->xml->masterTemplate;
+		
+		// Check to see if there is a master template or not
+		if(empty($this->xml->masterTemplate))
+		{
+			$this->master_template = $this->slave_tmpl;
+		}
+		else
+		{
+			$this->master_template = "templates/".$this->xml->masterTemplate;
+		}
+		
+		// Establish Header, Footer, and Function paths
+		$this->templateHeader = $this->master_template.'/'.$this->xml->bodyHeader;
+		$this->templateFooter = ''.$this->master_template.'/'.$this->xml->bodyFooter;
+		$this->templateFunctions = ''.$this->master_template.'/'.$this->xml->bodyFunctions;
+		
+		// Return Array
 		$ret = array(
 			'path' => $this->slave_tmpl, 
 			'script_path' => $this->master_template,
 			'name' => $this->xml->name,
+			'header' => $this->templateHeader,
+			'footer' => $this->templateFooter,
+			'functions' => $this->templateFunctions,
 			'number' => $this->template_number,
 			'author' => $this->xml->author,
 			'authorEmail' => $this->xml->authorEmail,

@@ -10,7 +10,8 @@ $pathway_info[] = array('title' => $lang['account'], 'link' => '');
 
 define("CACHE_FILE", FALSE);
 
-if($user['id'] <= 0)
+// Lets check to see if the user is logged in
+if($Account->isLoggedIn() == FALSE)
 {
     redirect('?p=account&sub=login',1);
 }

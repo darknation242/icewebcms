@@ -11,6 +11,14 @@ $pathway_info[] = array('title' => 'Retrieve Password', 'link' => '');
 // Tell the cache system not to cache this page
 define('CACHE_FILE', FALSE);
 
+//	************************************************************
+// Logged in users cannot access this page ;)
+
+if($Account->isLoggedIn() == TRUE)
+{
+	redirect('?p=account&sub=manage',1);
+}
+
 // Load secret Questions
 $sc_q = $Account->getSecretQuestions();
 

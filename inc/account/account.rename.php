@@ -9,6 +9,14 @@ $pathway_info[] = array('title' => $lang['account'], 'link' => '?p=account');
 $pathway_info[] = array('title' => $lang['char_rename'], 'link' => '');
 // ==================== //
 
+//	************************************************************
+// Redirect users who arent logged in ;)
+
+if($Account->isLoggedIn() == FALSE)
+{
+	redirect('?p=account&sub=login',1);
+}
+
 // Load the accounts character list
 $character_list = $Account->getCharacterList($user['id']);
 

@@ -11,7 +11,7 @@ $pathway_info[] = array('title' => 'Shop', 'link' => '');
 define("CACHE_FILE", FALSE);
 
 // Lets check to see the user is logged in
-if($user['id'] <= 0)
+if($Account->isLoggedIn() == FALSE)
 {
     redirect('?p=account&sub=login',1);
 }

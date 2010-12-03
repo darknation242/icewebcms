@@ -245,7 +245,7 @@ class Account
         }
 		
 		// check to see if the users IP is banned
-		if($this->isBannedIp($res['id']) == TRUE)
+		if($this->isBannedIp($_SERVER['REMOTE_ADDR']) == TRUE)
 		{
             output_message('error','Your IP Address is currently banned');
             $success = 0;
@@ -435,6 +435,22 @@ class Account
 		$user = strtoupper($user);
 		$pass = strtoupper($pass);
 		return SHA1($user.':'.$pass);
+	}
+
+	
+//	************************************************************	
+// Checks if the user is logged in. Returns FALSE if user is guest
+
+	function isLoggedIn()
+	{
+		if($this->user['id'] > 0)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 
 //	************************************************************	

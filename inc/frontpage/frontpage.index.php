@@ -106,3 +106,7 @@ if($Config->get('enable_cache') == 1 && $Core->isCached($_COOKIE['cur_selected_t
 	}
 	*/
 }
+elseif($Config->get('enable_cache') == 0)
+{
+	$alltopics = $DB->select("SELECT * FROM mw_news ORDER BY `id` DESC");
+}

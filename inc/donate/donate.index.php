@@ -11,10 +11,12 @@ $pathway_info[] = array('title' => $lang['donate'], 'link' => '');
 // We define not to cache the page
 define("CACHE_FILE", FALSE);
 
-// Lets check to see the user is logged in
-if($user['id'] <= 0)
+//	************************************************************
+// Users must be logged in
+
+if($Account->isLoggedIn() == FALSE)
 {
-    redirect('?p=account&sub=login',1);
+	redirect('?p=account&sub=login',1);
 }
 
 // Include the paypal class

@@ -12,7 +12,7 @@ $pathway_info[] = array('title' => $lang['vote_system'], 'link' => '');
 define("CACHE_FILE", FALSE);
 
 // Here we chack to see if user is logged in, if not, then redirect to account login screen
-if($user['id'] <= 0)
+if($Account->isLoggedIn() == FALSE)
 {
     redirect('?p=account&sub=login',1);
 }

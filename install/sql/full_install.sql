@@ -212,6 +212,7 @@ INSERT INTO `mw_menu_items` VALUES ('8', 'FAQ', '?p=server&sub=faq', '1', '1', '
 INSERT INTO `mw_menu_items` VALUES ('7', 'Donate', '?p=donate', '2', '2', '0', '11');
 INSERT INTO `mw_menu_items` VALUES ('4', 'Realm Status', '?p=server&sub=realmstatus', '1', '1', '0', '12');
 INSERT INTO `mw_menu_items` VALUES ('2', 'Account Restore', '?p=account&sub=restore', '2', '1', '1', '13');
+INSERT INTO `mw_menu_items` VALUES ('4', 'Honor', '?p=server/honor', '1', '1', '0', '1');
 
 -- ----------------------------
 -- Table structure for `mw_news`

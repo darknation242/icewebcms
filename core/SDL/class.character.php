@@ -237,6 +237,39 @@ class Character
 		}
 	}
 
+	
+//	************************************************************
+// Gets the top kills for a specific faction
+// $faction: 1 = ally, 0 for horde
+// $count: top $count results
+
+	function getFactionTopKills($faction, $count)
+	{
+		global $CDB;
+		
+		// Alliance
+		if($faction == 1)
+		{			
+			$row = $CDB->select("SELECT * FROM `characters` WHERE `totalkills` > 0 AND (
+				`race` = 1 OR `race` = 3 OR `race` = 4 OR `race` = 7 OR `race` = 11
+			) ORDER BY `totalkills` DESC LIMIT $count");
+		}
+		else # Horde
+		{			
+			$row = $CDB->select("SELECT * FROM `characters` WHERE `totalkills` > 0 AND (
+				`race` = 2 OR `race` = 5 OR `race` = 6 OR `race` = 8 OR `race` = 10
+			) ORDER BY `totalkills` DESC LIMIT $count");
+		}
+		if($row == FALSE)
+		{
+			return FALSE;
+		}
+		else
+		{
+			return $row;
+		}
+	}
+	
 //	************************************************************
 // Checks if the character is in a guild or not
 

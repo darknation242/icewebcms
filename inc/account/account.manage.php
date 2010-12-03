@@ -12,7 +12,7 @@ $pathway_info[] = array('title' => $lang['account_manage'], 'link' => '');
 define('CACHE_FILE', FALSE);
 
 // check if the user is logged in. if not, redirect
-if($user['id'] <= 0)
+if($Account->isLoggedIn() == FALSE)
 {
     redirect('?p=account&sub=login',1);
 }

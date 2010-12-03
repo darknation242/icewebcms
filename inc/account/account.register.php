@@ -25,7 +25,9 @@ $regparams = array(
 	);
 	
 //	************************************************************
-if($user['id'] > 0)
+// Logged in users cannot access this page ;)
+
+if($Account->isLoggedIn() == TRUE)
 {
 	redirect('?p=account&sub=manage',1);
 }

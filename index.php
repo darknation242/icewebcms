@@ -211,12 +211,12 @@ if($Template == FALSE)
 			@include($script_file);
 
 			// If a body functions file exists, include it.
-			if(file_exists($Template['script_path'] . '/body_functions.php')) 
+			if(file_exists($Template['functions'])) 
 			{
-				include ($Template['script_path'] . '/body_functions.php');
+				include($Template['functions']);
 			}
 			ob_start();
-				include ($Template['script_path'] . '/body_header.php');
+				include($Template['header']);
 			ob_end_flush();
 			
 			// === Start the loading of the template cache === //
@@ -262,7 +262,7 @@ if($Template == FALSE)
 			// Set our time end, so we can see how fast the page loaded.
 			define('TIME_END', microtime(1));
 			define('PAGE_LOAD_TIME', TIME_END - TIME_START);
-			include ($Template['script_path'] . '/body_footer.php');
+			include($Template['footer']);
 		}
 	}
 /***************************************************************
