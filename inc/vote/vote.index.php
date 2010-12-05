@@ -22,7 +22,8 @@ $realm_info_new = get_realm_byid($user['cur_selected_realmd']);
 $rid = $realm_info_new['id'];
 
 // Some glabal settings. You shouldnt need to touch this stuff
-$ip_voting_period = 60 * 60 * 24; // IP voting period (in seconds)
+$hours = 24;
+$ip_voting_period = 60 * 60 * $hours; // IP voting period (in seconds)
 
 
 // Here we get the sites and rewards from the database
@@ -62,6 +63,25 @@ function sec_to_dhms($sec, $show_days = false)
 	$minutes = intval(($sec / 60) % 60);
 	$seconds = intval($sec % 60);
 	return $days." Days, ".$hours." H, ".$minutes." M ".$seconds." s";
+}
+
+// **************************************************
+// Here we check to see if the site has been voted for
+// $PARAMS:
+// $sites = the `sites` column from the `mw_voting` table
+// $key is the site key ( `site_key` column from `mw_vote_sites` table
+ 
+function isVoted($sites, $key)
+{
+	// Do a Bitwise comparison ( & )
+	if(($sites & $key) == TRUE)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
 }
 
 function vote($site)

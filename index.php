@@ -154,7 +154,7 @@ if($Template == FALSE)
 		$Modulelist = scandir("modules/");
 		if(in_array($_GET['module'], $Modulelist))
 		{
-			include("modules/".$_GET['module']."/index.php");
+			include("modules/".$_GET['module']."/module.php");
 		}
 		else
 		{

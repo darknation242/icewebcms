@@ -13,7 +13,7 @@
                                                     </div>
                                                   </td>
 												<?php 
-													if(empty($_GET['p']) || $_GET['p'] == "frontpage")
+													if((empty($_GET['p']) || $_GET['p'] == "frontpage") && !isset($_GET['module']))
 													{
 														echo "<td valign=\"top\">";
 														if($Config->get('enable_cache') == 1)

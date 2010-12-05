@@ -44,18 +44,22 @@ builddiv_start(1, 'Shop Checkout');
 											<td align='center' valign = "top" width='100%'>
 											<br />
 											<?php
-												if($package['item_number'] != 0) 
-												{ 
-													$item_name = $WDB->selectCell("SELECT `name` FROM `item_template` WHERE entry='".$package['item_number']."'");
-													echo "<a href='http://www.wowhead.com/?item=".$package['item_number']."' target='_blank'>".$item_name."</a>";
+												if($package['item_number'] != 0)
+												{
+													$items = explode(',', $package['item_number']);
+													foreach($items as $pack)
+													{
+														$item_name = $WDB->selectCell("SELECT `name` FROM `item_template` WHERE entry='".$pack."'");
+														echo "<a href='http://www.wowhead.com/?item=".$pack."' target='_blank'>".$item_name."</a><br />";
+													}
 												}
 												if($package['itemset'] != 0) 
 												{ 
-													echo "<br /><a href='http://www.wowhead.com/?itemset=".$package['itemset']."' target='_blank'>ItemSet # ".$package['itemset']."</a>"; 
+													echo "<a href='http://www.wowhead.com/?itemset=".$package['itemset']."' target='_blank'>ItemSet # ".$package['itemset']."</a><br />"; 
 												}
 												if($package['gold'] != 0) 
 												{ 
-													echo "<br /><font color='darkgreen'><b>Gold</b>: </font>"; print_gold($package['gold']);
+													echo "<font color='darkgreen'><b>Gold</b>: </font>"; print_gold($package['gold']);
 													echo "</font>";
 												}
 											?>

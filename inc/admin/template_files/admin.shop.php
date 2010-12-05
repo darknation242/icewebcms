@@ -33,7 +33,7 @@ if(isset($_GET['id']))
 			<div class="field">
 				<label for="Item Number">Item Number: </label>
 				<input id="Item Number" name="item_number" size="20" type="text" class="medium" value="<?php echo $edit_info['item_number']; ?>" />
-				<p class="field_help">Item number for reward. Seperate items with a "," comman. 0 For no item.</p>
+				<p class="field_help">Item number for reward. Seperate items with a "," comma. 0 For no item.</p>
 			</div>
 			
 			<div class="field">
@@ -55,9 +55,9 @@ if(isset($_GET['id']))
 			</div>
 			
 			<div class="field">
-				<label for="q">Quanity: </label>
+				<label for="q">Quantity: </label>
 				<input id="q" name="quanity" size="20" type="text" class="tiny" value="<?php echo $edit_info['quanity']; ?>" />
-				<p class="field_help">Quanity (amount) of items recieving. Does not affect gold or itemsets!</p>
+				<p class="field_help">Quantity (amount) of items receiving. Does not affect gold or itemsets!</p>
 			</div>
 			
 			<div class="field">
@@ -111,7 +111,7 @@ elseif(isset($_GET['additem']))
 			<div class="field">
 				<label for="Item Number">Item Number: </label>
 				<input id="Item Number" name="item_number" size="20" type="text" class="medium" />
-				<p class="field_help">Item number for reward. Seperate items with a "," comman. 0 For no item.</p>
+				<p class="field_help">Item number for reward. Seperate items with a "," comma. 0 For no item.</p>
 			</div>
 			
 			<div class="field">
@@ -133,9 +133,9 @@ elseif(isset($_GET['additem']))
 			</div>
 			
 			<div class="field">
-				<label for="q">Quanity: </label>
+				<label for="q">Quantity: </label>
 				<input id="q" name="quanity" size="20" type="text" class="tiny" />
-				<p class="field_help">Quanity (amount) of items recieving. Does not affect gold or itemsets!</p>
+				<p class="field_help">Quantity (amount) of items receiving. Does not affect gold or itemsets!</p>
 			</div>
 			
 			<div class="field">
@@ -175,7 +175,7 @@ else
 					<thead>
 						<th><center><b>ID</center></b></th>
 						<th><center><b>Reward</center></b></th>
-						<th><center><b>Quanity</center></b></th>
+						<th><center><b>Quantity</center></b></th>
 						<th><center><b>Cost</center></b></th>
 						<th><center><b>Realms</center></b></th>
 						<th><center><b>Action</center></b></th>

@@ -1,8 +1,11 @@
 <br />
 <?php 
 builddiv_start(0, $lang['char_rename']);
-?>
 
+// First check to see if the admin has the module enabled.
+if($Config->get('module_charrename') == 1)
+{
+?>
 <table width = "550" align='center'>
 	<tr>
 		<td>
@@ -88,5 +91,10 @@ builddiv_start(0, $lang['char_rename']);
 </table>
 
 <?php
+}
+else
+{
+	output_message('info' , $lang['disabled']);
+}
 builddiv_end(); 
 ?>

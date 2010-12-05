@@ -259,7 +259,7 @@ $languages = explode(",", $Config->get('available_lang'));
                                                             <div style="clear:both;display:block;position:relative;width:100%;margin-top:-4px;">
                                                             <!-- Pathway -->
                                                             <?php 
-																if(isset($_GET['p']))
+																if(isset($_GET['p']) || isset($_GET['module']))
 																{ ?>
 																	<div class="redbannerbg">
 																		<div class="redbannerleft"></div>

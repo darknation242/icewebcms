@@ -10,10 +10,10 @@ $pathway_info[] = array('title' => $lang['realmstatus'], 'link' => '');
 // Define we want this page to be cached
 define("CACHE_FILE", FALSE);
 
-$items = array();
-$items = $DB->select("SELECT * FROM `realmlist` ORDER BY `name`");
+$Realm = array();
+$Realm = $DB->select("SELECT * FROM `realmlist` ORDER BY `name`");
 $i = 0;
-foreach($items as $i => $result)
+foreach($Realm as $i => $result)
 {
 	$dbinfo = explode(';', $result['dbinfo']);
 
@@ -67,14 +67,11 @@ foreach($items as $i => $result)
 	}
     $realm_type = $realm_type_def[$result['icon']];
 	$realm_num = $result['id'];
-    if(check_port_status($result['address'], $result['port']) === TRUE)
+    if(check_port_status($result['address'], $result['port']) == TRUE)
     {
         $res_img = './templates/WotLK/images/icons/uparrow2.gif';
-        if($WDB_EXTRA && $CDB_EXTRA === TRUE) 
-		{
-            $population = $CDB_EXTRA->select("SELECT count(*) FROM `characters` WHERE online=1");
-            $uptime = time () - $DB->selectCell("SELECT `starttime` FROM `uptime` WHERE `realmid`='$realm_num' ORDER BY `starttime` DESC LIMIT 1");
-        }
+        $population = $CDB_EXTRA->count("SELECT COUNT(*) FROM `characters` WHERE online=1");
+        $uptime = time() - $DB->selectCell("SELECT `starttime` FROM `uptime` WHERE `realmid`='$realm_num' ORDER BY `starttime` DESC LIMIT 1");
     }
     else
     {
@@ -82,12 +79,12 @@ foreach($items as $i => $result)
         $population_str = 'n/a';
         $uptime = 0;
     }
-    $items[$i]['res_color'] = $res_color;
-    $items[$i]['img'] = $res_img;
-    $items[$i]['name'] = $result['name'];
-    $items[$i]['type'] = $realm_type;
-    $items[$i]['pop'] = $population;
-    $items[$i]['uptime'] = $uptime;
+    $Realm[$i]['res_color'] = $res_color;
+    $Realm[$i]['img'] = $res_img;
+    $Realm[$i]['name'] = $result['name'];
+    $Realm[$i]['type'] = $realm_type;
+    $Realm[$i]['pop'] = $population;
+    $Realm[$i]['uptime'] = $uptime;
     unset($WDB_EXTRA);
     unset($CDB_EXTRA);
 }

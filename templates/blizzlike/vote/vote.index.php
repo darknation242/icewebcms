@@ -114,7 +114,7 @@ if($vote_sites != FALSE)
 						<img src=\"".$value['image_url']."\" border=\"0\" alt=\"".$value['hostname']."\" />
 					</td>
 					<td class=\"serverStatus1\" align=\"center\">";
-						if($Voting['sites'] & $value['site_key'])
+						if(isVoted($Voting['sites'], $value['site_key']) == TRUE)
 						{
 							echo "<center><b style=\"color: rgb(102, 13, 2);\">".$lang["yes"]."</b></center>";
 							$disabled = " disabled=\"disabled\"";

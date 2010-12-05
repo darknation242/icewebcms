@@ -153,7 +153,7 @@
 			<div class="field">
 				<label for="Site AL">Site Languages: </label>
 				<input id="Site AL" name="cfg__available_lang" size="20" type="text" class="medium" value="<?php echo $Config->get('available_lang'); ?>" />
-				<p class="field_help">Seperate Languages with a "," comma. Case sensative on some servers!</p>
+				<p class="field_help">Separate Languages with a "," comma. Case sensitive on some servers!</p>
 			</div>
 			<br />
 			
@@ -216,7 +216,7 @@
 					<option value="1" <?php echo $e_ariv; ?>>Enabled</option>
 					<option value="0" <?php echo $e_ariv2; ?>>Disabled</option>
 				</select>																											
-				<p class="field_help">Enables CAPTCHA. Users will hae to enter a generated image code before creating an account</p>
+				<p class="field_help">Enables CAPTCHA. Users will have to enter a generated image code before creating an account</p>
 			</div>
 			
 			<div class="field">
@@ -283,7 +283,7 @@
 			<div class="field">
 				<label for="Site default_component">Default Component: </label>
 				<input id="Site default_component" name="cfg__default_component" size="10" type="text" class="small" value="<?php echo $Config->get('default_component'); ?>" />
-				<p class="field_help">Dont touch this unless you know what your doing!</p>
+				<p class="field_help">Dont touch this unless you know what you're doing!</p>
 			</div>
 			
 			<div class="field">
@@ -664,6 +664,25 @@
 				<label for="rename points">Char-Rename Cost: </label>
 				<input id="rename points" name="cfg__module_charrename_pts" size="2" type="text" class="xsmall" value="<?php echo $Config->get('module_charrename_pts'); ?>" />
 				<p class="field_help">Cost in Web Points for users to rename their Characters</p>
+			</div>
+			
+			<div class="field">
+				<label for="Site module_charcustomize">Re-Customize: </label>
+				<select id="type" class="small" name="cfg__module_charcustomize">
+					<?php 
+						if($Config->get('module_charcustomize') == 1)
+						{ $e_mcrc = 'selected="selected"'; $e_mcrc2 = ''; }else{ $e_mcrc2 = 'selected="selected"'; $e_mcrc = ''; }
+					?>
+					<option value="1" <?php echo $e_mcrc; ?>>Enabled</option>
+					<option value="0" <?php echo $e_mcrc2; ?>>Disabled</option>
+				</select>																											
+				<p class="field_help">Allow users to Re-Customize their characters?.</p>
+			</div>
+			
+			<div class="field">
+				<label for="rename points">Re-Customize Cost: </label>
+				<input id="rename points" name="cfg__module_charcustomize_pts" size="2" type="text" class="xsmall" value="<?php echo $Config->get('module_charcustomize_pts'); ?>" />
+				<p class="field_help">Cost in Web Points for users to Re-Customize their Characters</p>
 			</div>
 			
 			<div class="field">

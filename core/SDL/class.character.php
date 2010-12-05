@@ -646,6 +646,19 @@ class Character
 // === At Login Functions === //
 
 //	************************************************************
+// Gets the at login flag for character $id
+	public function getAtLogin($id)
+	{
+		global $CDB;
+		$check = $CDB->selectCell("SELECT `at_login` FROM `characters` WHERE `guid`='".$id."'");
+		if($check == FALSE)
+		{
+			return FALSE;
+		}
+		return $check;
+	}
+
+//	************************************************************
 // Rename (flag = 1)
 	public function setRename($id)
 	{

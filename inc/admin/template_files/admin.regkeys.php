@@ -10,7 +10,7 @@
 			<tr>
 				<td>
 					Here you can create and delete Register keys to your website. If you are unfimiliar with the key register system, these are basically Invite
-					Keys. If you have your server set to "Invite Only", then a guest cannot create an account with out one of these keys. YOU the admin must
+					Keys. If you have your server set to "Invite Only", then a guest cannot create an account without one of these keys. YOU the admin must
 					hand these keys out, users cannot hand them out.
 				</td>
 			</tr>

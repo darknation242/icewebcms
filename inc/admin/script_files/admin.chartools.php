@@ -5,6 +5,20 @@ if(INCLUDED!==true) {
 }
 //=======================//
 
+// For the search bar
+if(isset($_POST['action']))
+{
+	if($_POST['action'] == 'sort')
+	{
+		redirect('?p=admin&sub=chartools&sort='.$_POST['sortby'],1);
+	}
+}
+
+// Get the realm name
+$Realm = get_realm_byid($GLOBALS['cur_selected_realm']);
+$Realms = getRealmlist('0');
+
+// Include the SDL files
 include('core/SDL/class.character.php');
 include('core/SDL/class.zone.php');
 $Character = new Character;

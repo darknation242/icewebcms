@@ -13,6 +13,7 @@
 		<div style="width:470px;"></div>
 		<![endif]-->
 		<?php 
+		// Load the banner display type. 1 = internal flash, 2 = external flash (wow.com), 3 is banner
 		$banner = (int)$Config->get('flash_display_type');
 		if ($banner == 1)
 		{ ?>

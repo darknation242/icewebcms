@@ -158,7 +158,7 @@ if(isset($_GET['id']))
 		<div class="field">
 			<label for="dbh">Character DB Name: </label>
 			<input id="dbh" name="char_db_name" size="20" type="text" class="medium" value="<?php echo $rlm_info['char_db_name']; ?>" />
-			<p class="field_help">Enter your Character Datbase name here.</p>
+			<p class="field_help">Enter your Character Database name here.</p>
 		</div>
 		
 		<!-- -->
@@ -198,7 +198,7 @@ if(isset($_GET['id']))
 		<div class="field">
 			<label for="dbh">World DB Name: </label>
 			<input id="dbh" name="w_db_name" size="20" type="text" class="medium" value="<?php echo $rlm_info['w_db_name']; ?>" />
-			<p class="field_help">Enter your World Datbase name here.</p>
+			<p class="field_help">Enter your World Database name here.</p>
 		</div>
 		
 		<table>

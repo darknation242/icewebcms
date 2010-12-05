@@ -337,6 +337,19 @@ else
 					</small>           
 				</td>
 			</tr>
+			<tr>
+				<td>
+					<form method="POST" action="?p=admin&sub=users" name="adminform" class="form label-inline">
+					<input type='hidden' name='action' value='sort'>
+						<div class="field">
+							<center>
+								<b><font size='2'>Search By Username: </font></b> <input name="sortby" size="20" type="text" class="medium">
+								<button><span>Search</span></button>
+							</center>
+						</div>
+					</form>
+				</td>
+			</tr>
 		</table>
 		<form method="POST" action="?p=admin&sub=users" name="adminform" class="form label-inline">
 			<table width="95%">

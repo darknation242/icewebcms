@@ -5,6 +5,15 @@ if(INCLUDED!==true) {
 }
 //=======================//
 
+// For the search bar
+if(isset($_POST['action']))
+{
+	if($_POST['action'] == 'sort')
+	{
+		redirect('?p=admin&sub=users&sortby='.$_POST['sortby'],1);
+	}
+}
+
 //====== Pagination Code ======/
 $limit = 50; // Sets how many results shown per page	
 if(!isset($_GET['page']) || (!is_numeric($_GET['page'])))

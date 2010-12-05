@@ -14,14 +14,17 @@ define('CACHE_FILE', TRUE);
 $postnum = 0;
 $hl = '';
 
-if ($Config->get('fp_hitcounter') == 1)
+// If the hit counter is enabled, then add a hit when this page is accessed
+if($Config->get('fp_hitcounter') == 1)
 {
     $count_my_page = "inc/frontpage/hitcounter.txt";
     $hits = (int)file_get_contents($count_my_page);
     $hits++;
     file_put_contents($count_my_page, $hits);
 }
-if($Config->get('enable_cache') == 1 && $Core->isCached($_COOKIE['cur_selected_theme']."_frontpage.index") != TRUE)
+
+// If the cache is disabled, OR (its enabled AND page isnt cahced), then get all the server info and news posts etc etc.
+if($Config->get('enable_cache') == 0 || ($Config->get('enable_cache') == 1 && $Core->isCached($Template['number']."_frontpage.index") != TRUE))
 {
 	$alltopics = $DB->select("SELECT * FROM mw_news ORDER BY `id` DESC");
 	$servers = array();
@@ -100,13 +103,8 @@ if($Config->get('enable_cache') == 1 && $Core->isCached($_COOKIE['cur_selected_t
 		}
 	}
 	unset($multirealms);
-	/*
-	if((int)$MW->getConfig->components->right_section->users_on_homepage){
-		$usersonhomepage = $DB->selectCell("SELECT count(1) FROM `online`");
+	if($Config->get('module_onlinelist') == 1)
+	{
+		$usersonhomepage = $DB->count("SELECT COUNT(*) FROM `mw_online`");
 	}
-	*/
-}
-elseif($Config->get('enable_cache') == 0)
-{
-	$alltopics = $DB->select("SELECT * FROM mw_news ORDER BY `id` DESC");
 }

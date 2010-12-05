@@ -78,7 +78,7 @@ if($horde_kills != FALSE)
 {
 	foreach($horde_kills as $charinfo_item)
 	{
-		$char_rank_id = calc_character_rank($charinfo_item['totalkills']);
+		$char_rank_id = calc_character_rank($charinfo_item['totalKills']);
 		$character = array(
 			'name'   => $charinfo_item['name'],
 			'race'   => $Character->charInfo['race'][$charinfo_item['race']],
@@ -86,7 +86,7 @@ if($horde_kills != FALSE)
 			'gender' => $Character->charInfo['gender'][$charinfo_item['gender']],
 			'rank'   => '',
 			'level'  => $charinfo_item['level'],
-			'honorable_kills'    =>  $charinfo_item['totalkills'],
+			'honorable_kills'    =>  $charinfo_item['totalKills'],
 			'race_icon'   => $Template['path'] .'/images/icons/race/'.$charinfo_item['race'].'-'.$charinfo_item['gender'].'.gif',
 			'class_icon'   => $Template['path'] .'/images/icons/class/'.$charinfo_item['class'].'.gif',
 			'rank_icon'   => $Template['path'] .'/images/icons/pvpranks/rank'.$char_rank_id.'.gif',

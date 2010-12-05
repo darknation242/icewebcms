@@ -30,7 +30,7 @@
 			<div class="field">
 				<label for="dbh">Database Port: </label>
 				<input id="dbh" name="db_port" size="20" type="text" class="medium" value="<?php echo $Config->getDbInfo('db_port'); ?>" />
-				<p class="field_help">Enter your database port numberr here. (default 3306)</p>
+				<p class="field_help">Enter your database port number here. (default 3306)</p>
 			</div>
 			
 			<div class="field">

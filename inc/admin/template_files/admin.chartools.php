@@ -113,9 +113,9 @@ if(isset($_GET['id']))
 						</div>
 						
 						<div class="field">
-							<label for="name">Experiance: </label>
+							<label for="name">Experience: </label>
 							<input id="name" name="xp" size="2" type="text" class="medium" value="<?php echo $character['xp']; ?>"/>
-							<p class="field_help">Current character experiance points.</p>
+							<p class="field_help">Current character experience points.</p>
 						</div>
 						
 						<div class="field">
@@ -177,6 +177,24 @@ else
 			<center><h2>Character List</h2></center>
 		<table>
 			<tr>
+				<td align='center'> <b>Realm:</b><br />|
+					<?php
+					foreach($Realms as $Rlm)
+					{
+						echo "<a href=\"javascript:setcookie('cur_selected_realm', '". $Rlm['id'] ."'); window.location.reload();\">";
+						if($user['cur_selected_realm'] == $Rlm['id'])
+						{
+							echo "<b>".$Rlm['name']."</b>"; 
+						}
+						else
+						{
+							echo $Rlm['name'];
+						}
+						echo "</a> |";
+					}
+					?>
+				</td>
+			<tr>
 				<td colspan="4" align="center">
 					<b>Sort by letter:</b>&nbsp;&nbsp;
 					<small>
@@ -209,6 +227,19 @@ else
 					<a href="?p=admin&sub=chartools&sort=y">Y</a> 
 					<a href="?p=admin&sub=chartools&sort=z">Z</a>              
 					</small>           
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<form method="POST" action="?p=admin&sub=chartools" name="adminform" class="form label-inline">
+					<input type='hidden' name='action' value='sort'>
+						<div class="field">
+							<center>
+								<b><font size='2'>Search By Name: </font></b> <input name="sortby" size="20" type="text" class="medium">
+								<button><span>Search</span></button>
+							</center>
+						</div>
+					</form>
 				</td>
 			</tr>
 		</table>

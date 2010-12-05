@@ -1,5 +1,27 @@
 <?php
-/***************************************************************
+//  **************************************************
+//	Required by all Official MangosWeb v3 Templates
+// 	2 Functions are required for module integration 
+//	Content_Div_Start() - Used for the starting Div's of the template
+// 	Content_Div_End() - Closes the Div_Start Div tags.
+//  **************************************************
+
+// Main Div function
+function Content_Div_Start() 
+{
+	global $Template;
+	echo '<div style="width: 659px; height: 29px; background: url(\''.$Template['path'].'/images/content-parting.jpg\') no-repeat;"><div style="padding: 2px 0px 0px 23px;"><font style="font-family: \'Times New Roman\', Times, serif; color: #640909;"><h2>'.$_GET['module'].'</h2></font></div></div>';
+	echo '<div style="background: url(\''.$Template['path'].'/images/light.jpg\') repeat; border-width: 1px; border-color: #000000; border-bottom-style: solid; margin: 0px 0px 5px 0px">';
+	echo '<div class="contentdiv">';
+}
+
+
+function Content_Div_End() 
+{
+	echo '</div></div>';
+}
+ 
+ /***************************************************************
  * Body Functions for the blizzlike template
  ***************************************************************/
 
@@ -293,14 +315,7 @@ function build_pathway()
     $path_c = count($pathway_info);
     $pathway_info[$path_c-1]['link'] = '';
     $pathway_str = '';
-    if(empty($_GET['p']) || !is_array($pathway_info))
-	{
-		$pathway_str .= ' <b><u>Main</u></b>';
-	}
-    else
-	{
-		$pathway_str .= '<a href="./">Main</a>';
-	}
+	$pathway_str .= '<a href="./">Main</a>';
     if(is_array($pathway_info))
 	{
         foreach($pathway_info as $newpath)

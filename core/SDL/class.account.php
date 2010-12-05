@@ -87,6 +87,9 @@ class Account
             }
 			else
 			{
+				// If ther return is false on the account key matching, then
+				// we must logout to delete the key, and set group to guest
+				$this->logout($cookie['user_id']);
                 $this->setgroup();
                 return false;
             }
@@ -960,7 +963,6 @@ class Account
 			}
 			else 
 			{
-				output_message('error', 'Account Keys Error!');
 				return FALSE;
 			}
 		}

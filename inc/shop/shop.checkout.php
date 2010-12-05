@@ -57,8 +57,14 @@ function completeOrder()
 	// If there is an item number for the selected package
 	if($package['item_number'] != 0) 
 	{
+		$item_array = '';
+		$package_array = explode(',', $package['item_number']);
+		foreach($package_array as $a)
+		{
+			$item_array .= $a.":".$package['quanity']." ";
+		}
 		$command[] = "send items ".$_POST['char']." \"".$lang["shop_mail_subject"]."\" \"".
-			$lang["shop_mail_message"]."\" ".$package['item_number'].":".$package['quanity'];
+			$lang["shop_mail_message"]."\" ".$item_array;
 	}
 	
 	// If there is an itemset for this package, we need to make a command for that as well

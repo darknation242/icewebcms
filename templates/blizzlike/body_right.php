@@ -12,10 +12,10 @@
 			<a href="<?php echo mw_url('server', 'realmstatus'); ?>"><?php echo $lang['realmstatus']; ?></a>
 		</li>
 		<li class="e">
-			<a href="<?php echo mw_url('server', 'faq'); ?>"><?php echo $lang['faq']; ?></a>
+			<a href="<?php echo mw_url('support', 'faq'); ?>"><?php echo $lang['faq']; ?></a>
 		</li>
 		<li>
-			<a href="<?php echo mw_url('server', 'howtoplay'); ?>"><?php echo $lang['howtoplay']; ?></a>
+			<a href="<?php echo mw_url('support', 'howtoplay'); ?>"><?php echo $lang['howtoplay']; ?></a>
 		</li>
 		<li class="e">
 			<a href="<?php echo mw_url('server', 'commands'); ?>"><?php echo $lang['ingame_commands']; ?></a>
@@ -27,9 +27,11 @@
 
 <!-- VoteLinks  -->
 
-<?php if($Config->get('fp_vote_banner') == 1) 
-{ ?>
-
+<?php 
+// If the fronpage vote banner is enabled
+if($Config->get('fp_vote_banner') == 1) 
+{ 
+?>
 	<div id="box3">
 		<h3><?php echo $lang['vote_system'];?></h3>
 		<ul>
@@ -45,9 +47,9 @@
 	</div>
 	<span class="gfxhook"></span>
 	<hr>
-
 <?php 
-} ?>
+} 
+?>
 
 <!-- Screenshot of the Momment -->
 <?php
@@ -108,38 +110,36 @@ if(isset($usersonhomepage) || isset($hits))
 { 
 ?>
 <!-- usersonhomepage -->
+	<div id="box2">
+		<h3><?php echo $lang['useronhp'];?></h3>
+		<ul>
+			<li>&nbsp;</li>
 
-<div id="box2">
-	<h3><?php echo $lang['useronhp'];?></h3>
-	<ul>
-		<li>&nbsp;</li>
-
-		<?php 
-		if(isset($usersonhomepage))
-		{
-		?>
-			<li>
-				<a href="<?php echo mw_url('whoisonline'); ?>">&nbsp;<?php echo $usersonhomepage;?>&nbsp;</a>
-				<?php 
-					echo ($usersonhomepage == 1) ? $lang['user_online'] : $lang['users_online']; 
-				?>           
-			</li>
-		<?php 
-		} ?>
-
-		<li>&nbsp;</li>
-		<?php 
-		if(isset($hits))
-		{ ?>
-			<li>
-				<p  style="padding-left:19px; margin-top:-8px"><?php echo $lang['website_hits']; ?>: <?php echo $hits; ?></p>
-			</li>
-		<?php 
-		} ?>
-	</ul>
-</div>
-<span class="gfxhook"></span>
-<hr>
+			<?php 
+			if(isset($usersonhomepage))
+			{
+			?>
+				<li>
+					<a href="<?php echo mw_url('whoisonline'); ?>">&nbsp;<?php echo $usersonhomepage;?>&nbsp;</a>
+					<?php 
+						echo ($usersonhomepage == 1) ? $lang['user_online'] : $lang['users_online']; 
+					?>           
+				</li>
+				<li>&nbsp;</li>
+			<?php 
+			} 
+			if(isset($hits))
+			{ ?>
+				<li>
+					<p  style="padding-left:19px; margin-top:-8px"><?php echo $lang['website_hits']; ?>: <?php echo $hits; ?></p>
+				</li>
+				<li>&nbsp;</li>
+			<?php 
+			} ?>
+		</ul>
+	</div>
+	<span class="gfxhook"></span>
+	<hr>
 <?php 
 }
 if(isset($servers))

@@ -38,7 +38,7 @@ if(isset($_GET['linkid']))
 			<div class="field">
 				<label for="Link H">Link To: </label>
 				<input id="Link H" name="link" size="20" type="text" class="medium" value="<?php echo $edit_info['link']; ?>" />
-				<p class="field_help">The Http:// address of where the link points too. If withing MangosWeb, <br />link can be put like this 
+				<p class="field_help">The Http:// address of where the link points to. If within MangosWeb, <br />link can be put like this 
 										"?p= { PAGE } & sub= { SUB-PAGE }" <br />OR like this "?p= {PAGE} / {SUB-PAGE}</p>
 			</div>
 			
@@ -115,7 +115,7 @@ elseif(isset($_GET['addlink']))
 			<div class="field">
 				<label for="Link H">Link To: </label>
 				<input id="Link H" name="link" size="20" type="text" class="medium" />
-				<p class="field_help">The Http:// address of where the link points too. If withing MangosWeb, <br />link can be put like this 
+				<p class="field_help">The Http:// address of where the link points to. If within MangosWeb, <br />link can be put like this 
 										"?p= { PAGE } & sub= { SUB-PAGE }" <br />OR like this "?p= {PAGE} / {SUB-PAGE}</p>
 			</div>
 			

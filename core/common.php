@@ -311,6 +311,23 @@ function redirect($linkto,$type=0,$wait_sec=0)
 }
 
 //	************************************************************	
+// Does a PHP operator compare ( & ). Example: does 2 fit into
+// 3? 1 + 2 = 3 so yes. How about 8? 1 + 2 + 4 = 7 so NO.
+// The numbers have to double, EX: 1, 2, 4, 8, 16, 32, 64 etc etc.
+
+function bitCompare($bit, $key)
+{
+    if(($bit & $key) == TRUE)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+//	************************************************************	
 // Checks a string for illegal symbols
 
 function check_for_symbols($string, $space_check = 0)
