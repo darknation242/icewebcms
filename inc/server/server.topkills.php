@@ -8,7 +8,7 @@ if(INCLUDED!==true) {
 $realm = $DB->selectRow("SELECT * FROM realmlist WHERE `id`='".$user['cur_selected_realm']."' LIMIT 1");
 
 // ==================== //
-$pathway_info[] = array('title' => 'Honor', 'link' => '?p=server&sub=honor');
+$pathway_info[] = array('title' => 'Top Kills', 'link' => '?p=server&sub=topkills');
 $pathway_info[] = array('title' => $realm['name'], 'link' => '');
 // ==================== //
 

@@ -41,7 +41,7 @@ if($Config->get('module_charcustomize') == 1)
 									{
 								?>
 										<tr>
-											<td colspan='2'><?php echo add_pictureletter($Page_Desc); ?><br /></td>
+											<td colspan='2'><?php echo add_pictureletter($PAGE_DESC); ?><br /></td>
 										</tr>
 										<tr>
 											<td align='right' valign = "top" width='50%'><b>Character: </b></td>

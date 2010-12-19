@@ -36,8 +36,12 @@ if(isset($_POST['action']))
 		$pass = $Account->sha_password($login, $_POST['pass']);
 		$EMAIL = $DB->selectCell("SELECT `email` FROM `account` WHERE `username` LIKE '".$_POST['login']."' LIMIT 1");
 		
+		// initiate the login array, and send it in
+		$params = array('username' => $login, 'sha_pass_hash' => $pass);
+		$Login = $Account->login($params);
+		
 		// If account login was successful
-		if($Account->login(array('username' => $login, 'sha_pass_hash' => $pass)))
+		if($Login == 1)
 		{
 			// === Start of Forum Bridges. User login must be successfulll first === //
 			
@@ -46,29 +50,17 @@ if(isset($_POST['action']))
 			{
 				include('core/lib/class.phpbb.php');
 				$phpbb = new phpbb($Config->get('module_phpbb3_path'), 'php');
-				$phpbb_vars = array(
-					"username" => $_POST['login'], 
-					"password" => $_POST['pass'], 
-				);
 				
-				// First we try to log in
-				$phpbb_result = $phpbb->user_login($phpbb_vars);
-				
-				// If login is falied, then we try to create the account in the forums DB
-				if($phpbb_result != 'SUCCESS')
+				// If the user doesnt exist in the DB, then create the account
+				if($phpbb->get_user_id_from_name($login) == FALSE)
 				{
-					// First check to see if there wasnt just an error in the login phase
-					// If the user doesnt exist in the DB, then create the account
-					if($phpbb->get_user_id_from_name($login) == FALSE)
-					{
-						$phpbb_vars = array(
-							"username" => $_POST['login'], 
-							"user_password" => $_POST['pass'], 
-							"user_email" => $EMAIL, 
-							"group_id" => "2"
-						);
-						$phpbb->user_add($phpbb_vars);
-					}
+					$phpbb_vars = array(
+						"username" => $_POST['login'], 
+						"user_password" => $_POST['pass'], 
+						"user_email" => $EMAIL, 
+						"group_id" => "2"
+					);
+					$phpbb->user_add($phpbb_vars);
 				}
 			}
 			
@@ -85,11 +77,6 @@ if(isset($_POST['action']))
 					// Register new user
 					$userdata = array('username' => $login, 'password' => $_POST['pass'], 'email' => $EMAIL);
 					@$vb->register_newuser($userdata, TRUE);
-				}
-				else
-				{
-					$userdata = array('username' => $login, 'password' => $_POST['pass']);
-					@$vb->login($userdata);
 				}
 			}
 			

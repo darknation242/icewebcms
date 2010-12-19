@@ -19,6 +19,9 @@ if($Account->isLoggedIn() == TRUE)
 	redirect('?p=account&sub=manage',1);
 }
 
+// Initiate the page description
+$PAGE_DESC = $lang['account_restore_desc'];
+
 // Load secret Questions
 $sc_q = $Account->getSecretQuestions();
 

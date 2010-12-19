@@ -19,6 +19,9 @@ if($Account->isLoggedIn() == FALSE)
 	redirect('?p=account&sub=login',1);
 }
 
+// Enter the page descrition
+$PAGE_DESC = $lang['donate_desc'];
+
 // Include the paypal class
 include('core/lib/class.paypal.php');
 $Paypal = new Paypal;

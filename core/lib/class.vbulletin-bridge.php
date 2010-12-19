@@ -37,7 +37,7 @@ class vBulletin_Bridge extends vB_DataManager_User {
    var $userdm;
    var $vbulletin;
    var $db;
-   function vBulletin_Bridge($path) // constructor
+   function vBulletin_Bridge() // constructor
    {
       global $vbulletin;
 	  $this->vbulletin = $vbulletin;
@@ -49,7 +49,7 @@ class vBulletin_Bridge extends vB_DataManager_User {
 // using the user name instead of numeric ID as the argument.
 // See comments in includes/functions.php for documentation.
 //---------------------------------------------------------------------
-	private function fetch_userinfo_from_username($username, $option=0, $languageid=0)
+	function fetch_userinfo_from_username($username, $option=0, $languageid=0)
 	{
 	   $result = $this->db->query("SELECT * FROM "
 		  . TABLE_PREFIX . "user WHERE username = '".$username."'");

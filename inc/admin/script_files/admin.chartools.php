@@ -62,7 +62,7 @@ function deleteCharacter()
 
 function updateChar()
 {
-	global $Character;
+	global $Character, $lang;
 	if($Character->isOnline($_GET['id']) == FALSE)
 	{
 		if($Character->setLevel($_GET['id'], $_POST['level'])  == TRUE)
@@ -71,77 +71,66 @@ function updateChar()
 			{
 				if($Character->setMoney($_GET['id'], $_POST['money'])  == TRUE)
 				{
-					output_message('success', 'Character updated successfully. Redirecting...
-					<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
+					output_message('success', $lang['char_update_success'].'<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
 				}
 				else
 				{
-					output_message('error', 'Cannot adjust the characters Money. Redirecting...
-					<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
+					output_message('error', $lang['char_adjust_money_fail'].'<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
 				}
 			}
 			else
 			{
-				output_message('error', 'Cannot set the characters Xp! Redirecting...
-				<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
+				output_message('error', $lang['char_adjust_xp_fail'].'<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
 			}
 		}
 		else
 		{
-			output_message('error', 'Cannot set the characters Name! Redirecting...
-			<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
+			output_message('error', $lang['char_set_name_fail'].'<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
 		}
 	}
 	else
 	{
-		output_message('warning', 'The character is currently online. Cannot make adjustments! Redirecting...
-			<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
+		output_message('warning', $lang['char_update_fail_online'].'<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
 	}				
 }
 
 function flagRename()
 {
-	global $Character;
+	global $Character, $lang;
 	if($Character->setRename($_GET['id']) == TRUE)
 	{
-		output_message('success', 'Character Rename flag set. Redirecting...
-			<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
+		output_message('success', $lang['char_rename_flag_set'].'<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
 	}
 	else
 	{
-		output_message('warning', 'Character already has the Rename flag set. Redirecting...
-			<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
+		output_message('warning', $lang['char_rename_flag_fail'].'<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
 	}
 	
 }
 
 function flagCustomize()
 {
-	global $Character;
+	global $Character, $lang;
 	if($Character->setCustomize($_GET['id']) == TRUE)
 	{
-		output_message('success', 'Character Re-Customize flag set. Redirecting...
-			<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
+		output_message('success', $lang['char_recustomize_flag_set'].'<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
 	}
 	else
 	{
-		output_message('warning', 'Character already has the Re-Customize flag set. Redirecting...
-			<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
+		output_message('warning', $lang['char_recustomize_flag_fail'].'<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
 	}
 }
 
 function flagTalentReset()
 {
-	global $Character;
+	global $Character, $lang;
 	if($Character->setResetTalents($_GET['id']) == TRUE)
 	{
-		output_message('success', 'Character Talent Reset flag set. Redirecting...
-			<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
+		output_message('success', $lang['char_talent_flag_fail'].'<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
 	}
 	else
 	{
-		output_message('warning', 'Character already has the Talent Reset flag set. Redirecting...
-			<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
+		output_message('warning', $lang['char_talent_flag_fail'].'<meta http-equiv=refresh content="3;url=?p=admin&sub=chartools&id='.$_GET['id'].'">');
 	}
 }
 

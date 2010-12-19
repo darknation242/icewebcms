@@ -3,7 +3,7 @@
 		<h4><a href="?p=admin">Main Menu</a> / Error logs</h4>
 	</div> <!-- .content-header -->				
 	<div class="main-content">
-	<center><a href="?p=admin&sub=errorlog&action=clean"><font color='red'><b>Clear Log</b></a></font></center>
+	<center><a href="?p=admin&sub=errorlog&action=clean"><font color='red'><b><?php echo $lang['clear_log']; ?></b></a></font></center>
 	<?php
 		if(isset($_GET['action']))
 		{

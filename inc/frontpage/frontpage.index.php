@@ -24,12 +24,12 @@ if($Config->get('fp_hitcounter') == 1)
 }
 
 // If the cache is disabled, OR (its enabled AND page isnt cahced), then get all the server info and news posts etc etc.
-if($Config->get('enable_cache') == 0 || ($Config->get('enable_cache') == 1 && $Core->isCached($Template['number']."_frontpage.index") != TRUE))
+if($Config->get('enable_cache') == 0 || ($Config->get('enable_cache') == 1 && $Core->isCached($Template['number']."_frontpage.index_".$GLOBALS['user_cur_lang']) != TRUE))
 {
 	$alltopics = $DB->select("SELECT * FROM mw_news ORDER BY `id` DESC");
 	$servers = array();
 	$multirealms = $DB->select("SELECT * FROM `realmlist` ORDER BY `id` ASC");
-	foreach ($multirealms as $realmnow_arr)
+	foreach($multirealms as $realmnow_arr)
 	{
 		if($Config->get('fp_serverinfo') == 1)
 		{

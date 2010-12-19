@@ -1,4 +1,5 @@
 <?php
+// If a 'id' is in the URL, then access that package
 if(isset($_GET['id']))
 {
 ?>
@@ -30,28 +31,31 @@ if(isset($_GET['id']))
 				$edit_info = $DB->selectRow("SELECT * FROM `mw_donate_packages` WHERE `id`='".$_GET['id']."'");
 			?>
 			
+			<!-- Desc -->
 			<div class="field">
-				<label for="Link Title">Desc: </label>
+				<label for="Link Title"><?php echo $lang['desc']; ?>: </label>
 				<input id="Link Title" name="desc" size="20" type="text" class="large" value="<?php echo $edit_info['desc']; ?>" />
-				<p class="field_help">Description of your donation package</p>
+				<p class="field_help"><?php echo $lang['donate_desc']; ?></p>
 			</div>
 			
+			<!-- Cost -->
 			<div class="field">
-				<label for="Link H">Cost: $</label>
+				<label for="Link H"><?php echo $lang['cost']; ?>: $</label>
 				<input id="Link H" name="cost" size="20" type="text" class="xsmall" value="<?php echo $edit_info['cost']; ?>" />
-				<p class="field_help">The cost of the donation package</p>
+				<p class="field_help"><?php echo $lang['donate_cost_desc']; ?></p>
 			</div>
 			
+			<!-- Point Reward -->
 			<div class="field">
-				<label for="Link H">Point Reward: </label>
+				<label for="Link H"><?php echo $lang['donate_point_reward']; ?>: </label>
 				<input id="Link H" name="points" size="20" type="text" class="xsmall" value="<?php echo $edit_info['points']; ?>" />
-				<p class="field_help">The amount of webpoints the user get for donating with this package.</p>
+				<p class="field_help"><?php echo $lang['donate_point_reward_desc']; ?></p>
 			</div>
 			
 			<div class="buttonrow-border">								
 				<center>
-					<button><span>Update Package</span></button>
-					<button class="btn-sec" name="delete"><span>DELETE Package</span></button>
+					<button><span><?php echo $lang['update_package']; ?></span></button>
+					<button class="btn-sec" name="delete"><span><?php echo $lang['delete_package']; ?></span></button>
 				</center>					
 			</div>
 			
@@ -82,26 +86,30 @@ elseif(isset($_GET['add']))
 			<form method="POST" action="?p=admin&sub=donate&add=true" class="form label-inline">
 			<input type="hidden" name="action" value="add">
 			
+			<!-- Desc -->
 			<div class="field">
-				<label for="Link Title">Desc: </label>
+				<label for="Link Title"><?php echo $lang['desc']; ?>: </label>
 				<input id="Link Title" name="desc" size="20" type="text" class="large" />
-				<p class="field_help">Description of your donation package</p>
+				<p class="field_help"><?php echo $lang['donate_desc']; ?></p>
 			</div>
 			
+			<!-- Cost -->
 			<div class="field">
-				<label for="Link H">Cost: $</label>
+				<label for="Link H"><?php echo $lang['cost']; ?>: $</label>
 				<input id="Link H" name="cost" size="20" type="text" class="xsmall" />
-				<p class="field_help">The cost of the donation package</p>
+				<p class="field_help"><?php echo $lang['donate_cost_desc']; ?></p>
 			</div>
 			
+			<!-- Point reward -->
 			<div class="field">
-				<label for="Link H">Point Reward: </label>
+				<label for="Link H"><?php echo $lang['donate_point_reward']; ?>: </label>
 				<input id="Link H" name="points" size="20" type="text" class="xsmall" />
-				<p class="field_help">The amount of webpoints the user get for donating with this package.</p>
+				<p class="field_help"><?php echo $lang['donate_point_reward_desc']; ?></p>
 			</div>
-			
+
+			<!-- Add Button -->
 			<div class="buttonrow-border">								
-				<center><button><span>Add Package</span></button></center>			
+				<center><button><span><?php echo $lang['add_package']; ?></span></button></center>			
 			</div>		
 			</form>
 		</div>
@@ -109,23 +117,24 @@ elseif(isset($_GET['add']))
 
 <?php
 }
-else
+else # No Package Id Set
 {
 ?>
+	<!-- List of packages -->
 	<div class="content">	
 		<div class="content-header">
 			<h4><a href="?p=admin">Main Menu</a> / Donate Admin</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">
 			<form method="POST" action="?p=admin&sub=donate&add=true" class="form label-inline">
-				<h5><center>List of Donation Packages</center></h5><br />
+				<h5><center><?php echo $lang['list_donate_packages']; ?></center></h5><br />
 				<table>
 					<thead>
 						<th><center><b>ID</center></b></th>
-						<th><center><b>Description</center></b></th>
-						<th><center><b>Cost</center></b></th>
-						<th><center><b>Reward</center></b></th>
-						<th><center><b>Action</center></b></th>
+						<th><center><b><?php echo $lang['description']; ?></center></b></th>
+						<th><center><b><?php echo $lang['cost']; ?></center></b></th>
+						<th><center><b><?php echo $lang['reward']; ?></center></b></th>
+						<th><center><b><?php echo $lang['action']; ?></center></b></th>
 					</thead>
 				<?php
 					if($get_pack != FALSE)
@@ -147,7 +156,7 @@ else
 				</table>
 			<br />
 			<div class="buttonrow-border">								
-				<center><button><span>Add New Donation</span></button></center>			
+				<center><button><span><?php echo $lang['add_new_donation']; ?></span></button></center>			
 			</div>
 			</form>
 		</div>

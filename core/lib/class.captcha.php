@@ -24,30 +24,30 @@ class Captcha
 	var $ttf_folder="core/cache/font/";
 
 	var $chars_image_activate = 6;
-	var $lx= 230;
-	var $ly= 70;
-	var $minsize= 23;
-	var $maxsize= 30;
-	var $noise= 0;  //number of chars in background
-	var $maxrotation= 20;
-	var $ttf_range= array();
+	var $lx = 230;
+	var $ly = 70;
+	var $minsize = 23;
+	var $maxsize = 30;
+	var $noise = 0;  //number of chars in background
+	var $maxrotation = 20;
+	var $ttf_range = array();
 	var $privkey;
 	var $filename;
-	var $maxold=1800;  // 0.5 h = 1800 s
+	var $maxold = 1800;  // 0.5 h = 1800 s
 
 	function delold()
-	{
-		$handle=opendir($this->tmpfolder);
-		while ($file = readdir ($handle))
+	{	
+		global $DB;
+		$handle = opendir($this->tmpfolder);
+		while($file = readdir($handle))
 		{
-			if ($file != "." && $file != ".." && $file != ".svn" && $file != "_svn")
+			if($file != "." && $file != ".." && $file != ".svn" && $file != "_svn")
 			{
-				if ( filemtime($this->tmpfolder.$file) <= time()-$this->maxold )
+				if( filemtime($this->tmpfolder.$file) <= time() - $this->maxold )
 				{
-					unlink($this->tmpfolder.$file);
-					$qry="DELETE FROM acc_creation_captcha WHERE filename='".$this->tmpfolder.$file."'";
-					mysql_query($qry);
-//					echo "<p>$qry</p>";
+					@unlink($this->tmpfolder.$file);
+					$qry = "DELETE FROM `mw_acc_creation_captcha` WHERE filename='".$this->tmpfolder.$file."'";
+					$DB->query($qry);
 				}
 			}
 		}
@@ -56,12 +56,12 @@ class Captcha
 
 	function load_ttf()
 	{
-		$handle=opendir($this->ttf_folder);
-		while ($file = readdir ($handle))
+		$handle = opendir($this->ttf_folder);
+		while($file = readdir ($handle))
 		{
 			if ($file != "." && $file != ".." && $file != "" && $file != ".svn" && $file != "_svn")
 			{
-				$this->ttf_range[]=$file;
+				$this->ttf_range[] = $file;
 			}
 		}
 		closedir($handle);
@@ -83,41 +83,40 @@ class Captcha
 	{
 
 		$chars_image_activate=array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '2', '3', '4', '5', '6', '7', '8', '9'); // 0 o l 1 look too similar
-		$randcharindex=rand(0,count($chars_image_activate)-1);
+		$randcharindex = rand(0, count($chars_image_activate)-1);
 		
 		return $chars_image_activate[$randcharindex];
 	}
 
 	function generate_private()
 	{
-		$this->privkey="";
-		for ($i=0;$i<$this->chars_image_activate;$i++)
+		$this->privkey = "";
+		for($i=0; $i < $this->chars_image_activate; $i++)
 		{
 
-			$this->privkey.=$this->random_char();
+			$this->privkey .= $this->random_char();
 		}
 
 	}
 
 	function random_ttf()
 	{
-		$filename=$this->ttf_folder;
-		$filename.=$this->ttf_range[rand(0,count($this->ttf_range)-1)];
-//		echo $filename."<br />";
+		$filename = $this->ttf_folder;
+		$filename .= $this->ttf_range[rand(0,count($this->ttf_range)-1)];
 		return $filename;
 	}
 
 	function make_captcha()
-	{
-		
+	{	
 		$this->generate_private();
-		$image = imagecreatetruecolor($this->lx,$this->ly);
+		$image = imagecreatetruecolor($this->lx, $this->ly);
+		
 		// Set Backgroundcolor
 		$randcol['r'] = "255";
-    $randcol['b'] = "255";
-    $randcol['g'] = "255";
-    $back =  imagecolorallocate($image, $randcol['r'], $randcol['g'], $randcol['b']);
-		ImageFilledRectangle($image,0,0,$this->lx,$this->ly,$back);
+		$randcol['b'] = "255";
+		$randcol['g'] = "255";
+		$back =  imagecolorallocate($image, $randcol['r'], $randcol['g'], $randcol['b']);
+		ImageFilledRectangle($image, 0, 0, $this->lx, $this->ly, $back);
 		// fill with noise or grid
 		if($this->noise > 0)
 		{
@@ -129,12 +128,14 @@ class Captcha
 				srand((double)microtime()*1000000);
 				$angle	= intval(rand(0, 360));
 				srand((double)microtime()*1000000);
-				$x		= intval(rand(0, $this->lx));
+				$x = intval(rand(0, $this->lx));
 				srand((double)microtime()*1000000);
-				$y		= intval(rand(0, (int)($this->ly - ($size / 5))));
-    		$randcol['r'] = "0";
-        $randcol['b'] = "0";
-        $randcol['g'] = "0";
+				$y = intval(rand(0, (int)($this->ly - ($size / 5))));
+				
+				$randcol['r'] = "0";
+				$randcol['b'] = "0";
+				$randcol['g'] = "0";
+				
 				$color	= imagecolorallocate($image, $randcol['r'], $randcol['g'], $randcol['b']);
 				srand((double)microtime()*1000000);
 				$text	= $this->random_char();
@@ -181,7 +182,7 @@ class Captcha
 		ImagePNG($image, $this->tmpfolder.$filename);
 
 		ImageDestroy($image);
-		$this->filename=$this->tmpfolder.$filename;
+		$this->filename = $this->tmpfolder.$filename;
 	}
 }
 ?>

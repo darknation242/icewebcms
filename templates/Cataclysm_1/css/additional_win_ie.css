@@ -34,7 +34,7 @@ div.community-watch { width: 430px; }
 
 /*theme-bg*/
 #left-bg { position: absolute; top: -62px; left: -285px; height: 1026px; width: 478px; }
-#right-bg { position: absolute; top: 25px; left: 933px; height: 551px; width: 323px; }
+#right-bg { position: absolute; top: -62px; left: 983px; height: 621px; width: 296px; }
 /*theme-bg*/
 
 #navwrapper, #mainwrapper { float: left; }

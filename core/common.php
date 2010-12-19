@@ -328,6 +328,15 @@ function bitCompare($bit, $key)
 }
 
 //	************************************************************	
+// Builds a cache file name using the template number an language
+
+function cacheString($title)
+{
+	global $Template;
+	return $Template['number']. $title . $GLOBALS['user_cur_lang'];
+}
+
+//	************************************************************	
 // Checks a string for illegal symbols
 
 function check_for_symbols($string, $space_check = 0)

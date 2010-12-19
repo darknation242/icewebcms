@@ -17,51 +17,51 @@ class Config
 
 	function Load() 
 	{
-		if ( file_exists($this->configFile ) ) 
+		if(file_exists($this->configFile )) 
 		{
-			include ( $this->configFile );
+			include($this->configFile);
 			$vars = get_defined_vars();
-			foreach ( $vars as $key => $val ) 
+			foreach($vars as $key => $val) 
 			{
 				if ($key != 'this' && $key != 'data') 
 				{
 					$this->data[$key] = $val;
 				}
 			}
-			return true;
+			return TRUE;
 		} 
 		else 
 		{
-			return false;
+			return FALSE;
 		}
 	}
 	
 //	************************************************************
 // Returns the config variable requested
 
-	function get( $key ) 
+	function get($key) 
 	{
-		if (isset($this->data[ $key ])) 
+		if(isset($this->data[$key])) 
 		{
-			return $this->data[ $key ];
+			return $this->data[$key];
 		}
 	}
 	
 //	************************************************************
 // Returns the requested DB key from the DB config file
 
-	function getDbInfo( $key ) 
+	function getDbInfo($key) 
 	{
 		include($this->path_protectedconf);
-		return $db[ $key ];
+		return $db[$key];
 	}
 	
 //	************************************************************
 // Sets a variable
 
-	function set( $key, $val ) 
+	function set($key, $val) 
 	{
-		$this->data[ $key ] = $val;
+		$this->data[$key] = $val;
 	}
 
 //	************************************************************
@@ -70,13 +70,21 @@ class Config
 	function Save() 
 	{
 		$cfg  = "<?php\n";
-		foreach ( $this->data as $key => $val ) 
+		$cfg .= "/*********************************************\n";
+		$cfg .= "*  MangosWeb Enhanced Auto Generated Config  *\n";
+		$cfg .= "**********************************************\n";
+		$cfg .= "* Generated from the MangosWeb Config Class  *\n";
+		$cfg .= "* Use the Admin Panel to set Config Values   *\n";
+		$cfg .= "**********************************************/\n";
+		$cfg .= "\n";
+		foreach($this->data as $key => $val) 
 		{
+			// If the value is numeric, dont add quotes
 			if (is_numeric($val)) 
 			{
 				$cfg .= "\$$key = " . $val . ";\n";
 			} 
-			else 
+			else # ins't numeric
 			{
 				$cfg .= "\$$key = '" . addslashes( $val ) . "';\n";
 			}
@@ -87,30 +95,13 @@ class Config
 		// Put the current config contents in the backup config file
 		@copy( $this->configFile, $this->configFile.'.bak' );
 		
-		if (phpversion() < 5) # If php version is less than 5
+		if (@file_put_contents( $this->configFile, $cfg )) 
 		{
-			$file = @fopen($this->configFile, 'w');
-			if ($file === false) 
-			{
-				return false;
-			} 
-			else 
-			{
-				@fwrite($file, $cfg);
-				@fclose($file);
-				return true;
-			}
+			return TRUE;
 		} 
 		else 
 		{
-			if (@file_put_contents( $this->configFile, $cfg )) 
-			{
-				return true;
-			} 
-			else 
-			{
-				return false;
-			}
+			return FALSE;
 		}
 	}
 }

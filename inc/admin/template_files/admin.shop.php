@@ -30,48 +30,56 @@ if(isset($_GET['id']))
 				$edit_info = $DB->selectRow("SELECT * FROM `mw_shop_items` WHERE `id`='".$_GET['id']."'");
 			?>
 			
+			<!-- Item Number -->
 			<div class="field">
-				<label for="Item Number">Item Number: </label>
-				<input id="Item Number" name="item_number" size="20" type="text" class="medium" value="<?php echo $edit_info['item_number']; ?>" />
-				<p class="field_help">Item number for reward. Seperate items with a "," comma. 0 For no item.</p>
+				<label for="ItemNumber"><?php echo $lang['item_number']; ?>: </label>
+				<input id="ItemNumber" name="item_number" size="20" type="text" class="medium" value="<?php echo $edit_info['item_number']; ?>" />
+				<p class="field_help"><?php echo $lang['item_number_desc']; ?></p>
 			</div>
 			
+			<!-- Itemset -->
 			<div class="field">
-				<label for="Itemset">Itemset: </label>
+				<label for="Itemset"><?php echo $lang['itemset']; ?>: </label>
 				<input id="Itemset" name="itemset" size="20" type="text" class="medium" value="<?php echo $edit_info['itemset']; ?>" />
-				<p class="field_help">Itemset Number for reward. Limit 1. (0 = No Itemset)</p>
+				<p class="field_help"><?php echo $lang['itemset_desc']; ?></p>
 			</div>
 			
+			<!-- Gold -->
 			<div class="field">
-				<label for="Gold">Gold: </label>
+				<label for="Gold"><?php echo $lang['gold']; ?>: </label>
 				<input id="Gold" name="gold" size="20" type="text" class="medium" value="<?php echo $edit_info['gold']; ?>" />
-				<p class="field_help">Enter amount of gold to be sent in copper.(ie: 10000 = 1g)</p>
+				<p class="field_help"><?php echo $lang['gold_desc']; ?></p>
 			</div>
 			
+			<!-- Desc -->
 			<div class="field">
-				<label for="Item desc">Description: </label>
-				<input id="Item desc" name="desc" size="20" type="text" class="large" value="<?php echo $edit_info['desc']; ?>" />
-				<p class="field_help">Description shown to users while viewing the shop reward.</p>
+				<label for="Itemdesc"><?php echo $lang['description']; ?>: </label>
+				<input id="Itemdesc" name="desc" size="20" type="text" class="large" value="<?php echo $edit_info['desc']; ?>" />
+				<p class="field_help"><?php echo $lang['shop_item_desc']; ?></p>
 			</div>
 			
+			<!-- Quantity -->
 			<div class="field">
-				<label for="q">Quantity: </label>
+				<label for="q"><?php echo $lang['quantity']; ?>: </label>
 				<input id="q" name="quanity" size="20" type="text" class="tiny" value="<?php echo $edit_info['quanity']; ?>" />
-				<p class="field_help">Quantity (amount) of items receiving. Does not affect gold or itemsets!</p>
+				<p class="field_help"><?php echo $lang['quantity_desc']; ?></p>
 			</div>
 			
+			<!-- Web Point Cost -->
 			<div class="field">
-				<label for="Cost">Web Points Cost: </label>
+				<label for="Cost"><?php echo $lang['web_point_cost']; ?>: </label>
 				<input id="Cost" name="wp_cost" size="20" type="text" class="tiny" value="<?php echo $edit_info['wp_cost']; ?>" />
-				<p class="field_help">Cost to buy the item via Web Points</p>
+				<p class="field_help"><?php echo $lang['web_point_cost_desc']; ?></p>
 			</div>
 			
+			<!-- Realms -->
 			<div class="field">
-				<label for="Site Emu">Realms: </label>
+				<label for="realms"><?php echo $lang['realm']; ?>: </label>
 				<select id="type" class="small" name="realms">
-					<option value=\"0\">All Realms</option><?php echo $realmzlist; ?>
+					<option value="0"><?php echo $lang['all_realms']; ?></option>
+					<?php echo $realmzlist; ?>
 				</select>
-				<p class="field_help">Which realms are able to purchase this item?</p>
+				<p class="field_help"><?php echo $lang['realms_desc']; ?></p>
 			</div>
 			
 			<div class="buttonrow-border">								
@@ -108,48 +116,55 @@ elseif(isset($_GET['additem']))
 			<form method="POST" action="?p=admin&sub=shop&additem=true" class="form label-inline">
 			<input type="hidden" name="action" value="add">
 			
+			<!-- Item Number -->
 			<div class="field">
-				<label for="Item Number">Item Number: </label>
-				<input id="Item Number" name="item_number" size="20" type="text" class="medium" />
-				<p class="field_help">Item number for reward. Seperate items with a "," comma. 0 For no item.</p>
+				<label for="ItemNumber"><?php echo $lang['item_number']; ?>: </label>
+				<input id="ItemNumber" name="item_number" size="20" type="text" class="medium" />
+				<p class="field_help"><?php echo $lang['item_number_desc']; ?></p>
 			</div>
 			
+			<!-- Itemset -->
 			<div class="field">
-				<label for="Itemset">Itemset: </label>
+				<label for="Itemset"><?php echo $lang['itemset']; ?>: </label>
 				<input id="Itemset" name="itemset" size="20" type="text" class="medium" />
-				<p class="field_help">Itemset Number for reward. Limit 1. (0 = No Itemset)</p>
+				<p class="field_help"><?php echo $lang['itemset_desc']; ?></p>
 			</div>
 			
+			<!-- Gold -->
 			<div class="field">
-				<label for="Gold">Gold: </label>
-				<input id="Gold" name="gold" size="20" type="text" class="medium" />
-				<p class="field_help">Enter amount of gold to be sent in copper.(ie: 10000 = 1g)</p>
+				<label for="Gold"><?php echo $lang['gold']; ?>: </label>
+				<input id="Gold" name="gold" size="20" type="text" class="medium"  />
+				<p class="field_help"><?php echo $lang['gold_desc']; ?></p>
 			</div>
 			
+			<!-- Desc -->
 			<div class="field">
-				<label for="Item desc">Description: </label>
-				<input id="Item desc" name="desc" size="20" type="text" class="large" />
-				<p class="field_help">Description shown to users while viewing the shop reward.</p>
+				<label for="Itemdesc"><?php echo $lang['description']; ?>: </label>
+				<input id="Itemdesc" name="desc" size="20" type="text" class="large" />
+				<p class="field_help"><?php echo $lang['shop_item_desc']; ?></p>
 			</div>
 			
+			<!-- Quantity -->
 			<div class="field">
-				<label for="q">Quantity: </label>
-				<input id="q" name="quanity" size="20" type="text" class="tiny" />
-				<p class="field_help">Quantity (amount) of items receiving. Does not affect gold or itemsets!</p>
+				<label for="q"><?php echo $lang['quantity']; ?>: </label>
+				<input id="q" name="quanity" size="20" type="text" class="tiny"  />
+				<p class="field_help"><?php echo $lang['quantity_desc']; ?></p>
 			</div>
 			
+			<!-- Web Point Cost -->
 			<div class="field">
-				<label for="Cost">Web Points Cost: </label>
+				<label for="Cost"><?php echo $lang['web_point_cost']; ?>: </label>
 				<input id="Cost" name="wp_cost" size="20" type="text" class="tiny" />
-				<p class="field_help">Cost to buy the item via Web Points</p>
+				<p class="field_help"><?php echo $lang['web_point_cost_desc']; ?></p>
 			</div>
 			
 			<div class="field">
-				<label for="realms">Realms: </label>
+				<label for="realms"><?php echo $lang['realm']; ?>: </label>
 				<select id="type" class="small" name="realms">
-					<option value=\"0\">All Realms</option><?php echo $realmzlist; ?>
+					<option value="0"><?php echo $lang['all_realms']; ?></option>
+					<?php echo $realmzlist; ?>
 				</select>
-				<p class="field_help">Which realms are able to purchase this item?</p>
+				<p class="field_help"><?php echo $lang['realms_desc']; ?></p>
 			</div>
 			
 			<div class="buttonrow-border">								
@@ -170,15 +185,15 @@ else
 		</div> <!-- .content-header -->				
 		<div class="main-content">
 			<form method="POST" action="?p=admin&sub=shop&additem=true" class="form label-inline">
-				<h5><center>List of Shop Items</center></h5><br />
+				<h5><center><?php echo $lang['list_shop_items']; ?></center></h5><br />
 				<table>
 					<thead>
 						<th><center><b>ID</center></b></th>
-						<th><center><b>Reward</center></b></th>
-						<th><center><b>Quantity</center></b></th>
-						<th><center><b>Cost</center></b></th>
-						<th><center><b>Realms</center></b></th>
-						<th><center><b>Action</center></b></th>
+						<th><center><b><?php echo $lang['reward']; ?></center></b></th>
+						<th><center><b><?php echo $lang['quantity']; ?></center></b></th>
+						<th><center><b><?php echo $lang['cost']; ?></center></b></th>
+						<th><center><b><?php echo $lang['realm']; ?></center></b></th>
+						<th><center><b><?php echo $lang['action']; ?></center></b></th>
 					</thead>
 				<?php
 					if($getitems != FALSE)
@@ -246,7 +261,7 @@ else
 				</div>
 			<br />
 			<div class="buttonrow-border">								
-				<center><button><span>Add New Shop Item</span></button></center>			
+				<center><button><span><?php echo $lang['add_new_shop_package']; ?></span></button></center>			
 			</div>
 			</form>
 		</div>

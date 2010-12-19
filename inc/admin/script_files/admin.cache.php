@@ -12,17 +12,15 @@ if(isset($_POST['reset']))
 
 function clearCache()
 {
-	global $Core;
+	global $Core, $lang;
 	$Core->clearCache();
-	output_message('success', 'Cache cleared successfully! Please wait while your redirected... 
-		<meta http-equiv=refresh content="3;url=?p=admin&sub=cache">');
+	output_message('success', $lang['cache_clear_success'].'<meta http-equiv=refresh content="3;url=?p=admin&sub=cache">');
 }
 
 function saveConfig() 
 {
-	$Config = new Config();
-		
-	// Store New/Changed config items
+	global $Config, $lang;
+
 	foreach ($_POST as $item => $val) 
 	{
 		$key = explode('__', $item);
@@ -32,7 +30,7 @@ function saveConfig()
 		}
 	}
 	$Config->Save();
-	output_message('success','Finished! Cache Settings Successfully Updated. Please wait while your redirected... 
-		<meta http-equiv=refresh content="3;url=?p=admin&sub=cache">');
+	
+	output_message('success', $lang['cache_settings_saved'].'<meta http-equiv=refresh content="3;url=?p=admin&sub=cache">');
 }
 ?>

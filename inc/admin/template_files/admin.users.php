@@ -37,6 +37,8 @@ if(isset($_GET['id']))
 				$bann = 0;
 			}
 ?>
+
+	<!-- Viewing an account -->
 		<div class="content">	
 			<div class="content-header">
 				<h4><a href="?p=admin">Main Menu</a> / <a href="?p=admin&sub=users">Manage Users</a> / <?php echo $profile['username']; ?></h4>
@@ -67,34 +69,43 @@ if(isset($_GET['id']))
 						}
 					}
 				?>
-			
+				
+				<!-- Table for general account details -->
 				<table style="border-bottom: 1px solid #E5E2E2;">
 					<thead>
-						<th colspan="4"><center><b>General Stats</center></b></th>
+						<th colspan="4"><center><b><?php echo $lang['general_stats']; ?></center></b></th>
 					</thead>
 					<tbody>
 						<tr>
-							<td width="25%" align="right">Registration Date: </td>
+							<!-- Register Date -->
+							<td width="25%" align="right"><?php echo $lang['reg_date']; ?>: </td>
 							<td width="25%" align="left"><?php echo $profile['joindate']; ?></td>
-							<td width="25%" align="right">Vote Count: </td>
+							<!-- Vote Count -->
+							<td width="25%" align="right"><?php echo $lang['vote_count']; ?>: </td>
 							<td width="25%" align="left"><?php echo $profile['total_votes']; ?></td>
 						</tr>
 						<tr>
-							<td width="25%" align="right">Registration IP: </td>
+							<!-- Register IP -->
+							<td width="25%" align="right"><?php echo $lang['reg_ip']; ?>: </td>
 							<td width="25%" align="left"><?php echo $profile['registration_ip']; ?></td>
-							<td width="25%" align="right"> Webpoint Balance: </td>
+							<!-- Web Point Balance -->
+							<td width="25%" align="right"><?php echo $lang['web_point_balance']; ?>: </td>
 							<td width="25%" align="left"><?php echo $profile['web_points']; ?></td>
 						</tr>
 						<tr>
-							<td width="25%" align="right">Last Activity (Game): </td>
+							<!-- Last game activity -->
+							<td width="25%" align="right"><?php echo $lang['last_act_game']; ?>: </td>
 							<td width="25%" align="left"><?php echo $profile['last_login']; ?></td>
-							<td width="25%" align="right">Points Earned/Spent: </td>
+							<!-- Points earned/spent -->
+							<td width="25%" align="right"><?php echo $lang['points_earned_spent']; ?>: </td>
 							<td width="25%" align="left"><?php echo $profile['points_earned']." / ".$profile['points_spent']; ?></td>
 						</tr>
 						<tr>
-							<td width="25%" align="right">Last Activity (Site): </td>
+							<!-- Last site activity -->
+							<td width="25%" align="right"><?php echo $lang['last_act_site']; ?>: </td>
 							<td width="25%" align="left"><?php echo $lastvisit; ?></td>
-							<td width="25%" align="right">Total Donations: </td>
+							<!-- Total Donations -->
+							<td width="25%" align="right"><?php echo $lang['total_donations']; ?>: </td>
 							<td width="25%" align="left">$<?php echo $profile['total_donations']; ?></td>
 						</tr>
 						
@@ -104,7 +115,7 @@ if(isset($_GET['id']))
 					<tr>
 						<td align="center" style="padding: 5px 5px 5px 5px;">
 						<a href="?p=admin&sub=users&id=<?php echo $_GET['id']; ?>&action=delete" onclick="return confirm('Are you sure? This is Un-reversable!');">
-							<b><font color="red">Delete Account</font></b></a> ||
+							<b><font color="red"><?php echo $lang['delete_account']; ?></font></b></a> ||
 						<?php
 							if($bann == 1) 
 							{
@@ -123,40 +134,40 @@ if(isset($_GET['id']))
 				<br />
 				<table>
 					<thead>
-						<th><center><b>Edit Profile</center></b></th>
+						<th><center><b><?php echo $lang['edit_profile']; ?></center></b></th>
 					</thead>
 				</table>
 				<form method="POST" action="?p=admin&sub=users&id=<?php echo $_GET['id']; ?>" class="form label-inline">
 					<input type="hidden" name="action" value="editProfile">
 					
 					<div class="field">
-						<label for="Username">Username: </label>
+						<label for="Username"><?php echo $lang['username']; ?>: </label>
 						<input id="Username" name="username" size="20" type="text" class="medium" disabled="disbled" value="<?php echo $profile['username']; ?>"/>
 					</div>
 					
 					<div class="field">
-						<label for="Email">Email: </label>
+						<label for="Email"><?php echo $lang['email']; ?>: </label>
 						<input id="Email" name="email" size="20" type="text" class="medium" value="<?php echo $profile['email']; ?>"/>
 					</div>
 					
 					<div class="field">
-						<label for="Locked">Locked: </label>
+						<label for="Locked"><?php echo $lang['locked']; ?>: </label>
 						<select name="locked" class='xsmall'>
 							<?php
 								if($profile['locked'] == 1)
 								{
-									echo "<option value='1' selected='selected'>Yes</option><option value='0'>No</option>";
+									echo "<option value='1' selected='selected'>". $lang['yes'] ."</option><option value='0'>". $lang['no'] ."</option>";
 								}
 								else
 								{
-									echo "<option value='1'>Yes</option><option value='0' selected='selected'>No</option>";
+									echo "<option value='1'>". $lang['yes'] ."</option><option value='0' selected='selected'>". $lang['no'] ."</option>";
 								}
 							?>
 						</select>
 					</div>
 					
 					<div class="field">
-						<label for="Exp">Expansion: </label>
+						<label for="Exp"><?php echo $lang['expansion']; ?>: </label>
 						<select name="expansion" class='small'>
 							<?php
 								if($profile['expansion'] == 2)
@@ -176,7 +187,7 @@ if(isset($_GET['id']))
 					</div>
 					
 					<div class="buttonrow-border">								
-						<center><button><span>Update Profile</span></button></center>			
+						<center><button><span><?php echo $lang['update_profile']; ?></span></button></center>			
 					</div>
 				</form>
 				
@@ -185,19 +196,20 @@ if(isset($_GET['id']))
 				<br />
 				<table>
 					<thead>
-						<th><center><b>Change Password</center></b></th>
+						<th><center><b><?php echo $lang['change_pass']; ?></center></b></th>
 					</thead>
 				</table>
 				<form method="POST" action="?p=admin&sub=users&id=<?php echo $_GET['id']; ?>" class="form label-inline">
 					<input type="hidden" name="action" value="changePass">
-				
+					
+					<!-- New Password -->
 					<div class="field">
-						<label for="Password">New Password: </label>
+						<label for="Password"><?php echo $lang['new_pass']; ?>: </label>
 						<input id="Password" name="password" size="20" type="text" class="medium" />
 					</div>
 					
 					<div class="buttonrow-border">								
-						<center><button><span>Set Password</span></button></center>			
+						<center><button><span><?php echo $lang['set_pass']; ?></span></button></center>			
 					</div>
 				</form>
 				
@@ -206,14 +218,15 @@ if(isset($_GET['id']))
 				<br />
 				<table>
 					<thead>
-						<th><center><b>Edit Website Account Details</center></b></th>
+						<th><center><b><?php echo $lang['edit_webacct_details']; ?></center></b></th>
 					</thead>
 				</table>
 				<form method="POST" action="?p=admin&sub=users&id=<?php echo $_GET['id']; ?>" class="form label-inline">
 					<input type="hidden" name="action" value="editWeb">
 				
+					<!-- Account Level -->
 					<div class="field">
-						<label for="Account_level">Account Level: </label>
+						<label for="account_level"><?php echo $lang['account_level']; ?>: </label>
 						<select name="account_level" class='small'>
 							<?php
 								if($profile['account_level'] == 5)
@@ -245,8 +258,9 @@ if(isset($_GET['id']))
 						</select>
 					</div>
 					
+					<!-- Theme -->
 					<div class="field">
-						<label for="Exp">Theme: </label>
+						<label for="theme"><?php echo $lang['theme']; ?>: </label>
 						<select name="theme" class='medium'>
 							<?php
 								$alltmpl = explode(",", $Config->get('templates'));
@@ -265,18 +279,20 @@ if(isset($_GET['id']))
 						</select>
 					</div>
 					
+					<!-- Web Points -->
 					<div class="field">
-						<label for="Web Points">Web Points: </label>
-						<input id="Web Points" name="web_points" size="2" type="text" class="xsmall" value="<?php echo $profile['web_points']; ?>"/>
+						<label for="Web_Points"><?php echo $lang['web_points']; ?>: </label>
+						<input id="Web_Points" name="web_points" size="2" type="text" class="xsmall" value="<?php echo $profile['web_points']; ?>"/>
 					</div>
 					
+					<!-- Total Donations -->
 					<div class="field">
-						<label for="Web Points">Total Donations: </label>
+						<label for="Web Points"><?php echo $lang['total_donations']; ?>: </label>
 						<input id="Web Points" name="total_donations" size="2" type="text" class="xsmall" value="<?php echo $profile['total_donations']; ?>"/>
 					</div>
 					
 					<div class="buttonrow-border">								
-						<center><button><span>Update</span></button></center>			
+						<center><button><span><?php echo $lang['update']; ?></span></button></center>			
 					</div>
 				</form>
 			
@@ -300,11 +316,11 @@ else
 			<h4><a href="?p=admin">Main Menu</a> / Manage Users</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">	
-		<center><h2>User List</h2></center>
+		<center><h2><?php echo $lang['user_list']; ?></h2></center>
 		<table>
 			<tr>
 				<td colspan="4" align="center">
-					<b>Sort by letter:</b>&nbsp;&nbsp;
+					<b><?php echo $lang['sort_by_letter']; ?>:</b>&nbsp;&nbsp;
 					<small>
 					<a href="?p=admin&sub=users">All</a> | 
 					<a href="?p=admin&sub=users&sortby=1">#</a> 
@@ -343,8 +359,8 @@ else
 					<input type='hidden' name='action' value='sort'>
 						<div class="field">
 							<center>
-								<b><font size='2'>Search By Username: </font></b> <input name="sortby" size="20" type="text" class="medium">
-								<button><span>Search</span></button>
+								<b><font size='2'><?php echo $lang['search_by_name']; ?>: </font></b> <input name="sortby" size="20" type="text" class="medium">
+								<button><span><?php echo $lang['search']; ?></span></button>
 							</center>
 						</div>
 					</form>
@@ -355,9 +371,9 @@ else
 			<table width="95%">
 				<thead>
 					<tr>
-						<th width="120"><b><center>UserName</center></b></th>
-						<th width="140"><b><center>Email</center></b></th>
-						<th width="120"><b><center>Registration Date</center></b></th>
+						<th width="120"><b><center><?php echo $lang['username']; ?></center></b></th>
+						<th width="140"><b><center><?php echo $lang['email']; ?></center></b></th>
+						<th width="120"><b><center><?php echo $lang['reg_date']; ?></center></b></th>
 						<th width="40"><b><center>Active/Ban</center></b></th>
 					</tr>
 				</thead>

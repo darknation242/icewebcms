@@ -71,17 +71,17 @@
 			staffid : "991234"
 		}
 	});
-</script>
+	</script>
 
-<!-- Include the functions.js for cookie setting of realms etc etc -->
-<script type="text/javascript">
-<!--
-    var SITE_HREF = '<?php echo $Config->get('site_href');?>';
-    var DOMAIN_PATH = '<?php echo $_SERVER["HTTP_HOST"];?>';
-    var SITE_PATH = '<?php echo $Config->get('site_href')?>';
--->
-</script>
-<script src="inc/admin/js/functions.js" type="text/javascript"></script>
+	<!-- Include the functions.js for cookie setting of realms etc etc -->
+	<script type="text/javascript">
+	<!--
+		var SITE_HREF = '<?php echo $Config->get('site_href');?>';
+		var DOMAIN_PATH = '<?php echo $_SERVER["HTTP_HOST"];?>';
+		var SITE_PATH = '<?php echo $Config->get('site_href')?>';
+	-->
+	</script>
+	<script src="inc/admin/js/functions.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -91,13 +91,13 @@
 		<div class="pad">			
 			<h1 id="title"><center><img src="inc/admin/images/MangosWeb.png" /></center></h1>
 			<div id="subheader">
-				Core Version: <?php echo $Core->version; ?>
+				<?php echo $lang['core_version']; ?>: <?php echo $Core->version; ?>
 				&nbsp;&nbsp;&nbsp; <font color='black'>|</font> &nbsp;&nbsp;&nbsp;
-				Database Version: <?php 
+				<?php echo $lang['database_version']; ?>: <?php 
                     $db_act_ver = $DB->selectCell("SELECT `dbver` FROM `mw_db_version`");
 					if($db_act_ver < $Core->exp_dbversion) 
 					{ 
-						echo "<font color='red'>".$db_act_ver." (<a href='". mw_url('admin', 'updates') ."' /><small>Needs Updated</small></a>)</font>";
+						echo "<font color='red'>".$db_act_ver." (<a href='". mw_url('admin', 'updates', array('update' => 'db')) ."' /><small>Needs Updated</small></a>)</font>";
 					}
 					elseif($db_act_ver > $Core->exp_dbversion) 
 					{ 
@@ -115,7 +115,8 @@
 	<div id="nav" class="clearfix">		
 		<ul>
 			<li>
-				<center><a href="?p=admin">Admin Home</a> | <a href="<?php echo mw_url('home'); ?>">Site Index</a></center>
+				<center><a href="?p=admin"><?php echo $lang['admin_home']; ?></a> | <a href="<?php echo mw_url('home'); ?>">
+					<?php echo $lang['site_index']; ?></a></center>
 			</li>
 		</ul>		
 	</div> <!-- #nav -->
@@ -126,14 +127,14 @@
 		<div id="sidebar">			
 			<div class="content">				
 				<div class="content-header">
-					<h4>Server Information</h4> 					
+					<h4><?php echo $lang['server_info']; ?></h4> 					
 				</div> <!-- .content-header -->						
 				<div class="main-content">		
 					<p>
-						PHP Version: <?php echo phpversion(); ?><br />
-						MySQL Version: <?php echo mysql_get_server_info(); ?><br /><br />
-						Allow Url Open (Fopen): <?php echo $allowfopen; ?><br />
-						Allow Fsockopen: <?php echo $fsock; ?><br />
+						<?php echo $lang['php_ver']; ?>: <?php echo phpversion(); ?><br />
+						<?php echo $lang['mysql_ver']; ?>: <?php echo mysql_get_server_info(); ?><br /><br />
+						<?php echo $lang['allow_url_open']; ?>: <?php echo $allowfopen; ?><br />
+						<?php echo $lang['allow_fsockopen']; ?>: <?php echo $fsock; ?><br />
 					</p>						
 					<div class="clear"></div>
 				</div> <!-- .main-content -->	

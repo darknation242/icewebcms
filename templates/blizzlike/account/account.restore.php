@@ -33,7 +33,7 @@ if($user['id'] < 1)
 							<tr>
 								<td>
 									<img align="right" src="<?php echo $Template['path']; ?>/images/confusedorc.jpg">
-									<?php  echo add_pictureletter($lang['account_restore_desc']);?>
+									<?php  echo add_pictureletter($PAGE_DESC);?>
 								</td>
 							</tr>
 							<tr>

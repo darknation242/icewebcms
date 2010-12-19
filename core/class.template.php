@@ -7,7 +7,7 @@
 */
 
 
-class Template
+class MangosTemplate
 {	
 	public $xml;
 	

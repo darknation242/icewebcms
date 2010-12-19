@@ -1,15 +1,15 @@
 <?php
-/********************************************************************************************************/
-/* 	DO NOT change the copyright in this file. Modification to this copyright will result in a break in  */
-/* 	agreement terms. Also, any modification to this Copyright, or version info. will result in loss of  */
-/*  all support by KeysWoW																				*/
+/********************************************************************************************************
+* 	DO NOT change the copyright in this file. Modification to this copyright will result in a break in  *
+* 	agreement terms. Also, any modification to this Copyright, or version info. will result in loss of  *
+*  all support by KeysWoW																				*
 /********************************************************************************************************/
 
 class Core
 {
-	var $version = '3.0.0b4';
-	var $version_date = '2010-12-5, 1:13 pm';
-	var $exp_dbversion = '1.0';
+	var $version = '3.0.0';
+	var $version_date = '2010-12-20, 10:13 am';
+	var $exp_dbversion = '1.0a';
 
 	function Core()
 	{
@@ -31,7 +31,7 @@ class Core
 		define('PRE_SITE_HREF', str_replace('//', '/', SITE_DIR));
 		define('SITE_HREF', stripslashes(PRE_SITE_HREF));
 		define('SITE_BASE_HREF', 'http://'.$_SERVER["HTTP_HOST"]. SITE_HREF);
-		if($Config->get('site_base_href') !== SITE_BASE_HREF)
+		if($Config->get('site_base_href') != SITE_BASE_HREF)
 		{
 			$Config->set('site_base_href', SITE_BASE_HREF);
 			$Config->set('site_href', SITE_HREF);
@@ -61,7 +61,7 @@ class Core
 		if(isset($_COOKIE['Language'])) 
 		{
 			// If the cookie is set, we need to make sure the language file still exists
-			if(file_exists('lang/' . $_COOKIE['Language'] . '.php'))
+			if(file_exists('lang/' . $_COOKIE['Language'] . '/common.php'))
 			{
 				$GLOBALS['user_cur_lang'] = (string)$_COOKIE['Language'];
 			}

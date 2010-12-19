@@ -1,4 +1,11 @@
 <?php
+/*********************************************
+*  MangosWeb Enhanced Auto Generated Config  *
+**********************************************
+* Generated from the MangosWeb Config Class  *
+* Use the Admin Panel to set Config Values   *
+**********************************************/
+
 $site_title = 'MangosWeb v3';
 $site_email = 'your@email.com';
 $site_cookie = 'MangosWebv3';
@@ -10,18 +17,18 @@ $emulator = 'mangos';
 $default_realm_id = 1;
 $templates = 'Cataclysm_1,WotLK';
 $default_lang = 'English';
-$available_lang = 'English,Spanish,Deutsch';
+$available_lang = 'English';
 $allow_registration = 1;
 $account_key_retain_length = 31536000;
 $require_act_activation = 0;
 $reg_invite = 0;
-$reg_act_imgvar = 0;
+$reg_act_imgvar = 1;
 $reg_secret_questions = 1;
 $allow_user_passchange = 1;
 $allow_user_emailchange = 1;
 $max_act_per_ip = 0;
 $default_component = 'frontpage';
-$flash_display_type = 2;
+$flash_display_type = 1;
 $fp_vote_banner = 1;
 $fp_newbie_guide = 1;
 $fp_hitcounter = 0;
@@ -50,7 +57,7 @@ $site_notice_enable = 1;
 $module_onlinelist = 1;
 $module_fp_ssotd = 1;
 $module_vote_system = 1;
-$module_vote_onlinecheck = 0;
+$module_vote_onlinecheck = 1;
 $module_news_items = 10;
 $module_news_open = 3;
 $module_charrename = 1;

@@ -30,12 +30,12 @@ else
 
 function clearLogFile()
 {
+	global $lang;
 	$handle = fopen('core/logs/error_log.txt', 'w+');
 	if($handle)
 	{
 		fclose($handle);
-		output_message('success', 'Error log successfully cleared! Please wait while we rediret you... 
-			<meta http-equiv=refresh content="3;url=?p=admin&sub=errorlog">');
+		output_message('success', $lang['error_log_cleared'].'<meta http-equiv=refresh content="3;url=?p=admin&sub=errorlog">');
 	}
 	else
 	{

@@ -99,8 +99,8 @@ if ($Config->get('fp_newbie_guide') == 1)
 				<?php echo $lang['newcomers2']; ?>
 			</p>
 			<ul>
-				<li>&nbsp; <a href="<?php echo mw_url('server', 'howtoplay'); ?>"><?php echo $lang['newcomers']; ?></a></li>
-				<li>&nbsp; <a href="<?php echo mw_url('server', 'faq'); ?>"><?php echo $lang['faq']; ?></a></li>
+				<li>&nbsp; <a href="<?php echo mw_url('support', 'howtoplay'); ?>"><?php echo $lang['newcomers']; ?></a></li>
+				<li>&nbsp; <a href="<?php echo mw_url('support', 'faq'); ?>"><?php echo $lang['faq']; ?></a></li>
 			</ul>
 		</div>
 	</div>

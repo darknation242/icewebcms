@@ -13,17 +13,27 @@
 		<table>
 			<tr>
 				<?php 
-					if(isset($_POST['action']))
+					if(isset($_GET['update']))
 					{
-						if($_POST['action'] == 'update')
+						if($_GET['update'] == 'db')
 						{
-							runUpdate();
+							runDatabaseSql();
 						}
 					}
 					else
-					{ 
-						checkUpdates();
-					} 
+					{
+						if(isset($_POST['action']))
+						{
+							if($_POST['action'] == 'update')
+							{
+								runUpdate();
+							}
+						}
+						else
+						{ 
+							checkUpdates();
+						}
+					}
 				?>
 			</tr>
 		</table>		

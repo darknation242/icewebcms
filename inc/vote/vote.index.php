@@ -11,19 +11,24 @@ $pathway_info[] = array('title' => $lang['vote_system'], 'link' => '');
 // We define not to cache the page, because of the buttons disabling after the user votes.
 define("CACHE_FILE", FALSE);
 
+// Setup the page description
+$PAGE_DESC = $lang['vote_desc']."<br />";
+
 // Here we chack to see if user is logged in, if not, then redirect to account login screen
 if($Account->isLoggedIn() == FALSE)
 {
     redirect('?p=account&sub=login',1);
 }
 
+// If the vote system is disabled, redirect
+if($Config->get("module_vote_system") == 0)
+{
+    redirect('?p=account',1);
+}
+
 // Check to see what realm we are using
 $realm_info_new = get_realm_byid($user['cur_selected_realmd']);
 $rid = $realm_info_new['id'];
-
-// Some glabal settings. You shouldnt need to touch this stuff
-$hours = 24;
-$ip_voting_period = 60 * 60 * $hours; // IP voting period (in seconds)
 
 
 // Here we get the sites and rewards from the database
@@ -32,57 +37,77 @@ $vote_sites = $DB->select("SELECT * FROM mw_vote_sites");
 // This get the vote system started, we need to initiate the user
 function initUser()
 {
-	global $ip_voting_period, $DB, $user;
+	global $vote_sites, $DB, $user;
+	
+	$return = array();
 
-	// Table voting
-	$get_voting = $DB->selectRow("SELECT * FROM `mw_voting` WHERE `user_ip` LIKE '".$_SERVER["REMOTE_ADDR"]."' LIMIT 1");
-	if ($get_voting != FALSE)
+	// Start the loop. foreach voting site, we need to check if/when the user last voted
+	// and if the vote timer is up, and the user can vote on that site again
+	foreach($vote_sites as $site)
 	{
-		if((time() - $get_voting['time']) > $ip_voting_period)
+		$id = $site['id'];
+		$get_voting = $DB->selectRow("SELECT * FROM `mw_voting` WHERE `user_ip` LIKE '".$_SERVER["REMOTE_ADDR"]."' AND `site`='".$id."' LIMIT 1");
+		if($get_voting != FALSE)
 		{
-			$DB->query("UPDATE `mw_voting` SET `sites` = 0 WHERE `user_ip` LIKE '".$_SERVER["REMOTE_ADDR"]."' LIMIT 1");
-			$return = array('sites' => 0, 'time' => $get_voting['time']);
+			// Here we find the reset time for the vote site
+			$reset_time = ($get_voting['time'] + $site['reset_time']);
+			$cur_reset = ($reset_time - time()) / 3600;
+			
+			// If the reset time is less then 1, but higher then 0, then its less that an hour
+			// and the time need to be formated in minutes
+			if($cur_reset < 1 && $cur_reset > 0)
+			{
+				$reset = ($reset_time - time()) / 60;
+				$reset = round($reset)." M";
+			}
+			
+			// If the reset time is a negative number, then you are able to vote
+			elseif($cur_reset < 0)
+			{
+				$reset = "N/A";
+			}
+			
+			// If higher then 1, then its that number of hours. EX: 3 = 3 hours
+			else
+			{
+				$reset = round($cur_reset)." H";
+			}
+			
+			// If the current time, minus the vote time is greater then the 
+			// reset time, then the timer is reset
+			if((time() - $get_voting['time']) > $site['reset_time'])
+			{
+				$return[$id] = array(
+					'time' => $get_voting['time'], 
+					'voted' => FALSE,
+					'reset' => 'N/A'
+				);
+			}
+			else
+			{
+				$return[$id] = array(
+					'time' => $get_voting['time'], 
+					'voted' => TRUE,
+					'reset' => $reset
+				);
+			}
 		}
 		else
 		{
-			$return = array('sites' => $get_voting['sites'], 'time' => $get_voting['time']);
+			$DB->query("INSERT INTO `mw_voting` (`site`, `user_ip`) VALUES ('".$id."','".$_SERVER["REMOTE_ADDR"]."')");
+			$return[$id] = array(
+				'time' => 0, 
+				'voted' => FALSE,
+				'reset' => 'N/A'
+			);
 		}
-	}
-	else
-	{
-		$DB->query("INSERT INTO `mw_voting` (`user_ip`) VALUES ('".$_SERVER["REMOTE_ADDR"]."')");
-		$return = array('sites' => 0, 'time' => 0);
 	}
 	return $return;
 }
 
-function sec_to_dhms($sec, $show_days = false)
-{
-	$days = intval($sec / 86400);
-	$hours = intval(($sec / 3600) % 24);
-	$minutes = intval(($sec / 60) % 60);
-	$seconds = intval($sec % 60);
-	return $days." Days, ".$hours." H, ".$minutes." M ".$seconds." s";
-}
-
-// **************************************************
-// Here we check to see if the site has been voted for
-// $PARAMS:
-// $sites = the `sites` column from the `mw_voting` table
-// $key is the site key ( `site_key` column from `mw_vote_sites` table
- 
-function isVoted($sites, $key)
-{
-	// Do a Bitwise comparison ( & )
-	if(($sites & $key) == TRUE)
-	{
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
-}
+// ****************************************
+// Main voting function
+// @$site = the site id number
 
 function vote($site)
 {
@@ -90,8 +115,8 @@ function vote($site)
 	$tab_sites = $DB->selectRow("SELECT * FROM mw_vote_sites WHERE `id`='$site'");
 	
 	// First we check to see the users hasnt clicked vote twice
-	$get_voting = $DB->selectRow("SELECT * FROM `mw_voting` WHERE `user_ip` LIKE '".$_SERVER["REMOTE_ADDR"]."' LIMIT 1");
-	if($get_voting['sites'] & $tab_sites['site_key'])
+	$get_voting = $DB->selectRow("SELECT * FROM `mw_voting` WHERE `user_ip` LIKE '".$_SERVER["REMOTE_ADDR"]."' AND `site`='".$site."' LIMIT 1");
+	if((time() - $get_voting['time']) < $tab_sites['reset_time'])
 	{
 		output_message('validation', 'You have already voted for this site in the last 24 hours! Redirecting...
 			<meta http-equiv=refresh content="4;url=?p=vote">');
@@ -117,9 +142,8 @@ function vote($site)
 				}
 				
 				$DB->query("UPDATE `mw_voting` SET 
-					`sites`=(`sites` | ".$tab_sites['site_key']."), 
 					`time`='".time()."' 
-				  WHERE `user_ip` LIKE '".$_SERVER["REMOTE_ADDR"]."' LIMIT 1"
+				  WHERE `user_ip` LIKE '".$_SERVER["REMOTE_ADDR"]."' AND `site`='".$site."' LIMIT 1"
 				);
 				
 				$DB->query("UPDATE `mw_account_extend` SET 
@@ -144,4 +168,7 @@ function vote($site)
 		}
 	}
 }
+
+// We need to initiate the user everytime!
+$Voting = initUser();
 ?>

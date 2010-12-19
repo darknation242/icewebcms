@@ -12,7 +12,8 @@ $Update = new Update;
 function checkUpdates() 
 {
 	global $Update, $Core;
-	if($Update->check_for_updates() == TRUE)
+	$Check = $Update->check_for_updates();
+	if($Check == 1)
 	{
 		echo "<center><b>Updates found! New verision: <font color='green'>".$Update->get_next_update()."</b></font></center>";
 		echo "<br /><u><b>Update Info:</b></u><br />";
@@ -33,9 +34,14 @@ function checkUpdates()
 				</div>
 			";
 	}
-	else
+	elseif($Check == 2)
 	{
 		echo "<center>There are no new updates. Your version <font color='green'>". $Core->version ."</font> is up to date.</center>";
+	}
+	else
+	{
+		echo "<center><div class='warning'>Cant Connect to update server. The server may be too busy, Try and refresh your page. If the problem persists,
+			Please check <a href='http://code.google.com/p/mwenhanced/'>here</a> for any news pretaining to this error</div>";
 	}
 }
 
@@ -44,7 +50,7 @@ function runUpdate()
 {
 	global $Update;
 
-	if($Update->check_for_updates() == TRUE) 
+	if($Update->check_for_updates() == 1) 
 	{
 		$Update->get_next_update();
 		echo "<br /><b><u>1. Building file list: </u></b><br />"; 
@@ -128,6 +134,21 @@ function runUpdate()
 		echo "<br>No update neccesary. <br>"; 
 		ob_flush();
 		flush();
+	}
+}
+
+// This function runs the update sql on the DB
+function runDatabaseSql()
+{
+	global $Core, $DB;
+	if(file_exists('install/sql/updates/update_'. $Core->exp_dbversion .'.sql'))
+	{
+		$DB->runSQL('install/sql/updates/update_'. $Core->exp_dbversion .'.sql');
+		output_message('success', 'Database Successfully Updated');
+	}
+	else
+	{
+		output_message('error' , 'Update SQL File not found!');
 	}
 }
 ?>

@@ -37,12 +37,9 @@
 <script type="text/javascript" src="<?php echo $Template['script_path']; ?>/js/compressed/prototype.js"></script>
 <script type="text/javascript" src="<?php echo $Template['script_path']; ?>/js/compressed/behaviour.js"></script>
 <script type="text/javascript" src="<?php echo $Template['script_path']; ?>/js/core.js"></script>
-<script type="text/javascript" src="<?php echo $Template['path']; ?>/js/template_rules.js"></script>
 <script type="text/javascript"><!--
     if (is_ie)
         document.write('<link rel="stylesheet" type="text/css" href="<?php echo $Template['path']; ?>/css/additional_win_ie.css" media="screen, projection" />');
-    if(is_opera)
-        document.write('<link rel="stylesheet" type="text/css" href="<?php echo $Template['path']; ?>/css/additional_opera.css" media="screen, projection" />');
     function loadPage(list) {
         location.href=list.options[list.selectedIndex].value
     }

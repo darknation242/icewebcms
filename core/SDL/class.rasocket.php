@@ -170,6 +170,7 @@ class RA
 				catch(Exception $e)
 				{
 					$this->consoleReturn[] = $e->getMessage();
+					$this->writeLog('Soap - Send Mail Problem: '.$e->getMessage());
 				}
 			}
 			return 1;

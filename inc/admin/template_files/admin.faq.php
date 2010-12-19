@@ -30,19 +30,22 @@ if(isset($_GET['id']))
 				$edit_info = $DB->selectRow("SELECT * FROM `mw_faq` WHERE `id`='".$_GET['id']."'");
 			?>
 			<div class="field">
-				<label for="question">Question: </label>
+				<label for="question"><?php echo $lang['question']; ?>: </label>
 				<input id="question" name="question" size="20" type="text" class="large" value="<?php echo $edit_info['question']; ?>" />
-				<p class="field_help">The Question</p>
+				<p class="field_help">The <?php echo $lang['question']; ?></p>
 			</div>
 			
 			<div class="field">
-				<label for="faq">Answer: </label>
+				<label for="faq"><?php echo $lang['answer']; ?>: </label>
 				<input id="faq" name="answer" size="20" type="text" class="large" value="<?php echo $edit_info['answer']; ?>"  />
-				<p class="field_help">The Answer</p>
+				<p class="field_help">The <?php echo $lang['answer']; ?></p>
 			</div>
 			
 			<div class="buttonrow-border">								
-				<center><button><span>Submit</span></button><button class="btn-sec" name="delete"><span>DELETE</span></button></center>			
+				<center>
+					<button><span><?php echo $lang['submit']; ?></span></button>
+					<button class="btn-sec" name="delete"><span><?php echo $lang['delete']; ?></span></button>
+				</center>			
 			</div>
 			
 			</form>
@@ -72,19 +75,19 @@ elseif(isset($_GET['add']))
 				}
 			?>			
 			<div class="field">
-				<label for="question">Question: </label>
+				<label for="question"><?php echo $lang['question']; ?>: </label>
 				<input id="question" name="question" size="20" type="text" class="large" />
-				<p class="field_help">The Question</p>
+				<p class="field_help">The <?php echo $lang['question']; ?></p>
 			</div>
 			
 			<div class="field">
-				<label for="faq">Answer: </label>
+				<label for="faq"><?php echo $lang['answer']; ?>: </label>
 				<input id="faq" name="answer" size="20" type="text" class="large"  />
-				<p class="field_help">The Answer</p>
+				<p class="field_help">The <?php echo $lang['answer']; ?></p>
 			</div>
 			
 			<div class="buttonrow-border">								
-				<center><button><span>Add New Faq</span></button></center>			
+				<center><button><span><?php echo $lang['add_new_faq']; ?></span></button></center>			
 			</div>
 			
 			</form>
@@ -93,20 +96,21 @@ elseif(isset($_GET['add']))
 
 <?php
 }
-else
+else # No ID Set
 {
 ?>
+	<!-- List of FAQ -->
 	<div class="content">	
 		<div class="content-header">
 			<h4><a href="?p=admin">Main Menu</a> / Faq's</h4>
 		</div> <!-- .content-header -->				
 		<div class="main-content">
 			<form method="POST" action="?p=admin&sub=faq&add=true" class="form label-inline">
-				<h5><center>List of Faq's</center></h5><br />
+				<h5><center><?php echo $lang['list_of_faq']; ?></center></h5><br />
 				<table>
 					<thead>
-						<th><center><b>Question</center></b></th>
-						<th><center><b>Answer</center></b></th>
+						<th><center><b><?php echo $lang['question']; ?></center></b></th>
+						<th><center><b><?php echo $lang['answer']; ?></center></b></th>
 					</thead>
 				<?php
 					if($get_faq != FALSE)
@@ -125,7 +129,7 @@ else
 				</table>
 			<br />
 			<div class="buttonrow-border">								
-				<center><button><span>Add New Faq</span></button></center>			
+				<center><button><span><?php echo $lang['add_new_faq']; ?></span></button></center>			
 			</div>
 			</form>
 		</div>

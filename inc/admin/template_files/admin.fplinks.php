@@ -29,21 +29,24 @@ if(isset($_GET['linkid']))
 			<?php
 				$edit_info = $DB->selectRow("SELECT * FROM `mw_menu_items` WHERE `id`='".$_GET['linkid']."'");
 			?>
+			
+			<!-- Link Title -->
 			<div class="field">
-				<label for="Link Title">Link Title: </label>
+				<label for="Link Title"><?php echo $lang['link_title']; ?>: </label>
 				<input id="Link Title" name="link_title" size="20" type="text" class="medium" value="<?php echo $edit_info['link_title']; ?>" />
-				<p class="field_help">The name of the link displayed on the website.</p>
+				<p class="field_help"><?php echo $lang['link_title']; ?></p>
 			</div>
 			
+			<!-- URL -->
 			<div class="field">
-				<label for="Link H">Link To: </label>
+				<label for="Link H"><?php echo $lang['link_to']; ?>: </label>
 				<input id="Link H" name="link" size="20" type="text" class="medium" value="<?php echo $edit_info['link']; ?>" />
-				<p class="field_help">The Http:// address of where the link points to. If within MangosWeb, <br />link can be put like this 
-										"?p= { PAGE } & sub= { SUB-PAGE }" <br />OR like this "?p= {PAGE} / {SUB-PAGE}</p>
+				<p class="field_help"><?php echo $lang['link_to_desc']; ?></p>
 			</div>
 			
+			<!-- Menu -->
 			<div class="field">
-				<label for="Link M">Menu: </label>
+				<label for="Link M"><?php echo $lang['menu']; ?>: </label>
 				<select id="type" class="medium" name="menu_id">
 					<?php 
 						foreach($mainnav_links as $pre_nav)
@@ -55,37 +58,39 @@ if(isset($_GET['linkid']))
 						}
 					?>
 				</select>
-				<p class="field_help">Displays the link under this selected menu.</p>
+				<p class="field_help"><?php echo $lang['menu_desc']; ?></p>
 			</div>
 			
+			<!-- Guest Option -->
 			<div class="field">
-				<label for="Link GO">Guest Only: </label>
+				<label for="Link GO"><?php echo $lang['guest_only']; ?>: </label>
 				<select id="type" class="xsmall" name="guest_only">
 					<?php 
 						if($edit_info['guest_only'] == 1)
 						{ $e_s = 'selected="selected"'; $e_s2 = ''; }else{ $e_s2 = 'selected="selected"'; $e_s = ''; }
 					?>
-					<option value="1" <?php echo $e_s; ?>>Yes</option>
-					<option value="0" <?php echo $e_s2; ?>>No</option>
+					<option value="1" <?php echo $e_s; ?>><?php echo $lang['yes']; ?></option>
+					<option value="0" <?php echo $e_s2; ?>><?php echo $lang['no']; ?></option>
 				</select>
-				<p class="field_help">Is the link seen only by Guests?</p>
+				<p class="field_help"><?php echo $lang['guest_only_desc']; ?></p>
 			</div>
 			
+			<!-- Account Level -->
 			<div class="field">
-				<label for="Link GO">Account Level: </label>
-				<select id="type" class="medium" name="account_level">
+				<label for="Link AO"><?php echo $lang['account_level']; ?>: </label>
+				<select id="type" class="small" name="account_level">
 					<option value="1" selected="selected">Guests</option>
 					<option value="2">Members</option>
 					<option value="3">Admins</option>
 					<option value="4">Super Admins</option>
 				</select>
-				<p class="field_help">Minimum Account level to see the link.</p>
+				<p class="field_help"><?php echo $lang['account_level_desc']; ?></p>
 			</div>
 			
 			<div class="buttonrow-border">								
 				<center>
-					<button><span>Update Link</span></button>
-					<button class="btn-sec" name="delete"><span>DELETE Link</span></button>
+					<button><span><?php echo $lang['update']; ?></span></button>
+					<button class="btn-sec" name="delete"><span><?php echo $lang['delete']; ?></span></button>
 				</center>					
 			</div>
 			
@@ -106,21 +111,23 @@ elseif(isset($_GET['addlink']))
 		<div class="main-content">
 			<form method="POST" action="?p=admin&sub=fplinks" class="form label-inline">
 			<input type="hidden" name="action" value="addlink">
+			
+			<!-- Link Title -->
 			<div class="field">
-				<label for="Link Title">Link Title: </label>
+				<label for="Link Title"><?php echo $lang['link_title']; ?>: </label>
 				<input id="Link Title" name="link_title" size="20" type="text" class="medium" />
-				<p class="field_help">The name of the link displayed on the website.</p>
+				<p class="field_help"><?php echo $lang['link_title']; ?></p>
 			</div>
 			
+			<!-- URL -->
 			<div class="field">
-				<label for="Link H">Link To: </label>
+				<label for="Link H"><?php echo $lang['link_to']; ?>: </label>
 				<input id="Link H" name="link" size="20" type="text" class="medium" />
-				<p class="field_help">The Http:// address of where the link points to. If within MangosWeb, <br />link can be put like this 
-										"?p= { PAGE } & sub= { SUB-PAGE }" <br />OR like this "?p= {PAGE} / {SUB-PAGE}</p>
+				<p class="field_help"><?php echo $lang['link_to_desc']; ?></p>
 			</div>
 			
 			<div class="field">
-				<label for="Link M">Menu: </label>
+				<label for="Link M"><?php echo $lang['menu']; ?>: </label>
 				<select id="type" class="medium" name="menu_id">
 					<?php 
 						foreach($mainnav_links as $pre_nav2)
@@ -130,31 +137,32 @@ elseif(isset($_GET['addlink']))
 						}
 					?>
 				</select>
-				<p class="field_help">Displays the link under this selected menu.</p>
+				<p class="field_help"><?php echo $lang['menu_desc']; ?></p>
 			</div>
 			
+			<!-- Guest Option -->
 			<div class="field">
-				<label for="Link GO">Guest Only: </label>
+				<label for="Link GO"><?php echo $lang['guest_only']; ?>: </label>
 				<select id="type" class="xsmall" name="guest_only">
-					<option value="1">Yes</option>
-					<option value="0" selected="selected">No</option>
+					<option value="1"><?php echo $lang['yes']; ?></option>
+					<option value="0" selected='selected'><?php echo $lang['no']; ?></option>
 				</select>
-				<p class="field_help">Is the link seen only by Guests?</p>
+				<p class="field_help"><?php echo $lang['guest_only_desc']; ?></p>
 			</div>
 			
 			<div class="field">
-				<label for="Link GO">Account Level: </label>
+				<label for="Link GO"><?php echo $lang['account_level']; ?>: </label>
 				<select id="type" class="medium" name="account_level">
 					<option value="1" selected="selected">Guests</option>
 					<option value="2">Members</option>
 					<option value="3">Admins</option>
 					<option value="4">Super Admins</option>
 				</select>
-				<p class="field_help">Minimum Account level to see the link.</p>
+				<p class="field_help"><?php echo $lang['account_level_desc']; ?></p>
 			</div>
 			
 			<div class="buttonrow-border">								
-				<center><button><span>Add Link</span></button></center>			
+				<center><button><span><?php echo $lang['add_link']; ?></span></button></center>			
 			</div>		
 			</form>
 		</div>
@@ -165,6 +173,7 @@ elseif(isset($_GET['addlink']))
 else
 {
 ?>
+	<!-- Link List -->
 	<div class="content">	
 		<div class="content-header">
 			<h4><a href="?p=admin">Main Menu</a> / Frontpage Links</h4>
@@ -183,7 +192,11 @@ else
 					}
 				}
 			?>
-			<h4><center><b><u><a href="?p=admin&sub=fplinks&addlink=true"> Add Link </a></u></b></center></h4>
+			<h4><center><b><u>
+				<a href="?p=admin&sub=fplinks&addlink=true" style="text-decoration: none;"> 
+					<button><span><?php echo $lang['add_link']; ?></span></button>
+				</a></u></b></center>
+			</h4>
 			<form method="POST" action="?p=admin&sub=fplinks" class="form label-inline">
 			<input type="hidden" name="action" value="update">
 			<?php
@@ -193,12 +206,12 @@ else
 					$load_links = $DB->select("SELECT * FROM `mw_menu_items` WHERE `menu_id`='$menunamev[0]' ORDER BY `order`");
 					if($load_links != FALSE)
 					{
-						echo "<h5><center>Menu ".$menunamev['0'].", ".$menunamev['1']."</center></h5><br />";
+						echo "<h5><center>". $lang['menu'] ." ".$menunamev['0'].", ".$menunamev['1']."</center></h5><br />";
 						echo "<table style='border-bottom: 1px solid #E5E2E2;'>
 								<thead>
-									<th>Link Title</th>
-									<th>Min. Account Level</th>
-									<th>Guest Only</th>
+									<th>". $lang['link_title'] ."</th>
+									<th>". $lang['account_level'] ."</th>
+									<th>". $lang['guest_only'] ."</th>
 									<th>Order</th>
 								</thead>";
 						foreach($load_links as $link)
@@ -250,7 +263,7 @@ else
 			?>
 			<br />
 			<div class="buttonrow-border">								
-				<center><button><span>Update Menu Order</span></button></center>			
+				<center><button><span><?php echo $lang['update_menu_order']; ?></span></button></center>			
 			</div>
 			</form>
 		</div>

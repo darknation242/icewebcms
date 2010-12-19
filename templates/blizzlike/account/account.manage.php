@@ -68,12 +68,6 @@ if(isset($_GET['action']))
 	{
 		changeSQ();
 	}
-	
-	// RESET SECRET Q's
-	elseif($_GET['action']=='resetsecretq')
-	{
-		resetSQ();
-	}
 }
 else
 {
@@ -94,7 +88,7 @@ else
 					<table width = "510" cellspacing = "0" cellpadding = "0" border = "0">
 						<tr>
 							<td>
-								<span><?php echo add_pictureletter("$lang[account_manange_intro]"); ?></span>
+								<span><?php echo add_pictureletter($PAGE_DESC); ?></span>
 							</td>
 						</tr>
 					</table>
@@ -242,111 +236,105 @@ else
 										<table border='0' cellspacing='0' cellpadding='4'>
 										
 										<!--Secret QUESTION-->
-										<tr>
-											<td align='center' colspan='2'>
-												<table border='0' cellspacing='0' cellpadding='0' style='text-align: center;'>
-													<tr>
-														<td>
-															<?php
-															if ($profile['secret_q1'] == '')
-															{
-																echo '<span style="color: red">'.$lang['secretq_not_set'].'</span>';
-															}
-															else
-															{
-																echo '<span style="color: green">'.$lang['secretq_set'].'</span>';
-															} ?>
-														</td>
-														<td valign = "top"></td>
-													</tr>
-												</table>
-											</td>
-										</tr>
-										<form method="post" action="?p=account&sub=manage&action=changesecretq">
-										<tr>
-											<td align='right'>
-												<font face="arial,helvetica" size='-1'><span><b><?php echo $lang['secretq'];?> 1
-												<img src="<?php echo $Template['path']; ?>/images/icons/warning.gif" width="15" height="15"
-												onmouseover="ddrivetip('<?php echo $lang['secretq_info']; ?>: <ul><li><?php echo $lang['secretq_info_mincharacters']; ?>.</li><li><?php echo $lang['secretq_info_nosymbols']; ?>.</li><li><?php echo $lang['secretq_info_bothfields']; ?>.</li></ul>','#ffffff')";
-												onmouseout="hideddrivetip()">
-												<br />
-												</b></span></font>
-											</td>
-											<td align='left'>
-												<table border='0' cellspacing='0' cellpadding='0'>
-													<tr>
-														<td>
-															<select name="secretq1">
-																<option <?php if($profile['secret_q1'] == '')echo "selected"; ?> value="0">None</option>
-																  <?php
-																  foreach ($secret_q as $question)
-																  {
-																  ?>
-																	<option value="<?php echo htmlspecialchars($question['question']); ?>" <?php if ($profile['secret_q1'] == htmlspecialchars($question['question'])){ echo "selected"; } ?>><?php echo $question['question']; ?></option>
-																  <?php
-																  }
-																  ?>
-															</select>
-															<input type="name" name="secreta1" style="margin:1px;">
-														</td>
-														<td valign = "top"></td>
-													</tr>
-												</table>
-											</td>
-										</tr>
+									<?php
+										// We must check to see if they are set. If so then we need to
+										// show a success message. Secret questions are NOT meant to be changed
+										// If they arent set, then show the form to set them
+										if($profile['secret_q1'] != '')
+										{
+											output_message('success', $lang['secretq_set']);
+											echo "<br />";
+										}
+										else
+										{
+											echo '<center><span style="color: red">'.$lang['secretq_not_set'].'</span></center><br />';
+										?>
+											<form method="post" action="?p=account&sub=manage&action=changesecretq">
+											<tr>
+												<td align='right'>
+													<font face="arial,helvetica" size='-1'><span><b><?php echo $lang['secretq'];?> 1
+													<img src="<?php echo $Template['path']; ?>/images/icons/warning.gif" width="15" height="15"
+													onmouseover="ddrivetip('<?php echo $lang['secretq_info']; ?>: <ul><li><?php echo $lang['secretq_info_mincharacters']; ?>.</li><li><?php echo $lang['secretq_info_nosymbols']; ?>.</li><li><?php echo $lang['secretq_info_bothfields']; ?>.</li></ul>','#ffffff')";
+													onmouseout="hideddrivetip()">
+													<br />
+													</b></span></font>
+												</td>
+												<td align='left'>
+													<table border='0' cellspacing='0' cellpadding='0'>
+														<tr>
+															<td>
+																<select name="secretq1">
+																	<option <?php if($profile['secret_q1'] == '')echo "selected"; ?> value="0">None</option>
+																	  <?php
+																	  foreach ($secret_questions as $question)
+																	  {
+																	  ?>
+																		<option value="<?php echo htmlspecialchars($question['question']); ?>" <?php if ($profile['secret_q1'] == htmlspecialchars($question['question'])){ echo "selected"; } ?>><?php echo $question['question']; ?></option>
+																	  <?php
+																	  }
+																	  ?>
+																</select>
+																<input type="name" name="secreta1" style="margin:1px;">
+															</td>
+															<td valign = "top"></td>
+														</tr>
+													</table>
+												</td>
+											</tr>
 
-										<tr>
-											<td align="right" width='30%'>
-												<font face="arial,helvetica" size=-1><span><b><?php echo $lang['secretq'];?> 2
-												<img src="<?php echo $Template['path']; ?>/images/icons/warning.gif" width="15" height="15"
-												onmouseover="ddrivetip('<?php echo $lang['secretq_info']; ?>: <ul><li><?php echo $lang['secretq_info_mincharacters']; ?>.</li><li><?php echo $lang['secretq_info_nosymbols']; ?>.</li><li><?php echo $lang['secretq_info_bothfields']; ?>.</li></ul>','#ffffff')";
-												onmouseout="hideddrivetip()">
-												<br />
-												</b></span></font>
-											</td>
-											<td align="left" colspan='2'>
-												<table border='0' cellspacing='0' cellpadding='0'>
-													<tr>
-														<td>
-															<select name="secretq2">
-																<option <?php if($profile['secret_q2'] == '')echo "selected"; ?> value="0">None</option>
-																<?php
-																foreach ($secret_q as $question)
-																{
-																?>
-																	<option value="<?php echo htmlspecialchars($question['question']); ?>" <?php if ($profile['secret_q2'] == htmlspecialchars($question['question'])){ echo "selected"; } ?>><?php echo $question['question']; ?></option>
-																<?php
-																}
-																?>
-															</select>
-															<input type="name" name="secreta2" style="margin:1px;">
-														</td>
-														<td valign = "top"></td>
-													</tr>
-												</table>
-											</td>
-										</tr>
+											<tr>
+												<td align="right" width='30%'>
+													<font face="arial,helvetica" size=-1><span><b><?php echo $lang['secretq'];?> 2
+													<img src="<?php echo $Template['path']; ?>/images/icons/warning.gif" width="15" height="15"
+													onmouseover="ddrivetip('<?php echo $lang['secretq_info']; ?>: <ul><li><?php echo $lang['secretq_info_mincharacters']; ?>.</li><li><?php echo $lang['secretq_info_nosymbols']; ?>.</li><li><?php echo $lang['secretq_info_bothfields']; ?>.</li></ul>','#ffffff')";
+													onmouseout="hideddrivetip()">
+													<br />
+													</b></span></font>
+												</td>
+												<td align="left" colspan='2'>
+													<table border='0' cellspacing='0' cellpadding='0'>
+														<tr>
+															<td>
+																<select name="secretq2">
+																	<option <?php if($profile['secret_q2'] == '')echo "selected"; ?> value="0">None</option>
+																	<?php
+																	foreach ($secret_questions as $question)
+																	{
+																	?>
+																		<option value="<?php echo htmlspecialchars($question['question']); ?>" <?php if ($profile['secret_q2'] == htmlspecialchars($question['question'])){ echo "selected"; } ?>><?php echo $question['question']; ?></option>
+																	<?php
+																	}
+																	?>
+																</select>
+																<input type="name" name="secreta2" style="margin:1px;">
+															</td>
+															<td valign = "top"></td>
+														</tr>
+													</table>
+												</td>
+											</tr>
 
-										<tr>
-											<td align="center" colspan='2'>
-												<table border='0' cellspacing='0' cellpadding='0'>
-													<tr>
-														<td>
-															<input type="submit" value="Change Secret questions" class="button">
-										</form>
-														</td>
-														<td valign = "top">
-														<form method="post" action="?p=account&sub=manage&action=resetsecretq" style="{MARGIN-LEFT: 0pt; MARGIN-RIGHT: 0pt; MARGIN-TOP: 0pt; MARGIN-BOTTOM: 0pt;}">
-														<input type="hidden" name="reset_secretq" value="reset_secretq">
-														<input type="submit" value="Reset Secret questions" name="reset_secretq">
-														</form>
-														</td>
-													</tr>
-												</table>
-											</td>
-										</tr>											
+											<tr>
+												<td align="center" colspan='2'>
+													<table border='0' cellspacing='0' cellpadding='0'>
+														<tr>
+															<td>
+																<input type="submit" value="Change Secret questions" class="button">
+											</form>
+															</td>
+															<td valign = "top">
+															<form method="post" action="?p=account&sub=manage&action=resetsecretq" style="{MARGIN-LEFT: 0pt; MARGIN-RIGHT: 0pt; MARGIN-TOP: 0pt; MARGIN-BOTTOM: 0pt;}">
+															<input type="hidden" name="reset_secretq" value="reset_secretq">
+															<input type="submit" value="Reset Secret questions" name="reset_secretq">
+															</form>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>		
 										<!--Secret QUESTION END-->
-										
+									<?php
+										} ?>
 										</table>
 									</td>
 								</tr>

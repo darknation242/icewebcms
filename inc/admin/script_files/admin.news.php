@@ -9,10 +9,10 @@ $gettopics = $DB->select("SELECT `title`,`id`,`posted_by`,`post_time` FROM `mw_n
 // If posting a new News post
 function addNews($subj,$message,$un) 
 {
-	global $DB, $Core;
+	global $DB, $Core, $lang;
     if(!$subj | !$message)
 	{
-		output_message('validation', 'You left a field empty!');
+		output_message('validation', $lang['field_left_blank']);
 	}
 	else
 	{
@@ -20,21 +20,21 @@ function addNews($subj,$message,$un)
 		$sql =  "INSERT INTO mw_news(title, message, posted_by, post_time) VALUES('".$subj."','".$message."','".$un."','".$post_time."')";
         $tabs = $DB->query($sql);
 		$Core->clearCache();
-		output_message('success', 'Successfully added news to database!');
+		output_message('success', $lang['news_add_success']);
     }
 }
 function editNews($idz,$mess) 
 {
-	global $DB, $Core;
+	global $DB, $Core, $lang;
 	if(!$mess)
 	{
-		output_message('validation', 'You left a field empty!');
+		output_message('validation', $lang['field_left_blank']);
 	}
 	else
 	{
 		$DB->query("UPDATE `mw_news` SET `message`='$mess' WHERE `id`='$idz'");
 		$Core->clearCache();
-		output_message('success', 'Successfully edited news in database!');
+		output_message('success', $lang['news_edit_success']);
 	}
 }
 function delNews($idzz) 

@@ -14,7 +14,7 @@
 		$down = '<img src="'.$Template['path'].'/images/icons/downarrow2.gif" style="vertical-align: bottom;" height="19" width="18" alt=""/> <b style="color: rgb(102, 13, 2);">' . $lang['down'] . '</b>';
 
 		$realmstatusforum = '<a href="'.$Config->get('site_forums').'">' . $lang['realm_status_forum'] . '</a>';
-		$desc = $lang['realm_status_desc'];
+		$desc = $PAGE_DESC;
 		$desc = str_replace('[up]', $up, $desc);
 		$desc = str_replace('[down]', $down, $desc);
 		$desc = str_replace('[realm_status_forum]', $realmstatusforum, $desc);

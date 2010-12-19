@@ -65,7 +65,7 @@ include('core/SDL/class.account.php'); 		// contains account related scripts and
 $Core->setGlobals();
 
 // Load language file
-include('lang/' . $GLOBALS["user_cur_lang"] . '.php');
+include('lang/' . $GLOBALS["user_cur_lang"] . '/common.php');
 
 /***************************************************************
  * Setup the Database class and Database connections
@@ -133,7 +133,7 @@ $user['cur_selected_realm'] = $GLOBALS['cur_selected_realm'];
 /***************************************************************
  * Load the Template class and setup the template system
  ***************************************************************/
-$Template = new Template;
+$Template = new MangosTemplate;
 
 // Lets get the template information
 $Template = $Template->loadTemplateXML();
@@ -206,7 +206,8 @@ if($Template == FALSE)
 
 		// Else, if requested page isnt the admin panel, then load the template
 		else
-		{	
+		{
+			
 			// Start Loading Of Script Files
 			@include($script_file);
 
@@ -235,9 +236,9 @@ if($Template == FALSE)
 			if($Config->get('enable_cache') && $CacheFile == TRUE)
 			{
 				// If file is cached
-				if($Core->isCached($Template['number']."_".$ext.".".$sub))
+				if($Core->isCached($Template['number']."_".$ext.".".$sub."_".$GLOBALS['user_cur_lang']))
 				{
-					$Contents = $Core->getCache($Template['number']."_".$ext.".".$sub);
+					$Contents = $Core->getCache($Template['number']."_".$ext.".".$sub."_".$GLOBALS['user_cur_lang']);
 					echo $Contents;
 				}
 				// If not cached, then get contents of the page and cache them.
@@ -246,7 +247,7 @@ if($Template == FALSE)
 					ob_start();
 						include($template_file);
 					$Contents = ob_get_flush();
-					$Core->writeCache($Template['number']."_".$ext.".".$sub, $Contents);
+					$Core->writeCache($Template['number']."_".$ext.".".$sub."_".$GLOBALS['user_cur_lang'], $Contents);
 				}
 				unset($Contents);
 			}

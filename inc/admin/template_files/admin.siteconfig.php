@@ -60,12 +60,6 @@
 			</div>
 			
 			<div class="field">
-				<label for="Site Cookie">Site Cookie: </label>
-				<input id="Site Cookie" name="cfg__site_cookie" size="20" type="text" class="medium" value="<?php echo $Config->get('site_cookie'); ?>" />
-				<p class="field_help">Site cookie name. Changing this will log you out as well as close all sessions.</p>
-			</div>
-			
-			<div class="field">
 				<label for="Site Armory">Site Armory Link: </label>
 				<input id="Site Armory" name="cfg__site_armory" size="20" type="text" class="medium" value="<?php echo $Config->get('site_armory'); ?>" />
 				<p class="field_help">Full link including "http://" to your armory. Set to "0" to disable.</p>
@@ -230,7 +224,7 @@
 					<option value="0" <?php echo $e_arsq2; ?>>Disabled</option>
 				</select>																											
 				<p class="field_help">Requires users to input secret questions / answers when registering account.<br /> 
-					Questions are set in <a href="?p=admin&sub=squestions">here</a>
+					Questions are set in the database.
 				</p>
 			</div>
 			
@@ -517,9 +511,9 @@
 					<?php 
 						if($Config->get('email_type') == 0)
 							{ $e_et = ''; $e_et2 = ''; $e_et3 = 'selected="selected"'; }
-						elseif($Config->get('flash_display_type') == 1)
+						elseif($Config->get('email_type') == 1)
 							{ $e_et = 'selected="selected"'; $e_et2 = ''; $e_et3 = ''; }
-						elseif($Config->get('flash_display_type') == 2)
+						elseif($Config->get('email_type') == 2)
 							{ $e_et = ''; $e_et2 = 'selected="selected"'; $e_et3 = ''; }
 					?>
 					<option value="2" <?php echo $e_et2; ?>>MTA</option>

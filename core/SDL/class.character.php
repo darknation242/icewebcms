@@ -236,6 +236,56 @@ class Character
 			return $row;
 		}
 	}
+	
+//	************************************************************
+// Gets a count of all online characters
+// @$faction: 1 = ally, 2 = horde, and 0 is both
+
+	function getOnlineCount($faction = 0)
+	{
+		global $CDB;
+		if($faction == 0)
+		{
+			$count = $CDB->count("SELECT COUNT(*) FROM `characters` WHERE `online`='1'");
+		}
+		elseif($faction == 1)
+		{
+			$count = $CDB->count("SELECT COUNT(*) FROM `characters` WHERE `online`='1' AND (`race` = 1 OR `race` = 3 OR `race` = 4 OR `race` = 7 OR `race` = 11)");
+		}
+		elseif($faction == 2)
+		{
+			$count = $CDB->count("SELECT COUNT(*) FROM `characters` WHERE `online`='1' AND (`race` = 2 OR `race` = 5 OR `race` = 6 OR `race` = 8 OR `race` = 10)");
+		}
+		return $count;
+	}
+	
+//	************************************************************
+// Gets a list of all online characters
+// @$faction: 1 = ally, 2 = horde, and 0 is both
+// @$start = starting record. for paging etc etc
+// @$limit = the limit of records returned
+
+	function getOnlineList($faction = 0, $start = 0, $limit = 10000)
+	{
+		global $CDB;
+		if($faction == 0)
+		{
+			$list = $CDB->select("SELECT guid, name, race, class, gender, level, zone  FROM `characters` WHERE `online`='1' LIMIT $start, $limit");
+		}
+		elseif($faction == 1)
+		{
+			$list = $CDB->select("SELECT guid, name, race, class, gender, level, zone  FROM `characters` WHERE `online`='1' AND 
+				(`race` = 1 OR `race` = 3 OR `race` = 4 OR `race` = 7 OR `race` = 11)
+			LIMIT $start, $limit");
+		}
+		elseif($faction == 2)
+		{
+			$list = $CDB->select("SELECT guid, name, race, class, gender, level, zone  FROM `characters` WHERE `online`='1' AND 
+				(`race` = 2 OR `race` = 5 OR `race` = 6 OR `race` = 8 OR `race` = 10)
+			LIMIT $start, $limit");
+		}
+		return $list;
+	}
 
 	
 //	************************************************************

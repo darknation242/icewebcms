@@ -23,7 +23,7 @@ $getcnt = $DB->select("SELECT item_number FROM mw_shop_items");
 $totalrows = count($getcnt);
 
 // Get alist of all the realms
-$realms = getRealmlist();
+$realms = getRealmlist(0);
 foreach($realms as $aaa) 
 {
 	$realmzlist .= "<option value='".$aaa['id']."'>".$aaa['name']."</option>";

@@ -21,35 +21,35 @@
 			<table>
 				<thead>
 					<tr>
-						<th><center>Cache Settings</center></th>
+						<th><center><?php echo $lang['cache_settings']; ?></center></th>
 					</tr>
 				</thead>
 			</table>
 			<br />
 			
 			<div class="field">
-				<label for="Site Enable Cache">Cache System: </label>
+				<label for="Site Enable Cache"><?php echo $lang['cache_system']; ?>: </label>
 				<select id="type" class="small" name="cfg__enable_cache">
 					<?php 
 						if($Config->get('enable_cache') == 1)
 						{ $e_cc = 'selected="selected"'; $e_cc2 = ''; }else{ $e_cc2 = 'selected="selected"'; $e_cc = ''; }
 					?>
-					<option value="1" <?php echo $e_cc; ?>>Enabled</option>
-					<option value="0" <?php echo $e_cc2; ?>>Disabled</option>
+					<option value="1" <?php echo $e_cc; ?>><?php echo $lang['enabled']; ?></option>
+					<option value="0" <?php echo $e_cc2; ?>><?php echo $lang['disabled']; ?></option>
 				</select>																											
-				<p class="field_help">Enable cache. Provides faster page loading, and lightens the load off the server.</p>
+				<p class="field_help"><?php echo $lang['cache_system_desc']; ?></p>
 			</div>
 			
 			<div class="field">
-				<label for="Site cache_expire_time">Cache Expire Time: </label>
+				<label for="Site cache_expire_time"><?php echo $lang['cache_expire_time']; ?>: </label>
 				<input id="Site cache_expire_time" name="cfg__cache_expire_time" size="10" type="text" class="xsmall" value="<?php echo $Config->get('cache_expire_time'); ?>" />
-				<p class="field_help">Time in seconds before each page needs to be re-cached. Default: 30 Min. (1800)</p>
+				<p class="field_help"><?php echo $lang['cache_expire_desc']; ?></p>
 			</div>
 			
 			<div class="buttonrow-border">								
 				<center>
-					<button><span>Update Cache Settings</span></button>
-					<button class="btn-sec" name="reset"><span>Clear Cache</span></button>
+					<button><span><?php echo $lang['cache_update']; ?></span></button>
+					<button class="btn-sec" name="reset"><span><?php echo $lang['cache_clear']; ?></span></button>
 				</center>	
 			</div>
 		</form>

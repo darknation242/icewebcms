@@ -13,6 +13,7 @@ class Update
 	var $updated_files_list = array();
 	var $update_delete = array();
 	var $update_make_dir = array();
+	var $update_remove_dir = array();
 	var $writable_files;
 	var $charlen_file;
 	var $updates;
@@ -55,18 +56,16 @@ class Update
 			$this->newest = $ups['0'];
 			if($this->current_version != $this->newest)
 			{
-				return TRUE;
+				return 1;
 			}
 			else
 			{
-				return FALSE;
+				return 2;
 			}
 		}
 		else
 		{
-			echo "<center><div class='warning'>Cant Connect to update server. The server may be too busy, Try and refresh your page. If the problem persists,
-			Please check <a href='http://code.google.com/p/mwenhanced/'>here</a> for any news pretaining to this error</div>";
-			return FALSE;
+			return 0;
 		}
 	}
 
@@ -113,6 +112,10 @@ class Update
 			elseif(strstr($line,"[update_make_dir]") !== false)
 			{
 				$this->update_make_dir[] = trim(substr($line,strpos($line,"=")+1));
+			}
+			elseif(strstr($line,"[update_remove_dir]") !== false)
+			{
+				$this->update_remove_dir[] = trim(substr($line,strpos($line,"=")+1));
 			}
 			elseif(strstr($line,"[update_delete]") !== false)
 			{
@@ -288,6 +291,50 @@ class Update
 			return TRUE;
 		}
 	}
+	
+//	************************************************************	
+// Removes all the directories from the update list
+
+	function removeDirs() 
+	{
+		$rmerr = 0;
+		$count = count($this->update_remove_dir);
+		if($count > 0)
+		{
+			foreach($this->update_remove_dir as $remove) 
+			{
+				// First check to see if the directory already exists
+				$check = @opendir($remove);
+				if($check)
+				{
+					@closedir($check);
+				}
+				else
+				{
+					return FALSE;
+				}
+
+				// We need to revmove the directory
+				$rm = @rmdir($remove);
+				if(!$rm)
+				{
+					$rmerr++;
+				}
+			}
+			if($rmerr == 0)
+			{
+				return TRUE;
+			}
+			else
+			{
+				return FALSE;
+			}
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
 
 //	************************************************************		
 // Main update function
@@ -315,23 +362,26 @@ class Update
 			
 		if($this->check_if_are_writable() == TRUE) 
 		{
-			$i=0;
+			$i = 0;
 			$len_till_now = 0;
 			
-			// Update Files
+			// Update Files Loop
 			foreach($this->updated_files_list as $filename) 
 			{
+				// Start by replacing .php to .upd, and using file_get_contents
 				$updated_file_url = $this->server_address."/update_".$this->update_version."/".str_replace(".php",".upd",$filename);
 				$updated_file_contents = file_get_contents($updated_file_url);
 
+				// As long as the file isnt empty, lets use fopen, and fwrite to put the contents in the file.
 				if($updated_file_contents != "") 
 				{
 					$file = fopen($filename,"w");
-					fwrite($file,$updated_file_contents);
+					fwrite($file, $updated_file_contents);
 					fclose($file);
 				}
 				
-				// next 2 lines can be used for a future progress bar.
+				// next 2 lines can be used for a future progress bar. Calculates the total
+				// character length of all update files, and turns that into a percentage
 				$len_till_now += $this->charlen_file[$i];
 				$perc = $len_till_now * 100 / $this->get_total_charlen();
 				

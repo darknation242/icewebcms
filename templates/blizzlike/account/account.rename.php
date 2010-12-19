@@ -41,7 +41,7 @@ if($Config->get('module_charrename') == 1)
 									{
 								?>
 										<tr>
-											<td colspan='2'><center><?php echo $Page_Desc; ?></center><br /></td>
+											<td colspan='2'><center><?php echo $PAGE_DESC; ?></center><br /></td>
 										</tr>
 										<tr>
 											<td align='right' valign = "top" width='30%'><b>Character: </b></td>

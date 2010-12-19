@@ -18,6 +18,8 @@ Oficial support forums: http://keyswow.com/forums/
 
 	1.1b Installing The Site
 	
+	NOTE: If you used v2 or older, use the "install/sql/delete_v2_tables.sql" before installing v3!
+
 	1. Make sure all files are in the same folder under you "htdocs" or "www" folder
 	2. Enter your site url in your Internet Browswer (Ex: http://yourdomain.com)
 	3. You will be automatically redirected to the installer.

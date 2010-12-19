@@ -29,12 +29,11 @@ function Content_Div_End()
 function build_menu_items($links_arr)
 {
     global $user;
-    global $lang;
     $r = "\n";
     foreach($links_arr as $menu_item)
 	{
         $ignore_item = 0;
-        if($menu_item['link_title'] | $menu_item['link']) 
+        if($menu_item['link_title'] != '' && $menu_item['link'] != '') 
 		{
             if($menu_item['account_level'] > $user['account_level']) 
 			{
@@ -74,11 +73,11 @@ function build_main_menu()
         $menunamev = explode('-',strtolower($menuname));
 		if($user['id'] > 0)
 		{
-			$menuquery = "SELECT * FROM `mw_menu_items` WHERE `menu_id`='$menunamev[0]' AND `account_level` <= '$user[account_level]' AND `guest_only` != 1 ORDER BY `order` ASC";
+			$menuquery = "SELECT * FROM `mw_menu_items` WHERE `menu_id`='".$menunamev[0]."' AND `account_level` <= ".$user['account_level']." ORDER BY `order` ASC";
 		}
 		else
 		{
-			$menuquery = "SELECT * FROM `mw_menu_items` WHERE `menu_id`='$menunamev[0]' AND `account_level` <= '$user[account_level]' ORDER BY `order` ASC";
+			$menuquery = "SELECT * FROM `mw_menu_items` WHERE `menu_id`='".$menunamev[0]."' AND `account_level` <= ".$user['account_level']." ORDER BY `order` ASC";
 		}
 		$menuitems = $DB->select($menuquery);
         if($menuitems != FALSE)// && $menuitems[0][0])

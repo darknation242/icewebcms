@@ -1,17 +1,9 @@
 <div style="margin-left: -29px;">
 	<style media="screen" title="currentStyle" type="text/css">
 		@import url("<?php echo $Template['path']; ?>/css/additional_fp.css");
+
 	</style>
 	<div id="module-container">
-		<!--[if gte IE 8]>
-		<div style="width:490px;"></div>
-		<![endif]-->
-		<!--[if IE]>
-		<div style="width:470px;"></div>
-		<![endif]-->
-		<!-- [if !IE]>
-		<div style="width:470px;"></div>
-		<![endif]-->
 		<?php 
 		// Load the banner display type. 1 = internal flash, 2 = external flash (wow.com), 3 is banner
 		$banner = (int)$Config->get('flash_display_type');

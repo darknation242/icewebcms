@@ -104,9 +104,9 @@
 							<?php 	
 									if(isset($allhonor[1]))
 									{
+										$pos = 0; 
 										foreach($allhonor[1] as $item)
 										{
-											$pos = 0; 
 											$pos++;
 							?>
 											<tr>
@@ -143,9 +143,9 @@
 							<?php 	
 									if(isset($allhonor[0]))
 									{
+										$pos = 0;
 										foreach($allhonor[0] as $item)
 										{ 
-											$pos = 0;
 											$pos++; 
 							?>
 											<tr>

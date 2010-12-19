@@ -15,22 +15,22 @@
 			<table>
 				<thead>
 					<tr>
-						<th><center>Send Email</center></th>
+						<th><center><?php echo $lang['send_email']; ?></center></th>
 					</tr>
 				</thead>
 			</table>
 			<br />
 			
 			<div class="field">
-				<label for="Subject">Subject: </label>
-				<input id="Subject" name="subject" size="20" type="text" class="medium" />
-				<p class="field_help">Enter your email subject here.</p>
+				<label for="Subject"><?php echo $lang['send_to']; ?>: </label>
+				<input id="Subject" name="reciever" size="20" type="text" class="medium" />
+				<p class="field_help"><?php echo $lang['send_to_desc']; ?></p>
 			</div>
 			
 			<div class="field">
-				<label for="Subject">Send To: </label>
-				<input id="Subject" name="reciever" size="20" type="text" class="medium" />
-				<p class="field_help">Enter an email address</p>
+				<label for="Subject"><?php echo $lang['subject']; ?>: </label>
+				<input id="Subject" name="subject" size="20" type="text" class="medium" />
+				<p class="field_help"><?php echo $lang['subject_desc']; ?></p>
 			</div>
 			
 			<div class="field">
@@ -38,7 +38,7 @@
 			</div>
 			<br />		
 			<div class="buttonrow-border">								
-				<center><button><span>Send Email</span></button></center>			
+				<center><button><span><?php echo $lang['send_email']; ?></span></button></center>			
 			</div>
 		</form>
 	</div>

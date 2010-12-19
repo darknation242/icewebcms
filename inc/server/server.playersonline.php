@@ -33,21 +33,21 @@ $cc = 0;
 $Online_Check = check_port_status($realm_info['address'], $realm_info['port']);
 if($Online_Check == TRUE)
 {
-	$Count = $CDB->count("SELECT COUNT(*)  FROM `characters` WHERE `online`='1' AND (NOT `extra_flags` & 1 AND NOT `extra_flags` & 16)");
+	$Count = $Character->getOnlineCount();
 	$numofpgs = ($Count / $limit);
 	if(gettype($Count / $limit) != "integer") 
 	{
 		settype($numofpgs, "integer");
 		$numofpgs++;
 	}
-	$query = $CDB->select("SELECT guid, name, race, class, gender, level, zone  FROM `characters` WHERE `online`='1' AND (NOT `extra_flags` & 1 AND NOT `extra_flags` & 16) ORDER BY `name` LIMIT $limitstart,$limit");
+	$query = $Character->getOnlineList(0, $limitstart, $limit);
 }
 else
 {
 	$numofpgs = 0;
 }
 
-foreach ($query as $result) 
+foreach($query as $result) 
 {
 	if($res_color==1)
 	{

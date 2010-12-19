@@ -114,6 +114,8 @@
 
 <?php
 builddiv_start(0, $lang['donate']);
+
+// First we need to check if the request is &pay=finish
 if(isset($_GET['pay']))
 {
 	if($_GET['pay'] == 'finish')
@@ -121,9 +123,10 @@ if(isset($_GET['pay']))
 		confirmPayment();
 	}
 }
-else
+else # We start the page
 {
-	echo $lang['donate_desc']."<br /><br />";
+	// Echo the page description from the language file
+	echo $PAGE_DESC."<br /><br />";
 	?>
 	<ul>
 		<li>Already donated? <a href='?p=donate&amp;pay=finish'>Redeem your points!</a> (You need to buy an item below first)</li>

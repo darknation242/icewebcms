@@ -17,12 +17,12 @@ if($Account->isLoggedIn() == FALSE)
 	redirect('?p=account&sub=login',1);
 }
 
-// Load the accounts character list
-$character_list = $Account->getCharacterList($user['id']);
-
 // Initiate the page description
 $Page_Desc = $lang['char_rename_desc'];
-$Page_Desc = str_replace('[COST]', '<font color="blue">'.$Config->get('module_charrename_pts').'</font>', $Page_Desc);
+$PAGE_DESC = str_replace('[COST]', '<font color="blue">'.$Config->get('module_charrename_pts').'</font>', $Page_Desc);
+
+// Load the accounts character list
+$character_list = $Account->getCharacterList($user['id']);
 
 /* 
 	Buffer function for the SDL

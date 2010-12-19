@@ -17,11 +17,14 @@ if($Account->isLoggedIn() == FALSE)
     redirect('?p=account&sub=login',1);
 }
 
+// Enter the page descrition
+$PAGE_DESC = $lang['account_manange_intro'];
+
 // First we need to load the users profile
 $profile = $Account->getProfile($user['id']);
 
 // Load secret questions as $secret_1
-$secret_q = $Account->getSecretQuestions();
+$secret_questions = $Account->getSecretQuestions();
 
 // ==== Functions ==== //
 

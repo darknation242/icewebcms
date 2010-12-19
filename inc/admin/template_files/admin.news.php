@@ -21,25 +21,26 @@
 				<table>
 					<thead>
 						<tr>
-							<th><center>Add News</center></th>
+							<th><center><?php echo $lang['add_news']; ?></center></th>
 						</tr>
 					</thead>
 				</table>
 				<br />
 				
+				<!-- Subject -->
 				<div class="field">
-					<label for="Subject">Subject: </label>
+					<label for="Subject"><?php echo $lang['subject']; ?>: </label>
 					<input id="Subject" name="subject" size="20" type="text" class="medium" />
-					<p class="field_help">Enter your news item subject here.</p>
+					<p class="field_help"><?php echo $lang['news_sub_desc']; ?></p>
 				</div>
 				
 				<div class="field">
-					<label for="Message">Message: </label><br />
+					<label for="Message"><?php echo $lang['message']; ?>: </label><br />
 					<textarea id="Message" name="message" rows="15" cols="78" class="inputbox"></textarea>
 				</div>
 				<br />		
 				<div class="buttonrow-border">								
-					<center><button><span>Submit News</span></button></center>			
+					<center><button><span><?php echo $lang['submit']; ?></span></button></center>			
 				</div>
 			</form>
 		</div>
@@ -71,27 +72,27 @@
 				<table>
 					<thead>
 						<tr>
-							<th><center>Edit News</center></th>
+							<th><center><?php echo $lang['edit_news']; ?></center></th>
 						</tr>
 					</thead>
 				</table>
 				<br />
 				
 				<div class="field">
-					<label for="Subject">Subject: </label>
+					<label for="Subject"><?php echo $lang['subject']; ?>: </label>
 					<input id="Subject" name="subject" size="20" type="text" class="medium" disabled="disabled" value="<?php echo $content['title']; ?>" />
-					<p class="field_help">Enter your news item subject here.</p>
+					<p class="field_help"><?php echo $lang['news_sub_desc']; ?></p>
 				</div>
 				
 				<div class="field">
-					<label for="Message">Message: </label><br />
+					<label for="Message"><?php echo $lang['message']; ?>: </label><br />
 					<textarea id="Message" name="editmessage" rows="15" cols="78" class="inputbox"><?php echo $content['message']; ?></textarea>
 				</div>
 				<br />		
 				<div class="buttonrow-border">								
 					<center>
-						<button><span>Submit News</span></button>
-						<button name="delete" class="btn-sec"><span>DELETE This News Topic</span></button>
+						<button><span><?php echo $lang['save_changes']; ?></span></button>
+						<button name="delete" class="btn-sec"><span><?php echo $lang['delete']; ?></span></button>
 					</center>
 				</div>
 			</form>
@@ -118,14 +119,14 @@ else
 		</div> <!-- .content-header -->				
 		<div class="main-content">
 			<form method="POST" action="?p=admin&sub=news&action=add" class="form label-inline">
-				<h2><center>News List</center></h2>
+				<h2><center><?php echo $lang['news_list']; ?></center></h2>
 				<table>
 					<tbody>
 						<thead>
 							<tr>
-								<th width="40%"><center>News Title</center></th>
-								<th width="30%"><center>Posted By</center></th>
-								<th width="30%"><center>Post Time</center></th>
+								<th width="40%"><center><?php echo $lang['news_title']; ?></center></th>
+								<th width="30%"><center><?php echo $lang['posted_by']; ?></center></th>
+								<th width="30%"><center><?php echo $lang['post_time']; ?></center></th>
 							</tr>
 						</thead>
 						<?php
@@ -135,17 +136,17 @@ else
 							{
 								$date_n = date("Y-m-d, g:i a", $row['post_time']);
 						?>
-						<tr>
-							<td align="center"><a href="?p=admin&sub=news&action=edit&id=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a></td>
-							<td align="center"><?php echo $row['posted_by']; ?></td>
-							<td align="center"><?php echo $date_n; ?></td>
-						</tr>
+								<tr>
+									<td align="center"><a href="?p=admin&sub=news&action=edit&id=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a></td>
+									<td align="center"><?php echo $row['posted_by']; ?></td>
+									<td align="center"><?php echo $date_n; ?></td>
+								</tr>
 						<?php } // END FOR EACH NEWS
 						} // END IF ?>
 					</tbody>
 				</table>
 				<div class="buttonrow-border">								
-					<center><button><span>Add News</span></button></center>			
+					<center><button><span><?php echo $lang['add_news']; ?></span></button></center>			
 				</div>
 			</form>
 		</div>

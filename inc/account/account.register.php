@@ -11,7 +11,7 @@ $pathway_info[] = array('title' => $lang['register'], 'link' => '');
 // Tell the cache system not to cache this page
 define('CACHE_FILE', FALSE);
 
-$pathway_info[] = array('title'=>$lang['register'],'link'=>'');
+// Include the captcha class
 include('core/lib/class.captcha.php');
 
 //	************************************************************
@@ -39,14 +39,13 @@ if(isset($_POST['disagree']))
 }	
 
 // Load Secret Questions
-$sc_q = $DB->select("SELECT * FROM mw_secret_questions");
+$secret_questions = $DB->select("SELECT * FROM mw_secret_questions");
 
 // Define that users can register (for error reporting)
 $allow_reg = TRUE;
 
 // Init the error array
 $err_array = array();
-$err_array[0] = $lang['register_fail'];
 
 //	************************************************************
 // If users are limited to how many accounts per IP, we find out how many this IP has.
@@ -56,18 +55,17 @@ if($Config->get('max_act_per_ip') > 0)
 	$count_ip = $DB->count("SELECT COUNT(*) FROM mw_account_extend WHERE registration_ip='".$_SERVER['REMOTE_ADDR']."'");
 	if($count_ip >= (int)$Config->get('max_act_per_ip'))
 	{
-		output_message('alert',$lang['register_acct_limit']);
-		$allow_reg = false;
-		$err_array[] = "If you are registering through a shared connection, it is advised that you use a private connection for registration.";
+		$allow_reg = FALSE;
+		$err_array[] = $lang['register_acct_limit'];
 	}
 }
 
 //	************************************************************
 // When finished registering, this is the function
 
-function finalize()
+function Register()
 {
-	global $DB, $Config, $allow_reg, $Account, $lang;
+	global $DB, $Config, $allow_reg, $err_array, $Account, $lang;
 	
 	// Check to see if we still are allowed to register
 	if($allow_reg == TRUE)
@@ -80,19 +78,29 @@ function finalize()
 		// In this step we set "requirements" for what user may input.
 
 		// Ext 1 - Image verification
-		if ($Config->get('reg_act_imgvar') == 1)
+		// We need to see if its enabled, and if the user put in the right code
+		if($Config->get('reg_act_imgvar') == 1)
 		{
 			$image_key =& $_POST['image_key'];
-			$filename = quote_smart($_POST['filename_image']);
-			$correctkey = $DB->selectCell("SELECT key FROM mw_acc_creation_captcha WHERE filename=".$filename);
-			if (strtolower($correctkey) != strtolower($image_key) || $image_key == '')
+			$filename = mysql_real_escape_string($_POST['filename_image']);
+			$correctkey = $DB->selectCell("SELECT `key` FROM `mw_acc_creation_captcha` WHERE `filename` ='".$filename."'");
+			
+			// Check for key match
+			if(strtolower($correctkey) != strtolower($image_key) || $image_key == '')
 			{
 				$notreturn = TRUE;
 				$err_array[] = $lang['image_var_incorrect'];
 			}
+			else # keys match
+			{
+				// Delete the key from the DB, and delete the image from the cache folder
+				$DB->query("DELETE FROM `mw_acc_creation_captcha` WHERE filename='".$filename."'");
+				@unlink($filename);
+			}
 		}
 
 		// Ext 2 - secret questions
+		// Check if user questions are required, if so we need to check for symbols, and character lenght
 		if ($Config->get('reg_secret_questions') == 1)
 		{
 			if ($_POST['secretq1'] && $_POST['secretq2'] && $_POST['secreta1'] && $_POST['secreta2']) 
@@ -124,8 +132,15 @@ function finalize()
 				$err_array[] = $lang['secretq_error_empty'];
 			}
 		}
+		
+		// Ext 3 - make sure the username isnt already in use
+		if($Account->isAvailableUsername($_POST['r_login']) == FALSE)
+		{
+			$notreturn = TRUE;
+			$err_array[] = $lang['username_taken'];
+		}
 
-		// Ext 3 - make sure password is not username
+		// Ext 4 - make sure password is not username
 		if($_POST['r_login'] == $_POST['r_pass']) 
 		{
 			$notreturn = TRUE;
@@ -135,19 +150,26 @@ function finalize()
 		// Main add into the database
 		if ($notreturn == FALSE)
 		{
-			if($Account->register(array(
-				'username' => $_POST['r_login'],
-				'sha_pass_hash' => $Account->sha_password($_POST['r_login'],$_POST['r_pass']),
-				'sha_pass_hash2' => $Account->sha_password($_POST['r_login'],$_POST['r_cpass']),
-				'email' => $_POST['r_email'],
-				'expansion' => $_POST['r_account_type'],
-				'password' => $_POST['r_pass']), 
-					array(
+			// @$Enter is the main input arrays into the SDL
+			$Enter = $Account->register(
+				array(
+					'username' => $_POST['r_login'],
+					'sha_pass_hash' => $Account->sha_password($_POST['r_login'],$_POST['r_pass']),
+					'sha_pass_hash2' => $Account->sha_password($_POST['r_login'],$_POST['r_cpass']),
+					'email' => $_POST['r_email'],
+					'expansion' => $_POST['r_account_type'],
+					'password' => $_POST['r_pass']
+				), 
+				array(
 					'secretq1'=> strip_if_magic_quotes($_POST['secretq1']),
 					'secreta1' => strip_if_magic_quotes($_POST['secreta1']),
 					'secretq2' => strip_if_magic_quotes($_POST['secretq2']), 
-					'secreta2' => strip_if_magic_quotes($_POST['secreta2']))
-					) == TRUE)
+					'secreta2' => strip_if_magic_quotes($_POST['secreta2'])
+				)
+			);
+			
+			// lets catch the return on the register function
+			if($Enter == 1) # 1 = success
 			{
 				if($Config->get('reg_invite') == 1)
 				{
@@ -155,7 +177,32 @@ function finalize()
 				}
 				$reg_succ = TRUE;
 			}
-			else
+			elseif($Enter == 0) # All params are emtpy
+			{
+				$reg_succ = FALSE;
+				$err_array[] = $lang['some_params_empty'];
+			}
+			elseif($Enter == 2) # empty username
+			{
+				$reg_succ = FALSE;
+				$err_array[] = $lang['empty_param_username'];
+			}
+			elseif($Enter == 3) # passwords dont match
+			{
+				$reg_succ = FALSE;
+				$err_array[] = $lang['passwords_dont_match'];
+			}
+			elseif($Enter == 4) # empty email
+			{
+				$reg_succ = FALSE;
+				$err_array[] = $lang['empty_param_email'];
+			}
+			elseif($Enter == 5) # IP Banned
+			{
+				$reg_succ = FALSE;
+				$err_array[] = $lang['your_ip_is_banned'];
+			}
+			else # Fetal Error
 			{
 				$reg_succ = FALSE;
 				$err_array[] = "Account Creation [FATAL ERROR]: User cannot be created, likely due to incorrect database configuration.  Contact the administrator.";
@@ -169,16 +216,26 @@ function finalize()
 		// If there were any errors, then they are outputed here
 		if($reg_succ == FALSE) 
 		{
-			if(!$err_array[1]) 
+			if(!$err_array[0]) 
 			{
-				$err_array[1] = $lang['register_fail'].": Unknown Reason";
+				$err_array[0] = "Unknown Reason";
 			}
-			$output_error = implode("<br>\n",$err_array);
-			output_message('error',$output_error);
+			$output_error = $lang['register_failed'];
+			$output_error .= "<ul><li>";
+			$output_error .= implode("</li><li>", $err_array);
+			$output_error .= "</li></ul>";
+			output_message('error', $output_error.'Redirecting...<meta http-equiv=refresh content="8;url=?p=account&sub=register">');
 		}
-		else
+		else # Registration was successful
 		{
-			return TRUE;
+			if((int)$Config->get('require_act_activation') == 1)
+			{
+				output_message('success', $lang['activation_email_sent']);
+			}
+			else
+			{
+				output_message('success', $lang['register_success'].'<meta http-equiv=refresh content="5;url=?p=account&sub=login">');
+			}
 		}
 	}
 	else

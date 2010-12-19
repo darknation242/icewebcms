@@ -1,4 +1,8 @@
 <?php
+// Setup the admin language file.
+unset($lang);
+include('lang/' . $GLOBALS["user_cur_lang"] . '/admincp.php');
+
 if(ini_get('allow_url_fopen') == '1') 
 { 
 	$allowfopen = "<font color='green'>Yes</font>"; 

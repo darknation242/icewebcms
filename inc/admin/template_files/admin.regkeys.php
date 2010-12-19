@@ -5,13 +5,11 @@
 	<div class="main-content">
 		<table style="border-bottom: 1px solid #E5E2E2;">
 			<thead>
-				<th><i>Description</i></th>
+				<th><i><?php echo $lang['description']; ?></i></th>
 			</thead>
 			<tr>
 				<td>
-					Here you can create and delete Register keys to your website. If you are unfimiliar with the key register system, these are basically Invite
-					Keys. If you have your server set to "Invite Only", then a guest cannot create an account without one of these keys. YOU the admin must
-					hand these keys out, users cannot hand them out.
+					<?php echo $lang['reg_keys_desc']; ?>
 				</td>
 			</tr>
 		</table>
@@ -42,9 +40,12 @@
 		?>
 		
 		<p>
-			<a href="?p=admin&sub=regkeys&action=deleteall" onclick="return confirm('Are you sure?');"><b>[ <font color="red">Delete all keys</font> ]</b></a><br/>
+			<a href="?p=admin&sub=regkeys&action=deleteall" onclick="return confirm('Are you sure?');">
+				<b>[ <font color="red"><?php echo $lang['delete_all_keys']; ?></font> ]</b>
+			</a>
+			<br/>
 			<form method="post" action="?p=admin&sub=regkeys&action=create" class="form label-inline">
-				Enter number of keys desired (1-300): <input type="text" name="num" size="4"> 
+				<?php echo $lang['enter_num_keys']; ?>: <input type="text" name="num" size="4"> 
 				&nbsp; &nbsp; <button><span>Create</span></button>
 			</form>
 		</p>

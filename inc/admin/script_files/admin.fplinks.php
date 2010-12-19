@@ -18,18 +18,18 @@ $mainnav_links = array(
 
 function updateOrder()
 {
-	global $DB, $Core;
+	global $DB, $Core, $lang;
 	foreach($_POST as $key => $value)
 	{
 		$DB->query("UPDATE `mw_menu_items` SET `order`='$value' WHERE `id`='$key'");
 	}
 	$Core->clearCache();
-	output_message('success', 'Link Order updated successfully!');
+	output_message('success', $lang['link_order_updated']);
 }
 
 function editLink()
 {
-	global $DB, $Core;
+	global $DB, $Core, $lang;
 	$DB->query("UPDATE `mw_menu_items` SET
 		`menu_id`='".$_POST['menu_id']."',
 		`link_title`='".$_POST['link_title']."',
@@ -39,7 +39,7 @@ function editLink()
 	  WHERE `id`='".$_GET['linkid']."'
 	");
 	$Core->clearCache();
-	output_message('success', 'Link successfully updated!');
+	output_message('success', $lang['link_update_success']);
 }
 
 function deleteLink()
@@ -52,7 +52,7 @@ function deleteLink()
 
 function addLink()
 {
-	global $DB, $Core;
+	global $DB, $Core, $lang;
 	$DB->query("INSERT INTO mw_menu_items(
 		`menu_id`,
 		`link_title`,
@@ -67,6 +67,6 @@ function addLink()
 		'".$_POST['account_level']."')
 	");
 	$Core->clearCache();
-	output_message('success', 'Link successfully added to Database!');
+	output_message('success', $lang['link_add_success']);
 }
 ?>

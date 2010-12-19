@@ -13,6 +13,8 @@ if($user['account_level'] != 4)
 
 function saveConfig() 
 {
+	global $lang;
+	
 	$conffile = "config/config-protected.php";
 	$build = '';
 	$build .= "<?php\n";
@@ -31,11 +33,11 @@ function saveConfig()
         $openconf = fopen($conffile, 'w+');
         fwrite($openconf, $build);
         fclose($openconf);
-		output_message('success','Success! Config successfully updated.');
+		output_message('success', $lang['config_updated_successfully']);
 	}
 	else
 	{ 
-		output_message('alert','Couldn\'t open main-config.php for editing, it must be writable by webserver! <br /><a href="javascript: history.go(-1)">Go back, and try again.</a>');
+		output_message('error', 'Couldn\'t open main-config.php for editing, it must be writable by webserver! <br /><a href="javascript: history.go(-1)">Go back, and try again.</a>');
 	}
 }
 ?>

@@ -10,6 +10,9 @@ $pathway_info[] = array('title' => $lang['realmstatus'], 'link' => '');
 // Define we want this page to be cached
 define("CACHE_FILE", FALSE);
 
+// Start a page desc
+$PAGE_DESC = $lang['realm_status_desc'];
+
 $Realm = array();
 $Realm = $DB->select("SELECT * FROM `realmlist` ORDER BY `name`");
 $i = 0;
@@ -56,10 +59,10 @@ foreach($Realm as $i => $result)
 	unset($Realm_DB_Info);
    
 
-    $population=0;
-    if($res_color==1)
+    $population = 0;
+    if($res_color == 1)
 	{
-		$res_color=2;
+		$res_color = 2;
 	}
 	else
 	{
@@ -69,13 +72,13 @@ foreach($Realm as $i => $result)
 	$realm_num = $result['id'];
     if(check_port_status($result['address'], $result['port']) == TRUE)
     {
-        $res_img = './templates/WotLK/images/icons/uparrow2.gif';
+        $res_img = $Template['path'].'/images/icons/uparrow2.gif';
         $population = $CDB_EXTRA->count("SELECT COUNT(*) FROM `characters` WHERE online=1");
         $uptime = time() - $DB->selectCell("SELECT `starttime` FROM `uptime` WHERE `realmid`='$realm_num' ORDER BY `starttime` DESC LIMIT 1");
     }
     else
     {
-        $res_img = './templates/WotLK/images/icons/downarrow2.gif';
+        $res_img = $Template['path'].'/images/icons/downarrow2.gif';
         $population_str = 'n/a';
         $uptime = 0;
     }

@@ -15,7 +15,7 @@ $getrealms = $DB->select("SELECT * FROM `realmlist`");
 
 function updateRealm()
 {
-	global $DB;
+	global $DB, $lang;
 	$DB->query("UPDATE `realmlist` SET 
 		`name`= '".$_POST['realm_name']."',
 		`address`= '".$_POST['realm_address']."',
@@ -27,6 +27,6 @@ function updateRealm()
 		`site_enabled`= '".$_POST['site_enabled']."'
 	   WHERE `id`=".$_GET['id']."
 	");
-	output_message('success', 'Realm Successfully Updated!');
+	output_message('success', $lang['realm_update_success']);
 }
 ?>

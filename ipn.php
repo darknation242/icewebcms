@@ -1,9 +1,12 @@
 <?php
 
+// === Include the scripts to make this IPN works === //
 include('core/class.config.php');
 include('core/class.database.php');
 include('core/lib/class.paypal.php');
+// =====================================//
 
+// Initiate the classes, and establish a DB conection
 $Config = new Config;
 $Paypal = new Paypal;
 $DB = new Database(
@@ -15,11 +18,12 @@ $DB = new Database(
 );
 
 // Set test mode features (TRUE or FALSE)
-$Paypal->testMode(TRUE);
+$Paypal->testMode(FALSE);
 
 // Lets check to see if we are valid or not
 $Paypal->setLogFile('core/logs/ipn_log.txt');
 
+// Check the payment status
 $check = $Paypal->checkPayment($_POST);
 if($check == TRUE)
 {

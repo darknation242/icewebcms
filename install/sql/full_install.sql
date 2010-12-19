@@ -89,9 +89,20 @@ CREATE TABLE `mw_db_version` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- ----------------------------
+-- Table structure for `mw_db_version`
+-- ----------------------------
+DROP TABLE IF EXISTS `mw_db_version`;
+CREATE TABLE `mw_db_version` (
+  `dbver` varchar(20) NOT NULL DEFAULT '',
+  `dbdate` int(10) unsigned NOT NULL DEFAULT '0',
+  `entry` int(5) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`entry`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- ----------------------------
 -- Records of mw_db_version
 -- ----------------------------
-INSERT INTO `mw_db_version` VALUES ('1.0', '0');
+INSERT INTO `mw_db_version` VALUES ('1.0a', '1292781212', '1');
 
 -- ----------------------------
 -- Table structure for `mw_donate_packages`
@@ -212,7 +223,7 @@ INSERT INTO `mw_menu_items` VALUES ('8', 'FAQ', '?p=server&sub=faq', '1', '1', '
 INSERT INTO `mw_menu_items` VALUES ('7', 'Donate', '?p=donate', '2', '2', '0', '11');
 INSERT INTO `mw_menu_items` VALUES ('4', 'Realm Status', '?p=server&sub=realmstatus', '1', '1', '0', '12');
 INSERT INTO `mw_menu_items` VALUES ('2', 'Account Restore', '?p=account&sub=restore', '2', '1', '1', '13');
-INSERT INTO `mw_menu_items` VALUES ('4', 'Honor', '?p=server/honor', '1', '1', '0', '1');
+INSERT INTO `mw_menu_items` VALUES ('4', 'Top Kills', '?p=server&sub=topkills', '1', '1', '0', '1');
 
 -- ----------------------------
 -- Table structure for `mw_news`
@@ -335,7 +346,7 @@ CREATE TABLE `mw_vote_sites` (
   `votelink` varchar(255) NOT NULL,
   `image_url` varchar(255) DEFAULT NULL,
   `points` int(11) DEFAULT NULL,
-  `site_key` int(11) NOT NULL DEFAULT '1',
+  `reset_time` int(16) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -348,10 +359,11 @@ CREATE TABLE `mw_vote_sites` (
 -- ----------------------------
 DROP TABLE IF EXISTS `mw_voting`;
 CREATE TABLE `mw_voting` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `user_ip` varchar(30) NOT NULL,
-  `sites` int(10) unsigned NOT NULL DEFAULT '0',
+  `site` int(10) unsigned NOT NULL DEFAULT '0',
   `time` int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`user_ip`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -363,13 +375,27 @@ CREATE TABLE `mw_voting` (
 -- ----------------------------
 INSERT INTO `mw_account_extend` (`account_id`) SELECT account.id FROM account;
 
+-- ----------------------------
+-- Instead of rebuilding this file, we will just alter the tables for utf-8
+-- ----------------------------
+ALTER TABLE `mw_account_groups` DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';
+ALTER TABLE `mw_account_extend` DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';
+ALTER TABLE `mw_donate_packages` DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';
+ALTER TABLE `mw_donate_transactions` DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';
+ALTER TABLE `mw_faq` DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';
+ALTER TABLE `mw_donate_packages` DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';
+ALTER TABLE `mw_menu_items` DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';
+ALTER TABLE `mw_news` DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';
+ALTER TABLE `mw_online` DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';
+ALTER TABLE `mw_shop_items` DEFAULT CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';
+
 --
 -- Add dbinfo to realmlist table
 -- Very important that this is in the end, along with ADD ALTERS. Because if
 -- file gets applied again, it gets an error here.
 --
 ALTER TABLE `realmlist`
-ADD `site_enabled` int(3) NOT NULL default '0';
+ADD `site_enabled` int(3) NOT NULL default '1';
 
 ALTER TABLE `realmlist`
 ADD `ra_info` VARCHAR( 355 ) NOT NULL default 'type;port;username;password';
